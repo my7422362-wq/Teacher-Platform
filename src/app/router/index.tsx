@@ -26,12 +26,14 @@ import {
 export function AppRouter() {
   return (
     <Routes>
-      {/* Public routes */}
+      {/* Home route - standalone (uses its own Navbar/Footer) */}
+      <Route index element={<HomePage />} />
+
+      {/* Public routes with shared layout */}
       <Route element={<MainLayout />}>
-        <Route index element={<HomePage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="courses" element={<CoursesPage />} />
-        <Route path="courses/:id" element={<CourseDetailsPage />} />
+        <Route path="courses/:slug" element={<CourseDetailsPage />} />
       </Route>
 
       {/* Auth routes */}

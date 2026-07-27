@@ -1,4 +1,4 @@
-import type { User, Course } from '@/types';
+import type { User } from '@/types';
 
 export const mockStudents: (User & { enrolledCourses: number; completedCourses: number })[] = [
   {

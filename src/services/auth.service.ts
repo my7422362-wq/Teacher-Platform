@@ -1,63 +1,69 @@
-import type { User, ApiResponse, ApiError } from '@/types';
-import { mockUsers } from '@/mock';
+import type { ApiResponse, User } from '@/types';
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const BASE = '/auth';
 
 export const authService = {
+  /**
+   * Log in with email and password.
+   */
   async login(email: string, password: string): Promise<ApiResponse<{ user: User; token: string }>> {
-    await delay(500);
-    const user = mockUsers.find((u) => u.email === email);
-    if (!user) {
-      throw { success: false, message: 'البريد الإلكتروني أو كلمة المرور غير صحيحة' } as ApiError;
-    }
-    return {
-      success: true,
-      message: 'تم تسجيل الدخول بنجاح',
-      data: { user, token: 'mock_token_' + user.id },
-    };
+    // TODO: Replace with real API call
+    // return post<{ user: User; token: string }>(`${BASE}/login`, { email, password });
+    throw new Error('Not implemented — auth.login');
   },
 
-  async register(data: Partial<User>): Promise<ApiResponse<{ user: User; token: string }>> {
-    await delay(500);
-    const newUser: User = {
-      id: mockUsers.length + 1,
-      name: data.name || '',
-      email: data.email || '',
-      phone: data.phone || '',
-      avatar: '',
-      role: 'student',
-      status: 'active',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-    return {
-      success: true,
-      message: 'تم إنشاء الحساب بنجاح',
-      data: { user: newUser, token: 'mock_token_' + newUser.id },
-    };
+  /**
+   * Register a new account.
+   */
+  async register(data: Partial<User> & { password: string; passwordConfirmation: string }): Promise<ApiResponse<{ user: User; token: string }>> {
+    // TODO: Replace with real API call
+    // return post<{ user: User; token: string }>(`${BASE}/register`, data);
+    throw new Error('Not implemented — auth.register');
   },
 
-  async logout(): Promise<void> {
-    await delay(200);
-    localStorage.removeItem('auth_token');
+  /**
+   * Log out the current user.
+   */
+  async logout(): Promise<ApiResponse<null>> {
+    // TODO: Replace with real API call
+    // return post<null>(`${BASE}/logout`);
+    throw new Error('Not implemented — auth.logout');
   },
 
+  /**
+   * Send password reset link.
+   */
   async forgotPassword(email: string): Promise<ApiResponse<null>> {
-    await delay(500);
-    return {
-      success: true,
-      message: 'تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني',
-      data: null,
-    };
+    // TODO: Replace with real API call
+    // return post<null>(`${BASE}/forgot-password`, { email });
+    throw new Error('Not implemented — auth.forgotPassword');
   },
 
-  async resetPassword(token: string, password: string): Promise<ApiResponse<null>> {
-    await delay(500);
-    return {
-      success: true,
-      message: 'تم إعادة تعيين كلمة المرور بنجاح',
-      data: null,
-    };
+  /**
+   * Reset password with token.
+   */
+  async resetPassword(token: string, email: string, password: string, passwordConfirmation: string): Promise<ApiResponse<null>> {
+    // TODO: Replace with real API call
+    // return post<null>(`${BASE}/reset-password`, { token, email, password, password_confirmation: passwordConfirmation });
+    throw new Error('Not implemented — auth.resetPassword');
+  },
+
+  /**
+   * Get the currently authenticated user profile.
+   */
+  async me(): Promise<ApiResponse<User>> {
+    // TODO: Replace with real API call
+    // return get<User>(`${BASE}/me`);
+    throw new Error('Not implemented — auth.me');
+  },
+
+  /**
+   * Update the authenticated user's profile.
+   */
+  async updateProfile(data: Partial<User>): Promise<ApiResponse<User>> {
+    // TODO: Replace with real API call
+    // return put<User>(`${BASE}/profile`, data);
+    throw new Error('Not implemented — auth.updateProfile');
   },
 };
 

@@ -1,38 +1,60 @@
-import type { ApiResponse } from '@/types';
-import { mockStudents } from '@/mock';
+import type { ApiResponse, User, Course, Progress } from '@/types';
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const BASE = '/students';
 
 export const studentService = {
-  async getAll(): Promise<ApiResponse<typeof mockStudents>> {
-    await delay(500);
-    return {
-      success: true,
-      message: 'تم جلب الطلاب بنجاح',
-      data: mockStudents,
-    };
+  /**
+   * Get all students (teacher/admin).
+   */
+  async getAll(params?: Record<string, unknown>): Promise<ApiResponse<User[]>> {
+    // TODO: Replace with real API call
+    // return get<User[]>(BASE, { params });
+    throw new Error('Not implemented — student.getAll');
   },
 
-  async getById(id: number) {
-    await delay(300);
-    const student = mockStudents.find((s) => s.id === id);
-    if (!student) {
-      throw { success: false, message: 'الطالب غير موجود' };
-    }
-    return {
-      success: true,
-      message: 'تم جلب بيانات الطالب بنجاح',
-      data: student,
-    };
+  /**
+   * Get a single student by ID.
+   */
+  async getById(id: number): Promise<ApiResponse<User>> {
+    // TODO: Replace with real API call
+    // return get<User>(`${BASE}/${id}`);
+    throw new Error('Not implemented — student.getById');
   },
 
-  async getEnrolledCourses(studentId: number) {
-    await delay(300);
-    return {
-      success: true,
-      message: 'تم جلب الدورات المسجل فيها بنجاح',
-      data: [],
-    };
+  /**
+   * Get courses a student is enrolled in.
+   */
+  async getEnrolledCourses(studentId: number): Promise<ApiResponse<Course[]>> {
+    // TODO: Replace with real API call
+    // return get<Course[]>(`${BASE}/${studentId}/courses`);
+    throw new Error('Not implemented — student.getEnrolledCourses');
+  },
+
+  /**
+   * Get progress for a student in a specific course.
+   */
+  async getProgress(studentId: number, courseId: number): Promise<ApiResponse<Progress>> {
+    // TODO: Replace with real API call
+    // return get<Progress>(`${BASE}/${studentId}/courses/${courseId}/progress`);
+    throw new Error('Not implemented — student.getProgress');
+  },
+
+  /**
+   * Enroll a student in a course.
+   */
+  async enroll(studentId: number, courseId: number): Promise<ApiResponse<null>> {
+    // TODO: Replace with real API call
+    // return post<null>(`${BASE}/${studentId}/enroll`, { course_id: courseId });
+    throw new Error('Not implemented — student.enroll');
+  },
+
+  /**
+   * Update student profile (admin/self).
+   */
+  async update(id: number, data: Partial<User>): Promise<ApiResponse<User>> {
+    // TODO: Replace with real API call
+    // return put<User>(`${BASE}/${id}`, data);
+    throw new Error('Not implemented — student.update');
   },
 };
 

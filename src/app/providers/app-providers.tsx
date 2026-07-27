@@ -1,9 +1,8 @@
 import { type ReactNode } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from './auth-provider';
+import { DirectionProvider } from './direction-provider';
 import { QueryProvider } from './query-provider';
 import { ThemeProvider } from './theme-provider';
-import { DirectionProvider } from './direction-provider';
-import { Toaster } from 'sonner';
 
 interface AppProvidersProps {
   children: ReactNode;
@@ -11,21 +10,15 @@ interface AppProvidersProps {
 
 export function AppProviders({ children }: AppProvidersProps) {
   return (
-    <BrowserRouter>
-      <QueryProvider>
-        <ThemeProvider>
-          <DirectionProvider>
+    <ThemeProvider>
+      <DirectionProvider>
+        <QueryProvider>
+          <AuthProvider>
             {children}
-            <Toaster
-              position="top-center"
-              richColors
-              closeButton
-              dir={document.documentElement.dir as 'rtl' | 'ltr'}
-            />
-          </DirectionProvider>
-        </ThemeProvider>
-      </QueryProvider>
-    </BrowserRouter>
+          </AuthProvider>
+        </QueryProvider>
+      </DirectionProvider>
+    </ThemeProvider>
   );
 }
 

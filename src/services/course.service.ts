@@ -1,76 +1,69 @@
-import type { Course, Lesson, ApiResponse } from '@/types';
-import { mockCourses, mockLessons } from '@/mock';
+import type { ApiResponse, Course, Lesson, Category } from '@/types';
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const BASE = '/courses';
 
 export const courseService = {
-  async getAll(): Promise<ApiResponse<Course[]>> {
-    await delay(500);
-    return {
-      success: true,
-      message: 'تم جلب الدورات بنجاح',
-      data: mockCourses,
-    };
+  /**
+   * Get all courses (with optional filters).
+   */
+  async getAll(params?: Record<string, unknown>): Promise<ApiResponse<Course[]>> {
+    // TODO: Replace with real API call
+    // return get<Course[]>(BASE, { params });
+    throw new Error('Not implemented — course.getAll');
   },
 
+  /**
+   * Get a single course by ID.
+   */
   async getById(id: number): Promise<ApiResponse<Course>> {
-    await delay(300);
-    const course = mockCourses.find((c) => c.id === id);
-    if (!course) {
-      throw { success: false, message: 'الدورة غير موجودة' };
-    }
-    return {
-      success: true,
-      message: 'تم جلب الدورة بنجاح',
-      data: course,
-    };
+    // TODO: Replace with real API call
+    // return get<Course>(`${BASE}/${id}`);
+    throw new Error('Not implemented — course.getById');
   },
 
+  /**
+   * Get lessons for a course.
+   */
   async getLessons(courseId: number): Promise<ApiResponse<Lesson[]>> {
-    await delay(300);
-    const lessons = mockLessons.filter((l) => l.courseId === courseId);
-    return {
-      success: true,
-      message: 'تم جلب الدروس بنجاح',
-      data: lessons,
-    };
+    // TODO: Replace with real API call
+    // return get<Lesson[]>(`${BASE}/${courseId}/lessons`);
+    throw new Error('Not implemented — course.getLessons');
   },
 
-  async create(course: Partial<Course>): Promise<ApiResponse<Course>> {
-    await delay(500);
-    const newCourse: Course = {
-      id: mockCourses.length + 1,
-      ...course,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    } as Course;
-    return {
-      success: true,
-      message: 'تم إنشاء الدورة بنجاح',
-      data: newCourse,
-    };
+  /**
+   * Create a new course.
+   */
+  async create(data: Partial<Course>): Promise<ApiResponse<Course>> {
+    // TODO: Replace with real API call
+    // return post<Course>(BASE, data);
+    throw new Error('Not implemented — course.create');
   },
 
-  async update(id: number, course: Partial<Course>): Promise<ApiResponse<Course>> {
-    await delay(500);
-    const existing = mockCourses.find((c) => c.id === id);
-    if (!existing) {
-      throw { success: false, message: 'الدورة غير موجودة' };
-    }
-    return {
-      success: true,
-      message: 'تم تحديث الدورة بنجاح',
-      data: { ...existing, ...course, updatedAt: new Date().toISOString() },
-    };
+  /**
+   * Update an existing course.
+   */
+  async update(id: number, data: Partial<Course>): Promise<ApiResponse<Course>> {
+    // TODO: Replace with real API call
+    // return put<Course>(`${BASE}/${id}`, data);
+    throw new Error('Not implemented — course.update');
   },
 
+  /**
+   * Delete a course.
+   */
   async delete(id: number): Promise<ApiResponse<null>> {
-    await delay(500);
-    return {
-      success: true,
-      message: 'تم حذف الدورة بنجاح',
-      data: null,
-    };
+    // TODO: Replace with real API call
+    // return del<null>(`${BASE}/${id}`);
+    throw new Error('Not implemented — course.delete');
+  },
+
+  /**
+   * Get all categories.
+   */
+  async getCategories(): Promise<ApiResponse<Category[]>> {
+    // TODO: Replace with real API call
+    // return get<Category[]>('/categories');
+    throw new Error('Not implemented — course.getCategories');
   },
 };
 

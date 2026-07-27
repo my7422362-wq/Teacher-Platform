@@ -1,11 +1,25 @@
+export type Role = 'admin' | 'teacher' | 'student';
+
 export interface User {
   id: number;
   name: string;
   email: string;
   phone: string;
   avatar: string;
-  role: 'admin' | 'teacher' | 'student';
+  role: Role;
   status: 'active' | 'inactive' | 'suspended';
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Category {
+  id: number;
+  name: string;
+  slug: string;
+  description?: string;
+  icon?: string;
+  parentId?: number | null;
+  coursesCount?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -21,6 +35,8 @@ export interface Course {
   duration: string;
   level: 'beginner' | 'intermediate' | 'advanced';
   category: string;
+  categoryId?: number;
+  categoryName?: string;
   tags: string[];
   teacherId: number;
   teacherName: string;
@@ -59,6 +75,17 @@ export interface Video {
   createdAt: string;
 }
 
+export interface Resource {
+  id: number;
+  lessonId: number;
+  title: string;
+  type: 'pdf' | 'doc' | 'link' | 'archive' | 'other';
+  url: string;
+  size?: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface Quiz {
   id: number;
   courseId: number;
@@ -86,6 +113,19 @@ export interface Question {
   order: number;
 }
 
+export interface Answer {
+  id: number;
+  questionId: number;
+  userId: number;
+  quizSubmissionId: number;
+  selectedOption?: string;
+  selectedOptions?: string[];
+  textResponse?: string;
+  isCorrect?: boolean;
+  pointsEarned?: number;
+  createdAt: string;
+}
+
 export interface Assignment {
   id: number;
   courseId: number;
@@ -97,6 +137,24 @@ export interface Assignment {
   passingScore: number;
   attachments: string[];
   isPublished: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Submission {
+  id: number;
+  assignmentId: number;
+  userId: number;
+  studentName?: string;
+  assignmentTitle?: string;
+  submissionText?: string;
+  attachments: string[];
+  score?: number;
+  feedback?: string;
+  gradedBy?: number;
+  status: 'pending' | 'graded' | 'late';
+  submittedAt: string;
+  gradedAt?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -125,6 +183,34 @@ export interface Notification {
   createdAt: string;
 }
 
+export interface Progress {
+  id: number;
+  userId: number;
+  courseId: number;
+  completedLessonsCount: number;
+  totalLessonsCount: number;
+  percentComplete: number;
+  lastAccessedAt: string;
+  isCompleted: boolean;
+  completedAt?: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PaymentRequest {
+  id: number;
+  userId: number;
+  amount: number;
+  currency: string;
+  paymentMethod: 'credit_card' | 'paypal' | 'bank_transfer' | 'cash';
+  status: 'pending' | 'approved' | 'rejected';
+  transactionReference?: string;
+  receiptUrl?: string;
+  adminNotes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface PaginatedResponse<T> {
   data: T[];
   currentPage: number;
@@ -144,4 +230,5 @@ export interface ApiError {
   message: string;
   errors?: Record<string, string[]>;
 }
+
 

@@ -1,0 +1,2 @@
+export { CourseHero } from './CourseHero';
+
