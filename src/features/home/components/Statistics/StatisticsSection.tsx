@@ -6,7 +6,7 @@
  */
 
 import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, type Variants } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { STATISTICS_DATA } from './statistics.data';
 import { StatisticCard } from './StatisticCard';
@@ -15,7 +15,7 @@ interface StatisticsSectionProps {
   className?: string;
 }
 
-const headerVariants = {
+const headerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -23,12 +23,12 @@ const headerVariants = {
   },
 };
 
-const headerItem = {
+const headerItem: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: 'easeOut' },
+    transition: { duration: 0.6, ease: 'easeOut' as const },
   },
 };
 

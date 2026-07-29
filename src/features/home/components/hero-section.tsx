@@ -8,6 +8,7 @@
 
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import {
   ArrowLeft,
   Play,
@@ -16,10 +17,6 @@ import {
   TrendingUp,
   Award,
   Star,
-  BookOpen,
-  Users,
-  Clock,
-  CheckCircle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -49,11 +46,6 @@ const itemFadeUp = {
 
 const itemFadeLeft = {
   hidden: { opacity: 0, x: 40 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: 'easeOut' as const } },
-};
-
-const itemFadeRight = {
-  hidden: { opacity: 0, x: -40 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: 'easeOut' as const } },
 };
 
@@ -101,6 +93,8 @@ function getCardIcon(iconName: string) {
 
 // ─── Component ─────────────────────────────────────────
 export function HeroSection({ className }: HeroSectionProps) {
+  const { t } = useTranslation();
+
   return (
     <section
       id="hero"
@@ -202,16 +196,16 @@ export function HeroSection({ className }: HeroSectionProps) {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {HERO_STATISTICS.map((stat, i) => (
                   <motion.div
-                    key={stat.label}
+                    key={stat.labelKey}
                     custom={i}
                     variants={statItem}
                     className="text-center"
                   >
                     <div className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-[#D4B59E] to-[#D4B59E] bg-clip-text text-transparent">
-                      {stat.value}
+                      {t(stat.valueKey)}
                     </div>
                     <div className="text-xs sm:text-sm text-gray-500 mt-1">
-                      {stat.label}
+                      {t(stat.labelKey)}
                     </div>
                   </motion.div>
                 ))}
@@ -257,7 +251,7 @@ export function HeroSection({ className }: HeroSectionProps) {
                   {getCardIcon(HERO_FLOATING_CARDS[0].icon)}
                 </div>
                 <span className="text-xs sm:text-sm font-medium text-gray-200 whitespace-nowrap">
-                  {HERO_FLOATING_CARDS[0].text}
+                  {t(HERO_FLOATING_CARDS[0].textKey)}
                 </span>
               </motion.div>
 
@@ -270,7 +264,7 @@ export function HeroSection({ className }: HeroSectionProps) {
                   {getCardIcon(HERO_FLOATING_CARDS[1].icon)}
                 </div>
                 <span className="text-xs sm:text-sm font-medium text-gray-200 whitespace-nowrap">
-                  {HERO_FLOATING_CARDS[1].text}
+                  {t(HERO_FLOATING_CARDS[1].textKey)}
                 </span>
               </motion.div>
 
@@ -283,7 +277,7 @@ export function HeroSection({ className }: HeroSectionProps) {
                   {getCardIcon(HERO_FLOATING_CARDS[2].icon)}
                 </div>
                 <span className="text-xs sm:text-sm font-medium text-gray-200 whitespace-nowrap">
-                  {HERO_FLOATING_CARDS[2].text}
+                  {t(HERO_FLOATING_CARDS[2].textKey)}
                 </span>
               </motion.div>
             </motion.div>

@@ -1,16 +1,16 @@
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { GraduationCap, Sparkles, Star, BookOpen } from 'lucide-react';
 
-const itemFadeLeft = {
+const itemFadeLeft: Variants = {
   hidden: { opacity: 0, x: 40 },
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.6, ease: 'easeOut' },
+    transition: { duration: 0.6, ease: 'easeOut' as const },
   },
 };
 
-const floatingVariants = {
+const floatingVariants: Variants = {
   animate: (delay: number) => ({
     y: [0, -12, 0],
     transition: {

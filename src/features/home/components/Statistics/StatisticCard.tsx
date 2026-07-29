@@ -6,7 +6,7 @@
  */
 
 import { type LucideIcon } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { AnimatedCounter } from './AnimatedCounter';
 
@@ -20,7 +20,7 @@ interface StatisticCardProps {
   className?: string;
 }
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, y: 40, scale: 0.95 },
   visible: (index: number) => ({
     opacity: 1,
@@ -29,7 +29,7 @@ const cardVariants = {
     transition: {
       duration: 0.6,
       delay: index * 0.15,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
     },
   }),
 };
