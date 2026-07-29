@@ -142,7 +142,7 @@ export const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
         aria-orientation={orientation}
         onKeyDown={handleKeyDown}
         className={cn(
-          'inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground',
+          'inline-flex h-9 items-center justify-center rounded-lg bg-[#1B4038] p-1 text-[rgba(249,246,240,0.55)]',
           orientation === 'vertical' && 'h-auto flex-col items-stretch',
           className
         )}
@@ -176,7 +176,7 @@ export const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
         tabIndex={isSelected ? 0 : -1}
         className={cn(
           'inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
-          isSelected && 'bg-background text-foreground shadow-sm',
+          isSelected && 'bg-[#21483F] text-[#D4B59E] shadow-sm',
           className
         )}
         {...props}
@@ -217,3 +217,4 @@ export const TabsContent = forwardRef<HTMLDivElement, TabsContentProps>(
   }
 );
 TabsContent.displayName = 'TabsContent';
+

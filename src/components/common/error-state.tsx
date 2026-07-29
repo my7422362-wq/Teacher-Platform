@@ -24,7 +24,7 @@ export function ErrorState({
     >
       <AlertTriangle className="mb-4 h-12 w-12 text-destructive" />
       <h3 className="mb-1 text-lg font-semibold text-destructive">{title}</h3>
-      <p className="mb-4 text-sm text-muted-foreground">{message}</p>
+      <p className="mb-4 text-sm text-[rgba(249,246,240,0.55)]">{message}</p>
       {onRetry && (
         <Button variant="outline" onClick={onRetry}>
           إعادة المحاولة

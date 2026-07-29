@@ -26,7 +26,7 @@ export function TeacherImage() {
   return (
     <div className="relative flex items-center justify-center min-h-[400px] md:min-h-[500px]">
       {/* Main glowing circle behind image */}
-      <div className="absolute w-[300px] h-[300px] md:w-[380px] md:h-[380px] lg:w-[440px] lg:h-[440px] rounded-full bg-gradient-to-br from-blue-500/30 via-purple-500/20 to-blue-600/10 blur-[2px] animate-[glow-pulse_4s_ease-in-out_infinite]" />
+      <div className="absolute w-[300px] h-[300px] md:w-[380px] md:h-[380px] lg:w-[440px] lg:h-[440px] rounded-full bg-gradient-to-br from-[#D4B59E]/30 via-purple-500/20 to-blue-600/10 blur-[2px] animate-[glow-pulse_4s_ease-in-out_infinite]" />
 
       {/* Secondary glow ring */}
       <div className="absolute w-[260px] h-[260px] md:w-[330px] md:h-[330px] lg:w-[390px] lg:h-[390px] rounded-full border border-blue-400/20 animate-[float_6s_ease-in-out_infinite]" />
@@ -41,8 +41,8 @@ export function TeacherImage() {
         animate="animate"
         className="absolute top-[12%] right-[12%] md:right-[18%] lg:right-[15%]"
       >
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/10 flex items-center justify-center">
-          <Sparkles className="w-4 h-4 text-blue-400" />
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D4B59E]/20 to-[#D4B59E]/20 backdrop-blur-sm border border-white/10 flex items-center justify-center">
+          <Sparkles className="w-4 h-4 text-[#D4B59E]" />
         </div>
       </motion.div>
 
@@ -53,7 +53,7 @@ export function TeacherImage() {
         className="absolute bottom-[18%] left-[10%] md:left-[15%] lg:left-[12%]"
       >
         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500/20 to-blue-500/20 backdrop-blur-sm border border-white/10 flex items-center justify-center">
-          <Star className="w-3.5 h-3.5 text-purple-400" />
+          <Star className="w-3.5 h-3.5 text-[#D4B59E]" />
         </div>
       </motion.div>
 
@@ -63,8 +63,8 @@ export function TeacherImage() {
         animate="animate"
         className="absolute top-[30%] left-[8%] md:left-[12%] lg:left-[8%]"
       >
-        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500/20 to-cyan-500/20 backdrop-blur-sm border border-white/10 flex items-center justify-center">
-          <BookOpen className="w-3 h-3 text-blue-400" />
+        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#D4B59E]/20 to-cyan-500/20 backdrop-blur-sm border border-white/10 flex items-center justify-center">
+          <BookOpen className="w-3 h-3 text-[#D4B59E]" />
         </div>
       </motion.div>
 
@@ -76,7 +76,7 @@ export function TeacherImage() {
         viewport={{ once: true, margin: '-100px' }}
         className="relative z-10 w-[200px] h-[200px] md:w-[260px] md:h-[260px] lg:w-[320px] lg:h-[320px] rounded-full overflow-hidden border-2 border-white/10 shadow-2xl shadow-blue-500/20"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/40 to-purple-600/40" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#D4B59E]/40 to-[#C7A187]/40" />
         <div className="absolute inset-0 flex items-center justify-center">
           <GraduationCap className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 text-white/80" />
         </div>

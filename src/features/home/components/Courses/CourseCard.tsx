@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 import { BookOpen } from 'lucide-react';
 import { CourseBadge } from './CourseBadge';
@@ -32,7 +33,7 @@ const cardVariants = {
  */
 function getCourseGradient(id: number): string {
   const gradients = [
-    'from-blue-600/40 via-purple-600/30 to-indigo-900/40',
+    'from-[#D4B59E]/40 via-purple-600/30 to-indigo-900/40',
     'from-purple-600/40 via-pink-600/30 to-rose-900/40',
     'from-cyan-600/40 via-blue-600/30 to-indigo-900/40',
     'from-emerald-600/40 via-teal-600/30 to-cyan-900/40',
@@ -62,6 +63,8 @@ function getCoursePattern(id: number): string {
 }
 
 export function CourseCard({ course, index, className }: CourseCardProps) {
+  const { t } = useTranslation();
+
   return (
     <motion.div
       custom={0.08 * index}
@@ -86,10 +89,10 @@ export function CourseCard({ course, index, className }: CourseCardProps) {
         )}
       >
         {/* Hover glow */}
-        <div className="absolute -inset-2 bg-gradient-to-r from-blue-600/0 via-blue-600/10 to-purple-600/0 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-700 pointer-events-none" />
+        <div className="absolute -inset-2 bg-gradient-to-r from-[#D4B59E]/0 via-blue-600/10 to-[#C7A187]/0 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-700 pointer-events-none" />
 
         {/* Top accent line */}
-        <div className="absolute top-0 left-[5%] right-[5%] h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute top-0 left-[5%] right-[5%] h-px bg-gradient-to-r from-transparent via-[#C7A187]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
         {/* Course Image (16:9 ratio) */}
         <div className="relative w-full aspect-video overflow-hidden rounded-t-3xl">
@@ -122,7 +125,7 @@ export function CourseCard({ course, index, className }: CourseCardProps) {
           </div>
 
           {/* Gradient overlay at bottom */}
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#050816]/80 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0F2520]/80 to-transparent" />
 
           {/* Badge */}
           {course.badge && (
@@ -135,7 +138,7 @@ export function CourseCard({ course, index, className }: CourseCardProps) {
           <div className="absolute bottom-3 left-3 z-10">
             <div className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10">
               <span className="text-lg font-bold text-white">{course.price}</span>
-              <span className="text-xs text-gray-400">جنيه</span>
+              <span className="text-xs text-[rgba(249,246,240,0.55)]">{t('courses.currency')}</span>
             </div>
           </div>
         </div>
@@ -161,7 +164,7 @@ export function CourseCard({ course, index, className }: CourseCardProps) {
         </div>
 
         {/* Bottom accent line */}
-        <div className="absolute bottom-0 left-[5%] right-[5%] h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute bottom-0 left-[5%] right-[5%] h-px bg-gradient-to-r from-transparent via-[#C7A187]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
     </motion.div>
   );

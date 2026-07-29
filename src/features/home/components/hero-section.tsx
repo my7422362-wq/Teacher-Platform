@@ -93,9 +93,9 @@ function getCardIcon(iconName: string) {
     case 'TrendingUp':
       return <TrendingUp className="h-4 w-4 text-green-400" />;
     case 'Award':
-      return <Award className="h-4 w-4 text-purple-400" />;
+      return <Award className="h-4 w-4 text-[#D4B59E]" />;
     default:
-      return <Star className="h-4 w-4 text-blue-400" />;
+      return <Star className="h-4 w-4 text-[#D4B59E]" />;
   }
 }
 
@@ -111,7 +111,7 @@ export function HeroSection({ className }: HeroSectionProps) {
       dir="rtl"
     >
       {/* ── Background Elements ──────────────────────── */}
-      <div className="absolute inset-0 bg-[#050816] -z-20" />
+      <div className="absolute inset-0 bg-[#0F2520] -z-20" />
 
       {/* Grid overlay */}
       <div
@@ -124,12 +124,12 @@ export function HeroSection({ className }: HeroSectionProps) {
       />
 
       {/* Gradient orbs */}
-      <div className="absolute top-1/4 -right-32 w-[500px] h-[500px] rounded-full bg-blue-500/20 blur-[120px] -z-10 animate-[orb-float_8s_ease-in-out_infinite]" />
-      <div className="absolute bottom-1/4 -left-32 w-[400px] h-[400px] rounded-full bg-purple-500/15 blur-[100px] -z-10 animate-[orb-float-2_10s_ease-in-out_infinite]" />
+      <div className="absolute top-1/4 -right-32 w-[500px] h-[500px] rounded-full bg-[#D4B59E]/20 blur-[120px] -z-10 animate-[orb-float_8s_ease-in-out_infinite]" />
+      <div className="absolute bottom-1/4 -left-32 w-[400px] h-[400px] rounded-full bg-[#C7A187]/15 blur-[100px] -z-10 animate-[orb-float-2_10s_ease-in-out_infinite]" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-blue-600/5 blur-[150px] -z-10" />
 
       {/* Top-right accent glow */}
-      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-gradient-to-bl from-blue-500/10 to-transparent rounded-full blur-[80px] -z-10" />
+      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-gradient-to-bl from-[#D4B59E]/10 to-transparent rounded-full blur-[80px] -z-10" />
 
       <div className="container mx-auto px-4">
         <motion.div
@@ -146,7 +146,7 @@ export function HeroSection({ className }: HeroSectionProps) {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6"
             >
               <Star className="h-3.5 w-3.5 text-yellow-400 fill-yellow-400" />
-              <span className="text-sm font-medium text-gray-300">
+              <span className="text-sm font-medium text-[rgba(249,246,240,0.75)]">
                 {HERO_CONTENT.badge}
               </span>
             </motion.div>
@@ -158,7 +158,7 @@ export function HeroSection({ className }: HeroSectionProps) {
             >
               <span className="text-white">{HERO_CONTENT.titleLine1}</span>
               <br />
-              <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-purple-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
+              <span className="bg-gradient-to-r from-[#D4B59E] via-[#C7A187] to-[#D4B59E] bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
                 {HERO_CONTENT.titleLine2}
               </span>
             </motion.h1>
@@ -166,7 +166,7 @@ export function HeroSection({ className }: HeroSectionProps) {
             {/* Description */}
             <motion.p
               variants={itemFadeUp}
-              className="mt-6 text-base sm:text-lg text-gray-400 leading-relaxed max-w-xl"
+              className="mt-6 text-base sm:text-lg text-[rgba(249,246,240,0.55)] leading-relaxed max-w-xl"
             >
               {HERO_CONTENT.description}
             </motion.p>
@@ -177,7 +177,7 @@ export function HeroSection({ className }: HeroSectionProps) {
               className="mt-8 flex flex-wrap items-center gap-4"
             >
               <Link to="/register">
-                <Button className="relative group overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white border-0 rounded-xl px-8 py-6 text-base font-semibold shadow-lg shadow-blue-600/25 hover:shadow-blue-500/40 transition-all duration-300">
+                <Button className="relative group overflow-hidden bg-gradient-to-r from-[#D4B59E] to-[#C7A187] hover:from-[#D4B59E] hover:to-[#D4B59E] text-white border-0 rounded-xl px-8 py-6 text-base font-semibold shadow-lg shadow-blue-600/25 hover:shadow-blue-500/40 transition-all duration-300">
                   <span className="relative z-10 flex items-center gap-2">
                     {HERO_CONTENT.primaryCta}
                     <ArrowLeft className="h-4 w-4 group-hover:translate-x-[-4px] transition-transform" />
@@ -207,7 +207,7 @@ export function HeroSection({ className }: HeroSectionProps) {
                     variants={statItem}
                     className="text-center"
                   >
-                    <div className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                    <div className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-[#D4B59E] to-[#D4B59E] bg-clip-text text-transparent">
                       {stat.value}
                     </div>
                     <div className="text-xs sm:text-sm text-gray-500 mt-1">
@@ -222,7 +222,7 @@ export function HeroSection({ className }: HeroSectionProps) {
           {/* ═══ Right Column: Image + Floating Cards ═══ */}
           <div className="relative order-1 lg:order-2 flex items-center justify-center min-h-[400px] md:min-h-[500px] lg:min-h-[600px]">
             {/* Main glowing circle behind image */}
-            <div className="absolute w-[320px] h-[320px] md:w-[400px] md:h-[400px] lg:w-[480px] lg:h-[480px] rounded-full bg-gradient-to-br from-blue-500/30 via-purple-500/20 to-blue-600/10 blur-[2px] animate-[glow-pulse_4s_ease-in-out_infinite]" />
+            <div className="absolute w-[320px] h-[320px] md:w-[400px] md:h-[400px] lg:w-[480px] lg:h-[480px] rounded-full bg-gradient-to-br from-[#D4B59E]/30 via-purple-500/20 to-blue-600/10 blur-[2px] animate-[glow-pulse_4s_ease-in-out_infinite]" />
 
             {/* Secondary glow ring */}
             <div className="absolute w-[280px] h-[280px] md:w-[350px] md:h-[350px] lg:w-[420px] lg:h-[420px] rounded-full border border-blue-400/20 animate-[float_6s_ease-in-out_infinite]" />
@@ -232,7 +232,7 @@ export function HeroSection({ className }: HeroSectionProps) {
               variants={itemFadeLeft}
               className="relative z-10 w-[220px] h-[220px] md:w-[280px] md:h-[280px] lg:w-[340px] lg:h-[340px] rounded-full overflow-hidden border-2 border-white/10 shadow-2xl shadow-blue-500/20"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/40 to-purple-600/40" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#D4B59E]/40 to-[#C7A187]/40" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <GraduationCap className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 text-white/80" />
               </div>
@@ -253,7 +253,7 @@ export function HeroSection({ className }: HeroSectionProps) {
                 variants={cardItem}
                 className="absolute top-[5%] left-[5%] md:left-[10%] lg:left-[5%] flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/10 backdrop-blur-xl border border-white/10 shadow-lg animate-[float-slow_5s_ease-in-out_infinite]"
               >
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/20">
+                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-[#D4B59E]/20">
                   {getCardIcon(HERO_FLOATING_CARDS[0].icon)}
                 </div>
                 <span className="text-xs sm:text-sm font-medium text-gray-200 whitespace-nowrap">
@@ -279,7 +279,7 @@ export function HeroSection({ className }: HeroSectionProps) {
                 variants={cardItem}
                 className="absolute bottom-[10%] left-[10%] md:left-[15%] lg:left-[10%] flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white/10 backdrop-blur-xl border border-white/10 shadow-lg animate-[float-slow_7s_ease-in-out_infinite]"
               >
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-purple-500/20">
+                <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-[#C7A187]/20">
                   {getCardIcon(HERO_FLOATING_CARDS[2].icon)}
                 </div>
                 <span className="text-xs sm:text-sm font-medium text-gray-200 whitespace-nowrap">
@@ -292,7 +292,7 @@ export function HeroSection({ className }: HeroSectionProps) {
       </div>
 
       {/* Bottom fade gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#050816] to-transparent -z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0F2520] to-transparent -z-10" />
     </section>
   );
 }

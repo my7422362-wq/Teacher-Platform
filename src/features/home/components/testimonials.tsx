@@ -7,6 +7,7 @@
 
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -38,13 +39,15 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 export function Testimonials({ items = TESTIMONIALS, className }: TestimonialsProps) {
+  const { t } = useTranslation();
+
   if (!items.length) {
     return (
-      <section className={cn('py-16 sm:py-20 lg:py-24', className)} dir="rtl">
+      <section className={cn('py-16 sm:py-20 lg:py-24', className)}>
         <div className="container mx-auto px-4">
           <EmptyState
-            title="لا توجد آراء بعد"
-            description="كن أول من يشاركنا رأيه عن الدورات!"
+            title={t('testimonials.emptyTitle')}
+            description={t('testimonials.emptyDescription')}
           />
         </div>
       </section>
@@ -55,7 +58,6 @@ export function Testimonials({ items = TESTIMONIALS, className }: TestimonialsPr
     <section
       id="testimonials"
       className={cn('py-16 sm:py-20 lg:py-24 bg-muted/30', className)}
-      dir="rtl"
     >
       <div className="container mx-auto px-4">
         {/* Section header */}
@@ -67,13 +69,13 @@ export function Testimonials({ items = TESTIMONIALS, className }: TestimonialsPr
           transition={{ duration: 0.5 }}
         >
           <Badge variant="secondary" className="inline-flex">
-            آراء الطلاب
+            {t('testimonials.badge')}
           </Badge>
           <h2 className="text-heading font-bold text-foreground">
-            ماذا يقول طلابنا؟
+            {t('testimonials.title')}
           </h2>
           <p className="text-muted-foreground max-w-lg mx-auto">
-            استمع لتجارب طلابنا الذين التحقوا بالدورات
+            {t('testimonials.description')}
           </p>
         </motion.div>
 

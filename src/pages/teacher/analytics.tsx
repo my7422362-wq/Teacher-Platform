@@ -1,13 +1,15 @@
+import { useTranslation } from 'react-i18next';
 import { PageHeader } from '@/components/common/page-header';
 
 export function TeacherAnalyticsPage() {
+  const { t } = useTranslation();
+
   return (
     <div className="space-y-6">
       <PageHeader
-        title="التحليلات"
-        description="إحصائيات وتحليلات الأداء"
+        title={t('teacherPages.analytics.title')}
+        description={t('teacherPages.analytics.description')}
       />
     </div>
   );
 }
-

@@ -47,11 +47,11 @@ export function StatisticsSection({ className }: StatisticsSectionProps) {
       ref={ref}
     >
       {/* Dark background - seamless from Hero */}
-      <div className="absolute inset-0 bg-[#050816] -z-20" />
+      <div className="absolute inset-0 bg-[#0F2520] -z-20" />
 
       {/* Gradient orbs - matching Hero section style */}
-      <div className="absolute top-1/3 -right-24 w-[400px] h-[400px] rounded-full bg-blue-500/15 blur-[120px] -z-10 animate-[orb-float_8s_ease-in-out_infinite]" />
-      <div className="absolute bottom-1/3 -left-24 w-[350px] h-[350px] rounded-full bg-purple-500/10 blur-[100px] -z-10 animate-[orb-float-2_10s_ease-in-out_infinite]" />
+      <div className="absolute top-1/3 -right-24 w-[400px] h-[400px] rounded-full bg-[#D4B59E]/15 blur-[120px] -z-10 animate-[orb-float_8s_ease-in-out_infinite]" />
+      <div className="absolute bottom-1/3 -left-24 w-[350px] h-[350px] rounded-full bg-[#C7A187]/10 blur-[100px] -z-10 animate-[orb-float-2_10s_ease-in-out_infinite]" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-blue-600/5 blur-[150px] -z-10" />
 
       {/* Tiny glowing dots decoration */}
@@ -62,8 +62,8 @@ export function StatisticsSection({ className }: StatisticsSectionProps) {
       <div className="absolute top-1/3 left-[40%] w-1 h-1 rounded-full bg-blue-300/20 blur-[1px] -z-10 animate-pulse" style={{ animationDelay: '1.2s' }} />
 
       {/* Floating particles */}
-      <div className="absolute top-1/4 right-[30%] w-2 h-2 rounded-full bg-blue-500/10 blur-sm -z-10 animate-float" style={{ animationDuration: '6s' }} />
-      <div className="absolute bottom-1/4 left-[35%] w-2.5 h-2.5 rounded-full bg-purple-500/10 blur-sm -z-10 animate-float" style={{ animationDuration: '8s', animationDelay: '1s' }} />
+      <div className="absolute top-1/4 right-[30%] w-2 h-2 rounded-full bg-[#D4B59E]/10 blur-sm -z-10 animate-float" style={{ animationDuration: '6s' }} />
+      <div className="absolute bottom-1/4 left-[35%] w-2.5 h-2.5 rounded-full bg-[#C7A187]/10 blur-sm -z-10 animate-float" style={{ animationDuration: '8s', animationDelay: '1s' }} />
 
       <div className="container mx-auto px-4">
         {/* Section Header */}
@@ -80,9 +80,9 @@ export function StatisticsSection({ className }: StatisticsSectionProps) {
           >
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#D4B59E]" />
             </span>
-            <span className="text-sm font-medium text-gray-300">
+            <span className="text-sm font-medium text-[rgba(249,246,240,0.75)]">
               إنجازاتنا
             </span>
           </motion.div>
@@ -93,7 +93,7 @@ export function StatisticsSection({ className }: StatisticsSectionProps) {
             className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight"
           >
             <span className="text-white">أرقام تعكس ثقة </span>
-            <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-purple-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
+            <span className="bg-gradient-to-r from-[#D4B59E] via-[#C7A187] to-[#D4B59E] bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
               آلاف الطلاب
             </span>
           </motion.h2>
@@ -101,7 +101,7 @@ export function StatisticsSection({ className }: StatisticsSectionProps) {
           {/* Description */}
           <motion.p
             variants={headerItem}
-            className="mt-5 text-base sm:text-lg text-gray-400 leading-relaxed max-w-xl mx-auto"
+            className="mt-5 text-base sm:text-lg text-[rgba(249,246,240,0.55)] leading-relaxed max-w-xl mx-auto"
           >
             نفخر بتحقيق نتائج مميزة من خلال تقديم محتوى تعليمي احترافي وتجربة تعلم متكاملة.
           </motion.p>
@@ -124,10 +124,10 @@ export function StatisticsSection({ className }: StatisticsSectionProps) {
       </div>
 
       {/* Top fade gradient from Hero */}
-      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#050816] to-transparent -z-10" />
+      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#0F2520] to-transparent -z-10" />
 
       {/* Bottom fade gradient to next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#050816] to-transparent -z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0F2520] to-transparent -z-10" />
     </section>
   );
 }

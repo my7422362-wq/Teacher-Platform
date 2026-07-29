@@ -12,7 +12,7 @@ import {
 
 export function HomePage() {
   return (
-    <div dir="rtl">
+    <div>
       <Navbar />
       <main>
         <HeroSection />

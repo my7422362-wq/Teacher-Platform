@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 import { SectionHeader } from './SectionHeader';
 import { MissionCard } from './MissionCard';
@@ -21,6 +22,7 @@ const containerVariants = {
 };
 
 export function AboutTeacher({ className }: AboutTeacherProps) {
+  const { t } = useTranslation();
   // Memoize features array to avoid re-creation
   const features = useMemo(() => ABOUT_TEACHER_DATA.features, []);
 
@@ -31,18 +33,17 @@ export function AboutTeacher({ className }: AboutTeacherProps) {
         'relative overflow-hidden py-20 sm:py-24 lg:py-28',
         className
       )}
-      dir="rtl"
     >
       {/* Dark navy background */}
-      <div className="absolute inset-0 bg-[#050816] -z-20" />
+      <div className="absolute inset-0 bg-[#0F2520] -z-20" />
 
       {/* Gradient orbs */}
-      <div className="absolute top-1/3 -right-32 w-[500px] h-[500px] rounded-full bg-blue-500/20 blur-[120px] -z-10 animate-[orb-float_8s_ease-in-out_infinite]" />
-      <div className="absolute bottom-1/3 -left-32 w-[400px] h-[400px] rounded-full bg-purple-500/15 blur-[100px] -z-10 animate-[orb-float-2_10s_ease-in-out_infinite]" />
+      <div className="absolute top-1/3 -right-32 w-[500px] h-[500px] rounded-full bg-[#D4B59E]/20 blur-[120px] -z-10 animate-[orb-float_8s_ease-in-out_infinite]" />
+      <div className="absolute bottom-1/3 -left-32 w-[400px] h-[400px] rounded-full bg-[#C7A187]/15 blur-[100px] -z-10 animate-[orb-float-2_10s_ease-in-out_infinite]" />
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-blue-600/5 blur-[150px] -z-10" />
 
       {/* Top-right accent glow */}
-      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-gradient-to-bl from-blue-500/10 to-transparent rounded-full blur-[80px] -z-10" />
+      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-gradient-to-bl from-[#D4B59E]/10 to-transparent rounded-full blur-[80px] -z-10" />
 
       {/* Glowing particles */}
       <div className="absolute top-[20%] left-[10%] w-2 h-2 rounded-full bg-blue-400/30 blur-[2px] animate-[particle-float_6s_ease-in-out_infinite] -z-10" />
@@ -70,10 +71,10 @@ export function AboutTeacher({ className }: AboutTeacherProps) {
 
             {/* Feature Cards */}
             <div className="space-y-4">
-              {features.map((feature, index) => (
+              {features.map((featureKey, index) => (
                 <FeatureCard
-                  key={feature}
-                  text={feature}
+                  key={featureKey}
+                  text={t(featureKey)}
                   index={index}
                 />
               ))}
@@ -104,9 +105,9 @@ export function AboutTeacher({ className }: AboutTeacherProps) {
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-purple-500" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#C7A187]" />
               </span>
-              <span className="text-sm font-medium text-gray-300">رحلتنا التعليمية</span>
+              <span className="text-sm font-medium text-[rgba(249,246,240,0.75)]">{t('about.journeyLabel')}</span>
             </span>
           </div>
           <Timeline />
@@ -114,7 +115,7 @@ export function AboutTeacher({ className }: AboutTeacherProps) {
       </div>
 
       {/* Bottom fade gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#050816] to-transparent -z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0F2520] to-transparent -z-10" />
     </section>
   );
 }

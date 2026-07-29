@@ -11,8 +11,8 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       <div className="w-full">
         <textarea
           className={cn(
-            'flex min-h-[60px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
-            error && 'border-destructive focus-visible:ring-destructive',
+            'flex min-h-[80px] w-full rounded-xl border border-[rgba(212,181,158,0.18)] bg-[#16342D] px-4 py-3 text-sm text-[#F9F6F0] shadow-sm transition-all placeholder:text-[rgba(249,246,240,0.45)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#D4B59E] focus-visible:border-[#D4B59E] disabled:cursor-not-allowed disabled:opacity-50',
+            error && 'border-destructive focus-visible:ring-destructive focus-visible:border-destructive',
             className
           )}
           ref={ref}

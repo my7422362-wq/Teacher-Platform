@@ -58,31 +58,31 @@ export function AchievementCard({
       whileInView="visible"
       viewport={{ once: true, margin: '-50px' }}
       className={cn(
-        'relative group overflow-hidden rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 p-5 text-center',
-        'hover:border-purple-500/30 hover:bg-white/[0.07] transition-all duration-300',
-        'shadow-lg shadow-purple-500/5 hover:shadow-purple-500/10',
+        'relative group overflow-hidden rounded-3xl bg-[rgba(255,255,255,0.04)] backdrop-blur-xl border border-[rgba(212,181,158,0.12)] p-5 text-center',
+        'hover:border-[#D4B59E]/30 hover:bg-[rgba(255,255,255,0.06)] transition-all duration-300',
+        'shadow-lg hover:shadow-luxury',
         'hover:-translate-y-1',
         className
       )}
     >
       {/* Hover glow */}
-      <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/0 via-purple-600/5 to-blue-600/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+      <div className="absolute -inset-1 bg-gradient-to-r from-[rgba(212,181,158,0)] via-[rgba(212,181,158,0.05)] to-[rgba(212,181,158,0)] opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
 
       {/* Top accent line */}
-      <div className="absolute top-0 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
+      <div className="absolute top-0 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-[rgba(212,181,158,0.5)] to-transparent" />
 
       {/* Icon */}
-      <div className="flex items-center justify-center w-12 h-12 mx-auto mb-3 rounded-2xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 group-hover:scale-110 transition-transform duration-300">
-        <Icon className="w-5 h-5 text-purple-400" />
+      <div className="flex items-center justify-center w-12 h-12 mx-auto mb-3 rounded-2xl bg-[rgba(212,181,158,0.12)] group-hover:scale-110 transition-transform duration-300">
+        <Icon className="w-5 h-5 text-[#D4B59E]" />
       </div>
 
       {/* Value */}
-      <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+      <div className="text-2xl sm:text-3xl font-bold text-[#D4B59E]">
         {value}
       </div>
 
       {/* Label */}
-      <div className="text-xs sm:text-sm text-gray-400 mt-1">{label}</div>
+      <div className="text-xs sm:text-sm text-[rgba(249,246,240,0.55)] mt-1">{label}</div>
     </motion.div>
   );
 }

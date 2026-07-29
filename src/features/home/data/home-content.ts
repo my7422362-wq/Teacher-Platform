@@ -1,66 +1,67 @@
 /**
  * Home feature static content and mock data
  *
- * All Arabic text content for the landing page sections.
+ * Text fields hold i18n translation keys (see src/i18n/locales/*.json).
+ * Non-text fields (href, icon, numeric ids) remain literal.
  */
 
 import type { Course } from '@/types';
 
 // ─── Navbar ────────────────────────────────────────────
 export const NAV_LINKS = [
-  { label: 'الرئيسية', href: '#hero' },
-  { label: 'عن المعلم', href: '#about-teacher' },
-  { label: 'الدورات', href: '#featured-courses' },
-  { label: 'آراء الطلاب', href: '#testimonials' },
-  { label: 'تواصل معنا', href: '#cta' },
+  { labelKey: 'nav.home', href: '#hero' },
+  { labelKey: 'nav.aboutTeacher', href: '#about-teacher' },
+  { labelKey: 'nav.courses', href: '#featured-courses' },
+  { labelKey: 'nav.testimonials', href: '#testimonials' },
+  { labelKey: 'nav.contact', href: '#cta' },
 ] as const;
 
 // ─── Hero Section ──────────────────────────────────────
 export const HERO_CONTENT = {
-  badge: 'تعلم بذكاء، وتفوق بثقة',
-  titleLine1: 'تعلّم بطريقة أفضل مع أستاذ',
-  titleLine2: ' عبدالله سعيد',
-  description:
-    'منصة تعليمية متخصصة في تدريس اللغة العربية، تقدم شرحًا مبسطًا ومنظمًا، وتدريبات تفاعلية، واختبارات دورية، ومتابعة مستمرة، لمساعدة الطلاب على فهم المنهج وإتقان جميع فروع اللغة العربية وتحقيق أعلى الدرجات بثقة وتميز.',
-  primaryCta: 'ابدأ التعلم الآن',
-  secondaryCta: 'تصفح الدورات',
+  badge: 'hero.badge',
+  titleLine1: 'hero.titleLine1',
+  titleLine2: 'hero.titleLine2',
+  description: 'hero.description',
+  primaryCta: 'hero.primaryCta',
+  secondaryCta: 'hero.secondaryCta',
 } as const;
 
 // ─── Hero Floating Cards ───────────────────────────────
 export const HERO_FLOATING_CARDS = [
   {
     icon: 'Lightbulb',
-    text: 'شرح مبسط وأساليب مميزة',
+    textKey: 'hero.floatingCards.Lightbulb',
   },
   {
     icon: 'TrendingUp',
-    text: 'متابعة مستمرة لتقدمك',
+    textKey: 'hero.floatingCards.TrendingUp',
   },
   {
     icon: 'Award',
-    text: 'شهادات معتمدة عند إتمام الدورات',
+    textKey: 'hero.floatingCards.Award',
   },
 ] as const;
 
 // ─── Hero Statistics ───────────────────────────────────
 export const HERO_STATISTICS = [
-  { value: '+1000', label: 'طالب وطالبة' },
-  { value: '+100', label: 'دورة تعليمية' },
-  { value: '+10', label: 'سنوات خبرة' },
-  { value: '95%+', label: 'نسبة النجاح' },
+  { valueKey: 'hero.stats.students.value', labelKey: 'hero.stats.students.label' },
+  { valueKey: 'hero.stats.courses.value', labelKey: 'hero.stats.courses.label' },
+  { valueKey: 'hero.stats.experience.value', labelKey: 'hero.stats.experience.label' },
+  { valueKey: 'hero.stats.successRate.value', labelKey: 'hero.stats.successRate.label' },
 ] as const;
 
 // ─── About Teacher ─────────────────────────────────────
 export const ABOUT_TEACHER = {
   name: 'أحمد محمد',
-  title: 'مهندس برمجيات ومعتمد في تطوير التطبيقات',
-  bio: 'أكثر من ١٠ سنوات من الخبرة في مجال البرمجة وتطوير الويب. عملت مع شركات كبرى وساعدت مئات الطلاب على إتقان البرمجة وبناء مشاريعهم الخاصة.',
+  titleKey: 'about.badgeSecondary',
+  descriptionKey: 'about.description',
+  teacherInfoKey: 'about.teacherInfo',
   image: '/images/teacher.jpg',
   credentials: [
-    { label: 'سنوات الخبرة', value: '١٠+' },
-    { label: 'الطلاب المسجلين', value: '٤٠٠+' },
-    { label: 'الدورات', value: '١٢' },
-    { label: 'التقييم', value: '٤.٩' },
+    { valueKey: 'about.achievements.GraduationCap.value', labelKey: 'about.achievements.GraduationCap.label' },
+    { valueKey: 'about.achievements.Users.value', labelKey: 'about.achievements.Users.label' },
+    { valueKey: 'about.achievements.Star.value', labelKey: 'about.achievements.Star.label' },
+    { valueKey: 'about.achievements.BookOpen.value', labelKey: 'about.achievements.BookOpen.label' },
   ],
 } as const;
 
@@ -86,44 +87,22 @@ export function getFeaturedCourses(courses: Course[]): Course[] {
 // ─── Why Choose Us ─────────────────────────────────────
 export interface WhyChooseUsItem {
   icon: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
 }
 
 export const WHY_CHOOSE_US: WhyChooseUsItem[] = [
-  {
-    icon: 'graduation-cap',
-    title: 'خبرة أكاديمية',
-    description: 'مناهج تعليمية مُعدّة بعناية وفق أفضل الممارسات العالمية.',
-  },
-  {
-    icon: 'users',
-    title: 'دعم مستمر',
-    description: 'دعم فني وأكاديمي متاح طوال فترة الدراسة عبر قنوات التواصل.',
-  },
-  {
-    icon: 'certificate',
-    title: 'شهادات معتمدة',
-    description: 'شهادة إتمام معتمدة بعد إنهاء كل دورة بنجاح.',
-  },
-  {
-    icon: 'clock',
-    title: 'مرونة في المواعيد',
-    description: 'دورات مسجلة ومباشرة تناسب جميع الأوقات والجداول.',
-  },
-  {
-    icon: 'book-open',
-    title: 'محتوى تفاعلي',
-    description: 'فيديوهات وتمارين ومشاريع عملية لتطبيق ما تتعلمه.',
-  },
-  {
-    icon: 'trending-up',
-    title: 'تطوير مستمر',
-    description: 'محتوى محدّث باستمرار لمواكبة أحدث التقنيات.',
-  },
+  { icon: 'graduation-cap', titleKey: 'whyChooseUs.items.graduation-cap.title', descriptionKey: 'whyChooseUs.items.graduation-cap.description' },
+  { icon: 'users', titleKey: 'whyChooseUs.items.users.title', descriptionKey: 'whyChooseUs.items.users.description' },
+  { icon: 'certificate', titleKey: 'whyChooseUs.items.certificate.title', descriptionKey: 'whyChooseUs.items.certificate.description' },
+  { icon: 'clock', titleKey: 'whyChooseUs.items.clock.title', descriptionKey: 'whyChooseUs.items.clock.description' },
+  { icon: 'book-open', titleKey: 'whyChooseUs.items.book-open.title', descriptionKey: 'whyChooseUs.items.book-open.description' },
+  { icon: 'trending-up', titleKey: 'whyChooseUs.items.trending-up.title', descriptionKey: 'whyChooseUs.items.trending-up.description' },
 ];
 
 // ─── Testimonials ──────────────────────────────────────
+// Kept in Arabic — these are attributed to named students and are treated
+// as content, not UI chrome (see localization scoping note in the summary).
 export interface TestimonialItem {
   id: number;
   name: string;
@@ -166,71 +145,45 @@ export const TESTIMONIALS: TestimonialItem[] = [
 // ─── FAQ Section ───────────────────────────────────────
 export interface FAQItem {
   id: string;
-  question: string;
-  answer: string;
+  questionKey: string;
+  answerKey: string;
 }
 
 export const FAQ_ITEMS: FAQItem[] = [
-  {
-    id: 'faq-1',
-    question: 'كيف يمكنني التسجيل في الدورة؟',
-    answer:
-      'بعد إنشاء حساب في المنصة، يمكنك تصفح الدورات المتاحة والضغط على زر "الاشتراك" للدورة التي ترغب بها، ثم اتبع خطوات الدفع إن وجدت.',
-  },
-  {
-    id: 'faq-2',
-    question: 'هل الدورات مسجلة أم مباشرة؟',
-    answer:
-      'نوفر مزيجاً من الدورات المسجلة التي يمكنك مشاهدتها في أي وقت، والدورات المباشرة التي تُعقد وفق جدول زمني محدد.',
-  },
-  {
-    id: 'faq-3',
-    question: 'هل أحصل على شهادة بعد إتمام الدورة؟',
-    answer:
-      'نعم، بعد إتمام جميع متطلبات الدورة واجتياز التقييمات ستحصل على شهادة إتمام معتمدة قابلة للتحميل والمشاركة.',
-  },
-  {
-    id: 'faq-4',
-    question: 'ما هي طرق الدفع المتاحة؟',
-    answer:
-      'نقبل الدفع عبر البطاقات الائتمانية (فيزا/ماستركارد) ، PayPal ، والتحويل البنكي المحلي.',
-  },
-  {
-    id: 'faq-5',
-    question: 'هل يمكنني استرداد الرسوم؟',
-    answer:
-      'نعم، نوفر سياسة استرداد رسوم خلال أول ١٠ أيام من تاريخ التسجيل في الدورة إذا لم تكن راضياً عن المحتوى.',
-  },
+  { id: 'faq-1', questionKey: 'faq.items.faq-1.question', answerKey: 'faq.items.faq-1.answer' },
+  { id: 'faq-2', questionKey: 'faq.items.faq-2.question', answerKey: 'faq.items.faq-2.answer' },
+  { id: 'faq-3', questionKey: 'faq.items.faq-3.question', answerKey: 'faq.items.faq-3.answer' },
+  { id: 'faq-4', questionKey: 'faq.items.faq-4.question', answerKey: 'faq.items.faq-4.answer' },
+  { id: 'faq-5', questionKey: 'faq.items.faq-5.question', answerKey: 'faq.items.faq-5.answer' },
 ];
 
 // ─── CTA Section ───────────────────────────────────────
 export const CTA_CONTENT = {
-  title: 'ابدأ رحلة التعلم اليوم',
-  description: 'انضم إلى مئات الطلاب الذين بدأوا مشوارهم في عالم البرمجة والتقنية.',
-  buttonText: 'سجّل الآن مجاناً',
+  title: 'cta.title',
+  description: 'cta.description',
+  buttonText: 'cta.buttonText',
 } as const;
 
 // ─── Footer ────────────────────────────────────────────
 export const FOOTER_CONTENT = {
-  description: 'منصة تعليمية متطورة تهدف لتمكين الطلاب وتعليم البرمجة وتقنية المعلومات بأسلوب عصري تفاعلي.',
+  descriptionKey: 'footer.description',
+  brandNameKey: 'footer.brandName',
+  copyrightKey: 'footer.copyright',
   quickLinks: [
-    { label: 'الرئيسية', href: '/' },
-    { label: 'الدورات', href: '/courses' },
-    { label: 'عن المنصة', href: '/about' },
-    { label: 'المدونة', href: '/blog' },
+    { labelKey: 'footer.quickLinks.home', href: '/' },
+    { labelKey: 'footer.quickLinks.courses', href: '/courses' },
+    { labelKey: 'footer.quickLinks.about', href: '/about' },
+    { labelKey: 'footer.quickLinks.blog', href: '/blog' },
   ],
   supportLinks: [
-    { label: 'الأسئلة الشائعة', href: '#faq' },
-    { label: 'سياسة الخصوصية', href: '/privacy' },
-    { label: 'شروط الاستخدام', href: '/terms' },
-    { label: 'اتصل بنا', href: '/contact' },
+    { labelKey: 'footer.supportLinks.faq', href: '#faq' },
+    { labelKey: 'footer.supportLinks.privacy', href: '/privacy' },
+    { labelKey: 'footer.supportLinks.terms', href: '/terms' },
+    { labelKey: 'footer.supportLinks.contact', href: '/contact' },
   ],
   socialLinks: [
-    { label: 'تويتر', href: '#', icon: 'twitter' },
-    { label: 'لينكد إن', href: '#', icon: 'linkedin' },
-    { label: 'يوتيوب', href: '#', icon: 'youtube' },
+    { labelKey: 'footer.socialLinks.twitter', href: '#', icon: 'twitter' },
+    { labelKey: 'footer.socialLinks.linkedin', href: '#', icon: 'linkedin' },
+    { labelKey: 'footer.socialLinks.youtube', href: '#', icon: 'youtube' },
   ],
-  copyright: 'جميع الحقوق محفوظة.',
-  brandName: 'منصة التعلم الذكية',
 } as const;
-

@@ -8,6 +8,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { CTA_CONTENT } from '@/features/home/data';
@@ -17,8 +18,10 @@ interface CTASectionProps {
 }
 
 export function CTASection({ className }: CTASectionProps) {
+  const { t } = useTranslation();
+
   return (
-    <section className={cn('py-16 sm:py-20', className)} dir="rtl">
+    <section className={cn('py-16 sm:py-20', className)}>
       <div className="container mx-auto px-4">
         <motion.div
           className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-primary/80 px-6 py-14 sm:px-12 sm:py-16 text-center text-primary-foreground shadow-lg"
@@ -33,10 +36,10 @@ export function CTASection({ className }: CTASectionProps) {
 
           <div className="relative z-10 space-y-6">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              {CTA_CONTENT.title}
+              {t(CTA_CONTENT.title)}
             </h2>
             <p className="mx-auto max-w-lg text-base sm:text-lg text-primary-foreground/85 leading-relaxed">
-              {CTA_CONTENT.description}
+              {t(CTA_CONTENT.description)}
             </p>
             <div className="flex justify-center">
               <Link to="/register">
@@ -45,7 +48,7 @@ export function CTASection({ className }: CTASectionProps) {
                   variant="secondary"
                   className="gap-2 text-base"
                 >
-                  {CTA_CONTENT.buttonText}
+                  {t(CTA_CONTENT.buttonText)}
                   <ArrowLeft className="h-4 w-4" />
                 </Button>
               </Link>

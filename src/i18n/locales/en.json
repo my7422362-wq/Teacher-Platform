@@ -1,0 +1,406 @@
+{
+  "common": {
+    "brand": "Learning Platform",
+    "loading": "Loading...",
+    "selectPlaceholder": "Select an option...",
+    "noOptions": "No options available",
+    "noData": "No data",
+    "noDataDescription": "No items were found to display"
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "ar": "العربية",
+    "en": "English"
+  },
+  "nav": {
+    "home": "Home",
+    "aboutTeacher": "About the Teacher",
+    "courses": "Courses",
+    "testimonials": "Testimonials",
+    "contact": "Contact Us",
+    "about": "About",
+    "login": "Log In",
+    "register": "Sign Up",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "badge": "Learn smart, succeed with confidence",
+    "titleLine1": "Learn better with teacher",
+    "titleLine2": " Abdullah Saeed",
+    "description": "An educational platform specialized in teaching Arabic, offering simplified and structured explanations, interactive exercises, periodic tests, and continuous follow-up to help students understand the curriculum, master every branch of the Arabic language, and achieve top grades with confidence and excellence.",
+    "primaryCta": "Start Learning Now",
+    "secondaryCta": "Browse Courses",
+    "floatingCards": {
+      "Lightbulb": "Simplified explanations and unique methods",
+      "TrendingUp": "Continuous tracking of your progress",
+      "Award": "Certified certificates upon course completion"
+    },
+    "stats": {
+      "students": { "value": "1000+", "label": "Students" },
+      "courses": { "value": "100+", "label": "Courses" },
+      "experience": { "value": "10+", "label": "Years of experience" },
+      "successRate": { "value": "95%+", "label": "Success rate" }
+    }
+  },
+  "about": {
+    "section": {
+      "badge": "Our philosophy in teaching Arabic",
+      "title": "Educational Experience That Makes a Difference",
+      "description": "We strive to provide a comprehensive educational experience in Arabic based on simplified explanation, practical training, and continuous follow-up to help every student achieve the best results."
+    },
+    "mission": {
+      "title": "Our Educational Mission",
+      "paragraph": "We believe that learning Arabic doesn't rely on memorization alone, but on deep understanding, continuous practice, and connecting rules with practical application. That's why this platform was designed to deliver a modern learning experience that helps students excel with confidence."
+    },
+    "badgeSecondary": "About the Teacher",
+    "description": "A teacher specialized in teaching Arabic with a simplified, modern approach that helps students understand and excel.",
+    "teacherInfo": "I believe every student is capable of excelling in Arabic given the right explanation and continuous follow-up. My goal is to simplify the subject and make it enjoyable and understandable for everyone.",
+    "features": {
+      "feature1": "Simple and easy-to-understand explanations",
+      "feature2": "Continuous tracking of student performance",
+      "feature3": "Exercises and tests after every lesson"
+    },
+    "achievements": {
+      "GraduationCap": { "value": "5+", "label": "Years of experience" },
+      "Users": { "value": "1000+", "label": "Students" },
+      "Star": { "value": "95%", "label": "Success rate" },
+      "BookOpen": { "value": "300+", "label": "Lessons taught" },
+      "Headphones": { "value": "100%", "label": "Support & follow-up" },
+      "RefreshCw": { "value": "100%", "label": "Updated content" }
+    },
+    "timeline": {
+      "2014": "The educational journey begins",
+      "2017": "Development of a modern teaching style",
+      "2021": "Thousands of top-performing students",
+      "2026": "Launch of the learning platform"
+    },
+    "journeyLabel": "Our Educational Journey"
+  },
+  "courses": {
+    "badge": "Educational Courses",
+    "title": "Featured Courses",
+    "description": "Choose the course that matches your academic level, and enjoy simplified explanations, practical exercises, and tests that help you achieve the best results.",
+    "empty": "No courses in this category right now",
+    "currency": "EGP",
+    "lessonsUnit": "lessons",
+    "hoursUnit": "hours",
+    "viewDetails": "View Details"
+  },
+  "whyChooseUs": {
+    "badge": "Why Us",
+    "title": "Why Choose Our Platform?",
+    "description": "We offer you a comprehensive learning experience that combines quality and flexibility",
+    "items": {
+      "graduation-cap": { "title": "Academic Expertise", "description": "Curricula carefully prepared according to the best global practices." },
+      "users": { "title": "Ongoing Support", "description": "Technical and academic support available throughout your studies via our communication channels." },
+      "certificate": { "title": "Certified Certificates", "description": "A certified completion certificate after successfully finishing each course." },
+      "clock": { "title": "Flexible Scheduling", "description": "Recorded and live courses that suit every time and schedule." },
+      "book-open": { "title": "Interactive Content", "description": "Videos, exercises, and practical projects to apply what you learn." },
+      "trending-up": { "title": "Continuous Improvement", "description": "Content constantly updated to keep pace with the latest techniques." }
+    }
+  },
+  "testimonials": {
+    "badge": "Student Testimonials",
+    "title": "What Do Our Students Say?",
+    "description": "Hear from students who have taken our courses",
+    "emptyTitle": "No reviews yet",
+    "emptyDescription": "Be the first to share your feedback about the courses!"
+  },
+  "faq": {
+    "badge": "FAQ",
+    "title": "Have a Question?",
+    "description": "Answers to the most common questions about the platform and courses",
+    "items": {
+      "faq-1": {
+        "question": "How can I enroll in a course?",
+        "answer": "After creating an account on the platform, you can browse the available courses and click the \"Subscribe\" button for the course you want, then follow the payment steps if applicable."
+      },
+      "faq-2": {
+        "question": "Are the courses recorded or live?",
+        "answer": "We offer a mix of recorded courses you can watch anytime, and live courses held according to a set schedule."
+      },
+      "faq-3": {
+        "question": "Do I get a certificate after completing the course?",
+        "answer": "Yes, after completing all course requirements and passing the assessments, you'll receive a certified completion certificate that can be downloaded and shared."
+      },
+      "faq-4": {
+        "question": "What payment methods are available?",
+        "answer": "We accept payment via credit cards (Visa/Mastercard), PayPal, and local bank transfer."
+      },
+      "faq-5": {
+        "question": "Can I get a refund?",
+        "answer": "Yes, we offer a refund policy within the first 10 days of enrollment if you're not satisfied with the content."
+      }
+    }
+  },
+  "cta": {
+    "title": "Start Your Learning Journey Today",
+    "description": "Join hundreds of students who have started their journey in programming and technology.",
+    "buttonText": "Sign Up Now for Free"
+  },
+  "footer": {
+    "brandName": "Smart Learning Platform",
+    "description": "An advanced educational platform aimed at empowering students and teaching programming and information technology in a modern, interactive way.",
+    "quickLinksTitle": "Quick Links",
+    "supportTitle": "Support",
+    "followTitle": "Follow Us",
+    "copyright": "All rights reserved.",
+    "quickLinks": {
+      "home": "Home",
+      "courses": "Courses",
+      "about": "About",
+      "blog": "Blog"
+    },
+    "supportLinks": {
+      "faq": "FAQ",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use",
+      "contact": "Contact Us"
+    },
+    "socialLinks": {
+      "twitter": "Twitter",
+      "linkedin": "LinkedIn",
+      "youtube": "YouTube"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Log In",
+      "description": "Enter your account details to access the platform",
+      "email": "Email",
+      "password": "Password",
+      "remember": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "submit": "Log In",
+      "or": "or",
+      "guest": "Continue as Guest",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Sign Up"
+    },
+    "register": {
+      "title": "Create a New Account",
+      "description": "Enter your details to create a new account on the platform",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Full name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "grade": "Grade",
+      "gradePlaceholder": "Select your grade",
+      "governorate": "Governorate",
+      "governoratePlaceholder": "Select your governorate",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Sign Up",
+      "haveAccount": "Already have an account?",
+      "login": "Log In"
+    },
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "description": "Enter your email and we'll send you a reset link",
+      "email": "Email",
+      "submit": "Send",
+      "sentMessage": "Check your email to continue the password reset steps.",
+      "backToLogin": "Back to Log In"
+    },
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "imagePanel": {
+      "badge": "A Trusted Learning Platform",
+      "title": "Learning Platform",
+      "description": "Learn Arabic in a simplified, professional way with top teachers."
+    },
+    "brandTagline": "An educational platform specialized in the Arabic language",
+    "grades": {
+      "prep1": "7th Grade (Prep 1)",
+      "prep2": "8th Grade (Prep 2)",
+      "prep3": "9th Grade (Prep 3)",
+      "secondary1": "10th Grade (Secondary 1)",
+      "secondary2": "11th Grade (Secondary 2)",
+      "secondary3": "12th Grade (Secondary 3)"
+    },
+    "governorates": {
+      "القاهرة": "Cairo",
+      "الجيزة": "Giza",
+      "الإسكندرية": "Alexandria",
+      "الدقهلية": "Dakahlia",
+      "الشرقية": "Sharqia",
+      "المنوفية": "Monufia",
+      "القليوبية": "Qalyubia",
+      "البحيرة": "Beheira",
+      "الغربية": "Gharbia",
+      "بورسعيد": "Port Said",
+      "دمياط": "Damietta",
+      "الإسماعيلية": "Ismailia",
+      "السويس": "Suez",
+      "كفر الشيخ": "Kafr El Sheikh",
+      "الفيوم": "Faiyum",
+      "بني سويف": "Beni Suef",
+      "المنيا": "Minya",
+      "أسيوط": "Asyut",
+      "سوهاج": "Sohag",
+      "قنا": "Qena",
+      "الأقصر": "Luxor",
+      "أسوان": "Aswan",
+      "البحر الأحمر": "Red Sea",
+      "الوادي الجديد": "New Valley",
+      "مطروح": "Matrouh",
+      "شمال سيناء": "North Sinai",
+      "جنوب سيناء": "South Sinai"
+    },
+    "validation": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Invalid email format",
+      "phoneRequired": "Phone number is required",
+      "phoneInvalid": "Invalid phone number (e.g. 01012345678)",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 6 characters",
+      "nameRequired": "Full name is required (at least 3 characters)",
+      "gradeRequired": "Grade is required",
+      "governorateRequired": "Governorate is required",
+      "confirmPasswordRequired": "Please confirm your password",
+      "passwordMismatch": "Passwords do not match"
+    },
+    "toast": {
+      "loginSuccess": "Logged in successfully",
+      "loginInvalid": "Invalid email or password",
+      "registerSuccess": "Account created successfully",
+      "registerFailed": "Failed to create account",
+      "logoutSuccess": "Logged out successfully",
+      "guestSuccess": "Continuing as guest",
+      "forgotPasswordSuccess": "A reset link has been sent to your email",
+      "forgotPasswordError": "Something went wrong, please try again",
+      "genericError": "An unexpected error occurred"
+    },
+    "errors": {
+      "invalidCredentials": "Invalid email or password",
+      "emailExists": "This email is already in use"
+    },
+    "messages": {
+      "loginSuccess": "Logged in successfully",
+      "registerSuccess": "Account created successfully",
+      "logoutSuccess": "Logged out successfully",
+      "forgotPasswordSent": "If this email is registered with us, a reset link will be sent"
+    }
+  },
+  "dashboardLayout": {
+    "closeMenu": "Close menu",
+    "openMenu": "Open menu",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Log Out",
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "myCourses": "My Courses",
+      "profile": "Profile",
+      "courses": "Courses",
+      "students": "Students",
+      "analytics": "Analytics"
+    }
+  },
+  "mainLayout": {
+    "home": "Home",
+    "courses": "Courses",
+    "about": "About",
+    "login": "Log In",
+    "register": "Sign Up",
+    "footer": {
+      "description": "An educational platform specialized in teaching Arabic, offering simplified, structured explanations and interactive exercises.",
+      "quickLinksTitle": "Quick Links",
+      "browseCourses": "Browse Courses",
+      "aboutPlatform": "About",
+      "contactUs": "Contact Us",
+      "supportTitle": "Support",
+      "faq": "FAQ",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use",
+      "copyright": "All rights reserved."
+    }
+  },
+  "studentPages": {
+    "dashboard": { "title": "Student Dashboard", "description": "Welcome to your dashboard" },
+    "courses": { "title": "My Courses", "description": "All the courses you're enrolled in" },
+    "profile": { "title": "Profile", "description": "Manage your personal information" }
+  },
+  "teacherPages": {
+    "dashboard": { "title": "Teacher Dashboard", "description": "Welcome to your dashboard" },
+    "courses": { "title": "Courses", "description": "Manage your courses" },
+    "students": { "title": "Students", "description": "Manage enrolled students" },
+    "analytics": { "title": "Analytics", "description": "Performance statistics and analytics" }
+  },
+  "aboutPage": {
+    "title": "About the Platform",
+    "description": "A comprehensive educational platform aimed at making teaching and learning easier"
+  },
+  "coursesPage": {
+    "title": "Available Courses",
+    "description": "Browse all courses available on the platform"
+  },
+  "notFound": {
+    "message": "Page not found",
+    "backHome": "Back to Home"
+  },
+  "courseDetails": {
+    "notFoundTitle": "Course Not Found",
+    "notFoundDescription": "Sorry, we couldn't find the course you're looking for. It may have been removed or the link is incorrect.",
+    "backToCourses": "Back to Courses",
+    "coursesBreadcrumb": "Courses",
+    "studentsUnit": "students",
+    "lessonsUnit": "lessons",
+    "hoursUnit": "hours",
+    "language": "Language",
+    "level": "Level",
+    "lastUpdated": "Last updated",
+    "providedBy": "Provided by",
+    "subscribeNow": "Subscribe Now",
+    "watchPreview": "Watch Free Preview",
+    "save": "Save",
+    "studentsCount": "Number of Students",
+    "lessonsCount": "Number of Lessons",
+    "totalHours": "Total Hours",
+    "certifiedCertificate": "Certified Certificate",
+    "lifetimeAccess": "Lifetime Access",
+    "preview": {
+      "badge": "Free Preview",
+      "title": "Watch a Free Preview Lesson"
+    },
+    "learningObjectives": {
+      "badge": "What You'll Learn",
+      "title": "What Will You Learn in This Course?"
+    },
+    "curriculum": {
+      "badge": "Curriculum",
+      "title": "Course Curriculum",
+      "lessonsWord": "lessons",
+      "lessonsShort": "lessons",
+      "free": "Free"
+    },
+    "features": {
+      "badge": "Course Features",
+      "title": "Course Features"
+    },
+    "teacherSection": {
+      "badge": "Teacher",
+      "title": "Learn with an Expert",
+      "yearsExperience": "years of experience",
+      "students": "students",
+      "rating": "rating",
+      "achievements": "Achievements:"
+    },
+    "reviews": {
+      "badge": "Student Reviews",
+      "title": "Student Reviews",
+      "ratingsCount": "ratings"
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "FAQ"
+    },
+    "cta": {
+      "title": "Start Your Learning Journey Today",
+      "joinPrefix": "Join",
+      "joinMiddle": "students and start your journey mastering",
+      "browseCourses": "Browse Courses"
+    }
+  }
+}

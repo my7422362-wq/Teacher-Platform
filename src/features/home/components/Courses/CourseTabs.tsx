@@ -12,12 +12,12 @@ const tabVariants = {
   inactive: {
     opacity: 0.7,
     scale: 1,
-    transition: { duration: 0.2, ease: 'easeOut' },
+    transition: { duration: 0.2, ease: 'easeOut' as const },
   },
   active: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.3, ease: 'easeOut' },
+    transition: { duration: 0.3, ease: 'easeOut' as const },
   },
 };
 
@@ -28,7 +28,6 @@ export function CourseTabs({ activeTab, onTabChange, className }: CourseTabsProp
         'flex flex-wrap items-center justify-center gap-2 sm:gap-3',
         className
       )}
-      dir="rtl"
     >
       {COURSE_CATEGORIES.map((tab) => {
         const isActive = activeTab === tab;
@@ -46,15 +45,15 @@ export function CourseTabs({ activeTab, onTabChange, className }: CourseTabsProp
               'text-sm font-medium transition-all duration-300 cursor-pointer',
               isActive
                 ? [
-                    'bg-gradient-to-r from-blue-600/90 to-purple-600/90',
-                    'text-white shadow-lg shadow-blue-500/20',
-                    'border border-blue-400/30',
+                    'bg-[#D4B59E]',
+                    'text-[#0F2520] shadow-lg shadow-[rgba(212,181,158,0.2)]',
+                    'border border-[rgba(212,181,158,0.3)]',
                   ]
                 : [
-                    'bg-white/5 backdrop-blur-sm',
-                    'text-gray-400 hover:text-gray-200',
-                    'border border-white/10 hover:border-white/20',
-                    'hover:bg-white/[0.07]',
+                    'bg-[rgba(255,255,255,0.04)] backdrop-blur-sm',
+                    'text-[rgba(249,246,240,0.55)] hover:text-[rgba(249,246,240,0.85)]',
+                    'border border-[rgba(212,181,158,0.1)] hover:border-[rgba(212,181,158,0.2)]',
+                    'hover:bg-[rgba(255,255,255,0.06)]',
                   ]
             )}
           >
@@ -62,14 +61,14 @@ export function CourseTabs({ activeTab, onTabChange, className }: CourseTabsProp
             {isActive && (
               <motion.div
                 layoutId="activeTabGlow"
-                className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-400/20 to-purple-400/20 blur-md"
+                className="absolute inset-0 rounded-xl bg-gradient-to-r from-[rgba(212,181,158,0.2)] to-[rgba(212,181,158,0.1)] blur-md"
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
               />
             )}
 
             {/* Active tab shimmer */}
             {isActive && (
-              <div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+              <div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             )}
 
             {/* Tab content */}
@@ -80,4 +79,3 @@ export function CourseTabs({ activeTab, onTabChange, className }: CourseTabsProp
     </div>
   );
 }
-

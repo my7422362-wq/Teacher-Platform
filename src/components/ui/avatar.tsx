@@ -36,7 +36,7 @@ const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
         {src ? (
           <img src={src} alt={alt || ''} className="h-full w-full object-cover" />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-muted font-medium text-muted-foreground">
+          <div className="flex h-full w-full items-center justify-center bg-[#1B4038] font-medium text-[rgba(249,246,240,0.55)]">
             {initials}
           </div>
         )}

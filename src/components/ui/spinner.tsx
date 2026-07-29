@@ -14,9 +14,9 @@ const spinnerVariants = cva(
         xl: 'h-16 w-16 border-4',
       },
       variant: {
-        default: 'text-primary',
-        secondary: 'text-secondary-foreground',
-        muted: 'text-muted-foreground',
+        default: 'text-[#D4B59E]',
+        secondary: 'text-[#16342D]',
+        muted: 'text-[rgba(249,246,240,0.35)]',
         white: 'text-white',
         destructive: 'text-destructive',
       },
@@ -45,3 +45,4 @@ export function Spinner({ className, size, variant, ...props }: SpinnerProps) {
 }
 
 Spinner.displayName = 'Spinner';
+

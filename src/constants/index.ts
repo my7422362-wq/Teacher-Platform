@@ -43,5 +43,8 @@ export const STORAGE_KEYS = {
   THEME: 'theme',
   LOCALE: 'locale',
   USER: 'user',
+  REGISTERED_USERS: 'lms_registered_users',
+  AUTH_SESSION: 'lms_auth_session',
+  REMEMBERED_EMAIL: 'lms_remembered_email',
 } as const;
 

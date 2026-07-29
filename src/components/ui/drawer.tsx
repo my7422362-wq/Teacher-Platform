@@ -45,7 +45,7 @@ export function Drawer({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/60"
             onClick={onClose}
           />
           <motion.div
@@ -53,18 +53,18 @@ export function Drawer({
             animate={{ x: 0 }}
             exit={{ x: position === 'right' ? '100%' : '-100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className={cn(
-              'fixed inset-y-0 flex w-full flex-col border-l bg-background shadow-xl',
-              position === 'right' ? 'right-0' : 'left-0',
-              sizeMap[size],
-              className
-            )}
+              className={cn(
+                'fixed inset-y-0 flex w-full flex-col border-l border-[rgba(212,181,158,0.12)] bg-[#21483F] shadow-elevated',
+                position === 'right' ? 'right-0' : 'left-0',
+                sizeMap[size],
+                className
+              )}
           >
-            <div className="flex items-center justify-between border-b px-4 py-3">
-              {title && <h2 className="text-lg font-semibold">{title}</h2>}
+            <div className="flex items-center justify-between border-b border-[rgba(212,181,158,0.12)] px-4 py-3">
+              {title && <h2 className="text-lg font-semibold text-[#F9F6F0]">{title}</h2>}
               <button
                 onClick={onClose}
-                className="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100"
+                className="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 text-[#F9F6F0]"
               >
                 <X className="h-4 w-4" />
               </button>

@@ -7,12 +7,12 @@ interface CourseBadgeProps {
 }
 
 const badgeVariants: Record<string, string> = {
-  'جديد': 'bg-gradient-to-r from-blue-500/90 to-purple-500/90 text-white shadow-lg shadow-blue-500/20',
-  'الأكثر اشتراكًا': 'bg-gradient-to-r from-amber-500/90 to-orange-500/90 text-white shadow-lg shadow-amber-500/20',
-  'خصم': 'bg-gradient-to-r from-green-500/90 to-emerald-500/90 text-white shadow-lg shadow-green-500/20',
+  'جديد': 'bg-[#D4B59E] text-[#0F2520] shadow-lg shadow-[rgba(212,181,158,0.2)]',
+  'الأكثر اشتراكًا': 'bg-[#D4B59E] text-[#0F2520] shadow-lg shadow-[rgba(212,181,158,0.2)]',
+  'خصم': 'bg-[#6DA67A] text-[#0F2520] shadow-lg shadow-[rgba(109,166,122,0.2)]',
 };
 
-const badgeDefault = 'bg-gradient-to-r from-blue-500/90 to-purple-500/90 text-white shadow-lg shadow-blue-500/20';
+const badgeDefault = 'bg-[#D4B59E] text-[#0F2520] shadow-lg shadow-[rgba(212,181,158,0.2)]';
 
 export function CourseBadge({ text, className }: CourseBadgeProps) {
   return (
@@ -22,7 +22,7 @@ export function CourseBadge({ text, className }: CourseBadgeProps) {
       transition={{ duration: 0.3, ease: 'easeOut' }}
       className={cn(
         'inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-bold backdrop-blur-sm',
-        'border border-white/20',
+        'border border-[rgba(255,255,255,0.15)]',
         badgeVariants[text] || badgeDefault,
         className
       )}
@@ -31,4 +31,3 @@ export function CourseBadge({ text, className }: CourseBadgeProps) {
     </motion.span>
   );
 }
-

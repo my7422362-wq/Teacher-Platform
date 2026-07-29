@@ -3,6 +3,7 @@ import { MainLayout } from '@/app/layouts/main-layout';
 import { AuthLayout } from '@/app/layouts/auth-layout';
 import { StudentLayout } from '@/app/layouts/student-layout';
 import { TeacherLayout } from '@/app/layouts/teacher-layout';
+import { ProtectedRoute, GuestRoute } from '@/features/auth';
 import { HomePage } from '@/pages/home';
 import { AboutPage } from '@/pages/about';
 import { CoursesPage } from '@/pages/courses';
@@ -36,26 +37,32 @@ export function AppRouter() {
         <Route path="courses/:slug" element={<CourseDetailsPage />} />
       </Route>
 
-      {/* Auth routes */}
-      <Route element={<AuthLayout />}>
-        <Route path="login" element={<LoginPage />} />
-        <Route path="register" element={<RegisterPage />} />
-        <Route path="forgot-password" element={<ForgotPasswordPage />} />
+      {/* Auth routes — only reachable when signed out */}
+      <Route element={<GuestRoute />}>
+        <Route element={<AuthLayout />}>
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
+          <Route path="forgot-password" element={<ForgotPasswordPage />} />
+        </Route>
       </Route>
 
-      {/* Student routes */}
-      <Route path="student" element={<StudentLayout />}>
-        <Route path="dashboard" element={<StudentDashboardPage />} />
-        <Route path="courses" element={<StudentCoursesPage />} />
-        <Route path="profile" element={<StudentProfilePage />} />
+      {/* Student routes — require an authenticated student */}
+      <Route element={<ProtectedRoute allowedRoles={['student']} />}>
+        <Route path="student" element={<StudentLayout />}>
+          <Route path="dashboard" element={<StudentDashboardPage />} />
+          <Route path="courses" element={<StudentCoursesPage />} />
+          <Route path="profile" element={<StudentProfilePage />} />
+        </Route>
       </Route>
 
-      {/* Teacher routes */}
-      <Route path="teacher" element={<TeacherLayout />}>
-        <Route path="dashboard" element={<TeacherDashboardPage />} />
-        <Route path="courses" element={<TeacherCoursesPage />} />
-        <Route path="students" element={<TeacherStudentsPage />} />
-        <Route path="analytics" element={<TeacherAnalyticsPage />} />
+      {/* Teacher routes — require an authenticated teacher */}
+      <Route element={<ProtectedRoute allowedRoles={['teacher']} />}>
+        <Route path="teacher" element={<TeacherLayout />}>
+          <Route path="dashboard" element={<TeacherDashboardPage />} />
+          <Route path="courses" element={<TeacherCoursesPage />} />
+          <Route path="students" element={<TeacherStudentsPage />} />
+          <Route path="analytics" element={<TeacherAnalyticsPage />} />
+        </Route>
       </Route>
 
       {/* 404 */}

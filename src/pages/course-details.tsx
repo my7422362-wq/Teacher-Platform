@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, BookOpen, CheckCircle, ChevronDown, Star, Award, Users, Play, Shield, Monitor, Smartphone, Infinity, RefreshCw, Video, FileText, ClipboardCheck, CheckSquare, Feather, Library, Pen, Pencil, GraduationCap, Quote, MessageCircle } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { ArrowLeft, BookOpen, ChevronDown, Star, Award, Users, Play, Monitor, Smartphone, Infinity, RefreshCw, Video, FileText, ClipboardCheck, CheckSquare, Feather, Library, Pen, Pencil, GraduationCap } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { getCourseBySlug } from '@/features/course-details/data/course.mock';
 import { CourseHero } from '@/features/course-details/components/CourseHero';
 import { CoursePreview } from '@/features/course-details/components/CoursePreview/CoursePreview';
@@ -17,9 +17,11 @@ function getIcon(iconName: string): React.ElementType {
 }
 
 function LearningObjectivesSection({ course }: { course: CourseDetail }) {
+  const { t } = useTranslation();
+
   return (
-    <section className="relative overflow-hidden py-16 sm:py-20" dir="rtl">
-      <div className="absolute inset-0 bg-[#050816] -z-20" />
+    <section className="relative overflow-hidden py-16 sm:py-20">
+      <div className="absolute inset-0 bg-[#0F2520] -z-20" />
       <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -32,13 +34,13 @@ function LearningObjectivesSection({ course }: { course: CourseDetail }) {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#D4B59E]" />
               </span>
-              <span className="text-sm font-medium text-gray-300">ماذا ستتعلم</span>
+              <span className="text-sm font-medium text-[rgba(249,246,240,0.75)]">{t('courseDetails.learningObjectives.badge')}</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold leading-tight">
-              <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-purple-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
-                ماذا ستتعلم في هذه الدورة؟
+              <span className="bg-gradient-to-r from-[#D4B59E] via-[#C7A187] to-[#D4B59E] bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
+                {t('courseDetails.learningObjectives.title')}
               </span>
             </h2>
           </motion.div>
@@ -54,12 +56,12 @@ function LearningObjectivesSection({ course }: { course: CourseDetail }) {
                   transition={{ duration: 0.5, delay: idx * 0.08 }}
                   className="flex items-start gap-4 p-5 rounded-2xl bg-white/[0.04] backdrop-blur-xl border border-white/10 hover:border-blue-500/30 transition-all duration-300 group"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <IconComponent className="w-5 h-5 text-blue-400" />
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#D4B59E]/20 to-[#D4B59E]/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <IconComponent className="w-5 h-5 text-[#D4B59E]" />
                   </div>
                   <div>
                     <h4 className="text-lg font-semibold text-white mb-1">{obj.title}</h4>
-                    <p className="text-sm text-gray-400">{obj.description}</p>
+                    <p className="text-sm text-[rgba(249,246,240,0.55)]">{obj.description}</p>
                   </div>
                 </motion.div>
               );
@@ -72,10 +74,12 @@ function LearningObjectivesSection({ course }: { course: CourseDetail }) {
 }
 
 function CurriculumSection({ course }: { course: CourseDetail }) {
+  const { t } = useTranslation();
+
   return (
-    <section className="relative overflow-hidden py-16 sm:py-20" dir="rtl">
-      <div className="absolute inset-0 bg-[#050816] -z-20" />
-      <div className="absolute top-1/3 -left-32 w-[400px] h-[400px] rounded-full bg-purple-500/10 blur-[100px] -z-10" />
+    <section className="relative overflow-hidden py-16 sm:py-20">
+      <div className="absolute inset-0 bg-[#0F2520] -z-20" />
+      <div className="absolute top-1/3 -left-32 w-[400px] h-[400px] rounded-full bg-[#C7A187]/10 blur-[100px] -z-10" />
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -87,17 +91,17 @@ function CurriculumSection({ course }: { course: CourseDetail }) {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#D4B59E]" />
               </span>
-              <span className="text-sm font-medium text-gray-300">المنهج الدراسي</span>
+              <span className="text-sm font-medium text-[rgba(249,246,240,0.75)]">{t('courseDetails.curriculum.badge')}</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold leading-tight">
-              <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-purple-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
-                المنهج الدراسي للدورة
+              <span className="bg-gradient-to-r from-[#D4B59E] via-[#C7A187] to-[#D4B59E] bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
+                {t('courseDetails.curriculum.title')}
               </span>
             </h2>
-            <p className="mt-4 text-gray-400">
-              {course.curriculum.reduce((acc, unit) => acc + unit.lessons.length, 0)} درس • {course.hoursCount} ساعة
+            <p className="mt-4 text-[rgba(249,246,240,0.55)]">
+              {course.curriculum.reduce((acc, unit) => acc + unit.lessons.length, 0)} {t('courseDetails.lessonsUnit')} • {course.hoursCount} {t('courseDetails.hoursUnit')}
             </p>
           </motion.div>
           <div className="space-y-4">
@@ -112,28 +116,28 @@ function CurriculumSection({ course }: { course: CourseDetail }) {
               >
                 <div className="p-5 flex items-center justify-between bg-white/[0.02]">
                   <div className="flex items-center gap-3">
-                    <ChevronDown className="w-5 h-5 text-blue-400" />
+                    <ChevronDown className="w-5 h-5 text-[#D4B59E]" />
                     <h3 className="text-lg font-semibold text-white">{unit.title}</h3>
                   </div>
-                  <span className="text-sm text-gray-400">{unit.lessons.length} دروس</span>
+                  <span className="text-sm text-[rgba(249,246,240,0.55)]">{unit.lessons.length} {t('courseDetails.curriculum.lessonsShort')}</span>
                 </div>
                 <div className="divide-y divide-white/5">
                   {unit.lessons.map((lesson) => (
                     <div key={lesson.id} className="flex items-center justify-between p-4 pr-12">
                       <div className="flex items-center gap-3">
                         {lesson.type === 'video' ? (
-                          <Play className={`w-4 h-4 ${lesson.isFree ? 'text-emerald-400' : 'text-blue-400'}`} />
+                          <Play className={`w-4 h-4 ${lesson.isFree ? 'text-emerald-400' : 'text-[#D4B59E]'}`} />
                         ) : lesson.type === 'quiz' ? (
-                          <CheckSquare className="w-4 h-4 text-purple-400" />
+                          <CheckSquare className="w-4 h-4 text-[#D4B59E]" />
                         ) : (
                           <ClipboardCheck className="w-4 h-4 text-amber-400" />
                         )}
-                        <span className={`text-sm ${lesson.isLocked ? 'text-gray-500' : 'text-gray-300'}`}>
+                        <span className={`text-sm ${lesson.isLocked ? 'text-gray-500' : 'text-[rgba(249,246,240,0.75)]'}`}>
                           {lesson.title}
                         </span>
                         {lesson.isFree && (
                           <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/20">
-                            مجاني
+                            {t('courseDetails.curriculum.free')}
                           </span>
                         )}
                       </div>
@@ -158,9 +162,11 @@ function CurriculumSection({ course }: { course: CourseDetail }) {
 }
 
 function FeaturesSection({ course }: { course: CourseDetail }) {
+  const { t } = useTranslation();
+
   return (
-    <section className="relative overflow-hidden py-16 sm:py-20" dir="rtl">
-      <div className="absolute inset-0 bg-[#050816] -z-20" />
+    <section className="relative overflow-hidden py-16 sm:py-20">
+      <div className="absolute inset-0 bg-[#0F2520] -z-20" />
       <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -172,13 +178,13 @@ function FeaturesSection({ course }: { course: CourseDetail }) {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#D4B59E]" />
               </span>
-              <span className="text-sm font-medium text-gray-300">مميزات الدورة</span>
+              <span className="text-sm font-medium text-[rgba(249,246,240,0.75)]">{t('courseDetails.features.badge')}</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold leading-tight">
-              <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-purple-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
-                مميزات الدورة
+              <span className="bg-gradient-to-r from-[#D4B59E] via-[#C7A187] to-[#D4B59E] bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
+                {t('courseDetails.features.title')}
               </span>
             </h2>
           </motion.div>
@@ -194,12 +200,12 @@ function FeaturesSection({ course }: { course: CourseDetail }) {
                   transition={{ duration: 0.4, delay: idx * 0.06 }}
                   className="flex items-center gap-4 p-5 rounded-2xl bg-white/[0.04] backdrop-blur-xl border border-white/10 hover:border-blue-500/30 transition-all duration-300 group"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <IconComponent className="w-5 h-5 text-blue-400" />
+                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#D4B59E]/20 to-[#D4B59E]/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <IconComponent className="w-5 h-5 text-[#D4B59E]" />
                   </div>
                   <div>
                     <h4 className="text-base font-semibold text-white">{feature.title}</h4>
-                    <p className="text-xs text-gray-400">{feature.description}</p>
+                    <p className="text-xs text-[rgba(249,246,240,0.55)]">{feature.description}</p>
                   </div>
                 </motion.div>
               );
@@ -212,10 +218,11 @@ function FeaturesSection({ course }: { course: CourseDetail }) {
 }
 
 function TeacherSection({ course }: { course: CourseDetail }) {
+  const { t } = useTranslation();
   const teacher = course.teacher;
   return (
-    <section className="relative overflow-hidden py-16 sm:py-20" dir="rtl">
-      <div className="absolute inset-0 bg-[#050816] -z-20" />
+    <section className="relative overflow-hidden py-16 sm:py-20">
+      <div className="absolute inset-0 bg-[#0F2520] -z-20" />
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           <motion.div
@@ -227,13 +234,13 @@ function TeacherSection({ course }: { course: CourseDetail }) {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#D4B59E]" />
               </span>
-              <span className="text-sm font-medium text-gray-300">المعلم</span>
+              <span className="text-sm font-medium text-[rgba(249,246,240,0.75)]">{t('courseDetails.teacherSection.badge')}</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold leading-tight">
-              <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-purple-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
-                تعلم مع خبير
+              <span className="bg-gradient-to-r from-[#D4B59E] via-[#C7A187] to-[#D4B59E] bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
+                {t('courseDetails.teacherSection.title')}
               </span>
             </h2>
           </motion.div>
@@ -245,33 +252,33 @@ function TeacherSection({ course }: { course: CourseDetail }) {
           >
             <div className="flex flex-col md:flex-row gap-8 items-start">
               <div className="flex-shrink-0">
-                <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-blue-500/30 to-purple-500/30 flex items-center justify-center border border-white/10">
-                  <GraduationCap className="w-12 h-12 text-blue-400" />
+                <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-[#D4B59E]/30 to-[#D4B59E]/30 flex items-center justify-center border border-white/10">
+                  <GraduationCap className="w-12 h-12 text-[#D4B59E]" />
                 </div>
               </div>
               <div className="flex-1 space-y-4">
                 <div>
                   <h3 className="text-2xl font-bold text-white">{teacher.name}</h3>
-                  <p className="text-blue-400 text-sm">{teacher.title}</p>
+                  <p className="text-[#D4B59E] text-sm">{teacher.title}</p>
                 </div>
-                <p className="text-gray-400 leading-relaxed">{teacher.bio}</p>
+                <p className="text-[rgba(249,246,240,0.55)] leading-relaxed">{teacher.bio}</p>
                 <div className="flex flex-wrap gap-4">
                   <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10">
                     <Award className="w-4 h-4 text-amber-400" />
-                    <span className="text-sm text-gray-300">{teacher.yearsOfExperience}+ سنوات خبرة</span>
+                    <span className="text-sm text-[rgba(249,246,240,0.75)]">{teacher.yearsOfExperience}+ {t('courseDetails.teacherSection.yearsExperience')}</span>
                   </div>
                   <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10">
-                    <Users className="w-4 h-4 text-blue-400" />
-                    <span className="text-sm text-gray-300">{teacher.studentsCount.toLocaleString()}+ طالب</span>
+                    <Users className="w-4 h-4 text-[#D4B59E]" />
+                    <span className="text-sm text-[rgba(249,246,240,0.75)]">{teacher.studentsCount.toLocaleString()}+ {t('courseDetails.teacherSection.students')}</span>
                   </div>
                   <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10">
                     <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                    <span className="text-sm text-gray-300">{teacher.rating} تقييم</span>
+                    <span className="text-sm text-[rgba(249,246,240,0.75)]">{teacher.rating} {t('courseDetails.teacherSection.rating')}</span>
                   </div>
                 </div>
                 {teacher.achievements.length > 0 && (
                   <div className="space-y-2">
-                    <h4 className="text-sm font-semibold text-gray-300">الإنجازات:</h4>
+                    <h4 className="text-sm font-semibold text-[rgba(249,246,240,0.75)]">{t('courseDetails.teacherSection.achievements')}</h4>
                     <div className="flex flex-wrap gap-2">
                       {teacher.achievements.map((achievement, idx) => (
                         <span key={idx} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 text-sm text-amber-300">
@@ -292,9 +299,11 @@ function TeacherSection({ course }: { course: CourseDetail }) {
 }
 
 function ReviewsSection({ course }: { course: CourseDetail }) {
+  const { t } = useTranslation();
+
   return (
-    <section className="relative overflow-hidden py-16 sm:py-20" dir="rtl">
-      <div className="absolute inset-0 bg-[#050816] -z-20" />
+    <section className="relative overflow-hidden py-16 sm:py-20">
+      <div className="absolute inset-0 bg-[#0F2520] -z-20" />
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           <motion.div
@@ -306,13 +315,13 @@ function ReviewsSection({ course }: { course: CourseDetail }) {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#D4B59E]" />
               </span>
-              <span className="text-sm font-medium text-gray-300">آراء الطلاب</span>
+              <span className="text-sm font-medium text-[rgba(249,246,240,0.75)]">{t('courseDetails.reviews.badge')}</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold leading-tight">
-              <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-purple-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
-                آراء الطلاب
+              <span className="bg-gradient-to-r from-[#D4B59E] via-[#C7A187] to-[#D4B59E] bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
+                {t('courseDetails.reviews.title')}
               </span>
             </h2>
             <div className="flex items-center justify-center gap-2 mt-4">
@@ -322,7 +331,7 @@ function ReviewsSection({ course }: { course: CourseDetail }) {
                   <Star key={star} className={`w-5 h-5 ${star <= Math.round(course.rating) ? 'text-amber-400 fill-amber-400' : 'text-gray-600'}`} />
                 ))}
               </div>
-              <span className="text-gray-400">({course.reviews.length} تقييم)</span>
+              <span className="text-[rgba(249,246,240,0.55)]">({course.reviews.length} {t('courseDetails.reviews.ratingsCount')})</span>
             </div>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -336,7 +345,7 @@ function ReviewsSection({ course }: { course: CourseDetail }) {
                 className="p-6 rounded-2xl bg-white/[0.04] backdrop-blur-xl border border-white/10 hover:border-blue-500/30 transition-all duration-300"
               >
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500/30 to-purple-500/30 flex items-center justify-center border border-white/10 flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#D4B59E]/30 to-[#D4B59E]/30 flex items-center justify-center border border-white/10 flex-shrink-0">
                     <span className="text-lg font-bold text-blue-300">{review.studentName.charAt(0)}</span>
                   </div>
                   <div className="flex-1">
@@ -349,7 +358,7 @@ function ReviewsSection({ course }: { course: CourseDetail }) {
                     ))}
                   </div>
                 </div>
-                <p className="text-sm text-gray-400 leading-relaxed">&ldquo;{review.content}&rdquo;</p>
+                <p className="text-sm text-[rgba(249,246,240,0.55)] leading-relaxed">&ldquo;{review.content}&rdquo;</p>
                 <p className="text-xs text-gray-600 mt-3">{review.date}</p>
               </motion.div>
             ))}
@@ -361,9 +370,11 @@ function ReviewsSection({ course }: { course: CourseDetail }) {
 }
 
 function FAQSection({ course }: { course: CourseDetail }) {
+  const { t } = useTranslation();
+
   return (
-    <section className="relative overflow-hidden py-16 sm:py-20" dir="rtl">
-      <div className="absolute inset-0 bg-[#050816] -z-20" />
+    <section className="relative overflow-hidden py-16 sm:py-20">
+      <div className="absolute inset-0 bg-[#0F2520] -z-20" />
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -375,13 +386,13 @@ function FAQSection({ course }: { course: CourseDetail }) {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#D4B59E]" />
               </span>
-              <span className="text-sm font-medium text-gray-300">الأسئلة الشائعة</span>
+              <span className="text-sm font-medium text-[rgba(249,246,240,0.75)]">{t('courseDetails.faq.badge')}</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold leading-tight">
-              <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-purple-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
-                الأسئلة الشائعة
+              <span className="bg-gradient-to-r from-[#D4B59E] via-[#C7A187] to-[#D4B59E] bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
+                {t('courseDetails.faq.title')}
               </span>
             </h2>
           </motion.div>
@@ -396,13 +407,13 @@ function FAQSection({ course }: { course: CourseDetail }) {
                 className="group overflow-hidden rounded-2xl bg-white/[0.04] backdrop-blur-xl border border-white/10 open:border-blue-500/30 transition-all duration-300"
               >
                 <summary className="flex items-center justify-between p-5 cursor-pointer list-none">
-                  <span className="text-base font-medium text-white group-open:text-blue-400 transition-colors">
+                  <span className="text-base font-medium text-white group-open:text-[#D4B59E] transition-colors">
                     {item.question}
                   </span>
-                  <ChevronDown className="w-5 h-5 text-gray-400 group-open:rotate-180 group-open:text-blue-400 transition-all duration-300" />
+                  <ChevronDown className="w-5 h-5 text-[rgba(249,246,240,0.55)] group-open:rotate-180 group-open:text-[#D4B59E] transition-all duration-300" />
                 </summary>
                 <div className="px-5 pb-5">
-                  <p className="text-sm text-gray-400 leading-relaxed">{item.answer}</p>
+                  <p className="text-sm text-[rgba(249,246,240,0.55)] leading-relaxed">{item.answer}</p>
                 </div>
               </motion.details>
             ))}
@@ -414,10 +425,12 @@ function FAQSection({ course }: { course: CourseDetail }) {
 }
 
 function CTASection({ course }: { course: CourseDetail }) {
+  const { t } = useTranslation();
+
   return (
-    <section className="relative overflow-hidden py-20 sm:py-24" dir="rtl">
-      <div className="absolute inset-0 bg-[#050816] -z-20" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-r from-blue-600/10 to-purple-600/10 blur-[120px] -z-10" />
+    <section className="relative overflow-hidden py-20 sm:py-24">
+      <div className="absolute inset-0 bg-[#0F2520] -z-20" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-r from-[#D4B59E]/10 to-[#C7A187]/10 blur-[120px] -z-10" />
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -426,21 +439,21 @@ function CTASection({ course }: { course: CourseDetail }) {
           className="max-w-3xl mx-auto text-center"
         >
           <h2 className="text-4xl sm:text-5xl font-bold leading-tight mb-6">
-            <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-purple-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
-              ابدأ رحلة التعلم اليوم
+            <span className="bg-gradient-to-r from-[#D4B59E] via-[#C7A187] to-[#D4B59E] bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
+              {t('courseDetails.cta.title')}
             </span>
           </h2>
-          <p className="text-lg text-gray-400 mb-8">
-            انضم إلى {course.studentsCount.toLocaleString()}+ طالب وابدأ رحلتك في إتقان {course.title}
+          <p className="text-lg text-[rgba(249,246,240,0.55)] mb-8">
+            {t('courseDetails.cta.joinPrefix')} {course.studentsCount.toLocaleString()}+ {t('courseDetails.cta.joinMiddle')} {course.title}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="relative group overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white border-0 px-10 py-4 text-lg font-bold shadow-lg shadow-blue-600/25 transition-all duration-300 cursor-pointer"
+              className="relative group overflow-hidden rounded-2xl bg-gradient-to-r from-[#D4B59E] to-[#C7A187] hover:from-[#D4B59E] hover:to-[#D4B59E] text-white border-0 px-10 py-4 text-lg font-bold shadow-lg shadow-blue-600/25 transition-all duration-300 cursor-pointer"
             >
               <span className="relative z-10 flex items-center gap-2">
-                اشترك الآن
+                {t('courseDetails.subscribeNow')}
                 <ArrowLeft className="w-5 h-5 group-hover:translate-x-[-4px] transition-transform" />
               </span>
               <div className="absolute inset-0 bg-white/10 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300 rounded-2xl" />
@@ -449,7 +462,7 @@ function CTASection({ course }: { course: CourseDetail }) {
               to="/courses"
               className="bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-white/20 rounded-2xl px-8 py-4 text-base font-semibold backdrop-blur-sm transition-all duration-300 flex items-center gap-2"
             >
-              تصفح الدورات
+              {t('courseDetails.cta.browseCourses')}
             </Link>
           </div>
         </motion.div>
@@ -459,26 +472,27 @@ function CTASection({ course }: { course: CourseDetail }) {
 }
 
 export function CourseDetailsPage() {
+  const { t } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
   const course = slug ? getCourseBySlug(slug) : undefined;
 
   if (!course) {
     return (
-      <div className="flex min-h-[80vh] flex-col items-center justify-center bg-[#050816]" dir="rtl">
+      <div className="flex min-h-[80vh] flex-col items-center justify-center bg-[#0F2520]">
         <div className="text-center max-w-md px-4">
-          <div className="w-24 h-24 mx-auto mb-6 rounded-3xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center border border-white/10">
-            <BookOpen className="w-12 h-12 text-blue-400" />
+          <div className="w-24 h-24 mx-auto mb-6 rounded-3xl bg-gradient-to-br from-[#D4B59E]/20 to-[#D4B59E]/20 flex items-center justify-center border border-white/10">
+            <BookOpen className="w-12 h-12 text-[#D4B59E]" />
           </div>
-          <h1 className="text-4xl font-bold text-white mb-4">الكورس غير موجود</h1>
-          <p className="text-gray-400 mb-8 leading-relaxed">
-            عذراً، لم نتمكن من العثور على الكورس الذي تبحث عنه. قد يكون قد تم إزالته أو الرابط غير صحيح.
+          <h1 className="text-4xl font-bold text-white mb-4">{t('courseDetails.notFoundTitle')}</h1>
+          <p className="text-[rgba(249,246,240,0.55)] mb-8 leading-relaxed">
+            {t('courseDetails.notFoundDescription')}
           </p>
           <Link
             to="/courses"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold shadow-lg shadow-blue-600/25 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#D4B59E] to-[#C7A187] hover:from-[#D4B59E] hover:to-[#D4B59E] text-white font-bold shadow-lg shadow-blue-600/25 transition-all duration-300"
           >
             <ArrowLeft className="w-5 h-5" />
-            العودة للدورات
+            {t('courseDetails.backToCourses')}
           </Link>
         </div>
       </div>
@@ -486,7 +500,7 @@ export function CourseDetailsPage() {
   }
 
   return (
-    <div className="bg-[#050816]">
+    <div className="bg-[#0F2520]">
       <CourseHero course={course} />
       <CoursePreview course={course} />
       <LearningObjectivesSection course={course} />
@@ -499,4 +513,3 @@ export function CourseDetailsPage() {
     </div>
   );
 }
-

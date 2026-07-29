@@ -24,18 +24,18 @@ export function HeroSection({ className }: HeroSectionProps) {
         'relative min-h-screen overflow-hidden pt-28 pb-16 md:pt-36 md:pb-20',
         className
       )}
-      dir="rtl"
+     
     >
-      {/* Dark background */}
-      <div className="absolute inset-0 bg-[#050816] -z-20" />
+      {/* Dark emerald background */}
+      <div className="absolute inset-0 bg-[#0F2520] -z-20" />
 
-      {/* Gradient orbs */}
-      <div className="absolute top-1/4 -right-32 w-[500px] h-[500px] rounded-full bg-blue-500/20 blur-[120px] -z-10 animate-[orb-float_8s_ease-in-out_infinite]" />
-      <div className="absolute bottom-1/4 -left-32 w-[400px] h-[400px] rounded-full bg-purple-500/15 blur-[100px] -z-10 animate-[orb-float-2_10s_ease-in-out_infinite]" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-blue-600/5 blur-[150px] -z-10" />
+      {/* Emerald/champagne gradient orbs */}
+      <div className="absolute top-1/4 -right-32 w-[500px] h-[500px] rounded-full bg-[rgba(212,181,158,0.08)] blur-[120px] -z-10 animate-[float-slow_8s_ease-in-out_infinite]" />
+      <div className="absolute bottom-1/4 -left-32 w-[400px] h-[400px] rounded-full bg-[rgba(212,181,158,0.05)] blur-[100px] -z-10 animate-[float-slow_10s_ease-in-out_infinite]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[rgba(212,181,158,0.03)] blur-[150px] -z-10" />
 
       {/* Top-right accent glow */}
-      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-gradient-to-bl from-blue-500/10 to-transparent rounded-full blur-[80px] -z-10" />
+      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-gradient-to-bl from-[rgba(212,181,158,0.06)] to-transparent rounded-full blur-[80px] -z-10" />
 
       <div className="container mx-auto px-4">
         <motion.div
@@ -62,7 +62,7 @@ export function HeroSection({ className }: HeroSectionProps) {
       </div>
 
       {/* Bottom fade gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#050816] to-transparent -z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0F2520] to-transparent -z-10" />
     </section>
   );
 }

@@ -1,39 +1,39 @@
 /**
  * About Teacher section data
  *
- * All Arabic text content for the redesigned About Teacher section.
+ * Text fields hold i18n translation keys (see src/i18n/locales/*.json).
  */
 
 export const ABOUT_TEACHER_DATA = {
   section: {
-    badge: 'فلسفتنا في تعليم اللغة العربية',
-    title: 'خبرة تعليمية تصنع الفارق',
-    description:
-      'نسعى إلى تقديم تجربة تعليمية متكاملة في مادة اللغة العربية تعتمد على الشرح المبسط، والتدريب العملي، والمتابعة المستمرة لمساعدة كل طالب على تحقيق أفضل النتائج.',
+    badgeKey: 'about.section.badge',
+    titleKey: 'about.section.title',
+    descriptionKey: 'about.section.description',
   },
   mission: {
-    title: 'رسالتنا التعليمية',
-    paragraph:
-      'نؤمن أن تعلم اللغة العربية لا يعتمد على الحفظ فقط، بل على الفهم العميق، والتدريب المستمر، وربط القواعد بالتطبيق العملي، لذلك تم تصميم هذه المنصة لتقديم تجربة تعليمية حديثة تساعد الطلاب على التفوق بثقة.',
+    titleKey: 'about.mission.title',
+    paragraphKey: 'about.mission.paragraph',
   },
+  titleKey: 'about.badgeSecondary',
+  descriptionKey: 'about.description',
+  teacherInfoKey: 'about.teacherInfo',
   features: [
-    'شرح مبسط وسهل الفهم',
-    'متابعة مستمرة لأداء الطلاب',
-    'تدريبات واختبارات بعد كل درس',
+    'about.features.feature1',
+    'about.features.feature2',
+    'about.features.feature3',
   ],
   achievements: [
-    { value: '+5', label: 'سنة خبرة', icon: 'GraduationCap' },
-    { value: '+1000', label: 'طالب وطالبة', icon: 'Users' },
-    { value: '95%', label: 'نسبة النجاح', icon: 'Star' },
-    { value: '+300', label: 'درس وشرح', icon: 'BookOpen' },
-    { value: '100%', label: 'دعم ومتابعة', icon: 'Headphones' },
-    { value: '100%', label: 'محتوى محدث', icon: 'RefreshCw' },
+    { valueKey: 'about.achievements.GraduationCap.value', labelKey: 'about.achievements.GraduationCap.label', icon: 'GraduationCap' },
+    { valueKey: 'about.achievements.Users.value', labelKey: 'about.achievements.Users.label', icon: 'Users' },
+    { valueKey: 'about.achievements.Star.value', labelKey: 'about.achievements.Star.label', icon: 'Star' },
+    { valueKey: 'about.achievements.BookOpen.value', labelKey: 'about.achievements.BookOpen.label', icon: 'BookOpen' },
+    { valueKey: 'about.achievements.Headphones.value', labelKey: 'about.achievements.Headphones.label', icon: 'Headphones' },
+    { valueKey: 'about.achievements.RefreshCw.value', labelKey: 'about.achievements.RefreshCw.label', icon: 'RefreshCw' },
   ],
   timeline: [
-    { year: '2014', label: 'بداية الرحلة التعليمية' },
-    { year: '2017', label: 'تطوير أسلوب شرح حديث' },
-    { year: '2021', label: 'آلاف الطلاب المتفوقين' },
-    { year: '2026', label: 'إطلاق المنصة التعليمية' },
+    { year: '2014', labelKey: 'about.timeline.2014' },
+    { year: '2017', labelKey: 'about.timeline.2017' },
+    { year: '2021', labelKey: 'about.timeline.2021' },
+    { year: '2026', labelKey: 'about.timeline.2026' },
   ],
 } as const;
-

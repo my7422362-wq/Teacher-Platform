@@ -7,6 +7,7 @@
 
 import { motion } from 'framer-motion';
 import { GraduationCap, Users, Award, Clock, BookOpen, TrendingUp } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -27,11 +28,12 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 export function WhyChooseUs({ className }: WhyChooseUsProps) {
+  const { t } = useTranslation();
+
   return (
     <section
       id="why-choose-us"
       className={cn('py-16 sm:py-20 lg:py-24', className)}
-      dir="rtl"
     >
       <div className="container mx-auto px-4">
         {/* Section header */}
@@ -43,13 +45,13 @@ export function WhyChooseUs({ className }: WhyChooseUsProps) {
           transition={{ duration: 0.5 }}
         >
           <Badge variant="secondary" className="inline-flex">
-            لماذا نحن
+            {t('whyChooseUs.badge')}
           </Badge>
           <h2 className="text-heading font-bold text-foreground">
-            لماذا تختار منصتنا؟
+            {t('whyChooseUs.title')}
           </h2>
           <p className="text-muted-foreground max-w-lg mx-auto">
-            نقدم لك تجربة تعليمية متكاملة تجمع بين الجودة والمرونة
+            {t('whyChooseUs.description')}
           </p>
         </motion.div>
 
@@ -60,7 +62,7 @@ export function WhyChooseUs({ className }: WhyChooseUsProps) {
 
             return (
               <motion.div
-                key={item.title}
+                key={item.icon}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
@@ -71,11 +73,11 @@ export function WhyChooseUs({ className }: WhyChooseUsProps) {
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                       <Icon className="h-6 w-6" />
                     </div>
-                    <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
+                    <h3 className="text-lg font-semibold text-foreground">{t(item.titleKey)}</h3>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      {item.description}
+                      {t(item.descriptionKey)}
                     </p>
                   </CardContent>
                 </Card>

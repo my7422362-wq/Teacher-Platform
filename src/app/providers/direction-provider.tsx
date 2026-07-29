@@ -1,36 +1,41 @@
 import { createContext, useContext, useEffect, type ReactNode } from 'react';
-import { useLocalStorage } from '@/hooks/use-local-storage';
+import { useTranslation } from 'react-i18next';
+import { STORAGE_KEYS } from '@/constants';
+import type { SupportedLanguage } from '@/i18n/config';
 
 type Direction = 'rtl' | 'ltr';
 
 interface DirectionContextType {
   direction: Direction;
-  setDirection: (dir: Direction) => void;
-  toggleDirection: () => void;
+  language: SupportedLanguage;
+  setLanguage: (lang: SupportedLanguage) => void;
+  toggleLanguage: () => void;
   isRTL: boolean;
 }
 
 const DirectionContext = createContext<DirectionContextType | undefined>(undefined);
 
 export function DirectionProvider({ children }: { children: ReactNode }) {
-  const [direction, setDirection] = useLocalStorage<Direction>(
-    'direction',
-    (import.meta.env.VITE_APP_DIRECTION as Direction) || 'rtl'
-  );
+  const { i18n } = useTranslation();
+  const language: SupportedLanguage = i18n.language === 'en' ? 'en' : 'ar';
+  const direction: Direction = language === 'ar' ? 'rtl' : 'ltr';
 
   useEffect(() => {
     document.documentElement.dir = direction;
-    document.documentElement.lang = direction === 'rtl' ? 'ar' : 'en';
-  }, [direction]);
+    document.documentElement.lang = language;
+  }, [direction, language]);
 
-  const toggleDirection = () => {
-    setDirection((prev) => (prev === 'rtl' ? 'ltr' : 'rtl'));
+  const setLanguage = (lang: SupportedLanguage) => {
+    i18n.changeLanguage(lang);
+    window.localStorage.setItem(STORAGE_KEYS.LOCALE, lang);
+  };
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'ar' ? 'en' : 'ar');
   };
 
   return (
-    <DirectionContext.Provider
-      value={{ direction, setDirection, toggleDirection, isRTL: direction === 'rtl' }}
-    >
+    <DirectionContext.Provider value={{ direction, language, setLanguage, toggleLanguage, isRTL: direction === 'rtl' }}>
       {children}
     </DirectionContext.Provider>
   );
@@ -43,4 +48,3 @@ export function useDirection() {
   }
   return context;
 }
-

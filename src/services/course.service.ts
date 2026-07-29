@@ -1,59 +1,57 @@
 import type { ApiResponse, Course, Lesson, Category } from '@/types';
 
-const BASE = '/courses';
-
 export const courseService = {
   /**
    * Get all courses (with optional filters).
    */
-  async getAll(params?: Record<string, unknown>): Promise<ApiResponse<Course[]>> {
+  async getAll(_params?: Record<string, unknown>): Promise<ApiResponse<Course[]>> {
     // TODO: Replace with real API call
-    // return get<Course[]>(BASE, { params });
+    // return get<Course[]>('/courses', { params });
     throw new Error('Not implemented — course.getAll');
   },
 
   /**
    * Get a single course by ID.
    */
-  async getById(id: number): Promise<ApiResponse<Course>> {
+  async getById(_id: number): Promise<ApiResponse<Course>> {
     // TODO: Replace with real API call
-    // return get<Course>(`${BASE}/${id}`);
+    // return get<Course>(`/courses/${id}`);
     throw new Error('Not implemented — course.getById');
   },
 
   /**
    * Get lessons for a course.
    */
-  async getLessons(courseId: number): Promise<ApiResponse<Lesson[]>> {
+  async getLessons(_courseId: number): Promise<ApiResponse<Lesson[]>> {
     // TODO: Replace with real API call
-    // return get<Lesson[]>(`${BASE}/${courseId}/lessons`);
+    // return get<Lesson[]>(`/courses/${courseId}/lessons`);
     throw new Error('Not implemented — course.getLessons');
   },
 
   /**
    * Create a new course.
    */
-  async create(data: Partial<Course>): Promise<ApiResponse<Course>> {
+  async create(_data: Partial<Course>): Promise<ApiResponse<Course>> {
     // TODO: Replace with real API call
-    // return post<Course>(BASE, data);
+    // return post<Course>('/courses', data);
     throw new Error('Not implemented — course.create');
   },
 
   /**
    * Update an existing course.
    */
-  async update(id: number, data: Partial<Course>): Promise<ApiResponse<Course>> {
+  async update(_id: number, _data: Partial<Course>): Promise<ApiResponse<Course>> {
     // TODO: Replace with real API call
-    // return put<Course>(`${BASE}/${id}`, data);
+    // return put<Course>(`/courses/${id}`, data);
     throw new Error('Not implemented — course.update');
   },
 
   /**
    * Delete a course.
    */
-  async delete(id: number): Promise<ApiResponse<null>> {
+  async delete(_id: number): Promise<ApiResponse<null>> {
     // TODO: Replace with real API call
-    // return del<null>(`${BASE}/${id}`);
+    // return del<null>(`/courses/${id}`);
     throw new Error('Not implemented — course.delete');
   },
 
@@ -66,4 +64,3 @@ export const courseService = {
     throw new Error('Not implemented — course.getCategories');
   },
 };
-

@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom';
 import { GraduationCap } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export function Logo() {
+  const { t } = useTranslation();
+
   return (
     <Link to="/" className="flex items-center gap-2.5 group">
-      <div className="relative">
-        <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg opacity-40 group-hover:opacity-70 blur-sm transition-opacity duration-300" />
-        <GraduationCap className="relative h-7 w-7 text-blue-400 group-hover:text-blue-300 transition-colors" />
+      <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-[#D4B59E] group-hover:bg-[#C7A187] transition-colors">
+        <GraduationCap className="h-5 w-5 text-[#0F2520]" />
       </div>
-      <span className="font-bold text-lg text-white">منصة التعلم</span>
+      <span className="font-bold text-lg text-[#F9F6F0]">{t('common.brand')}</span>
     </Link>
   );
 }

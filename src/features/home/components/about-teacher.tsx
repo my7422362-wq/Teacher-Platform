@@ -6,6 +6,7 @@
  */
 
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -21,6 +22,8 @@ const fadeInUp = {
 };
 
 export function AboutTeacher({ className }: AboutTeacherProps) {
+  const { t } = useTranslation();
+
   return (
     <section
       id="about-teacher"
@@ -58,12 +61,12 @@ export function AboutTeacher({ className }: AboutTeacherProps) {
             }}
           >
             <motion.div className="space-y-2" variants={fadeInUp}>
-              <Badge variant="secondary">عن المعلم</Badge>
+              <Badge variant="secondary">{t('about.badgeSecondary')}</Badge>
               <h2 className="text-heading font-bold text-foreground">
                 {ABOUT_TEACHER.name}
               </h2>
               <p className="text-subtitle text-muted-foreground">
-                {ABOUT_TEACHER.title}
+                {t(ABOUT_TEACHER.titleKey)}
               </p>
             </motion.div>
 
@@ -71,7 +74,7 @@ export function AboutTeacher({ className }: AboutTeacherProps) {
               className="text-body text-muted-foreground leading-relaxed"
               variants={fadeInUp}
             >
-              {ABOUT_TEACHER.bio}
+              {t(ABOUT_TEACHER.teacherInfoKey)}
             </motion.p>
 
             {/* Credentials grid */}
@@ -81,11 +84,11 @@ export function AboutTeacher({ className }: AboutTeacherProps) {
             >
               {ABOUT_TEACHER.credentials.map((cred) => (
                 <div
-                  key={cred.label}
+                  key={cred.labelKey}
                   className="rounded-xl border bg-card p-4 text-center shadow-sm"
                 >
-                  <p className="text-2xl font-bold text-primary">{cred.value}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{cred.label}</p>
+                  <p className="text-2xl font-bold text-primary">{t(cred.valueKey)}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t(cred.labelKey)}</p>
                 </div>
               ))}
             </motion.div>
@@ -95,4 +98,3 @@ export function AboutTeacher({ className }: AboutTeacherProps) {
     </section>
   );
 }
-

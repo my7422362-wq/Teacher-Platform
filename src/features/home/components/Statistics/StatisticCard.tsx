@@ -61,18 +61,18 @@ export function StatisticCard({
       )}
     >
       {/* Hover glow effect */}
-      <div className="absolute -inset-[1px] bg-gradient-to-br from-purple-600/0 via-blue-600/0 to-purple-600/0 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-700 -z-10 rounded-3xl" />
+      <div className="absolute -inset-[1px] bg-gradient-to-br from-purple-600/0 via-blue-600/0 to-[#C7A187]/0 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-700 -z-10 rounded-3xl" />
 
       {/* Top gradient line */}
-      <div className="absolute top-0 left-[15%] right-[15%] h-px bg-gradient-to-r from-transparent via-blue-500/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute top-0 left-[15%] right-[15%] h-px bg-gradient-to-r from-transparent via-[#C7A187]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
       {/* Icon container */}
       <div className="relative mx-auto mb-5 flex h-16 w-16 items-center justify-center">
         {/* Glow ring */}
-        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 blur-md group-hover:blur-xl transition-all duration-500" />
+        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#D4B59E]/20 to-[#D4B59E]/20 blur-md group-hover:blur-xl transition-all duration-500" />
         {/* Inner circle */}
-        <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-white/10 group-hover:border-purple-400/30 group-hover:scale-110 transition-all duration-500">
-          <Icon className="h-6 w-6 text-blue-400 group-hover:text-purple-400 transition-colors duration-500" />
+        <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#D4B59E]/10 to-[#D4B59E]/10 border border-white/10 group-hover:border-purple-400/30 group-hover:scale-110 transition-all duration-500">
+          <Icon className="h-6 w-6 text-[#D4B59E] group-hover:text-[#D4B59E] transition-colors duration-500" />
         </div>
       </div>
 
@@ -87,12 +87,12 @@ export function StatisticCard({
       </h3>
 
       {/* Description */}
-      <p className="mt-2 text-sm text-gray-400 leading-relaxed">
+      <p className="mt-2 text-sm text-[rgba(249,246,240,0.55)] leading-relaxed">
         {description}
       </p>
 
       {/* Bottom accent glow */}
-      <div className="absolute bottom-0 left-[20%] right-[20%] h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute bottom-0 left-[20%] right-[20%] h-px bg-gradient-to-r from-transparent via-[#C7A187]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
     </motion.div>
   );
 }

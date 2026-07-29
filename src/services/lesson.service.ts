@@ -1,60 +1,57 @@
 import type { ApiResponse, Lesson } from '@/types';
 
-const BASE = '/lessons';
-
 export const lessonService = {
   /**
    * Get all lessons for a course.
    */
-  async getAll(courseId: number): Promise<ApiResponse<Lesson[]>> {
+  async getAll(_courseId: number): Promise<ApiResponse<Lesson[]>> {
     // TODO: Replace with real API call
-    // return get<Lesson[]>(`/courses/${courseId}${BASE}`);
+    // return get<Lesson[]>(`/courses/${courseId}/lessons`);
     throw new Error('Not implemented — lesson.getAll');
   },
 
   /**
    * Get a single lesson by ID.
    */
-  async getById(id: number): Promise<ApiResponse<Lesson>> {
+  async getById(_id: number): Promise<ApiResponse<Lesson>> {
     // TODO: Replace with real API call
-    // return get<Lesson>(`${BASE}/${id}`);
+    // return get<Lesson>(`/lessons/${id}`);
     throw new Error('Not implemented — lesson.getById');
   },
 
   /**
    * Create a new lesson.
    */
-  async create(data: Partial<Lesson>): Promise<ApiResponse<Lesson>> {
+  async create(_data: Partial<Lesson>): Promise<ApiResponse<Lesson>> {
     // TODO: Replace with real API call
-    // return post<Lesson>(BASE, data);
+    // return post<Lesson>('/lessons', data);
     throw new Error('Not implemented — lesson.create');
   },
 
   /**
    * Update an existing lesson.
    */
-  async update(id: number, data: Partial<Lesson>): Promise<ApiResponse<Lesson>> {
+  async update(_id: number, _data: Partial<Lesson>): Promise<ApiResponse<Lesson>> {
     // TODO: Replace with real API call
-    // return put<Lesson>(`${BASE}/${id}`, data);
+    // return put<Lesson>(`/lessons/${id}`, data);
     throw new Error('Not implemented — lesson.update');
   },
 
   /**
    * Delete a lesson.
    */
-  async delete(id: number): Promise<ApiResponse<null>> {
+  async delete(_id: number): Promise<ApiResponse<null>> {
     // TODO: Replace with real API call
-    // return del<null>(`${BASE}/${id}`);
+    // return del<null>(`/lessons/${id}`);
     throw new Error('Not implemented — lesson.delete');
   },
 
   /**
    * Reorder lessons (batch update positions).
    */
-  async reorder(items: { id: number; order: number }[]): Promise<ApiResponse<Lesson[]>> {
+  async reorder(_items: { id: number; order: number }[]): Promise<ApiResponse<Lesson[]>> {
     // TODO: Replace with real API call
-    // return put<Lesson[]>(`${BASE}/reorder`, { items });
+    // return put<Lesson[]>('/lessons/reorder', { items });
     throw new Error('Not implemented — lesson.reorder');
   },
 };
-

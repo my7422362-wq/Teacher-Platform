@@ -66,7 +66,7 @@ export function DropdownMenu({ children }: DropdownMenuProps) {
 
   return (
     <DropdownContext.Provider value={{ isOpen, setIsOpen, triggerRef }}>
-      <div className="relative inline-block text-right" ref={containerRef} dir="rtl">
+      <div className="relative inline-block text-start" ref={containerRef}>
         {children}
       </div>
     </DropdownContext.Provider>
@@ -83,13 +83,11 @@ export const DropdownMenuTrigger = forwardRef<HTMLButtonElement, DropdownMenuTri
     const { isOpen, setIsOpen, triggerRef } = useDropdown();
 
     const handleRef = (node: HTMLButtonElement | null) => {
-      // Handle forwardRef
       if (typeof ref === 'function') {
         ref(node);
       } else if (ref) {
         ref.current = node;
       }
-      // Handle context ref
       (triggerRef as any).current = node;
     };
 
@@ -101,7 +99,7 @@ export const DropdownMenuTrigger = forwardRef<HTMLButtonElement, DropdownMenuTri
         aria-expanded={isOpen}
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
+          'inline-flex items-center justify-center rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#D4B59E] disabled:pointer-events-none disabled:opacity-50',
           className
         )}
         {...props}
@@ -122,16 +120,11 @@ export const DropdownMenuContent = forwardRef<HTMLDivElement, DropdownMenuConten
   ({ className, align = 'start', children, ...props }, ref) => {
     const { isOpen } = useDropdown();
 
-    // Alignment classes considering RTL direction
-    // In RTL:
-    // - align="start" aligns to the right side of trigger (default in RTL)
-    // - align="end" aligns to the left side of trigger
-    // - align="center" centers it
     const alignClass =
       align === 'start'
-        ? 'right-0 origin-top-right'
+        ? 'start-0 origin-top'
         : align === 'end'
-          ? 'left-0 origin-top-left'
+          ? 'end-0 origin-top'
           : 'left-1/2 -translate-x-1/2 origin-top';
 
     return (
@@ -146,7 +139,7 @@ export const DropdownMenuContent = forwardRef<HTMLDivElement, DropdownMenuConten
             role="menu"
             aria-orientation="vertical"
             className={cn(
-              'absolute z-50 mt-2 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md',
+              'absolute z-50 mt-2 min-w-[8rem] overflow-hidden rounded-xl border border-[rgba(212,181,158,0.18)] bg-[#21483F] p-1 shadow-elevated',
               alignClass,
               className
             )}
@@ -191,7 +184,7 @@ export const DropdownMenuItem = forwardRef<HTMLDivElement, DropdownMenuItemProps
           }
         }}
         className={cn(
-          'relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 text-start',
+          'relative flex cursor-default select-none items-center rounded-lg px-2 py-1.5 text-sm outline-none transition-colors hover:bg-[#1B4038] hover:text-[#F9F6F0] focus:bg-[#1B4038] focus:text-[#F9F6F0] text-[rgba(249,246,240,0.75)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50 text-start',
           disabled && 'pointer-events-none opacity-50',
           className
         )}
@@ -207,7 +200,7 @@ DropdownMenuItem.displayName = 'DropdownMenuItem';
 // Separator Component
 export const DropdownMenuSeparator = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('-mx-1 my-1 h-px bg-muted', className)} {...props} />
+    <div ref={ref} className={cn('-mx-1 my-1 h-px bg-[rgba(212,181,158,0.1)]', className)} {...props} />
   )
 );
 DropdownMenuSeparator.displayName = 'DropdownMenuSeparator';
@@ -215,7 +208,7 @@ DropdownMenuSeparator.displayName = 'DropdownMenuSeparator';
 // Label Component
 export const DropdownMenuLabel = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn('px-2 py-1.5 text-sm font-semibold text-start', className)} {...props} />
+    <div ref={ref} className={cn('px-2 py-1.5 text-sm font-semibold text-start text-[#F9F6F0]', className)} {...props} />
   )
 );
 DropdownMenuLabel.displayName = 'DropdownMenuLabel';
@@ -227,3 +220,4 @@ export const DropdownContent = DropdownMenuContent;
 export const DropdownItem = DropdownMenuItem;
 export const DropdownSeparator = DropdownMenuSeparator;
 export const DropdownLabel = DropdownMenuLabel;
+

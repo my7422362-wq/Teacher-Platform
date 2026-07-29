@@ -2,6 +2,7 @@ import { forwardRef, useState, useEffect, useRef } from 'react';
 import type { KeyboardEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, ChevronDown } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 
 export interface SelectOption {
@@ -31,7 +32,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       value: controlledValue,
       defaultValue,
       onChange,
-      placeholder = 'اختر خياراً...',
+      placeholder,
       disabled = false,
       error,
       label,
@@ -42,6 +43,8 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     },
     ref
   ) => {
+    const { t } = useTranslation();
+    const resolvedPlaceholder = placeholder ?? t('common.selectPlaceholder');
     const [isOpen, setIsOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(controlledValue || defaultValue || '');
     const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -127,9 +130,9 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     };
 
     return (
-      <div className={cn('relative w-full text-right', className)} ref={containerRef} dir="rtl">
+      <div className={cn('relative w-full text-start', className)} ref={containerRef}>
         {label && (
-          <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-foreground">
+          <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-[#F9F6F0]">
             {label}
           </label>
         )}
@@ -144,7 +147,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
           tabIndex={-1}
           aria-hidden="true"
         >
-          <option value="">{placeholder}</option>
+          <option value="">{resolvedPlaceholder}</option>
           {options.map((opt) => (
             <option key={opt.value} value={opt.value} disabled={opt.disabled}>
               {opt.label}
@@ -169,17 +172,17 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
             }
           }}
           className={cn(
-            'flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 text-start',
-            isOpen && 'ring-1 ring-ring border-ring',
+            'flex h-9 w-full items-center justify-between rounded-xl border border-[rgba(212,181,158,0.18)] bg-[#16342D] px-3 py-1 text-sm text-[#F9F6F0] shadow-sm transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#D4B59E] disabled:cursor-not-allowed disabled:opacity-50 text-start',
+            isOpen && 'ring-1 ring-[#D4B59E] border-[#D4B59E]',
             error && 'border-destructive focus-visible:ring-destructive',
-            !selectedValue && 'text-muted-foreground'
+            !selectedValue && 'text-[rgba(249,246,240,0.45)]'
           )}
           {...props}
         >
-          <span className="truncate">{selectedOption ? selectedOption.label : placeholder}</span>
+          <span className="truncate">{selectedOption ? selectedOption.label : resolvedPlaceholder}</span>
           <ChevronDown
             className={cn(
-              'h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200',
+              'h-4 w-4 shrink-0 text-[rgba(249,246,240,0.45)] transition-transform duration-200',
               isOpen && 'rotate-180'
             )}
           />
@@ -192,12 +195,12 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -4, scale: 0.98 }}
               transition={{ duration: 0.12, ease: 'easeOut' }}
-              className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md focus:outline-none"
+              className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-xl border border-[rgba(212,181,158,0.18)] bg-[#21483F] p-1 shadow-elevated focus:outline-none"
               role="listbox"
-              aria-label={label || placeholder}
+              aria-label={label || resolvedPlaceholder}
             >
               {options.length === 0 ? (
-                <div className="py-2 px-3 text-sm text-muted-foreground text-center">لا توجد خيارات</div>
+                <div className="py-2 px-3 text-sm text-[rgba(249,246,240,0.55)] text-center">{t('common.noOptions')}</div>
               ) : (
                 options.map((option, idx) => {
                   const isSelected = option.value === selectedValue;
@@ -212,14 +215,14 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
                       onClick={() => handleSelect(option.value)}
                       onMouseEnter={() => !option.disabled && setFocusedIndex(idx)}
                       className={cn(
-                        'relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 ps-2 pe-8 text-sm outline-none transition-colors text-start',
-                        isFocused && 'bg-accent text-accent-foreground',
+                        'relative flex w-full cursor-pointer select-none items-center rounded-lg py-1.5 ps-2 pe-8 text-sm outline-none transition-colors text-start',
+                        isFocused && 'bg-[#1B4038] text-[#F9F6F0]',
                         option.disabled && 'pointer-events-none opacity-50',
-                        isSelected && 'font-medium'
+                        isSelected && 'font-medium text-[#D4B59E]'
                       )}
                     >
-                      <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
-                        {isSelected && <Check className="h-4 w-4" />}
+                      <span className="absolute end-2 flex h-3.5 w-3.5 items-center justify-center">
+                        {isSelected && <Check className="h-4 w-4 text-[#D4B59E]" />}
                       </span>
                       <span className="truncate">{option.label}</span>
                     </div>
@@ -239,3 +242,4 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
 Select.displayName = 'Select';
 
 export { Select };
+

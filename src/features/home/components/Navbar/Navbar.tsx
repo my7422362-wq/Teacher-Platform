@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Menu } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 import { NAV_LINKS } from '@/features/home/data';
 import { Logo } from './Logo';
@@ -14,6 +15,7 @@ interface NavbarProps {
 }
 
 export function Navbar({ className }: NavbarProps) {
+  const { t } = useTranslation();
   const [isMobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('#hero');
   const [scrolled, setScrolled] = useState(false);
@@ -64,7 +66,7 @@ export function Navbar({ className }: NavbarProps) {
   };
 
   return (
-    <nav className={cn('fixed top-0 left-0 right-0 z-50 px-4 pt-4', className)} dir="rtl">
+    <nav className={cn('fixed top-0 left-0 right-0 z-50 px-4 pt-4', className)}>
       <motion.div
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -72,8 +74,8 @@ export function Navbar({ className }: NavbarProps) {
         className={cn(
           'mx-auto max-w-7xl rounded-2xl transition-all duration-300',
           scrolled
-            ? 'bg-[#050816]/80 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)]'
-            : 'bg-[#050816]/40 backdrop-blur-lg border border-white/5'
+            ? 'bg-[#0F2520]/95 backdrop-blur-lg border border-[rgba(212,181,158,0.15)] shadow-elevated'
+            : 'bg-[#0F2520]/80 backdrop-blur-md border border-[rgba(212,181,158,0.08)]'
         )}
       >
         <div className="flex h-16 items-center justify-between px-6">
@@ -83,16 +85,16 @@ export function Navbar({ className }: NavbarProps) {
           {/* Center: Desktop nav links */}
           <NavLinks activeSection={activeSection} onLinkClick={handleNavClick} />
 
-          {/* Left: Desktop auth buttons only (NO theme toggle) */}
+          {/* Left: Desktop auth buttons */}
           <NavbarActions />
 
-          {/* Mobile: Hamburger only (NO theme toggle) */}
+          {/* Mobile: Hamburger */}
           <div className="md:hidden flex items-center gap-2">
             <button
               type="button"
-              className="inline-flex items-center justify-center h-9 w-9 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-200 cursor-pointer"
+              className="inline-flex items-center justify-center h-9 w-9 rounded-lg text-[rgba(249,246,240,0.55)] hover:text-[#F9F6F0] hover:bg-[#16342D] transition-all duration-200 cursor-pointer"
               onClick={() => setMobileOpen((prev) => !prev)}
-              aria-label={isMobileOpen ? 'إغلاق القائمة' : 'فتح القائمة'}
+              aria-label={isMobileOpen ? t('nav.closeMenu') : t('nav.openMenu')}
             >
               <Menu className="h-5 w-5" />
             </button>

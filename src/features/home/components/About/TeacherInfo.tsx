@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { ABOUT_TEACHER_DATA } from './about.data';
 
 const itemFadeUp = {
@@ -6,7 +7,7 @@ const itemFadeUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: 'easeOut' },
+    transition: { duration: 0.5, ease: 'easeOut' as const },
   },
 };
 
@@ -19,6 +20,8 @@ const containerVariants = {
 };
 
 export function TeacherInfo() {
+  const { t } = useTranslation();
+
   return (
     <motion.div
       className="relative z-10 space-y-6"
@@ -34,19 +37,19 @@ export function TeacherInfo() {
       >
         <span className="relative flex h-2.5 w-2.5">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
+          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#D4B59E]" />
         </span>
-        <span className="text-sm font-medium text-gray-300">
-          {ABOUT_TEACHER_DATA.title}
+        <span className="text-sm font-medium text-[rgba(249,246,240,0.75)]">
+          {t(ABOUT_TEACHER_DATA.titleKey)}
         </span>
       </motion.div>
 
       {/* Main description */}
       <motion.p
         variants={itemFadeUp}
-        className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-xl"
+        className="text-base sm:text-lg text-[rgba(249,246,240,0.55)] leading-relaxed max-w-xl"
       >
-        {ABOUT_TEACHER_DATA.description}
+        {t(ABOUT_TEACHER_DATA.descriptionKey)}
       </motion.p>
 
       {/* Teacher bio glassmorphism card */}
@@ -55,13 +58,13 @@ export function TeacherInfo() {
         className="relative overflow-hidden rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-6 shadow-lg hover:border-white/20 transition-all duration-300"
       >
         {/* Top accent gradient line */}
-        <div className="absolute top-0 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
+        <div className="absolute top-0 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-[#C7A187]/50 to-transparent" />
 
         <div className="flex items-start gap-4">
           {/* Quote icon */}
-          <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
+          <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-[#D4B59E]/20 to-[#D4B59E]/20 flex items-center justify-center">
             <svg
-              className="w-5 h-5 text-blue-400"
+              className="w-5 h-5 text-[#D4B59E]"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
@@ -69,8 +72,8 @@ export function TeacherInfo() {
             </svg>
           </div>
 
-          <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
-            {ABOUT_TEACHER_DATA.teacherInfo}
+          <p className="text-[rgba(249,246,240,0.75)] leading-relaxed text-sm sm:text-base">
+            {t(ABOUT_TEACHER_DATA.teacherInfoKey)}
           </p>
         </div>
       </motion.div>

@@ -56,7 +56,7 @@ export function Modal({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/60"
             onClick={onClose}
           />
           <motion.div
@@ -65,21 +65,21 @@ export function Modal({
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.2 }}
             className={cn(
-              'relative z-50 w-full rounded-lg border bg-background p-6 shadow-lg',
+              'relative z-50 w-full rounded-2xl border border-[rgba(212,181,158,0.18)] bg-[#21483F] p-6 shadow-elevated',
               sizeMap[size],
               className
             )}
           >
             <div className="flex items-center justify-between mb-4">
               <div>
-                {title && <h2 className="text-lg font-semibold">{title}</h2>}
+                {title && <h2 className="text-lg font-semibold text-[#F9F6F0]">{title}</h2>}
                 {description && (
-                  <p className="text-sm text-muted-foreground">{description}</p>
+                  <p className="text-sm text-[rgba(249,246,240,0.75)]">{description}</p>
                 )}
               </div>
               <button
                 onClick={onClose}
-                className="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                className="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-[#F9F6F0]"
               >
                 <X className="h-4 w-4" />
               </button>

@@ -16,8 +16,8 @@ const sizeMap = {
 export function Loader({ size = 'md', className, text }: LoaderProps) {
   return (
     <div className={cn('flex flex-col items-center justify-center gap-2', className)}>
-      <Loader2 className={cn('animate-spin text-primary', sizeMap[size])} />
-      {text && <p className="text-sm text-muted-foreground">{text}</p>}
+        <Loader2 className={cn('animate-spin text-[#D4B59E]', sizeMap[size])} />
+      {text && <p className="text-sm text-[rgba(249,246,240,0.75)]">{text}</p>}
     </div>
   );
 }

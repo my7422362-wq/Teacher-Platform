@@ -7,6 +7,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { FAQ_ITEMS, type FAQItem } from '@/features/home/data';
@@ -17,6 +18,7 @@ interface FAQSectionProps {
 }
 
 function FAQAccordionItem({ item }: { item: FAQItem }) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -27,7 +29,7 @@ function FAQAccordionItem({ item }: { item: FAQItem }) {
         className="flex w-full items-center justify-between py-4 text-right text-sm font-medium text-foreground hover:text-primary transition-colors gap-4"
         aria-expanded={isOpen}
       >
-        <span>{item.question}</span>
+        <span>{t(item.questionKey)}</span>
         <ChevronDown
           className={cn(
             'h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200',
@@ -46,7 +48,7 @@ function FAQAccordionItem({ item }: { item: FAQItem }) {
             className="overflow-hidden"
           >
             <p className="pb-4 text-sm text-muted-foreground leading-relaxed">
-              {item.answer}
+              {t(item.answerKey)}
             </p>
           </motion.div>
         )}
@@ -56,11 +58,12 @@ function FAQAccordionItem({ item }: { item: FAQItem }) {
 }
 
 export function FAQSection({ items = FAQ_ITEMS, className }: FAQSectionProps) {
+  const { t } = useTranslation();
+
   return (
     <section
       id="faq"
       className={cn('py-16 sm:py-20 lg:py-24', className)}
-      dir="rtl"
     >
       <div className="container mx-auto px-4">
         {/* Section header */}
@@ -72,13 +75,13 @@ export function FAQSection({ items = FAQ_ITEMS, className }: FAQSectionProps) {
           transition={{ duration: 0.5 }}
         >
           <Badge variant="secondary" className="inline-flex">
-            الأسئلة الشائعة
+            {t('faq.badge')}
           </Badge>
           <h2 className="text-heading font-bold text-foreground">
-            هل لديك استفسار؟
+            {t('faq.title')}
           </h2>
           <p className="text-muted-foreground max-w-lg mx-auto">
-            إجابات لأكثر الأسئلة شيوعاً عن المنصة والدورات
+            {t('faq.description')}
           </p>
         </motion.div>
 

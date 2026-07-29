@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { ABOUT_TEACHER_DATA } from './about.data';
 
 const itemFadeUp = {
@@ -11,7 +12,11 @@ const itemFadeUp = {
 };
 
 export function SectionHeader() {
-  const { badge, title, description } = ABOUT_TEACHER_DATA.section;
+  const { t } = useTranslation();
+  const { badgeKey, titleKey, descriptionKey } = ABOUT_TEACHER_DATA.section;
+  const badge = t(badgeKey);
+  const title = t(titleKey);
+  const description = t(descriptionKey);
 
   return (
     <motion.div
@@ -23,13 +28,13 @@ export function SectionHeader() {
       {/* Badge */}
       <motion.div
         variants={itemFadeUp}
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6"
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[rgba(212,181,158,0.1)] border border-[rgba(212,181,158,0.2)] backdrop-blur-sm mb-6"
       >
         <span className="relative flex h-2.5 w-2.5">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D4B59E] opacity-75" />
+          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#D4B59E]" />
         </span>
-        <span className="text-sm font-medium text-gray-300">{badge}</span>
+        <span className="text-sm font-medium text-[rgba(249,246,240,0.8)]">{badge}</span>
       </motion.div>
 
       {/* Title */}
@@ -37,15 +42,13 @@ export function SectionHeader() {
         variants={itemFadeUp}
         className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight"
       >
-        <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-purple-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
-          {title}
-        </span>
+        <span className="text-[#D4B59E]">{title}</span>
       </motion.h2>
 
       {/* Description */}
       <motion.p
         variants={itemFadeUp}
-        className="mt-6 text-base sm:text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto"
+        className="mt-6 text-base sm:text-lg text-[rgba(249,246,240,0.65)] leading-relaxed max-w-2xl mx-auto"
       >
         {description}
       </motion.p>

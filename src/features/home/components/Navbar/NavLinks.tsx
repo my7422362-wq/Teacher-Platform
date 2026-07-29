@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 import { NAV_LINKS } from '@/features/home/data';
 
@@ -17,6 +18,8 @@ const navItemVariants = {
 };
 
 export function NavLinks({ activeSection, onLinkClick }: NavLinksProps) {
+  const { t } = useTranslation();
+
   return (
     <ul className="hidden md:flex items-center gap-1">
       {NAV_LINKS.map((link, i) => (
@@ -33,22 +36,15 @@ export function NavLinks({ activeSection, onLinkClick }: NavLinksProps) {
             className={cn(
               'relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200',
               activeSection === link.href
-                ? 'text-blue-400'
-                : 'text-gray-400 hover:text-white hover:bg-white/5'
+                ? 'text-[#D4B59E] font-semibold'
+                : 'text-[rgba(249,246,240,0.55)] hover:text-[#F9F6F0] hover:bg-[#16342D]'
             )}
           >
-            {link.label}
+            {t(link.labelKey)}
             {activeSection === link.href && (
               <motion.span
                 layoutId="activeNav"
-                className="absolute inset-0 bg-blue-500/10 rounded-lg border border-blue-500/30"
-                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              />
-            )}
-            {activeSection === link.href && (
-              <motion.span
-                layoutId="activeUnderline"
-                className="absolute -bottom-0.5 left-2 right-2 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+                className="absolute -bottom-1 left-2 right-2 h-0.5 bg-[#D4B59E] rounded-full"
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
               />
             )}
