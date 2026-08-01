@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { Target } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Target } from 'lucide-react';
 import { ABOUT_TEACHER_DATA } from './about.data';
 
 const itemFadeRight = {
@@ -14,8 +14,9 @@ const itemFadeRight = {
 
 export function MissionCard() {
   const { t } = useTranslation();
-  const title = t(ABOUT_TEACHER_DATA.mission.titleKey);
-  const paragraph = t(ABOUT_TEACHER_DATA.mission.paragraphKey);
+  const { titleKey, paragraphKey } = ABOUT_TEACHER_DATA.mission;
+  const title = t(titleKey);
+  const paragraph = t(paragraphKey);
 
   return (
     <motion.div

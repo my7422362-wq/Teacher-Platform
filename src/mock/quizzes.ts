@@ -10,7 +10,7 @@ export const mockQuizzes: Quiz[] = [
     timeLimit: 15,
     passingScore: 70,
     maxAttempts: 3,
-    questionsCount: 10,
+    questionsCount: 3,
     questions: [
       {
         id: 1,

@@ -5,7 +5,8 @@
     "selectPlaceholder": "اختر خياراً...",
     "noOptions": "لا توجد خيارات",
     "noData": "لا توجد بيانات",
-    "noDataDescription": "لم يتم العثور على أي عناصر لعرضها"
+    "noDataDescription": "لم يتم العثور على أي عناصر لعرضها",
+    "viewAll": "عرض الكل"
   },
   "languageSwitcher": {
     "label": "اللغة",
@@ -181,6 +182,9 @@
     "register": {
       "title": "إنشاء حساب جديد",
       "description": "أدخل بياناتك لإنشاء حساب جديد على المنصة",
+      "iAm": "أنا:",
+      "roleStudent": "طالب",
+      "roleTeacher": "مدرس",
       "fullName": "الاسم بالكامل",
       "fullNamePlaceholder": "الاسم بالكامل",
       "email": "البريد الإلكتروني",
@@ -259,7 +263,8 @@
       "gradeRequired": "الصف الدراسي مطلوب",
       "governorateRequired": "المحافظة مطلوبة",
       "confirmPasswordRequired": "تأكيد كلمة المرور مطلوب",
-      "passwordMismatch": "كلمتا المرور غير متطابقتين"
+      "passwordMismatch": "كلمتا المرور غير متطابقتين",
+      "currentPasswordRequired": "كلمة المرور الحالية مطلوبة"
     },
     "toast": {
       "loginSuccess": "تم تسجيل الدخول بنجاح",
@@ -274,13 +279,17 @@
     },
     "errors": {
       "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
-      "emailExists": "هذا البريد الإلكتروني مستخدم بالفعل"
+      "emailExists": "هذا البريد الإلكتروني مستخدم بالفعل",
+      "accountNotFound": "لم يتم العثور على الحساب",
+      "currentPasswordIncorrect": "كلمة المرور الحالية غير صحيحة"
     },
     "messages": {
       "loginSuccess": "تم تسجيل الدخول بنجاح",
       "registerSuccess": "تم إنشاء الحساب بنجاح",
       "logoutSuccess": "تم تسجيل الخروج بنجاح",
-      "forgotPasswordSent": "إذا كان البريد الإلكتروني مسجلاً لدينا، فسيصلك رابط إعادة التعيين"
+      "forgotPasswordSent": "إذا كان البريد الإلكتروني مسجلاً لدينا، فسيصلك رابط إعادة التعيين",
+      "profileUpdateSuccess": "تم تحديث الملف الشخصي بنجاح",
+      "passwordChangeSuccess": "تم تغيير كلمة المرور بنجاح"
     }
   },
   "dashboardLayout": {
@@ -295,7 +304,17 @@
       "profile": "الملف الشخصي",
       "courses": "الدورات",
       "students": "الطلاب",
-      "analytics": "التحليلات"
+      "analytics": "التحليلات",
+      "schedule": "الجدول الدراسي",
+      "quizzes": "الكويزات",
+      "exams": "الامتحانات",
+      "grades": "الدرجات",
+      "revisionMaterials": "مواد المراجعة",
+      "certificates": "الشهادات",
+      "payments": "المدفوعات",
+      "notifications": "الإشعارات",
+      "parents": "أولياء الأمور",
+      "lessons": "الدروس"
     }
   },
   "mainLayout": {
@@ -318,15 +337,363 @@
     }
   },
   "studentPages": {
-    "dashboard": { "title": "لوحة تحكم الطالب", "description": "مرحباً بك في لوحة التحكم الخاصة بك" },
+    "dashboard": {
+      "title": "لوحة تحكم الطالب",
+      "description": "مرحباً بك في لوحة التحكم الخاصة بك",
+      "welcome": "أهلاً بعودتك، {{name}}",
+      "welcomeSubtitle": "استمر في رحلتك التعليمية من حيث توقفت",
+      "stats": {
+        "enrolledCourses": "الكورسات المسجلة",
+        "completedCourses": "الكورسات المكتملة",
+        "avgProgress": "متوسط التقدم",
+        "certificates": "الشهادات"
+      },
+      "continueLearning": {
+        "title": "استكمل التعلّم",
+        "resume": "متابعة",
+        "lessonsProgress": "{{completed}} من {{total}} درس",
+        "empty": "لا توجد كورسات جارية حالياً"
+      },
+      "myCourses": {
+        "title": "دوراتي",
+        "viewAll": "عرض الكل",
+        "tabs": { "all": "الكل", "inProgress": "جارية", "completed": "مكتملة" },
+        "empty": "لا توجد كورسات في هذا التصنيف"
+      },
+      "schedule": {
+        "title": "الجدول الدراسي",
+        "kindAssignment": "واجب",
+        "kindExam": "امتحان",
+        "dueToday": "اليوم",
+        "dueTomorrow": "غداً",
+        "dueIn": "بعد {{days}} يوم",
+        "empty": "لا توجد مواعيد قادمة"
+      },
+      "notifications": {
+        "title": "الإشعارات",
+        "viewAll": "عرض الكل",
+        "empty": "لا توجد إشعارات جديدة"
+      },
+      "grades": {
+        "title": "الدرجات",
+        "score": "{{score}} من {{max}}",
+        "passed": "ناجح",
+        "failed": "راسب",
+        "kindAssignment": "واجب",
+        "kindQuiz": "كويز",
+        "kindExam": "امتحان",
+        "empty": "لا توجد نتائج بعد"
+      },
+      "quizzes": {
+        "title": "الكويزات",
+        "questionsCount": "{{count}} سؤال",
+        "timeLimit": "{{minutes}} دقيقة",
+        "attempts": "المحاولات: {{used}} من {{max}}",
+        "bestScore": "أفضل نتيجة: {{score}} من {{total}}",
+        "start": "ابدأ الكويز",
+        "retake": "إعادة المحاولة",
+        "noAttemptsLeft": "انتهت محاولاتك",
+        "empty": "لا توجد كويزات متاحة حالياً"
+      },
+      "exams": {
+        "title": "الامتحانات",
+        "statusUpcoming": "قادم",
+        "statusOpen": "متاح الآن",
+        "statusClosed": "منتهي",
+        "opensOn": "يبدأ في {{date}}",
+        "closesOn": "ينتهي في {{date}}",
+        "start": "ابدأ الامتحان",
+        "viewResult": "نتيجتك: {{score}} من {{total}}",
+        "empty": "لا توجد امتحانات مجدولة"
+      },
+      "revisionMaterials": {
+        "title": "مواد المراجعة",
+        "typeSummary": "ملخص",
+        "typeVideo": "فيديو",
+        "typeFlashcards": "بطاقات مراجعة",
+        "view": "فتح",
+        "empty": "لا توجد مواد مراجعة متاحة"
+      },
+      "certificates": {
+        "title": "الشهادات",
+        "issuedOn": "تاريخ الإصدار: {{date}}",
+        "download": "تحميل الشهادة",
+        "empty": "لسه معملتش أي شهادة"
+      },
+      "recommended": {
+        "title": "قد يعجبك أيضاً",
+        "viewCourse": "عرض الكورس",
+        "empty": "لا توجد اقتراحات حالياً"
+      },
+      "payments": {
+        "title": "المدفوعات",
+        "course": "الكورس",
+        "amount": "المبلغ",
+        "method": "طريقة الدفع",
+        "status": "الحالة",
+        "date": "التاريخ",
+        "statusValues": { "pending": "قيد المراجعة", "approved": "مقبول", "rejected": "مرفوض" },
+        "methodValues": {
+          "credit_card": "بطاقة ائتمان",
+          "paypal": "PayPal",
+          "bank_transfer": "تحويل بنكي",
+          "cash": "نقدي"
+        },
+        "empty": "لا توجد مدفوعات مسجلة"
+      }
+    },
     "courses": { "title": "دوراتي", "description": "جميع الدورات المسجل فيها" },
-    "profile": { "title": "الملف الشخصي", "description": "إدارة معلوماتك الشخصية" }
+    "profile": {
+      "title": "الملف الشخصي",
+      "description": "إدارة معلوماتك الشخصية",
+      "photoLabel": "الصورة الشخصية",
+      "changePhoto": "تغيير الصورة",
+      "nameLabel": "الاسم",
+      "saveChanges": "حفظ التغييرات",
+      "changePasswordTitle": "تغيير كلمة المرور",
+      "changePasswordDescription": "تأكد من استخدام كلمة مرور قوية للحفاظ على أمان حسابك",
+      "currentPassword": "كلمة المرور الحالية",
+      "newPassword": "كلمة المرور الجديدة",
+      "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+      "changePasswordSubmit": "تحديث كلمة المرور",
+      "toast": {
+        "updateSuccess": "تم تحديث بياناتك بنجاح",
+        "updateFailed": "تعذر تحديث البيانات",
+        "passwordChangeSuccess": "تم تغيير كلمة المرور بنجاح",
+        "passwordChangeFailed": "تعذر تغيير كلمة المرور"
+      }
+    },
+    "schedule": { "title": "الجدول الدراسي", "description": "كل مواعيد الواجبات والامتحانات القادمة" },
+    "quizzes": { "title": "الكويزات", "description": "كل الكويزات المتاحة في دوراتك" },
+    "exams": { "title": "الامتحانات", "description": "امتحاناتك القادمة والمتاحة والمنتهية" },
+    "grades": { "title": "الدرجات", "description": "كل درجاتك في الواجبات والكويزات والامتحانات" },
+    "revision": { "title": "مواد المراجعة", "description": "ملخصات وفيديوهات وبطاقات مراجعة لدوراتك" },
+    "certificates": { "title": "الشهادات", "description": "الشهادات اللي حصلت عليها" },
+    "payments": { "title": "المدفوعات", "description": "سجل مدفوعاتك على الدورات" },
+    "notifications": { "title": "الإشعارات", "description": "كل إشعاراتك في مكان واحد" }
+  },
+  "quizTakePage": {
+    "questionOf": "سؤال {{current}} من {{total}}",
+    "timeRemaining": "الوقت المتبقي: {{time}}",
+    "next": "التالي",
+    "previous": "السابق",
+    "submit": "إنهاء وتسليم",
+    "resultTitle": "نتيجتك",
+    "resultScore": "حصلت على {{score}} من {{total}}",
+    "passed": "مبروك! لقد نجحت",
+    "failed": "للأسف لم تحقق درجة النجاح",
+    "backToDashboard": "الرجوع للوحة التحكم",
+    "retake": "إعادة المحاولة",
+    "noAttemptsLeft": "لقد استنفدت كل محاولاتك المتاحة",
+    "notFound": "الكويز غير موجود"
+  },
+  "examTakePage": {
+    "questionOf": "سؤال {{current}} من {{total}}",
+    "timeRemaining": "الوقت المتبقي: {{time}}",
+    "next": "التالي",
+    "previous": "السابق",
+    "submit": "إنهاء وتسليم",
+    "resultTitle": "نتيجتك",
+    "resultScore": "حصلت على {{score}} من {{total}}",
+    "passed": "مبروك! لقد نجحت",
+    "failed": "للأسف لم تحقق درجة النجاح",
+    "backToDashboard": "الرجوع للوحة التحكم",
+    "alreadySubmitted": "لقد قدمت هذا الامتحان بالفعل، الامتحانات محاولة واحدة فقط",
+    "notOpenYet": "هذا الامتحان لم يبدأ بعد",
+    "closed": "انتهى وقت هذا الامتحان",
+    "notFound": "الامتحان غير موجود"
   },
   "teacherPages": {
-    "dashboard": { "title": "لوحة تحكم المعلم", "description": "مرحباً بك في لوحة التحكم الخاصة بك" },
-    "courses": { "title": "الدورات", "description": "إدارة الدورات التعليمية" },
-    "students": { "title": "الطلاب", "description": "إدارة الطلاب المسجلين" },
-    "analytics": { "title": "التحليلات", "description": "إحصائيات وتحليلات الأداء" }
+    "dashboard": {
+      "title": "لوحة تحكم المعلم",
+      "description": "مرحباً بك في لوحة التحكم الخاصة بك",
+      "welcome": "أهلاً بعودتك، {{name}}",
+      "welcomeSubtitle": "إليك نظرة عامة على منصتك اليوم",
+      "stats": {
+        "students": "إجمالي الطلاب",
+        "courses": "إجمالي الكورسات",
+        "teachers": "عدد المدرسين",
+        "groups": "عدد المجموعات",
+        "examsQuizzes": "الامتحانات والكويزات",
+        "revenue": "إجمالي الإيرادات"
+      },
+      "charts": {
+        "attendanceTitle": "نسبة الحضور (آخر 14 يوم)",
+        "enrollmentTitle": "الاشتراكات الجديدة (آخر 6 أشهر)",
+        "enrollmentTooltip": "{{count}} اشتراك جديد"
+      },
+      "schedule": {
+        "title": "جدول حصص اليوم",
+        "studentsCount": "{{count}} طالب",
+        "empty": "لا توجد حصص مجدولة اليوم"
+      },
+      "notifications": {
+        "title": "آخر الإشعارات",
+        "empty": "لا توجد إشعارات جديدة"
+      },
+      "quickActions": {
+        "title": "إجراءات سريعة",
+        "manageCourses": "إدارة الكورسات",
+        "manageStudents": "إدارة الطلاب",
+        "viewAnalytics": "عرض التحليلات"
+      }
+    },
+    "courses": {
+      "title": "الدورات",
+      "description": "إدارة الدورات التعليمية",
+      "addCourse": "إضافة كورس",
+      "editCourse": "تعديل الكورس",
+      "deleteCourse": "حذف الكورس",
+      "deleteConfirmTitle": "تأكيد الحذف",
+      "deleteConfirmMessage": "هل أنت متأكد إنك عايز تحذف كورس \"{{title}}\"؟ الإجراء ده مش هيتراجع.",
+      "cancel": "إلغاء",
+      "confirm": "تأكيد",
+      "save": "حفظ",
+      "students": "طالب",
+      "lessons": "درس",
+      "statusPublished": "منشور",
+      "statusDraft": "غير منشور",
+      "fields": {
+        "title": "اسم الكورس",
+        "description": "الوصف",
+        "price": "السعر (ريال)",
+        "duration": "المدة",
+        "durationPlaceholder": "مثال: 8 أسابيع",
+        "level": "المستوى",
+        "category": "التصنيف",
+        "categoryPlaceholder": "مثال: برمجة",
+        "isPublished": "نشر الكورس"
+      },
+      "levels": { "beginner": "مبتدئ", "intermediate": "متوسط", "advanced": "متقدم" },
+      "validation": {
+        "titleRequired": "اسم الكورس مطلوب (3 أحرف على الأقل)",
+        "descriptionRequired": "الوصف مطلوب (10 أحرف على الأقل)",
+        "priceInvalid": "السعر يجب أن يكون رقم صحيح",
+        "durationRequired": "المدة مطلوبة",
+        "categoryRequired": "التصنيف مطلوب"
+      },
+      "toast": {
+        "created": "تم إضافة الكورس بنجاح",
+        "updated": "تم تحديث الكورس بنجاح",
+        "deleted": "تم حذف الكورس"
+      },
+      "empty": "لا توجد كورسات بعد"
+    },
+    "lessons": {
+      "title": "الدروس",
+      "description": "اختر كورس عشان تدير دروسه",
+      "lessonsCount": "{{count}} درس",
+      "backToCourses": "الرجوع للدورات",
+      "manageLessons": "إدارة الدروس",
+      "addLesson": "إضافة درس",
+      "editLesson": "تعديل الدرس",
+      "deleteLesson": "حذف الدرس",
+      "deleteConfirmTitle": "تأكيد الحذف",
+      "deleteConfirmMessage": "هل أنت متأكد إنك عايز تحذف درس \"{{title}}\"؟",
+      "preview": "معاينة",
+      "empty": "لا توجد دروس بعد",
+      "fields": {
+        "title": "عنوان الدرس",
+        "description": "الوصف",
+        "duration": "المدة",
+        "durationPlaceholder": "مثال: 15:00",
+        "type": "نوع الدرس",
+        "isFree": "درس مجاني (معاينة مجانية)",
+        "isPublished": "نشر الدرس",
+        "video": "الفيديو",
+        "pdf": "ملف PDF"
+      },
+      "types": { "video": "فيديو", "article": "مقال", "quiz": "كويز", "assignment": "واجب" },
+      "uploadVideo": "رفع فيديو",
+      "uploadPdf": "رفع PDF",
+      "removeFile": "إزالة",
+      "noVideo": "لا يوجد فيديو مرفوع",
+      "noPdf": "لا يوجد ملف PDF مرفوع",
+      "validation": {
+        "titleRequired": "عنوان الدرس مطلوب (3 أحرف على الأقل)",
+        "descriptionRequired": "الوصف مطلوب",
+        "durationRequired": "المدة مطلوبة"
+      },
+      "toast": {
+        "created": "تم إضافة الدرس بنجاح",
+        "updated": "تم تحديث الدرس بنجاح",
+        "deleted": "تم حذف الدرس",
+        "reordered": "تم إعادة الترتيب"
+      },
+      "previewTitle": "معاينة المحتوى"
+    },
+    "students": {
+      "title": "الطلاب",
+      "description": "إدارة الطلاب المسجلين",
+      "searchPlaceholder": "ابحث بالاسم أو البريد الإلكتروني...",
+      "filterStatus": "الحالة",
+      "statusAll": "الكل",
+      "statusActive": "نشط",
+      "statusInactive": "غير نشط",
+      "statusSuspended": "موقوف",
+      "tableName": "الاسم",
+      "tableEmail": "البريد الإلكتروني",
+      "tableCourses": "الكورسات",
+      "tableStatus": "الحالة",
+      "tableGroups": "المجموعات",
+      "viewProfile": "عرض الملف",
+      "empty": "لا يوجد طلاب مطابقين للبحث"
+    },
+    "studentDetail": {
+      "backToStudents": "الرجوع لقائمة الطلاب",
+      "coursesTitle": "الكورسات المشترك فيها",
+      "coursesEmpty": "غير مسجل في أي كورس",
+      "attendanceTitle": "الحضور",
+      "attendanceRate": "نسبة الحضور",
+      "attendanceSessions": "{{count}} حصة",
+      "attendanceEmpty": "لا يوجد سجل حضور",
+      "statusPresent": "حاضر",
+      "statusAbsent": "غائب",
+      "statusLate": "متأخر",
+      "gradesTitle": "الدرجات",
+      "gradesEmpty": "لا توجد درجات مسجلة",
+      "kindAssignment": "واجب",
+      "kindQuiz": "كويز",
+      "kindExam": "امتحان",
+      "score": "{{score}} من {{max}}",
+      "subscriptionTitle": "حالة الاشتراك",
+      "notesTitle": "الملاحظات",
+      "notesEmpty": "لا توجد ملاحظات بعد",
+      "notesPlaceholder": "اكتب ملاحظة عن الطالب...",
+      "addNote": "إضافة ملاحظة",
+      "noteAdded": "تم إضافة الملاحظة"
+    },
+    "analytics": { "title": "التحليلات", "description": "إحصائيات وتحليلات الأداء" },
+    "parents": {
+      "title": "أولياء الأمور",
+      "description": "بيانات التواصل وحسابات أولياء أمور الطلاب",
+      "searchPlaceholder": "ابحث بالاسم أو البريد الإلكتروني...",
+      "tableName": "الاسم",
+      "tableRelationship": "صلة القرابة",
+      "tableStudent": "الطالب",
+      "tableContact": "التواصل",
+      "viewProfile": "عرض الملف",
+      "empty": "لا يوجد أولياء أمور مطابقين للبحث",
+      "relationshipFather": "أب",
+      "relationshipMother": "أم",
+      "relationshipGuardian": "ولي أمر"
+    },
+    "parentDetail": {
+      "backToParents": "الرجوع لقائمة أولياء الأمور",
+      "linkedStudentTitle": "الطالب المرتبط",
+      "contactTitle": "بيانات التواصل",
+      "expensesTitle": "متابعة المصروفات",
+      "expensesEmpty": "لا توجد مدفوعات مسجلة",
+      "communicationTitle": "سجل التواصل",
+      "communicationEmpty": "لا يوجد سجل تواصل بعد",
+      "channelCall": "مكالمة",
+      "channelWhatsapp": "واتساب",
+      "channelEmail": "بريد إلكتروني",
+      "channelMeeting": "اجتماع",
+      "summaryPlaceholder": "اكتب ملخص المكالمة أو الرسالة...",
+      "addEntry": "تسجيل تواصل جديد",
+      "entryAdded": "تم تسجيل التواصل"
+    }
   },
   "aboutPage": {
     "title": "عن المنصة",

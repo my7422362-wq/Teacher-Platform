@@ -1,0 +1,13 @@
+export { StatsOverview } from './StatsOverview';
+export { ContinueLearning } from './ContinueLearning';
+export { MyCoursesList } from './MyCoursesList';
+export { Schedule } from './Schedule';
+export { NotificationsPanel } from './NotificationsPanel';
+export { Grades } from './Grades';
+export { CertificatesGallery } from './CertificatesGallery';
+export { RecommendedCourses } from './RecommendedCourses';
+export { MyPayments } from './MyPayments';
+export { QuizzesList } from './QuizzesList';
+export { ExamsList } from './ExamsList';
+export { RevisionMaterials } from './RevisionMaterials';
+export { currentStudent } from './data';

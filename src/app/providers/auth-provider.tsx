@@ -23,6 +23,8 @@ interface AuthContextValue {
   logout: () => Promise<void>;
   forgotPassword: (email: string) => Promise<void>;
   loginAsGuest: () => AuthUser;
+  updateProfile: (data: Partial<Pick<AuthUser, 'name' | 'avatar' | 'grade'>>) => Promise<AuthUser>;
+  changePassword: (currentPassword: string, newPassword: string) => Promise<void>;
 }
 
 interface AuthProviderProps {
@@ -69,6 +71,28 @@ export function AuthProvider({ children }: AuthProviderProps) {
     await authService.forgotPassword(email);
   }, []);
 
+  const updateProfile = useCallback(
+    async (data: Partial<Pick<AuthUser, 'name' | 'avatar' | 'grade'>>) => {
+      if (!currentUser) throw new Error('Not authenticated');
+      const { data: updatedUser } = await authService.updateProfile(currentUser.id, data);
+      const session = sessionService.getSession();
+      if (session) {
+        sessionService.setSession({ ...session, user: updatedUser });
+      }
+      setCurrentUser(updatedUser);
+      return updatedUser;
+    },
+    [currentUser]
+  );
+
+  const changePassword = useCallback(
+    async (currentPassword: string, newPassword: string) => {
+      if (!currentUser) throw new Error('Not authenticated');
+      await authService.changePassword(currentUser.id, currentPassword, newPassword);
+    },
+    [currentUser]
+  );
+
   const loginAsGuest = useCallback(() => {
     const guest: AuthUser = {
       id: `guest-${Date.now()}`,
@@ -92,8 +116,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
       logout,
       forgotPassword,
       loginAsGuest,
+      updateProfile,
+      changePassword,
     }),
-    [currentUser, loading, login, register, logout, forgotPassword, loginAsGuest]
+    [
+      currentUser,
+      loading,
+      login,
+      register,
+      logout,
+      forgotPassword,
+      loginAsGuest,
+      updateProfile,
+      changePassword,
+    ]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

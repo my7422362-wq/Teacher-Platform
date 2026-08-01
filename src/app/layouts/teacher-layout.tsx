@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { DashboardLayout } from './dashboard-layout';
-import { LayoutDashboard, BookOpen, Users, BarChart3 } from 'lucide-react';
+import { LayoutDashboard, BookOpen, ListVideo, Users, UsersRound, BarChart3 } from 'lucide-react';
 
 export function TeacherLayout() {
   const { t } = useTranslation();
@@ -8,7 +8,9 @@ export function TeacherLayout() {
   const sidebarItems = [
     { icon: <LayoutDashboard className="h-4 w-4" />, label: t('dashboardLayout.sidebar.dashboard'), path: '/teacher/dashboard' },
     { icon: <BookOpen className="h-4 w-4" />, label: t('dashboardLayout.sidebar.courses'), path: '/teacher/courses' },
+    { icon: <ListVideo className="h-4 w-4" />, label: t('dashboardLayout.sidebar.lessons'), path: '/teacher/lessons' },
     { icon: <Users className="h-4 w-4" />, label: t('dashboardLayout.sidebar.students'), path: '/teacher/students' },
+    { icon: <UsersRound className="h-4 w-4" />, label: t('dashboardLayout.sidebar.parents'), path: '/teacher/parents' },
     { icon: <BarChart3 className="h-4 w-4" />, label: t('dashboardLayout.sidebar.analytics'), path: '/teacher/analytics' },
   ];
 

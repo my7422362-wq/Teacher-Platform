@@ -145,7 +145,7 @@ export function DashboardLayout({ sidebarItems, role }: DashboardLayoutProps) {
             {/* Profile Dropdown Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-2 rounded-lg hover:bg-[#16342D] p-1.5 px-2.5 transition-colors focus-visible:ring-1 focus-visible:ring-[#D4B59E] border border-[rgba(212,181,158,0.1)]">
-                <Avatar size="sm" fallback={currentUser?.name} />
+                <Avatar size="sm" src={currentUser?.avatar} fallback={currentUser?.name} />
                 <span className="hidden text-sm font-medium md:inline text-[#F9F6F0]">{currentUser?.name}</span>
                 <ChevronDown className="hidden h-4 w-4 md:inline text-[rgba(249,246,240,0.45)]" />
               </DropdownMenuTrigger>

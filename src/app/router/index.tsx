@@ -16,11 +16,26 @@ import {
   StudentDashboardPage,
   StudentCoursesPage,
   StudentProfilePage,
+  QuizTakePage,
+  ExamTakePage,
+  StudentQuizzesPage,
+  StudentExamsPage,
+  StudentGradesPage,
+  StudentSchedulePage,
+  StudentRevisionPage,
+  StudentCertificatesPage,
+  StudentPaymentsPage,
+  StudentNotificationsPage,
 } from '@/pages/student';
 import {
   TeacherDashboardPage,
   TeacherCoursesPage,
   TeacherStudentsPage,
+  TeacherStudentDetailPage,
+  TeacherParentsPage,
+  TeacherParentDetailPage,
+  TeacherCourseLessonsPage,
+  TeacherLessonsOverviewPage,
   TeacherAnalyticsPage,
 } from '@/pages/teacher';
 
@@ -52,6 +67,16 @@ export function AppRouter() {
           <Route path="dashboard" element={<StudentDashboardPage />} />
           <Route path="courses" element={<StudentCoursesPage />} />
           <Route path="profile" element={<StudentProfilePage />} />
+          <Route path="schedule" element={<StudentSchedulePage />} />
+          <Route path="quizzes" element={<StudentQuizzesPage />} />
+          <Route path="quizzes/:id" element={<QuizTakePage />} />
+          <Route path="exams" element={<StudentExamsPage />} />
+          <Route path="exams/:id" element={<ExamTakePage />} />
+          <Route path="grades" element={<StudentGradesPage />} />
+          <Route path="revision" element={<StudentRevisionPage />} />
+          <Route path="certificates" element={<StudentCertificatesPage />} />
+          <Route path="payments" element={<StudentPaymentsPage />} />
+          <Route path="notifications" element={<StudentNotificationsPage />} />
         </Route>
       </Route>
 
@@ -60,7 +85,12 @@ export function AppRouter() {
         <Route path="teacher" element={<TeacherLayout />}>
           <Route path="dashboard" element={<TeacherDashboardPage />} />
           <Route path="courses" element={<TeacherCoursesPage />} />
+          <Route path="courses/:id/lessons" element={<TeacherCourseLessonsPage />} />
+          <Route path="lessons" element={<TeacherLessonsOverviewPage />} />
           <Route path="students" element={<TeacherStudentsPage />} />
+          <Route path="students/:id" element={<TeacherStudentDetailPage />} />
+          <Route path="parents" element={<TeacherParentsPage />} />
+          <Route path="parents/:id" element={<TeacherParentDetailPage />} />
           <Route path="analytics" element={<TeacherAnalyticsPage />} />
         </Route>
       </Route>

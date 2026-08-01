@@ -19,6 +19,7 @@ function toAuthUser(account: StoredAccount): AuthUser {
     phone: account.phone,
     grade: account.grade,
     governorate: account.governorate,
+    avatar: account.avatar,
     role: account.role,
   };
 }
@@ -75,7 +76,7 @@ export const authService = {
       grade: input.grade,
       governorate: input.governorate,
       password: input.password,
-      role: 'student',
+      role: input.role,
       createdAt: new Date().toISOString(),
     };
     storageService.addAccount(account);
@@ -130,11 +131,53 @@ export const authService = {
   },
 
   /**
-   * Update the authenticated user's profile.
+   * Update the authenticated user's profile (name/avatar/grade).
+   *
+   * MOCK IMPLEMENTATION — patches the account stored in localStorage.
    */
-  async updateProfile(_data: Partial<User>): Promise<ApiResponse<User>> {
+  async updateProfile(
+    userId: string,
+    data: Partial<Pick<AuthUser, 'name' | 'avatar' | 'grade'>>
+  ): Promise<ApiResponse<AuthUser>> {
     // TODO: Replace with real API call
     // return put<User>(`/auth/profile`, data);
-    throw new Error('Not implemented — auth.updateProfile');
+    const updated = storageService.updateAccount(userId, data);
+    if (!updated) {
+      throw new Error(i18n.t('auth.errors.accountNotFound'));
+    }
+
+    return delay({
+      success: true,
+      message: i18n.t('auth.messages.profileUpdateSuccess'),
+      data: toAuthUser(updated),
+    });
+  },
+
+  /**
+   * Change the authenticated user's password after verifying the current one.
+   *
+   * MOCK IMPLEMENTATION — compares against the plaintext password stored in
+   * localStorage (mock-only, see StoredAccount).
+   */
+  async changePassword(
+    userId: string,
+    currentPassword: string,
+    newPassword: string
+  ): Promise<ApiResponse<null>> {
+    // TODO: Replace with real API call
+    // return post<null>(`/auth/change-password`, { currentPassword, newPassword });
+    const account = storageService.findById(userId);
+    if (!account || account.password !== currentPassword) {
+      await delay(null, 400);
+      throw new Error(i18n.t('auth.errors.currentPasswordIncorrect'));
+    }
+
+    storageService.updateAccount(userId, { password: newPassword });
+
+    return delay({
+      success: true,
+      message: i18n.t('auth.messages.passwordChangeSuccess'),
+      data: null,
+    });
   },
 };

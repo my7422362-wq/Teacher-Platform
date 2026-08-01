@@ -59,6 +59,8 @@ export interface Lesson {
   type: 'video' | 'article' | 'quiz' | 'assignment';
   isFree: boolean;
   isPublished: boolean;
+  videoFileName?: string;
+  pdfFileName?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -123,6 +125,69 @@ export interface Answer {
   textResponse?: string;
   isCorrect?: boolean;
   pointsEarned?: number;
+  createdAt: string;
+}
+
+export interface QuizSubmission {
+  id: number;
+  quizId: number;
+  userId: number;
+  attemptNumber: number;
+  score: number;
+  totalScore: number;
+  status: 'graded';
+  submittedAt: string;
+}
+
+export interface ExamQuestion {
+  id: number;
+  examId: number;
+  text: string;
+  type: 'multiple_choice' | 'true_false';
+  options: string[];
+  correctAnswer: string;
+  points: number;
+  order: number;
+}
+
+/**
+ * Exams are a distinct entity from Quiz: a single attempt only, only
+ * takeable within a fixed [startDate, endDate] window.
+ */
+export interface Exam {
+  id: number;
+  courseId: number;
+  title: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  duration: number;
+  totalScore: number;
+  passingScore: number;
+  questionsCount: number;
+  questions: ExamQuestion[];
+  isPublished: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ExamAttempt {
+  id: number;
+  examId: number;
+  userId: number;
+  score: number;
+  totalScore: number;
+  status: 'graded';
+  submittedAt: string;
+}
+
+export interface RevisionMaterial {
+  id: number;
+  courseId: number;
+  title: string;
+  description: string;
+  type: 'summary' | 'video' | 'flashcards';
+  url: string;
   createdAt: string;
 }
 
@@ -209,6 +274,57 @@ export interface PaymentRequest {
   adminNotes?: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface GroupScheduleSlot {
+  day: 'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday';
+  startTime: string;
+  endTime: string;
+}
+
+export interface Group {
+  id: number;
+  name: string;
+  courseId: number;
+  teacherId: number;
+  studentIds: number[];
+  schedule: GroupScheduleSlot[];
+  createdAt: string;
+}
+
+export interface AttendanceRecord {
+  id: number;
+  groupId: number;
+  studentId: number;
+  date: string;
+  status: 'present' | 'absent' | 'late';
+}
+
+export interface Parent {
+  id: number;
+  name: string;
+  relationship: 'father' | 'mother' | 'guardian';
+  email: string;
+  phone: string;
+  studentId: number;
+  createdAt: string;
+}
+
+export interface CommunicationLogEntry {
+  id: number;
+  parentId: number;
+  teacherId: number;
+  channel: 'call' | 'whatsapp' | 'email' | 'meeting';
+  summary: string;
+  date: string;
+}
+
+export interface StudentNote {
+  id: number;
+  studentId: number;
+  teacherId: number;
+  text: string;
+  createdAt: string;
 }
 
 export interface PaginatedResponse<T> {

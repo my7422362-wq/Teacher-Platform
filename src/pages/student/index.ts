@@ -1,4 +1,13 @@
 export { StudentDashboardPage } from './dashboard';
 export { StudentCoursesPage } from './courses';
 export { StudentProfilePage } from './profile';
-
+export { QuizTakePage } from './quiz-take';
+export { ExamTakePage } from './exam-take';
+export { StudentQuizzesPage } from './quizzes';
+export { StudentExamsPage } from './exams';
+export { StudentGradesPage } from './grades';
+export { StudentSchedulePage } from './schedule';
+export { StudentRevisionPage } from './revision';
+export { StudentCertificatesPage } from './certificates';
+export { StudentPaymentsPage } from './payments';
+export { StudentNotificationsPage } from './notifications';

@@ -12,6 +12,7 @@ export interface AuthUser {
   phone?: string;
   grade?: string;
   governorate?: string;
+  avatar?: string;
   role: AuthRole;
 }
 
@@ -25,6 +26,7 @@ export interface RegisterInput {
   name: string;
   email: string;
   phone: string;
+  role: 'student' | 'teacher';
   grade: string;
   governorate: string;
   password: string;

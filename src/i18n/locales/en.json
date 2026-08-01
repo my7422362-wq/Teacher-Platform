@@ -5,7 +5,8 @@
     "selectPlaceholder": "Select an option...",
     "noOptions": "No options available",
     "noData": "No data",
-    "noDataDescription": "No items were found to display"
+    "noDataDescription": "No items were found to display",
+    "viewAll": "View all"
   },
   "languageSwitcher": {
     "label": "Language",
@@ -181,6 +182,9 @@
     "register": {
       "title": "Create a New Account",
       "description": "Enter your details to create a new account on the platform",
+      "iAm": "I am:",
+      "roleStudent": "Student",
+      "roleTeacher": "Teacher",
       "fullName": "Full Name",
       "fullNamePlaceholder": "Full name",
       "email": "Email",
@@ -259,7 +263,8 @@
       "gradeRequired": "Grade is required",
       "governorateRequired": "Governorate is required",
       "confirmPasswordRequired": "Please confirm your password",
-      "passwordMismatch": "Passwords do not match"
+      "passwordMismatch": "Passwords do not match",
+      "currentPasswordRequired": "Current password is required"
     },
     "toast": {
       "loginSuccess": "Logged in successfully",
@@ -274,13 +279,17 @@
     },
     "errors": {
       "invalidCredentials": "Invalid email or password",
-      "emailExists": "This email is already in use"
+      "emailExists": "This email is already in use",
+      "accountNotFound": "Account not found",
+      "currentPasswordIncorrect": "Current password is incorrect"
     },
     "messages": {
       "loginSuccess": "Logged in successfully",
       "registerSuccess": "Account created successfully",
       "logoutSuccess": "Logged out successfully",
-      "forgotPasswordSent": "If this email is registered with us, a reset link will be sent"
+      "forgotPasswordSent": "If this email is registered with us, a reset link will be sent",
+      "profileUpdateSuccess": "Profile updated successfully",
+      "passwordChangeSuccess": "Password changed successfully"
     }
   },
   "dashboardLayout": {
@@ -295,7 +304,17 @@
       "profile": "Profile",
       "courses": "Courses",
       "students": "Students",
-      "analytics": "Analytics"
+      "analytics": "Analytics",
+      "schedule": "Schedule",
+      "quizzes": "Quizzes",
+      "exams": "Exams",
+      "grades": "Grades",
+      "revisionMaterials": "Revision Materials",
+      "certificates": "Certificates",
+      "payments": "Payments",
+      "notifications": "Notifications",
+      "parents": "Parents",
+      "lessons": "Lessons"
     }
   },
   "mainLayout": {
@@ -318,15 +337,363 @@
     }
   },
   "studentPages": {
-    "dashboard": { "title": "Student Dashboard", "description": "Welcome to your dashboard" },
+    "dashboard": {
+      "title": "Student Dashboard",
+      "description": "Welcome to your dashboard",
+      "welcome": "Welcome back, {{name}}",
+      "welcomeSubtitle": "Continue your learning journey where you left off",
+      "stats": {
+        "enrolledCourses": "Enrolled Courses",
+        "completedCourses": "Completed Courses",
+        "avgProgress": "Average Progress",
+        "certificates": "Certificates"
+      },
+      "continueLearning": {
+        "title": "Continue Learning",
+        "resume": "Resume",
+        "lessonsProgress": "{{completed}} of {{total}} lessons",
+        "empty": "No courses in progress right now"
+      },
+      "myCourses": {
+        "title": "My Courses",
+        "viewAll": "View all",
+        "tabs": { "all": "All", "inProgress": "In Progress", "completed": "Completed" },
+        "empty": "No courses in this category"
+      },
+      "schedule": {
+        "title": "Schedule",
+        "kindAssignment": "Assignment",
+        "kindExam": "Exam",
+        "dueToday": "Today",
+        "dueTomorrow": "Tomorrow",
+        "dueIn": "In {{days}} days",
+        "empty": "No upcoming dates"
+      },
+      "notifications": {
+        "title": "Notifications",
+        "viewAll": "View all",
+        "empty": "No new notifications"
+      },
+      "grades": {
+        "title": "Grades",
+        "score": "{{score}} / {{max}}",
+        "passed": "Passed",
+        "failed": "Failed",
+        "kindAssignment": "Assignment",
+        "kindQuiz": "Quiz",
+        "kindExam": "Exam",
+        "empty": "No results yet"
+      },
+      "quizzes": {
+        "title": "Quizzes",
+        "questionsCount": "{{count}} questions",
+        "timeLimit": "{{minutes}} min",
+        "attempts": "Attempts: {{used}} / {{max}}",
+        "bestScore": "Best score: {{score}} / {{total}}",
+        "start": "Start Quiz",
+        "retake": "Retake",
+        "noAttemptsLeft": "No attempts left",
+        "empty": "No quizzes available right now"
+      },
+      "exams": {
+        "title": "Exams",
+        "statusUpcoming": "Upcoming",
+        "statusOpen": "Open now",
+        "statusClosed": "Closed",
+        "opensOn": "Opens on {{date}}",
+        "closesOn": "Closes on {{date}}",
+        "start": "Start Exam",
+        "viewResult": "Your score: {{score}} / {{total}}",
+        "empty": "No exams scheduled"
+      },
+      "revisionMaterials": {
+        "title": "Revision Materials",
+        "typeSummary": "Summary",
+        "typeVideo": "Video",
+        "typeFlashcards": "Flashcards",
+        "view": "Open",
+        "empty": "No revision materials available"
+      },
+      "certificates": {
+        "title": "Certificates",
+        "issuedOn": "Issued on {{date}}",
+        "download": "Download Certificate",
+        "empty": "You haven't earned any certificates yet"
+      },
+      "recommended": {
+        "title": "You Might Also Like",
+        "viewCourse": "View Course",
+        "empty": "No recommendations right now"
+      },
+      "payments": {
+        "title": "Payments",
+        "course": "Course",
+        "amount": "Amount",
+        "method": "Method",
+        "status": "Status",
+        "date": "Date",
+        "statusValues": { "pending": "Pending", "approved": "Approved", "rejected": "Rejected" },
+        "methodValues": {
+          "credit_card": "Credit Card",
+          "paypal": "PayPal",
+          "bank_transfer": "Bank Transfer",
+          "cash": "Cash"
+        },
+        "empty": "No payments recorded"
+      }
+    },
     "courses": { "title": "My Courses", "description": "All the courses you're enrolled in" },
-    "profile": { "title": "Profile", "description": "Manage your personal information" }
+    "profile": {
+      "title": "Profile",
+      "description": "Manage your personal information",
+      "photoLabel": "Profile Photo",
+      "changePhoto": "Change Photo",
+      "nameLabel": "Name",
+      "saveChanges": "Save Changes",
+      "changePasswordTitle": "Change Password",
+      "changePasswordDescription": "Make sure to use a strong password to keep your account secure",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmNewPassword": "Confirm New Password",
+      "changePasswordSubmit": "Update Password",
+      "toast": {
+        "updateSuccess": "Your info was updated successfully",
+        "updateFailed": "Failed to update your info",
+        "passwordChangeSuccess": "Password changed successfully",
+        "passwordChangeFailed": "Failed to change password"
+      }
+    },
+    "schedule": { "title": "Schedule", "description": "All your upcoming assignment and exam dates" },
+    "quizzes": { "title": "Quizzes", "description": "All quizzes available in your courses" },
+    "exams": { "title": "Exams", "description": "Your upcoming, open, and closed exams" },
+    "grades": { "title": "Grades", "description": "All your assignment, quiz, and exam grades" },
+    "revision": { "title": "Revision Materials", "description": "Summaries, videos, and flashcards for your courses" },
+    "certificates": { "title": "Certificates", "description": "Certificates you've earned" },
+    "payments": { "title": "Payments", "description": "Your course payment history" },
+    "notifications": { "title": "Notifications", "description": "All your notifications in one place" }
+  },
+  "quizTakePage": {
+    "questionOf": "Question {{current}} of {{total}}",
+    "timeRemaining": "Time remaining: {{time}}",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Finish & Submit",
+    "resultTitle": "Your Result",
+    "resultScore": "You scored {{score}} / {{total}}",
+    "passed": "Congratulations, you passed!",
+    "failed": "Unfortunately you didn't pass",
+    "backToDashboard": "Back to Dashboard",
+    "retake": "Retake",
+    "noAttemptsLeft": "You've used all your attempts",
+    "notFound": "Quiz not found"
+  },
+  "examTakePage": {
+    "questionOf": "Question {{current}} of {{total}}",
+    "timeRemaining": "Time remaining: {{time}}",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Finish & Submit",
+    "resultTitle": "Your Result",
+    "resultScore": "You scored {{score}} / {{total}}",
+    "passed": "Congratulations, you passed!",
+    "failed": "Unfortunately you didn't pass",
+    "backToDashboard": "Back to Dashboard",
+    "alreadySubmitted": "You've already submitted this exam, exams allow one attempt only",
+    "notOpenYet": "This exam hasn't opened yet",
+    "closed": "This exam has closed",
+    "notFound": "Exam not found"
   },
   "teacherPages": {
-    "dashboard": { "title": "Teacher Dashboard", "description": "Welcome to your dashboard" },
-    "courses": { "title": "Courses", "description": "Manage your courses" },
-    "students": { "title": "Students", "description": "Manage enrolled students" },
-    "analytics": { "title": "Analytics", "description": "Performance statistics and analytics" }
+    "dashboard": {
+      "title": "Teacher Dashboard",
+      "description": "Welcome to your dashboard",
+      "welcome": "Welcome back, {{name}}",
+      "welcomeSubtitle": "Here's an overview of your platform today",
+      "stats": {
+        "students": "Total Students",
+        "courses": "Total Courses",
+        "teachers": "Teachers",
+        "groups": "Groups",
+        "examsQuizzes": "Exams & Quizzes",
+        "revenue": "Total Revenue"
+      },
+      "charts": {
+        "attendanceTitle": "Attendance Rate (last 14 days)",
+        "enrollmentTitle": "New Enrollments (last 6 months)",
+        "enrollmentTooltip": "{{count}} new enrollments"
+      },
+      "schedule": {
+        "title": "Today's Schedule",
+        "studentsCount": "{{count}} students",
+        "empty": "No sessions scheduled today"
+      },
+      "notifications": {
+        "title": "Recent Notifications",
+        "empty": "No new notifications"
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "manageCourses": "Manage Courses",
+        "manageStudents": "Manage Students",
+        "viewAnalytics": "View Analytics"
+      }
+    },
+    "courses": {
+      "title": "Courses",
+      "description": "Manage your courses",
+      "addCourse": "Add Course",
+      "editCourse": "Edit Course",
+      "deleteCourse": "Delete Course",
+      "deleteConfirmTitle": "Confirm Deletion",
+      "deleteConfirmMessage": "Are you sure you want to delete \"{{title}}\"? This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "save": "Save",
+      "students": "students",
+      "lessons": "lessons",
+      "statusPublished": "Published",
+      "statusDraft": "Draft",
+      "fields": {
+        "title": "Course Title",
+        "description": "Description",
+        "price": "Price (SAR)",
+        "duration": "Duration",
+        "durationPlaceholder": "e.g. 8 weeks",
+        "level": "Level",
+        "category": "Category",
+        "categoryPlaceholder": "e.g. Programming",
+        "isPublished": "Publish course"
+      },
+      "levels": { "beginner": "Beginner", "intermediate": "Intermediate", "advanced": "Advanced" },
+      "validation": {
+        "titleRequired": "Course title is required (at least 3 characters)",
+        "descriptionRequired": "Description is required (at least 10 characters)",
+        "priceInvalid": "Price must be a valid number",
+        "durationRequired": "Duration is required",
+        "categoryRequired": "Category is required"
+      },
+      "toast": {
+        "created": "Course created successfully",
+        "updated": "Course updated successfully",
+        "deleted": "Course deleted"
+      },
+      "empty": "No courses yet"
+    },
+    "lessons": {
+      "title": "Lessons",
+      "description": "Pick a course to manage its lessons",
+      "lessonsCount": "{{count}} lessons",
+      "backToCourses": "Back to Courses",
+      "manageLessons": "Manage Lessons",
+      "addLesson": "Add Lesson",
+      "editLesson": "Edit Lesson",
+      "deleteLesson": "Delete Lesson",
+      "deleteConfirmTitle": "Confirm Deletion",
+      "deleteConfirmMessage": "Are you sure you want to delete \"{{title}}\"?",
+      "preview": "Preview",
+      "empty": "No lessons yet",
+      "fields": {
+        "title": "Lesson Title",
+        "description": "Description",
+        "duration": "Duration",
+        "durationPlaceholder": "e.g. 15:00",
+        "type": "Lesson Type",
+        "isFree": "Free lesson (free preview)",
+        "isPublished": "Publish lesson",
+        "video": "Video",
+        "pdf": "PDF File"
+      },
+      "types": { "video": "Video", "article": "Article", "quiz": "Quiz", "assignment": "Assignment" },
+      "uploadVideo": "Upload Video",
+      "uploadPdf": "Upload PDF",
+      "removeFile": "Remove",
+      "noVideo": "No video uploaded",
+      "noPdf": "No PDF uploaded",
+      "validation": {
+        "titleRequired": "Lesson title is required (at least 3 characters)",
+        "descriptionRequired": "Description is required",
+        "durationRequired": "Duration is required"
+      },
+      "toast": {
+        "created": "Lesson added successfully",
+        "updated": "Lesson updated successfully",
+        "deleted": "Lesson deleted",
+        "reordered": "Order updated"
+      },
+      "previewTitle": "Content Preview"
+    },
+    "students": {
+      "title": "Students",
+      "description": "Manage enrolled students",
+      "searchPlaceholder": "Search by name or email...",
+      "filterStatus": "Status",
+      "statusAll": "All",
+      "statusActive": "Active",
+      "statusInactive": "Inactive",
+      "statusSuspended": "Suspended",
+      "tableName": "Name",
+      "tableEmail": "Email",
+      "tableCourses": "Courses",
+      "tableStatus": "Status",
+      "tableGroups": "Groups",
+      "viewProfile": "View Profile",
+      "empty": "No students match your search"
+    },
+    "studentDetail": {
+      "backToStudents": "Back to Students",
+      "coursesTitle": "Enrolled Courses",
+      "coursesEmpty": "Not enrolled in any course",
+      "attendanceTitle": "Attendance",
+      "attendanceRate": "Attendance rate",
+      "attendanceSessions": "{{count}} sessions",
+      "attendanceEmpty": "No attendance records",
+      "statusPresent": "Present",
+      "statusAbsent": "Absent",
+      "statusLate": "Late",
+      "gradesTitle": "Grades",
+      "gradesEmpty": "No grades recorded",
+      "kindAssignment": "Assignment",
+      "kindQuiz": "Quiz",
+      "kindExam": "Exam",
+      "score": "{{score}} / {{max}}",
+      "subscriptionTitle": "Subscription Status",
+      "notesTitle": "Notes",
+      "notesEmpty": "No notes yet",
+      "notesPlaceholder": "Write a note about this student...",
+      "addNote": "Add Note",
+      "noteAdded": "Note added"
+    },
+    "analytics": { "title": "Analytics", "description": "Performance statistics and analytics" },
+    "parents": {
+      "title": "Parents",
+      "description": "Contact details and accounts for students' parents",
+      "searchPlaceholder": "Search by name or email...",
+      "tableName": "Name",
+      "tableRelationship": "Relationship",
+      "tableStudent": "Student",
+      "tableContact": "Contact",
+      "viewProfile": "View Profile",
+      "empty": "No parents match your search",
+      "relationshipFather": "Father",
+      "relationshipMother": "Mother",
+      "relationshipGuardian": "Guardian"
+    },
+    "parentDetail": {
+      "backToParents": "Back to Parents",
+      "linkedStudentTitle": "Linked Student",
+      "contactTitle": "Contact Info",
+      "expensesTitle": "Expenses",
+      "expensesEmpty": "No payments recorded",
+      "communicationTitle": "Communication Log",
+      "communicationEmpty": "No communication logged yet",
+      "channelCall": "Call",
+      "channelWhatsapp": "WhatsApp",
+      "channelEmail": "Email",
+      "channelMeeting": "Meeting",
+      "summaryPlaceholder": "Write a summary of the call or message...",
+      "addEntry": "Log New Communication",
+      "entryAdded": "Communication logged"
+    }
   },
   "aboutPage": {
     "title": "About the Platform",
