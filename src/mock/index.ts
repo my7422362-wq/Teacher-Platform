@@ -20,4 +20,5 @@ export type { MonthlyEnrollment } from './enrollment-trend';
 export { mockStudentNotes } from './student-notes';
 export { mockParents } from './parents';
 export { mockCommunicationLog } from './communication-log';
+export { mockInstallments } from './installments';
 

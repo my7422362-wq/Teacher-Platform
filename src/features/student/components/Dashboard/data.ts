@@ -13,6 +13,7 @@ import {
   mockExamAttempts,
   mockRevisionMaterials,
 } from '@/mock';
+import { getLocalNotifications } from '@/features/notifications';
 import type { Course, Progress } from '@/types';
 import { getLocalQuizSubmissions, getLocalExamAttempts } from './submissions-store';
 
@@ -52,7 +53,7 @@ export const upcomingAssignments = mockAssignments
   .filter((a) => enrolledCourseIds.has(a.courseId) && new Date(a.dueDate).getTime() > Date.now())
   .sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
 
-export const studentNotifications = mockNotifications
+export const studentNotifications = [...mockNotifications, ...getLocalNotifications()]
   .filter((n) => n.userId === CURRENT_STUDENT_ID)
   .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 

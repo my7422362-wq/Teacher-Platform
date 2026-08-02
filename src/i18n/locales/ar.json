@@ -314,7 +314,10 @@
       "payments": "المدفوعات",
       "notifications": "الإشعارات",
       "parents": "أولياء الأمور",
-      "lessons": "الدروس"
+      "lessons": "الدروس",
+      "quizzesExams": "الكويزات والامتحانات",
+      "attendance": "الحضور",
+      "groups": "المجموعات والجدول"
     }
   },
   "mainLayout": {
@@ -622,6 +625,89 @@
       },
       "previewTitle": "معاينة المحتوى"
     },
+    "quizzesExams": {
+      "title": "الكويزات والامتحانات",
+      "description": "إنشاء وإدارة كويزات وامتحانات دوراتك",
+      "tabQuizzes": "الكويزات",
+      "tabExams": "الامتحانات",
+      "addQuiz": "إضافة كويز",
+      "editQuiz": "تعديل الكويز",
+      "addExam": "إضافة امتحان",
+      "editExam": "تعديل الامتحان",
+      "manageQuestions": "الأسئلة",
+      "viewResults": "النتائج",
+      "deleteConfirmTitle": "تأكيد الحذف",
+      "deleteConfirmMessage": "هل أنت متأكد إنك عايز تحذف \"{{title}}\"؟",
+      "emptyQuizzes": "لا توجد كويزات بعد",
+      "emptyExams": "لا توجد امتحانات بعد",
+      "questionsCount": "{{count}} سؤال",
+      "fields": {
+        "title": "العنوان",
+        "description": "الوصف",
+        "course": "الكورس",
+        "lesson": "الدرس (اختياري)",
+        "lessonNone": "بدون درس محدد",
+        "timeLimit": "الوقت المحدد (دقيقة)",
+        "duration": "مدة الامتحان (دقيقة)",
+        "passingScore": "درجة النجاح",
+        "maxAttempts": "عدد المحاولات المسموحة",
+        "startDate": "تاريخ البداية",
+        "endDate": "تاريخ النهاية",
+        "isPublished": "نشر"
+      },
+      "questionFields": {
+        "text": "نص السؤال",
+        "type": "نوع السؤال",
+        "options": "الاختيارات (سطر لكل اختيار)",
+        "optionsPlaceholder": "اكتب كل اختيار في سطر منفصل",
+        "correctAnswer": "الإجابة الصحيحة",
+        "correctAnswerPlaceholder": "لازم تطابق أحد الاختيارات بالظبط",
+        "points": "الدرجة"
+      },
+      "questionTypes": {
+        "multiple_choice": "اختيار من متعدد",
+        "true_false": "صح أو خطأ",
+        "short_answer": "إجابة قصيرة",
+        "essay": "مقالي"
+      },
+      "addQuestion": "إضافة سؤال",
+      "editQuestion": "تعديل السؤال",
+      "deleteQuestionConfirm": "هل أنت متأكد إنك عايز تحذف السؤال ده؟",
+      "backToQuizzesExams": "الرجوع للكويزات والامتحانات",
+      "noQuestions": "لا توجد أسئلة بعد",
+      "totalScore": "الدرجة الكلية: {{score}}",
+      "validation": {
+        "titleRequired": "العنوان مطلوب (3 أحرف على الأقل)",
+        "descriptionRequired": "الوصف مطلوب",
+        "courseRequired": "اختر الكورس",
+        "numberInvalid": "لازم يكون رقم صحيح",
+        "dateRequired": "التاريخ مطلوب",
+        "questionTextRequired": "نص السؤال مطلوب (3 أحرف على الأقل)",
+        "correctAnswerRequired": "الإجابة الصحيحة مطلوبة"
+      },
+      "toast": {
+        "quizCreated": "تم إضافة الكويز بنجاح",
+        "quizUpdated": "تم تحديث الكويز بنجاح",
+        "quizDeleted": "تم حذف الكويز",
+        "examCreated": "تم إضافة الامتحان بنجاح",
+        "examUpdated": "تم تحديث الامتحان بنجاح",
+        "examDeleted": "تم حذف الامتحان",
+        "questionAdded": "تم إضافة السؤال",
+        "questionUpdated": "تم تحديث السؤال",
+        "questionDeleted": "تم حذف السؤال"
+      },
+      "results": {
+        "title": "النتائج",
+        "student": "الطالب",
+        "score": "الدرجة",
+        "status": "الحالة",
+        "date": "التاريخ",
+        "attempt": "المحاولة",
+        "passed": "ناجح",
+        "failed": "راسب",
+        "empty": "لسه محدش قدّم"
+      }
+    },
     "students": {
       "title": "الطلاب",
       "description": "إدارة الطلاب المسجلين",
@@ -664,6 +750,151 @@
       "noteAdded": "تم إضافة الملاحظة"
     },
     "analytics": { "title": "التحليلات", "description": "إحصائيات وتحليلات الأداء" },
+    "attendance": {
+      "title": "الحضور",
+      "description": "تسجيل ومتابعة حضور الطلاب في المجموعات",
+      "filterGroup": "المجموعة",
+      "filterDate": "التاريخ",
+      "selectGroupPrompt": "اختر مجموعة عشان تسجّل الحضور",
+      "noStudents": "لا يوجد طلاب في هذه المجموعة",
+      "notMarked": "لم يُسجَّل",
+      "savedToast": "تم تسجيل الحضور",
+      "stats": {
+        "rate": "نسبة الحضور",
+        "present": "أيام الحضور",
+        "absent": "أيام الغياب",
+        "late": "أيام التأخير"
+      }
+    },
+    "payments": {
+      "title": "المدفوعات",
+      "description": "متابعة الأقساط والمدفوعات والمتأخرات",
+      "tabInstallments": "الأقساط",
+      "tabPayments": "المدفوعات",
+      "stats": {
+        "collected": "إجمالي المُحصَّل",
+        "pending": "قيد الانتظار",
+        "overdue": "متأخرات",
+        "overdueCount": "{{count}} قسط متأخر"
+      },
+      "filterStatus": "الحالة",
+      "statusAll": "الكل",
+      "statusPaid": "مدفوع",
+      "statusPending": "مستحق",
+      "statusOverdue": "متأخر",
+      "installmentsTable": {
+        "student": "الطالب",
+        "course": "الكورس",
+        "installment": "القسط",
+        "installmentOf": "{{number}} من {{total}}",
+        "amount": "المبلغ",
+        "dueDate": "تاريخ الاستحقاق",
+        "status": "الحالة",
+        "markPaid": "تسجيل كمدفوع",
+        "sendReminder": "إرسال تنبيه",
+        "empty": "لا توجد أقساط"
+      },
+      "paymentsTable": {
+        "student": "الطالب",
+        "empty": "لا توجد مدفوعات"
+      },
+      "toast": {
+        "marked": "تم تسجيل الدفعة",
+        "reminderSent": "تم إرسال التنبيه للطالب"
+      }
+    },
+    "notifications": {
+      "title": "الإشعارات",
+      "description": "إرسال إشعارات للطلاب ومتابعة سجل الإرسال",
+      "composeTitle": "إرسال إشعار جديد",
+      "scope": "المستلمون",
+      "scopeAll": "كل الطلاب",
+      "scopeGroup": "مجموعة معينة",
+      "scopeStudent": "طالب واحد",
+      "selectGroup": "اختر المجموعة",
+      "selectStudent": "اختر الطالب",
+      "titleField": "عنوان الإشعار",
+      "messageField": "نص الإشعار",
+      "typeField": "نوع الإشعار",
+      "typeInfo": "معلومة",
+      "typeSuccess": "نجاح",
+      "typeWarning": "تنبيه",
+      "typeError": "هام",
+      "send": "إرسال",
+      "sentToast": "تم إرسال الإشعار إلى {{count}} طالب",
+      "logTitle": "سجل الإشعارات",
+      "logEmpty": "لا توجد إشعارات مرسلة بعد",
+      "recipients": "{{count}} مستلم",
+      "validation": {
+        "titleRequired": "عنوان الإشعار مطلوب",
+        "messageRequired": "نص الإشعار مطلوب",
+        "groupRequired": "اختر مجموعة",
+        "studentRequired": "اختر طالب"
+      }
+    },
+    "groups": {
+      "title": "المجموعات والجدول",
+      "description": "إنشاء المجموعات، توزيع الطلاب، وتحديد مواعيد الحصص",
+      "addGroup": "إضافة مجموعة",
+      "editGroup": "تعديل المجموعة",
+      "deleteConfirmTitle": "تأكيد الحذف",
+      "deleteConfirmMessage": "هل أنت متأكد إنك عايز تحذف مجموعة \"{{name}}\"؟",
+      "empty": "لا توجد مجموعات بعد",
+      "fields": {
+        "name": "اسم المجموعة",
+        "course": "الكورس",
+        "students": "توزيع الطلاب",
+        "schedule": "مواعيد الحصص"
+      },
+      "addSlot": "إضافة موعد",
+      "removeSlot": "إزالة",
+      "day": "اليوم",
+      "startTime": "من",
+      "endTime": "إلى",
+      "days": {
+        "sunday": "الأحد",
+        "monday": "الاثنين",
+        "tuesday": "الثلاثاء",
+        "wednesday": "الأربعاء",
+        "thursday": "الخميس",
+        "friday": "الجمعة",
+        "saturday": "السبت"
+      },
+      "studentsCount": "{{count}} طالب",
+      "toast": {
+        "created": "تم إضافة المجموعة",
+        "updated": "تم تحديث المجموعة",
+        "deleted": "تم حذف المجموعة"
+      },
+      "validation": {
+        "nameRequired": "اسم المجموعة مطلوب (3 أحرف على الأقل)",
+        "courseRequired": "اختر الكورس",
+        "studentsRequired": "اختر طالب واحد على الأقل",
+        "scheduleRequired": "أضف موعد حصة واحد على الأقل",
+        "timeRequired": "الوقت مطلوب"
+      }
+    },
+    "grades": {
+      "title": "الدرجات",
+      "description": "نظرة شاملة على أداء الطلاب في الواجبات والكويزات والامتحانات",
+      "stats": {
+        "average": "متوسط الدرجات",
+        "passRate": "نسبة النجاح",
+        "failRate": "نسبة الرسوب",
+        "totalGraded": "إجمالي الأعمال المصححة"
+      },
+      "ranking": {
+        "title": "ترتيب الطلاب",
+        "rank": "الترتيب",
+        "student": "الطالب",
+        "average": "المتوسط",
+        "graded": "الأعمال المصححة",
+        "passed": "ناجح فيها",
+        "failed": "راسب فيها",
+        "empty": "لا توجد درجات مسجلة بعد",
+        "viewProfile": "عرض الملف"
+      }
+    },
     "parents": {
       "title": "أولياء الأمور",
       "description": "بيانات التواصل وحسابات أولياء أمور الطلاب",

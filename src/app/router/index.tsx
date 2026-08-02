@@ -36,6 +36,16 @@ import {
   TeacherParentDetailPage,
   TeacherCourseLessonsPage,
   TeacherLessonsOverviewPage,
+  TeacherQuizzesExamsPage,
+  TeacherQuizQuestionsPage,
+  TeacherExamQuestionsPage,
+  TeacherQuizResultsPage,
+  TeacherExamResultsPage,
+  TeacherGradesPage,
+  TeacherAttendancePage,
+  TeacherPaymentsPage,
+  TeacherNotificationsPage,
+  TeacherGroupsPage,
   TeacherAnalyticsPage,
 } from '@/pages/teacher';
 
@@ -87,6 +97,16 @@ export function AppRouter() {
           <Route path="courses" element={<TeacherCoursesPage />} />
           <Route path="courses/:id/lessons" element={<TeacherCourseLessonsPage />} />
           <Route path="lessons" element={<TeacherLessonsOverviewPage />} />
+          <Route path="quizzes-exams" element={<TeacherQuizzesExamsPage />} />
+          <Route path="quizzes/:id/questions" element={<TeacherQuizQuestionsPage />} />
+          <Route path="exams/:id/questions" element={<TeacherExamQuestionsPage />} />
+          <Route path="quizzes/:id/results" element={<TeacherQuizResultsPage />} />
+          <Route path="exams/:id/results" element={<TeacherExamResultsPage />} />
+          <Route path="grades" element={<TeacherGradesPage />} />
+          <Route path="attendance" element={<TeacherAttendancePage />} />
+          <Route path="payments" element={<TeacherPaymentsPage />} />
+          <Route path="notifications" element={<TeacherNotificationsPage />} />
+          <Route path="groups" element={<TeacherGroupsPage />} />
           <Route path="students" element={<TeacherStudentsPage />} />
           <Route path="students/:id" element={<TeacherStudentDetailPage />} />
           <Route path="parents" element={<TeacherParentsPage />} />

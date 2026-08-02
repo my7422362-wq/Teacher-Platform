@@ -276,6 +276,20 @@ export interface PaymentRequest {
   updatedAt: string;
 }
 
+export interface Installment {
+  id: number;
+  studentId: number;
+  courseId: number;
+  installmentNumber: number;
+  totalInstallments: number;
+  amount: number;
+  currency: string;
+  dueDate: string;
+  status: 'paid' | 'pending';
+  paidAt?: string;
+  paymentMethod?: 'credit_card' | 'paypal' | 'bank_transfer' | 'cash';
+}
+
 export interface GroupScheduleSlot {
   day: 'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday';
   startTime: string;

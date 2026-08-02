@@ -6,5 +6,15 @@ export { TeacherParentsPage } from './parents';
 export { TeacherParentDetailPage } from './parent-detail';
 export { TeacherCourseLessonsPage } from './course-lessons';
 export { TeacherLessonsOverviewPage } from './lessons-overview';
+export { TeacherQuizzesExamsPage } from './quizzes-exams';
+export { TeacherQuizQuestionsPage } from './quiz-questions';
+export { TeacherExamQuestionsPage } from './exam-questions';
+export { TeacherQuizResultsPage } from './quiz-results';
+export { TeacherExamResultsPage } from './exam-results';
+export { TeacherGradesPage } from './grades';
+export { TeacherAttendancePage } from './attendance';
+export { TeacherPaymentsPage } from './payments';
+export { TeacherNotificationsPage } from './notifications';
+export { TeacherGroupsPage } from './groups';
 export { TeacherAnalyticsPage } from './analytics';
 

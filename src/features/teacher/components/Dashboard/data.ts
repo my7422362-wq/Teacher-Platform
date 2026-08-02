@@ -1,13 +1,14 @@
 import {
   mockUsers,
   mockCourses,
-  mockGroups,
-  mockAttendance,
   mockQuizzes,
   mockExams,
   mockEnrollmentTrend,
   mockNotifications,
 } from '@/mock';
+import { getAttendanceRecords } from '@/features/teacher/components/Attendance/attendance-store';
+import { getGroups } from '@/features/teacher/components/Groups/group-store';
+import { getLocalNotifications } from '@/features/notifications';
 
 /**
  * This platform has a single teacher account; "admin" and "teacher" are the
@@ -19,7 +20,6 @@ export const CURRENT_TEACHER_ID = 1;
 export const currentTeacher = mockUsers.find((u) => u.id === CURRENT_TEACHER_ID)!;
 
 const teacherCourses = mockCourses.filter((c) => c.teacherId === CURRENT_TEACHER_ID);
-const teacherGroups = mockGroups.filter((g) => g.teacherId === CURRENT_TEACHER_ID);
 
 export interface TeacherStats {
   totalStudents: number;
@@ -31,6 +31,7 @@ export interface TeacherStats {
 }
 
 export function getTeacherStats(): TeacherStats {
+  const teacherGroups = getGroups().filter((g) => g.teacherId === CURRENT_TEACHER_ID);
   const uniqueStudentIds = new Set(teacherGroups.flatMap((g) => g.studentIds));
 
   return {
@@ -52,7 +53,7 @@ export interface AttendancePoint {
 export function getAttendanceTrend(): AttendancePoint[] {
   const byDate = new Map<string, { total: number; present: number }>();
 
-  for (const record of mockAttendance) {
+  for (const record of getAttendanceRecords()) {
     const key = record.date.slice(0, 10);
     const bucket = byDate.get(key) ?? { total: 0, present: 0 };
     bucket.total += 1;
@@ -90,6 +91,7 @@ export interface ScheduleEntry {
 
 export function getTodaySchedule(): ScheduleEntry[] {
   const today = DAY_KEYS[new Date().getDay()];
+  const teacherGroups = getGroups().filter((g) => g.teacherId === CURRENT_TEACHER_ID);
 
   return teacherGroups
     .flatMap((group) =>
@@ -107,6 +109,6 @@ export function getTodaySchedule(): ScheduleEntry[] {
     .sort((a, b) => a.startTime.localeCompare(b.startTime));
 }
 
-export const teacherNotifications = mockNotifications
+export const teacherNotifications = [...mockNotifications, ...getLocalNotifications()]
   .filter((n) => n.userId === CURRENT_TEACHER_ID)
   .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());

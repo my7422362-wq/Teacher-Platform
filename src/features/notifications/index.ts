@@ -4,5 +4,5 @@
  * Handles user notifications: push, in-app, email notifications.
  */
 
-export {};
+export { getLocalNotifications, saveNotification } from './notification-store';
 
