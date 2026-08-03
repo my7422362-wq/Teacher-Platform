@@ -3,7 +3,7 @@ import type { ApiResponse, User } from '@/types';
 import type { AuthRole, AuthUser, LoginInput, RegisterInput } from '@/features/auth/types';
 import { storageService, type StoredAccount } from '@/services/storage.service';
 import { sessionService } from '@/services/session.service';
-import { post, get } from '@/services/api';
+import api, { post } from '@/services/api';
 import i18n from '@/i18n/config';
 
 /**
@@ -79,10 +79,17 @@ export const authService = {
    * REAL API — POST /auth/login (JSON body). The backend's LoginRequest
    * validates `email`, `password`, and an optional `device_name` from the
    * request body — this must be a normal JSON POST, not query params.
+   *
+   * NOTE: unlike most endpoints wrapped in the generic `ApiResponse`
+   * envelope, this one returns the payload flat — `{ message, user, token }`
+   * at the top level, no nested `data` key (confirmed against the live
+   * API). Using the `post()` helper here would silently destructure
+   * `undefined` and misreport every successful login as invalid
+   * credentials, so this calls the axios instance directly instead.
    */
   async login({ email, password }: LoginInput): Promise<{ user: AuthUser; token: string }> {
     try {
-      const { data } = await post<AuthPayload>('/auth/login', {
+      const { data } = await api.post<AuthPayload>('/auth/login', {
         email,
         password,
         device_name: 'web',
@@ -110,7 +117,7 @@ export const authService = {
    */
   async register(input: RegisterInput): Promise<{ token: string } | void> {
     try {
-      const { data } = await post<AuthPayload>('/auth/register', {
+      const { data } = await api.post<AuthPayload>('/auth/register', {
         name: input.name,
         email: input.email,
         password: input.password,
@@ -146,13 +153,12 @@ export const authService = {
    *
    * REAL API — POST /auth/email/verify-otp (JSON body: { email, otp }).
    * CONFIRMED: this endpoint does NOT return a user/token — it only
-   * activates the account (`{ message }`). The caller must fall back to
-   * login() with the credentials still held from the register step.
+   * activates the account (`{ message }`). The caller must follow up with
+   * login() using the credentials still held from the register step.
    */
-  async verifyOtp(email: string, otp: string): Promise<null> {
+  async verifyOtp(email: string, otp: string): Promise<void> {
     try {
       await post('/auth/email/verify-otp', { email, otp });
-      return null;
     } catch (error) {
       throw new Error(extractErrorMessage(error, i18n.t('auth.otp.incomplete')));
     }
@@ -236,7 +242,7 @@ export const authService = {
    */
   async me(): Promise<ApiResponse<User>> {
     try {
-      const { data } = await get<BackendUser>('/auth/me');
+      const { data } = await api.get<BackendUser>('/auth/me');
       return {
         success: true,
         message: '',

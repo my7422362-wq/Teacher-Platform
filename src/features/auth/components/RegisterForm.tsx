@@ -93,9 +93,9 @@ export function RegisterForm() {
     }
     setVerifying(true);
     try {
-      await completeRegister(pendingValues, code);
+      const user = await completeRegister(pendingValues, code);
       toast.success(t('auth.toast.registerSuccess'));
-      navigate(`/${pendingValues.role}/dashboard`, { replace: true });
+      navigate(`/${user.role}/dashboard`, { replace: true });
     } catch (error) {
       setOtpError(error instanceof Error ? error.message : t('auth.toast.registerFailed'));
     } finally {

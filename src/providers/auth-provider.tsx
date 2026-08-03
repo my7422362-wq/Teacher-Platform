@@ -65,12 +65,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
   );
 
   /**
-   * Creates the account, then triggers the email-verification OTP —
-   * the account only becomes usable once completeRegister() verifies it.
+   * Creates the account — the backend sends the verification OTP itself as
+   * part of /auth/register (confirmed via its response message), so this
+   * must NOT also call sendOtp: doing so immediately re-requests a code
+   * within the backend's cooldown window and fails with a 429, even though
+   * registration succeeded and the first code was already emailed. The
+   * account only becomes usable once completeRegister() verifies it.
    */
   const requestRegisterOtp = useCallback(async (input: RegisterInput) => {
     await authService.register(input);
-    await authService.sendOtp(input.email);
     return input;
   }, []);
 
@@ -80,12 +83,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const completeRegister = useCallback(
     async (input: RegisterInput, otp: string) => {
-      const verified = await authService.verifyOtp(input.email, otp);
-      if (verified) {
-        return establishSession(verified.user, verified.token, false, input.email);
-      }
-      // Backend didn't return a session on verify — log in with the
-      // credentials still held from the register step.
+      // verify-otp only activates the account — it returns no session, so
+      // log in right after with the credentials still held from the
+      // register step. The role used everywhere downstream comes from this
+      // backend response, never from the client-submitted form value.
+      await authService.verifyOtp(input.email, otp);
       const { user, token } = await authService.login({ email: input.email, password: input.password, remember: false });
       return establishSession(user, token, false, input.email);
     },

@@ -2,11 +2,11 @@ import { STORAGE_KEYS } from '@/constants';
 import type { AuthRole } from '@/features/auth/types';
 
 /**
- * A registered account as persisted in localStorage.
- *
- * Mock-only: the platform has no backend, so the password is kept as-is
- * for local comparison during login. This must be replaced by real
- * server-side hashing once Laravel APIs are wired in.
+ * A locally-patched account record backing the profile-update/change-password
+ * mocks below, which have no matching backend endpoint yet (see
+ * auth.service.ts). Account creation/login/OTP no longer touch this store —
+ * those go through the real backend — so this only ever holds data written
+ * by updateAccount for an already-authenticated session.
  */
 export interface StoredAccount {
   id: string;
@@ -34,33 +34,9 @@ function writeAccounts(accounts: StoredAccount[]) {
   window.localStorage.setItem(STORAGE_KEYS.REGISTERED_USERS, JSON.stringify(accounts));
 }
 
-function normalizeEmail(email: string) {
-  return email.trim().toLowerCase();
-}
-
 export const storageService = {
-  getAccounts(): StoredAccount[] {
-    return readAccounts();
-  },
-
-  findByEmail(email: string): StoredAccount | null {
-    const target = normalizeEmail(email);
-    return readAccounts().find((account) => account.email.toLowerCase() === target) ?? null;
-  },
-
-  emailExists(email: string): boolean {
-    return storageService.findByEmail(email) !== null;
-  },
-
   findById(id: string): StoredAccount | null {
     return readAccounts().find((account) => account.id === id) ?? null;
-  },
-
-  addAccount(account: StoredAccount): StoredAccount {
-    const accounts = readAccounts();
-    accounts.push(account);
-    writeAccounts(accounts);
-    return account;
   },
 
   updateAccount(id: string, patch: Partial<StoredAccount>): StoredAccount | null {

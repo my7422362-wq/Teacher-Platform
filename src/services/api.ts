@@ -17,7 +17,7 @@ import type { AuthSession } from '@/services/session.service';
  */
 
 const api: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://192.168.1.6:8000/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL || '',
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
