@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useAuth } from '@/app/providers';
+import { useAuth } from '@/providers';
 import { Loader } from '@/components/ui';
 import type { AuthRole } from '../types';
 
@@ -35,3 +35,4 @@ export function ProtectedRoute({ allowedRoles }: ProtectedRouteProps) {
 
   return <Outlet />;
 }
+

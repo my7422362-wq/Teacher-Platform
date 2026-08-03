@@ -1,21 +1,32 @@
-import { useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
+import { ShieldCheck } from 'lucide-react';
 import { Button, Input, Select, type SelectOption } from '@/components/ui';
 import { PasswordInput } from './PasswordInput';
+import { OtpInput } from './OtpInput';
 import { createRegisterSchema, type RegisterFormValues } from '../schemas';
 import { GRADE_OPTIONS, GOVERNORATE_OPTIONS } from '../data/education';
-import { useAuth } from '@/app/providers';
+import { useAuth } from '@/providers';
 import { cn } from '@/lib/utils';
+
+const OTP_LENGTH = 6;
+const RESEND_SECONDS = 60;
 
 export function RegisterForm() {
   const { t } = useTranslation();
-  const { register: registerAccount } = useAuth();
+  const { requestRegisterOtp, completeRegister } = useAuth();
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
+  const [step, setStep] = useState<'details' | 'otp'>('details');
+  const [pendingValues, setPendingValues] = useState<RegisterFormValues | null>(null);
+  const [otp, setOtp] = useState('');
+  const [otpError, setOtpError] = useState<string | undefined>(undefined);
+  const [verifying, setVerifying] = useState(false);
+  const [resendCooldown, setResendCooldown] = useState(RESEND_SECONDS);
 
   const registerSchema = useMemo(() => createRegisterSchema(t), [t]);
   const gradeOptions: SelectOption[] = useMemo(
@@ -50,18 +61,120 @@ export function RegisterForm() {
 
   const role = watch('role');
 
+  useEffect(() => {
+    if (step !== 'otp' || resendCooldown <= 0) return;
+    const timer = setTimeout(() => setResendCooldown((s) => s - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [step, resendCooldown]);
+
   const onSubmit = async (values: RegisterFormValues) => {
     setSubmitting(true);
     try {
-      await registerAccount(values);
-      toast.success(t('auth.toast.registerSuccess'));
-      navigate(`/${values.role}/dashboard`, { replace: true });
+      await requestRegisterOtp(values);
+      setPendingValues(values);
+      setOtp('');
+      setOtpError(undefined);
+      setResendCooldown(RESEND_SECONDS);
+      setStep('otp');
+      toast.success(t('auth.toast.otpSent'));
     } catch (error) {
       toast.error(error instanceof Error ? error.message : t('auth.toast.registerFailed'));
     } finally {
       setSubmitting(false);
     }
   };
+
+  const finishRegister = async (code: string) => {
+    if (!pendingValues) return;
+    if (code.length < OTP_LENGTH) {
+      setOtpError(t('auth.otp.incomplete'));
+      return;
+    }
+    setVerifying(true);
+    try {
+      // FRONT-END MOCK: any 6-digit code is accepted — the backend will
+      // replace this with a real verification call once it's wired up.
+      await completeRegister(pendingValues);
+      toast.success(t('auth.toast.registerSuccess'));
+      navigate(`/${pendingValues.role}/dashboard`, { replace: true });
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : t('auth.toast.registerFailed'));
+    } finally {
+      setVerifying(false);
+    }
+  };
+
+  const handleResend = () => {
+    if (resendCooldown > 0) return;
+    setOtp('');
+    setOtpError(undefined);
+    setResendCooldown(RESEND_SECONDS);
+    toast.success(t('auth.toast.otpResent'));
+  };
+
+  const handleBackToDetails = () => {
+    setStep('details');
+    setPendingValues(null);
+    setOtp('');
+    setOtpError(undefined);
+  };
+
+  if (step === 'otp' && pendingValues) {
+    return (
+      <div className="space-y-5">
+        <div className="flex flex-col items-center gap-2 text-center">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#16342D] text-[#D4B59E]">
+            <ShieldCheck className="h-6 w-6" />
+          </div>
+          <h3 className="text-lg font-semibold text-[#F9F6F0]">{t('auth.otp.title')}</h3>
+          <p className="text-sm text-[rgba(249,246,240,0.6)]">
+            {t('auth.otp.description', { email: pendingValues.email })}
+          </p>
+        </div>
+
+        <OtpInput
+          length={OTP_LENGTH}
+          value={otp}
+          onChange={(value) => {
+            setOtp(value);
+            if (otpError) setOtpError(undefined);
+          }}
+          onComplete={finishRegister}
+          error={otpError}
+          disabled={verifying}
+        />
+
+        <p className="text-center text-xs text-[rgba(249,246,240,0.45)]">{t('auth.otp.demoHint')}</p>
+
+        <Button
+          type="button"
+          loading={verifying}
+          onClick={() => finishRegister(otp)}
+          className="w-full bg-[#D4B59E] text-[#0F2520] hover:bg-[#C7A187]"
+        >
+          {t('auth.otp.submit')}
+        </Button>
+
+        <div className="flex items-center justify-between text-sm">
+          <button
+            type="button"
+            onClick={handleBackToDetails}
+            className="text-[rgba(249,246,240,0.55)] hover:text-[#F9F6F0] hover:underline"
+          >
+            {t('auth.otp.back')}
+          </button>
+          <button
+            type="button"
+            onClick={handleResend}
+            disabled={resendCooldown > 0}
+            className="text-[#D4B59E] hover:underline disabled:cursor-not-allowed disabled:text-[rgba(249,246,240,0.35)] disabled:no-underline"
+          >
+            {resendCooldown > 0 ? t('auth.otp.resendIn', { seconds: resendCooldown }) : t('auth.otp.resend')}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>

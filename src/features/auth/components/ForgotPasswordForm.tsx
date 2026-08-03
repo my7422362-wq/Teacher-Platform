@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 import { Button, Input } from '@/components/ui';
 import { createForgotPasswordSchema, type ForgotPasswordFormValues } from '../schemas';
-import { useAuth } from '@/app/providers';
+import { useAuth } from '@/providers';
 
 export function ForgotPasswordForm() {
   const { t } = useTranslation();
@@ -72,3 +72,4 @@ export function ForgotPasswordForm() {
     </form>
   );
 }
+

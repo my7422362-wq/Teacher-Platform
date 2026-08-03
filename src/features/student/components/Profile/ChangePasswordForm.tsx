@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, Button } from '@/components/ui';
 import { PasswordInput } from '@/features/auth/components/PasswordInput';
-import { useAuth } from '@/app/providers';
+import { useAuth } from '@/providers';
 import { createChangePasswordSchema, type ChangePasswordFormValues } from './schemas';
 
 export function ChangePasswordForm() {
@@ -84,3 +84,4 @@ export function ChangePasswordForm() {
     </Card>
   );
 }
+

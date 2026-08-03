@@ -55,6 +55,22 @@ export const authService = {
   },
 
   /**
+   * Checks whether an email is free to register, without creating the
+   * account — used to gate registration behind an OTP step.
+   *
+   * MOCK IMPLEMENTATION — checks against accounts stored in localStorage.
+   */
+  async checkEmailAvailable(email: string): Promise<ApiResponse<null>> {
+    // TODO: Replace with real API call
+    // return post<null>(`${BASE}/register/check-email`, { email });
+    if (storageService.emailExists(email)) {
+      await delay(null, 300);
+      throw new Error(i18n.t('auth.errors.emailExists'));
+    }
+    return delay({ success: true, message: '', data: null }, 300);
+  },
+
+  /**
    * Register a new account.
    *
    * MOCK IMPLEMENTATION — persists the account in localStorage.
@@ -131,13 +147,13 @@ export const authService = {
   },
 
   /**
-   * Update the authenticated user's profile (name/avatar/grade).
+   * Update the authenticated user's profile (name/avatar/grade/phone).
    *
    * MOCK IMPLEMENTATION — patches the account stored in localStorage.
    */
   async updateProfile(
     userId: string,
-    data: Partial<Pick<AuthUser, 'name' | 'avatar' | 'grade'>>
+    data: Partial<Pick<AuthUser, 'name' | 'avatar' | 'grade' | 'phone'>>
   ): Promise<ApiResponse<AuthUser>> {
     // TODO: Replace with real API call
     // return put<User>(`/auth/profile`, data);

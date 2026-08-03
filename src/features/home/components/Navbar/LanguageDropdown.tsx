@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useDirection } from '@/app/providers';
+import { useDirection } from '@/providers';
 import { cn } from '@/lib/utils';
 import type { SupportedLanguage } from '@/i18n/config';
 
@@ -105,3 +105,4 @@ export function LanguageDropdown({ className }: LanguageDropdownProps) {
     </div>
   );
 }
+

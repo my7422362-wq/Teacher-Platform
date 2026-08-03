@@ -207,6 +207,16 @@
       "sentMessage": "Check your email to continue the password reset steps.",
       "backToLogin": "Back to Log In"
     },
+    "otp": {
+      "title": "Two-Step Verification",
+      "description": "Enter the 6-digit code sent to {{email}}",
+      "submit": "Verify Code",
+      "resend": "Resend Code",
+      "resendIn": "Resend in {{seconds}}s",
+      "back": "Edit entered details",
+      "demoHint": "Demo mode: any 6-digit code is accepted",
+      "incomplete": "Please enter the full 6-digit code"
+    },
     "showPassword": "Show password",
     "hidePassword": "Hide password",
     "imagePanel": {
@@ -275,7 +285,10 @@
       "guestSuccess": "Continuing as guest",
       "forgotPasswordSuccess": "A reset link has been sent to your email",
       "forgotPasswordError": "Something went wrong, please try again",
-      "genericError": "An unexpected error occurred"
+      "genericError": "An unexpected error occurred",
+      "otpSent": "Verification code sent",
+      "otpResent": "Code resent",
+      "otpVerified": "Verified successfully"
     },
     "errors": {
       "invalidCredentials": "Invalid email or password",
@@ -749,7 +762,21 @@
       "addNote": "Add Note",
       "noteAdded": "Note added"
     },
-    "analytics": { "title": "Analytics", "description": "Performance statistics and analytics" },
+    "analytics": {
+      "title": "Analytics",
+      "description": "Performance statistics and analytics",
+      "sectionOverview": "Overview",
+      "sectionAttendance": "Attendance",
+      "sectionEnrollment": "Enrollment & Revenue",
+      "sectionPerformance": "Student Performance",
+      "sectionTopCourses": "Most Enrolled Courses",
+      "topCourses": {
+        "students": "{{count}} students",
+        "revenue": "Revenue",
+        "rating": "Rating",
+        "empty": "No published courses yet"
+      }
+    },
     "attendance": {
       "title": "Attendance",
       "description": "Record and track student attendance across groups",
@@ -872,6 +899,32 @@
         "studentsRequired": "Select at least one student",
         "scheduleRequired": "Add at least one session time",
         "timeRequired": "Time is required"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "description": "Manage platform info, language, and your account settings",
+      "accountTitle": "Account Info",
+      "platformTitle": "Platform Info",
+      "languageTitle": "Language",
+      "languageDescription": "Choose the language you'd like to use across the platform",
+      "fields": {
+        "name": "Name",
+        "phone": "Phone Number",
+        "platformName": "Platform Name",
+        "platformDescription": "Platform Description",
+        "contactEmail": "Contact Email",
+        "contactPhone": "Contact Phone"
+      },
+      "changePhoto": "Change Photo",
+      "saveChanges": "Save Changes",
+      "toast": {
+        "accountUpdated": "Account info updated",
+        "accountUpdateFailed": "Failed to update account info",
+        "platformUpdated": "Platform info updated"
+      },
+      "validation": {
+        "required": "This field is required"
       }
     },
     "grades": {

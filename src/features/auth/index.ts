@@ -18,6 +18,7 @@ export { LoginForm } from './components/LoginForm';
 export { RegisterForm } from './components/RegisterForm';
 export { ForgotPasswordForm } from './components/ForgotPasswordForm';
 export { PasswordInput } from './components/PasswordInput';
+export { OtpInput } from './components/OtpInput';
 export { AuthCard } from './components/AuthCard';
 export { AuthImagePanel } from './components/AuthImagePanel';
 export { ProtectedRoute } from './components/ProtectedRoute';

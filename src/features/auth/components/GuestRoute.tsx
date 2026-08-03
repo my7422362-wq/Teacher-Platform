@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '@/app/providers';
+import { useAuth } from '@/providers';
 import type { AuthRole } from '../types';
 
 const ROLE_HOME: Record<AuthRole, string> = {
@@ -25,3 +25,4 @@ export function GuestRoute() {
 
   return <Outlet />;
 }
+

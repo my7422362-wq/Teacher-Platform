@@ -207,6 +207,16 @@
       "sentMessage": "تحقق من بريدك الإلكتروني لمتابعة خطوات إعادة تعيين كلمة المرور.",
       "backToLogin": "العودة لتسجيل الدخول"
     },
+    "otp": {
+      "title": "التحقق بخطوتين",
+      "description": "أدخل كود التحقق المكوّن من 6 أرقام المرسل إلى {{email}}",
+      "submit": "تأكيد الكود",
+      "resend": "إعادة إرسال الكود",
+      "resendIn": "إعادة الإرسال بعد {{seconds}} ث",
+      "back": "تعديل البيانات المدخلة",
+      "demoHint": "وضع تجريبي: أي كود من 6 أرقام يعتبر صحيحًا",
+      "incomplete": "من فضلك أدخل الكود كاملاً (6 أرقام)"
+    },
     "showPassword": "إظهار كلمة المرور",
     "hidePassword": "إخفاء كلمة المرور",
     "imagePanel": {
@@ -275,7 +285,10 @@
       "guestSuccess": "تم الدخول كزائر",
       "forgotPasswordSuccess": "تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني",
       "forgotPasswordError": "حدث خطأ، حاول مرة أخرى",
-      "genericError": "حدث خطأ غير متوقع"
+      "genericError": "حدث خطأ غير متوقع",
+      "otpSent": "تم إرسال كود التحقق",
+      "otpResent": "تم إعادة إرسال الكود",
+      "otpVerified": "تم التحقق بنجاح"
     },
     "errors": {
       "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
@@ -749,7 +762,21 @@
       "addNote": "إضافة ملاحظة",
       "noteAdded": "تم إضافة الملاحظة"
     },
-    "analytics": { "title": "التحليلات", "description": "إحصائيات وتحليلات الأداء" },
+    "analytics": {
+      "title": "التحليلات",
+      "description": "إحصائيات وتحليلات الأداء",
+      "sectionOverview": "نظرة عامة",
+      "sectionAttendance": "الحضور",
+      "sectionEnrollment": "الاشتراكات والإيرادات",
+      "sectionPerformance": "أداء الطلاب",
+      "sectionTopCourses": "أكثر الكورسات اشتراكًا",
+      "topCourses": {
+        "students": "{{count}} طالب",
+        "revenue": "الإيرادات",
+        "rating": "التقييم",
+        "empty": "لا توجد كورسات منشورة بعد"
+      }
+    },
     "attendance": {
       "title": "الحضور",
       "description": "تسجيل ومتابعة حضور الطلاب في المجموعات",
@@ -872,6 +899,32 @@
         "studentsRequired": "اختر طالب واحد على الأقل",
         "scheduleRequired": "أضف موعد حصة واحد على الأقل",
         "timeRequired": "الوقت مطلوب"
+      }
+    },
+    "settings": {
+      "title": "الإعدادات",
+      "description": "إدارة بيانات المنصة، اللغة، وإعدادات حسابك",
+      "accountTitle": "بيانات الحساب",
+      "platformTitle": "بيانات المنصة",
+      "languageTitle": "اللغة",
+      "languageDescription": "اختر اللغة اللي تحب تستخدمها في المنصة",
+      "fields": {
+        "name": "الاسم",
+        "phone": "رقم الهاتف",
+        "platformName": "اسم المنصة",
+        "platformDescription": "وصف المنصة",
+        "contactEmail": "البريد الإلكتروني للتواصل",
+        "contactPhone": "رقم التواصل"
+      },
+      "changePhoto": "تغيير الصورة",
+      "saveChanges": "حفظ التغييرات",
+      "toast": {
+        "accountUpdated": "تم تحديث بيانات الحساب",
+        "accountUpdateFailed": "تعذر تحديث بيانات الحساب",
+        "platformUpdated": "تم تحديث بيانات المنصة"
+      },
+      "validation": {
+        "required": "هذا الحقل مطلوب"
       }
     },
     "grades": {

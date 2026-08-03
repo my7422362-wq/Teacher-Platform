@@ -1,5 +1,5 @@
-import { AppProviders } from '@/app/providers';
-import { RouterProvider } from '@/app/router/router-provider';
+import { AppProviders } from '@/providers';
+import { RouterProvider } from '@/router/router-provider';
 
 function App() {
   return (
@@ -10,4 +10,5 @@ function App() {
 }
 
 export default App;
+
 

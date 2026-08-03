@@ -2,7 +2,7 @@ import { type ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { GraduationCap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { LanguageSwitcher } from '@/components/common/language-switcher';
+import { LanguageSwitcher } from '@/components/shared/language-switcher';
 
 interface AuthCardProps {
   title: string;
@@ -57,3 +57,4 @@ export function AuthCard({ title, description, children }: AuthCardProps) {
     </div>
   );
 }
+
