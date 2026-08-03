@@ -1,0 +1,40 @@
+import type { Certificate } from '@/types';
+
+export const mockCertificates: Certificate[] = [
+  {
+    id: 1,
+    userId: 2,
+    courseId: 1,
+    courseName: 'أساسيات البرمجة بلغة بايثون',
+    studentName: 'سارة خالد',
+    completionDate: '2024-06-14T00:00:00Z',
+    grade: 'A',
+    certificateUrl: '/certificates/1.pdf',
+    certificateCode: 'CERT-2024-0001',
+    issuedAt: '2024-06-14T18:00:00Z',
+  },
+  {
+    id: 2,
+    userId: 4,
+    courseId: 2,
+    courseName: 'تطوير تطبيقات الويب بـ React',
+    studentName: 'نورة أحمد',
+    completionDate: '2024-05-20T00:00:00Z',
+    grade: 'A+',
+    certificateUrl: '/certificates/2.pdf',
+    certificateCode: 'CERT-2024-0002',
+    issuedAt: '2024-05-20T12:00:00Z',
+  },
+  {
+    id: 3,
+    userId: 4,
+    courseId: 4,
+    courseName: 'قواعد البيانات و SQL',
+    studentName: 'نورة أحمد',
+    completionDate: '2024-06-01T00:00:00Z',
+    grade: 'B+',
+    certificateUrl: '/certificates/3.pdf',
+    certificateCode: 'CERT-2024-0003',
+    issuedAt: '2024-06-01T12:00:00Z',
+  },
+];

@@ -1,0 +1,80 @@
+import type { Assignment } from '@/types';
+
+function daysFromNow(days: number): string {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  return date.toISOString();
+}
+
+export const mockAssignments: Assignment[] = [
+  {
+    id: 1,
+    courseId: 2,
+    lessonId: 5,
+    title: 'بناء مكون قائمة مهام باستخدام React',
+    description: 'قم ببناء تطبيق قائمة مهام بسيط باستخدام React Hooks وارفع الكود على GitHub',
+    dueDate: daysFromNow(3),
+    maxScore: 100,
+    passingScore: 60,
+    attachments: [],
+    isPublished: true,
+    createdAt: '2024-06-10T00:00:00Z',
+    updatedAt: '2024-06-10T00:00:00Z',
+  },
+  {
+    id: 2,
+    courseId: 2,
+    lessonId: 5,
+    title: 'تصميم واجهة صفحة تسجيل الدخول',
+    description: 'صمم واجهة صفحة تسجيل دخول متجاوبة باستخدام Tailwind CSS',
+    dueDate: daysFromNow(8),
+    maxScore: 50,
+    passingScore: 30,
+    attachments: [],
+    isPublished: true,
+    createdAt: '2024-06-12T00:00:00Z',
+    updatedAt: '2024-06-12T00:00:00Z',
+  },
+  {
+    id: 3,
+    courseId: 3,
+    lessonId: 1,
+    title: 'تدريب نموذج تصنيف بسيط',
+    description: 'درّب نموذج تصنيف باستخدام scikit-learn على بيانات Iris وقيّم دقته',
+    dueDate: daysFromNow(14),
+    maxScore: 100,
+    passingScore: 70,
+    attachments: [],
+    isPublished: true,
+    createdAt: '2024-06-13T00:00:00Z',
+    updatedAt: '2024-06-13T00:00:00Z',
+  },
+  {
+    id: 4,
+    courseId: 1,
+    lessonId: 3,
+    title: 'مشروع نهائي: حاسبة بسيطة بلغة بايثون',
+    description: 'ابنِ برنامج حاسبة يدعم العمليات الأساسية باستخدام بايثون',
+    dueDate: daysFromNow(-20),
+    maxScore: 100,
+    passingScore: 60,
+    attachments: [],
+    isPublished: true,
+    createdAt: '2024-05-01T00:00:00Z',
+    updatedAt: '2024-05-01T00:00:00Z',
+  },
+  {
+    id: 5,
+    courseId: 2,
+    lessonId: 5,
+    title: 'بناء صفحة ملف شخصي بـ React',
+    description: 'صمم وابنِ صفحة ملف شخصي بسيطة باستخدام مكونات React',
+    dueDate: daysFromNow(-5),
+    maxScore: 80,
+    passingScore: 50,
+    attachments: [],
+    isPublished: true,
+    createdAt: '2024-05-20T00:00:00Z',
+    updatedAt: '2024-05-20T00:00:00Z',
+  },
+];

@@ -1,0 +1,1057 @@
+{
+  "common": {
+    "brand": "Learning Platform",
+    "loading": "Loading...",
+    "selectPlaceholder": "Select an option...",
+    "noOptions": "No options available",
+    "noData": "No data",
+    "noDataDescription": "No items were found to display",
+    "viewAll": "View all"
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "ar": "العربية",
+    "en": "English"
+  },
+  "nav": {
+    "home": "Home",
+    "aboutTeacher": "About the Teacher",
+    "courses": "Courses",
+    "testimonials": "Testimonials",
+    "contact": "Contact Us",
+    "about": "About",
+    "login": "Log In",
+    "register": "Sign Up",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "badge": "Learn smart, succeed with confidence",
+    "titleLine1": "Learn better with teacher",
+    "titleLine2": " Abdullah Saeed",
+    "description": "An educational platform specialized in teaching Arabic, offering simplified and structured explanations, interactive exercises, periodic tests, and continuous follow-up to help students understand the curriculum, master every branch of the Arabic language, and achieve top grades with confidence and excellence.",
+    "primaryCta": "Start Learning Now",
+    "secondaryCta": "Browse Courses",
+    "floatingCards": {
+      "Lightbulb": "Simplified explanations and unique methods",
+      "TrendingUp": "Continuous tracking of your progress",
+      "Award": "Certified certificates upon course completion"
+    },
+    "stats": {
+      "students": { "value": "1000+", "label": "Students" },
+      "courses": { "value": "100+", "label": "Courses" },
+      "experience": { "value": "10+", "label": "Years of experience" },
+      "successRate": { "value": "95%+", "label": "Success rate" }
+    }
+  },
+  "about": {
+    "section": {
+      "badge": "Our philosophy in teaching Arabic",
+      "title": "Educational Experience That Makes a Difference",
+      "description": "We strive to provide a comprehensive educational experience in Arabic based on simplified explanation, practical training, and continuous follow-up to help every student achieve the best results."
+    },
+    "mission": {
+      "title": "Our Educational Mission",
+      "paragraph": "We believe that learning Arabic doesn't rely on memorization alone, but on deep understanding, continuous practice, and connecting rules with practical application. That's why this platform was designed to deliver a modern learning experience that helps students excel with confidence."
+    },
+    "badgeSecondary": "About the Teacher",
+    "description": "A teacher specialized in teaching Arabic with a simplified, modern approach that helps students understand and excel.",
+    "teacherInfo": "I believe every student is capable of excelling in Arabic given the right explanation and continuous follow-up. My goal is to simplify the subject and make it enjoyable and understandable for everyone.",
+    "features": {
+      "feature1": "Simple and easy-to-understand explanations",
+      "feature2": "Continuous tracking of student performance",
+      "feature3": "Exercises and tests after every lesson"
+    },
+    "achievements": {
+      "GraduationCap": { "value": "5+", "label": "Years of experience" },
+      "Users": { "value": "1000+", "label": "Students" },
+      "Star": { "value": "95%", "label": "Success rate" },
+      "BookOpen": { "value": "300+", "label": "Lessons taught" },
+      "Headphones": { "value": "100%", "label": "Support & follow-up" },
+      "RefreshCw": { "value": "100%", "label": "Updated content" }
+    },
+    "timeline": {
+      "2014": "The educational journey begins",
+      "2017": "Development of a modern teaching style",
+      "2021": "Thousands of top-performing students",
+      "2026": "Launch of the learning platform"
+    },
+    "journeyLabel": "Our Educational Journey"
+  },
+  "courses": {
+    "badge": "Educational Courses",
+    "title": "Featured Courses",
+    "description": "Choose the course that matches your academic level, and enjoy simplified explanations, practical exercises, and tests that help you achieve the best results.",
+    "empty": "No courses in this category right now",
+    "currency": "EGP",
+    "lessonsUnit": "lessons",
+    "hoursUnit": "hours",
+    "viewDetails": "View Details"
+  },
+  "whyChooseUs": {
+    "badge": "Why Us",
+    "title": "Why Choose Our Platform?",
+    "description": "We offer you a comprehensive learning experience that combines quality and flexibility",
+    "items": {
+      "graduation-cap": { "title": "Academic Expertise", "description": "Curricula carefully prepared according to the best global practices." },
+      "users": { "title": "Ongoing Support", "description": "Technical and academic support available throughout your studies via our communication channels." },
+      "certificate": { "title": "Certified Certificates", "description": "A certified completion certificate after successfully finishing each course." },
+      "clock": { "title": "Flexible Scheduling", "description": "Recorded and live courses that suit every time and schedule." },
+      "book-open": { "title": "Interactive Content", "description": "Videos, exercises, and practical projects to apply what you learn." },
+      "trending-up": { "title": "Continuous Improvement", "description": "Content constantly updated to keep pace with the latest techniques." }
+    }
+  },
+  "testimonials": {
+    "badge": "Student Testimonials",
+    "title": "What Do Our Students Say?",
+    "description": "Hear from students who have taken our courses",
+    "emptyTitle": "No reviews yet",
+    "emptyDescription": "Be the first to share your feedback about the courses!"
+  },
+  "faq": {
+    "badge": "FAQ",
+    "title": "Have a Question?",
+    "description": "Answers to the most common questions about the platform and courses",
+    "items": {
+      "faq-1": {
+        "question": "How can I enroll in a course?",
+        "answer": "After creating an account on the platform, you can browse the available courses and click the \"Subscribe\" button for the course you want, then follow the payment steps if applicable."
+      },
+      "faq-2": {
+        "question": "Are the courses recorded or live?",
+        "answer": "We offer a mix of recorded courses you can watch anytime, and live courses held according to a set schedule."
+      },
+      "faq-3": {
+        "question": "Do I get a certificate after completing the course?",
+        "answer": "Yes, after completing all course requirements and passing the assessments, you'll receive a certified completion certificate that can be downloaded and shared."
+      },
+      "faq-4": {
+        "question": "What payment methods are available?",
+        "answer": "We accept payment via credit cards (Visa/Mastercard), PayPal, and local bank transfer."
+      },
+      "faq-5": {
+        "question": "Can I get a refund?",
+        "answer": "Yes, we offer a refund policy within the first 10 days of enrollment if you're not satisfied with the content."
+      }
+    }
+  },
+  "cta": {
+    "title": "Start Your Learning Journey Today",
+    "description": "Join hundreds of students who have started their journey in programming and technology.",
+    "buttonText": "Sign Up Now for Free"
+  },
+  "footer": {
+    "brandName": "Smart Learning Platform",
+    "description": "An advanced educational platform aimed at empowering students and teaching programming and information technology in a modern, interactive way.",
+    "quickLinksTitle": "Quick Links",
+    "supportTitle": "Support",
+    "followTitle": "Follow Us",
+    "copyright": "All rights reserved.",
+    "quickLinks": {
+      "home": "Home",
+      "courses": "Courses",
+      "about": "About",
+      "blog": "Blog"
+    },
+    "supportLinks": {
+      "faq": "FAQ",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use",
+      "contact": "Contact Us"
+    },
+    "socialLinks": {
+      "twitter": "Twitter",
+      "linkedin": "LinkedIn",
+      "youtube": "YouTube"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Log In",
+      "description": "Enter your account details to access the platform",
+      "email": "Email",
+      "password": "Password",
+      "remember": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "submit": "Log In",
+      "or": "or",
+      "guest": "Continue as Guest",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Sign Up"
+    },
+    "register": {
+      "title": "Create a New Account",
+      "description": "Enter your details to create a new account on the platform",
+      "iAm": "I am:",
+      "roleStudent": "Student",
+      "roleTeacher": "Teacher",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Full name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "grade": "Grade",
+      "gradePlaceholder": "Select your grade",
+      "governorate": "Governorate",
+      "governoratePlaceholder": "Select your governorate",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Sign Up",
+      "haveAccount": "Already have an account?",
+      "login": "Log In"
+    },
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "description": "Enter your email and we'll send you a reset link",
+      "email": "Email",
+      "submit": "Send",
+      "sentMessage": "Check your email to continue the password reset steps.",
+      "backToLogin": "Back to Log In"
+    },
+    "otp": {
+      "title": "Two-Step Verification",
+      "description": "Enter the 6-digit code sent to {{email}}",
+      "submit": "Verify Code",
+      "resend": "Resend Code",
+      "resendIn": "Resend in {{seconds}}s",
+      "back": "Edit entered details",
+      "otpHint": "Didn't receive it? Check your spam folder",
+      "incomplete": "Please enter the full 6-digit code"
+    },
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "imagePanel": {
+      "badge": "A Trusted Learning Platform",
+      "title": "Learning Platform",
+      "description": "Learn Arabic in a simplified, professional way with top teachers."
+    },
+    "brandTagline": "An educational platform specialized in the Arabic language",
+    "grades": {
+      "prep1": "7th Grade (Prep 1)",
+      "prep2": "8th Grade (Prep 2)",
+      "prep3": "9th Grade (Prep 3)",
+      "secondary1": "10th Grade (Secondary 1)",
+      "secondary2": "11th Grade (Secondary 2)",
+      "secondary3": "12th Grade (Secondary 3)"
+    },
+    "governorates": {
+      "القاهرة": "Cairo",
+      "الجيزة": "Giza",
+      "الإسكندرية": "Alexandria",
+      "الدقهلية": "Dakahlia",
+      "الشرقية": "Sharqia",
+      "المنوفية": "Monufia",
+      "القليوبية": "Qalyubia",
+      "البحيرة": "Beheira",
+      "الغربية": "Gharbia",
+      "بورسعيد": "Port Said",
+      "دمياط": "Damietta",
+      "الإسماعيلية": "Ismailia",
+      "السويس": "Suez",
+      "كفر الشيخ": "Kafr El Sheikh",
+      "الفيوم": "Faiyum",
+      "بني سويف": "Beni Suef",
+      "المنيا": "Minya",
+      "أسيوط": "Asyut",
+      "سوهاج": "Sohag",
+      "قنا": "Qena",
+      "الأقصر": "Luxor",
+      "أسوان": "Aswan",
+      "البحر الأحمر": "Red Sea",
+      "الوادي الجديد": "New Valley",
+      "مطروح": "Matrouh",
+      "شمال سيناء": "North Sinai",
+      "جنوب سيناء": "South Sinai"
+    },
+    "validation": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Invalid email format",
+      "phoneRequired": "Phone number is required",
+      "phoneInvalid": "Invalid phone number (e.g. 01012345678)",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 6 characters",
+      "nameRequired": "Full name is required (at least 3 characters)",
+      "gradeRequired": "Grade is required",
+      "governorateRequired": "Governorate is required",
+      "confirmPasswordRequired": "Please confirm your password",
+      "passwordMismatch": "Passwords do not match",
+      "currentPasswordRequired": "Current password is required"
+    },
+    "toast": {
+      "loginSuccess": "Logged in successfully",
+      "loginInvalid": "Invalid email or password",
+      "registerSuccess": "Account created successfully",
+      "registerFailed": "Failed to create account",
+      "logoutSuccess": "Logged out successfully",
+      "guestSuccess": "Continuing as guest",
+      "forgotPasswordSuccess": "A reset link has been sent to your email",
+      "forgotPasswordError": "Something went wrong, please try again",
+      "genericError": "An unexpected error occurred",
+      "otpSent": "Verification code sent",
+      "otpResent": "Code resent",
+      "otpVerified": "Verified successfully"
+    },
+    "errors": {
+      "invalidCredentials": "Invalid email or password",
+      "emailExists": "This email is already in use",
+      "accountNotFound": "Account not found",
+      "currentPasswordIncorrect": "Current password is incorrect"
+    },
+    "messages": {
+      "loginSuccess": "Logged in successfully",
+      "registerSuccess": "Account created successfully",
+      "logoutSuccess": "Logged out successfully",
+      "forgotPasswordSent": "If this email is registered with us, a reset link will be sent",
+      "profileUpdateSuccess": "Profile updated successfully",
+      "passwordChangeSuccess": "Password changed successfully"
+    }
+  },
+  "dashboardLayout": {
+    "closeMenu": "Close menu",
+    "openMenu": "Open menu",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Log Out",
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "myCourses": "My Courses",
+      "profile": "Profile",
+      "courses": "Courses",
+      "students": "Students",
+      "analytics": "Analytics",
+      "schedule": "Schedule",
+      "quizzes": "Quizzes",
+      "exams": "Exams",
+      "grades": "Grades",
+      "revisionMaterials": "Revision Materials",
+      "certificates": "Certificates",
+      "payments": "Payments",
+      "notifications": "Notifications",
+      "parents": "Parents",
+      "lessons": "Lessons",
+      "quizzesExams": "Quizzes & Exams",
+      "attendance": "Attendance",
+      "groups": "Groups & Schedule"
+    }
+  },
+  "mainLayout": {
+    "home": "Home",
+    "courses": "Courses",
+    "about": "About",
+    "login": "Log In",
+    "register": "Sign Up",
+    "footer": {
+      "description": "An educational platform specialized in teaching Arabic, offering simplified, structured explanations and interactive exercises.",
+      "quickLinksTitle": "Quick Links",
+      "browseCourses": "Browse Courses",
+      "aboutPlatform": "About",
+      "contactUs": "Contact Us",
+      "supportTitle": "Support",
+      "faq": "FAQ",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use",
+      "copyright": "All rights reserved."
+    }
+  },
+  "studentPages": {
+    "dashboard": {
+      "title": "Student Dashboard",
+      "description": "Welcome to your dashboard",
+      "welcome": "Welcome back, {{name}}",
+      "welcomeSubtitle": "Continue your learning journey where you left off",
+      "stats": {
+        "enrolledCourses": "Enrolled Courses",
+        "completedCourses": "Completed Courses",
+        "avgProgress": "Average Progress",
+        "certificates": "Certificates"
+      },
+      "continueLearning": {
+        "title": "Continue Learning",
+        "resume": "Resume",
+        "lessonsProgress": "{{completed}} of {{total}} lessons",
+        "empty": "No courses in progress right now"
+      },
+      "myCourses": {
+        "title": "My Courses",
+        "viewAll": "View all",
+        "tabs": { "all": "All", "inProgress": "In Progress", "completed": "Completed" },
+        "empty": "No courses in this category"
+      },
+      "schedule": {
+        "title": "Schedule",
+        "kindAssignment": "Assignment",
+        "kindExam": "Exam",
+        "dueToday": "Today",
+        "dueTomorrow": "Tomorrow",
+        "dueIn": "In {{days}} days",
+        "empty": "No upcoming dates"
+      },
+      "notifications": {
+        "title": "Notifications",
+        "viewAll": "View all",
+        "empty": "No new notifications"
+      },
+      "grades": {
+        "title": "Grades",
+        "score": "{{score}} / {{max}}",
+        "passed": "Passed",
+        "failed": "Failed",
+        "kindAssignment": "Assignment",
+        "kindQuiz": "Quiz",
+        "kindExam": "Exam",
+        "empty": "No results yet"
+      },
+      "quizzes": {
+        "title": "Quizzes",
+        "questionsCount": "{{count}} questions",
+        "timeLimit": "{{minutes}} min",
+        "attempts": "Attempts: {{used}} / {{max}}",
+        "bestScore": "Best score: {{score}} / {{total}}",
+        "start": "Start Quiz",
+        "retake": "Retake",
+        "noAttemptsLeft": "No attempts left",
+        "empty": "No quizzes available right now"
+      },
+      "exams": {
+        "title": "Exams",
+        "statusUpcoming": "Upcoming",
+        "statusOpen": "Open now",
+        "statusClosed": "Closed",
+        "opensOn": "Opens on {{date}}",
+        "closesOn": "Closes on {{date}}",
+        "start": "Start Exam",
+        "viewResult": "Your score: {{score}} / {{total}}",
+        "empty": "No exams scheduled"
+      },
+      "revisionMaterials": {
+        "title": "Revision Materials",
+        "typeSummary": "Summary",
+        "typeVideo": "Video",
+        "typeFlashcards": "Flashcards",
+        "view": "Open",
+        "empty": "No revision materials available"
+      },
+      "certificates": {
+        "title": "Certificates",
+        "issuedOn": "Issued on {{date}}",
+        "download": "Download Certificate",
+        "empty": "You haven't earned any certificates yet"
+      },
+      "recommended": {
+        "title": "You Might Also Like",
+        "viewCourse": "View Course",
+        "empty": "No recommendations right now"
+      },
+      "payments": {
+        "title": "Payments",
+        "course": "Course",
+        "amount": "Amount",
+        "method": "Method",
+        "status": "Status",
+        "date": "Date",
+        "statusValues": { "pending": "Pending", "approved": "Approved", "rejected": "Rejected" },
+        "methodValues": {
+          "credit_card": "Credit Card",
+          "paypal": "PayPal",
+          "bank_transfer": "Bank Transfer",
+          "cash": "Cash"
+        },
+        "empty": "No payments recorded"
+      }
+    },
+    "courses": { "title": "My Courses", "description": "All the courses you're enrolled in" },
+    "profile": {
+      "title": "Profile",
+      "description": "Manage your personal information",
+      "photoLabel": "Profile Photo",
+      "changePhoto": "Change Photo",
+      "nameLabel": "Name",
+      "saveChanges": "Save Changes",
+      "changePasswordTitle": "Change Password",
+      "changePasswordDescription": "Make sure to use a strong password to keep your account secure",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmNewPassword": "Confirm New Password",
+      "changePasswordSubmit": "Update Password",
+      "toast": {
+        "updateSuccess": "Your info was updated successfully",
+        "updateFailed": "Failed to update your info",
+        "passwordChangeSuccess": "Password changed successfully",
+        "passwordChangeFailed": "Failed to change password"
+      }
+    },
+    "schedule": { "title": "Schedule", "description": "All your upcoming assignment and exam dates" },
+    "quizzes": { "title": "Quizzes", "description": "All quizzes available in your courses" },
+    "exams": { "title": "Exams", "description": "Your upcoming, open, and closed exams" },
+    "grades": { "title": "Grades", "description": "All your assignment, quiz, and exam grades" },
+    "revision": { "title": "Revision Materials", "description": "Summaries, videos, and flashcards for your courses" },
+    "certificates": { "title": "Certificates", "description": "Certificates you've earned" },
+    "payments": { "title": "Payments", "description": "Your course payment history" },
+    "notifications": { "title": "Notifications", "description": "All your notifications in one place" }
+  },
+  "quizTakePage": {
+    "questionOf": "Question {{current}} of {{total}}",
+    "timeRemaining": "Time remaining: {{time}}",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Finish & Submit",
+    "resultTitle": "Your Result",
+    "resultScore": "You scored {{score}} / {{total}}",
+    "passed": "Congratulations, you passed!",
+    "failed": "Unfortunately you didn't pass",
+    "backToDashboard": "Back to Dashboard",
+    "retake": "Retake",
+    "noAttemptsLeft": "You've used all your attempts",
+    "notFound": "Quiz not found"
+  },
+  "examTakePage": {
+    "questionOf": "Question {{current}} of {{total}}",
+    "timeRemaining": "Time remaining: {{time}}",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Finish & Submit",
+    "resultTitle": "Your Result",
+    "resultScore": "You scored {{score}} / {{total}}",
+    "passed": "Congratulations, you passed!",
+    "failed": "Unfortunately you didn't pass",
+    "backToDashboard": "Back to Dashboard",
+    "alreadySubmitted": "You've already submitted this exam, exams allow one attempt only",
+    "notOpenYet": "This exam hasn't opened yet",
+    "closed": "This exam has closed",
+    "notFound": "Exam not found"
+  },
+  "teacherPages": {
+    "dashboard": {
+      "title": "Teacher Dashboard",
+      "description": "Welcome to your dashboard",
+      "welcome": "Welcome back, {{name}}",
+      "welcomeSubtitle": "Here's an overview of your platform today",
+      "stats": {
+        "students": "Total Students",
+        "courses": "Total Courses",
+        "teachers": "Teachers",
+        "groups": "Groups",
+        "examsQuizzes": "Exams & Quizzes",
+        "revenue": "Total Revenue"
+      },
+      "charts": {
+        "attendanceTitle": "Attendance Rate (last 14 days)",
+        "enrollmentTitle": "New Enrollments (last 6 months)",
+        "enrollmentTooltip": "{{count}} new enrollments"
+      },
+      "schedule": {
+        "title": "Today's Schedule",
+        "studentsCount": "{{count}} students",
+        "empty": "No sessions scheduled today"
+      },
+      "notifications": {
+        "title": "Recent Notifications",
+        "empty": "No new notifications"
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "manageCourses": "Manage Courses",
+        "manageStudents": "Manage Students",
+        "viewAnalytics": "View Analytics"
+      }
+    },
+    "courses": {
+      "title": "Courses",
+      "description": "Manage your courses",
+      "addCourse": "Add Course",
+      "editCourse": "Edit Course",
+      "deleteCourse": "Delete Course",
+      "deleteConfirmTitle": "Confirm Deletion",
+      "deleteConfirmMessage": "Are you sure you want to delete \"{{title}}\"? This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "save": "Save",
+      "students": "students",
+      "lessons": "lessons",
+      "statusPublished": "Published",
+      "statusDraft": "Draft",
+      "fields": {
+        "title": "Course Title",
+        "description": "Description",
+        "price": "Price (SAR)",
+        "duration": "Duration",
+        "durationPlaceholder": "e.g. 8 weeks",
+        "level": "Level",
+        "category": "Category",
+        "categoryPlaceholder": "e.g. Programming",
+        "isPublished": "Publish course"
+      },
+      "levels": { "beginner": "Beginner", "intermediate": "Intermediate", "advanced": "Advanced" },
+      "validation": {
+        "titleRequired": "Course title is required (at least 3 characters)",
+        "descriptionRequired": "Description is required (at least 10 characters)",
+        "priceInvalid": "Price must be a valid number",
+        "durationRequired": "Duration is required",
+        "categoryRequired": "Category is required"
+      },
+      "toast": {
+        "created": "Course created successfully",
+        "updated": "Course updated successfully",
+        "deleted": "Course deleted"
+      },
+      "empty": "No courses yet"
+    },
+    "lessons": {
+      "title": "Lessons",
+      "description": "Pick a course to manage its lessons",
+      "lessonsCount": "{{count}} lessons",
+      "backToCourses": "Back to Courses",
+      "manageLessons": "Manage Lessons",
+      "addLesson": "Add Lesson",
+      "editLesson": "Edit Lesson",
+      "deleteLesson": "Delete Lesson",
+      "deleteConfirmTitle": "Confirm Deletion",
+      "deleteConfirmMessage": "Are you sure you want to delete \"{{title}}\"?",
+      "preview": "Preview",
+      "empty": "No lessons yet",
+      "fields": {
+        "title": "Lesson Title",
+        "description": "Description",
+        "duration": "Duration",
+        "durationPlaceholder": "e.g. 15:00",
+        "type": "Lesson Type",
+        "isFree": "Free lesson (free preview)",
+        "isPublished": "Publish lesson",
+        "video": "Video",
+        "pdf": "PDF File"
+      },
+      "types": { "video": "Video", "article": "Article", "quiz": "Quiz", "assignment": "Assignment" },
+      "uploadVideo": "Upload Video",
+      "uploadPdf": "Upload PDF",
+      "removeFile": "Remove",
+      "noVideo": "No video uploaded",
+      "noPdf": "No PDF uploaded",
+      "validation": {
+        "titleRequired": "Lesson title is required (at least 3 characters)",
+        "descriptionRequired": "Description is required",
+        "durationRequired": "Duration is required"
+      },
+      "toast": {
+        "created": "Lesson added successfully",
+        "updated": "Lesson updated successfully",
+        "deleted": "Lesson deleted",
+        "reordered": "Order updated"
+      },
+      "previewTitle": "Content Preview"
+    },
+    "quizzesExams": {
+      "title": "Quizzes & Exams",
+      "description": "Create and manage quizzes and exams for your courses",
+      "tabQuizzes": "Quizzes",
+      "tabExams": "Exams",
+      "addQuiz": "Add Quiz",
+      "editQuiz": "Edit Quiz",
+      "addExam": "Add Exam",
+      "editExam": "Edit Exam",
+      "manageQuestions": "Questions",
+      "viewResults": "Results",
+      "deleteConfirmTitle": "Confirm Deletion",
+      "deleteConfirmMessage": "Are you sure you want to delete \"{{title}}\"?",
+      "emptyQuizzes": "No quizzes yet",
+      "emptyExams": "No exams yet",
+      "questionsCount": "{{count}} questions",
+      "fields": {
+        "title": "Title",
+        "description": "Description",
+        "course": "Course",
+        "lesson": "Lesson (optional)",
+        "lessonNone": "No specific lesson",
+        "timeLimit": "Time Limit (minutes)",
+        "duration": "Duration (minutes)",
+        "passingScore": "Passing Score",
+        "maxAttempts": "Max Attempts Allowed",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "isPublished": "Publish"
+      },
+      "questionFields": {
+        "text": "Question Text",
+        "type": "Question Type",
+        "options": "Options (one per line)",
+        "optionsPlaceholder": "Write each option on its own line",
+        "correctAnswer": "Correct Answer",
+        "correctAnswerPlaceholder": "Must exactly match one of the options",
+        "points": "Points"
+      },
+      "questionTypes": {
+        "multiple_choice": "Multiple Choice",
+        "true_false": "True/False",
+        "short_answer": "Short Answer",
+        "essay": "Essay"
+      },
+      "addQuestion": "Add Question",
+      "editQuestion": "Edit Question",
+      "deleteQuestionConfirm": "Are you sure you want to delete this question?",
+      "backToQuizzesExams": "Back to Quizzes & Exams",
+      "noQuestions": "No questions yet",
+      "totalScore": "Total Score: {{score}}",
+      "validation": {
+        "titleRequired": "Title is required (at least 3 characters)",
+        "descriptionRequired": "Description is required",
+        "courseRequired": "Please select a course",
+        "numberInvalid": "Must be a valid number",
+        "dateRequired": "Date is required",
+        "questionTextRequired": "Question text is required (at least 3 characters)",
+        "correctAnswerRequired": "Correct answer is required"
+      },
+      "toast": {
+        "quizCreated": "Quiz created successfully",
+        "quizUpdated": "Quiz updated successfully",
+        "quizDeleted": "Quiz deleted",
+        "examCreated": "Exam created successfully",
+        "examUpdated": "Exam updated successfully",
+        "examDeleted": "Exam deleted",
+        "questionAdded": "Question added",
+        "questionUpdated": "Question updated",
+        "questionDeleted": "Question deleted"
+      },
+      "results": {
+        "title": "Results",
+        "student": "Student",
+        "score": "Score",
+        "status": "Status",
+        "date": "Date",
+        "attempt": "Attempt",
+        "passed": "Passed",
+        "failed": "Failed",
+        "empty": "No submissions yet"
+      }
+    },
+    "students": {
+      "title": "Students",
+      "description": "Manage enrolled students",
+      "searchPlaceholder": "Search by name or email...",
+      "filterStatus": "Status",
+      "statusAll": "All",
+      "statusActive": "Active",
+      "statusInactive": "Inactive",
+      "statusSuspended": "Suspended",
+      "tableName": "Name",
+      "tableEmail": "Email",
+      "tableCourses": "Courses",
+      "tableStatus": "Status",
+      "tableGroups": "Groups",
+      "viewProfile": "View Profile",
+      "empty": "No students match your search"
+    },
+    "studentDetail": {
+      "backToStudents": "Back to Students",
+      "coursesTitle": "Enrolled Courses",
+      "coursesEmpty": "Not enrolled in any course",
+      "attendanceTitle": "Attendance",
+      "attendanceRate": "Attendance rate",
+      "attendanceSessions": "{{count}} sessions",
+      "attendanceEmpty": "No attendance records",
+      "statusPresent": "Present",
+      "statusAbsent": "Absent",
+      "statusLate": "Late",
+      "gradesTitle": "Grades",
+      "gradesEmpty": "No grades recorded",
+      "kindAssignment": "Assignment",
+      "kindQuiz": "Quiz",
+      "kindExam": "Exam",
+      "score": "{{score}} / {{max}}",
+      "subscriptionTitle": "Subscription Status",
+      "notesTitle": "Notes",
+      "notesEmpty": "No notes yet",
+      "notesPlaceholder": "Write a note about this student...",
+      "addNote": "Add Note",
+      "noteAdded": "Note added"
+    },
+    "analytics": {
+      "title": "Analytics",
+      "description": "Performance statistics and analytics",
+      "sectionOverview": "Overview",
+      "sectionAttendance": "Attendance",
+      "sectionEnrollment": "Enrollment & Revenue",
+      "sectionPerformance": "Student Performance",
+      "sectionTopCourses": "Most Enrolled Courses",
+      "topCourses": {
+        "students": "{{count}} students",
+        "revenue": "Revenue",
+        "rating": "Rating",
+        "empty": "No published courses yet"
+      }
+    },
+    "attendance": {
+      "title": "Attendance",
+      "description": "Record and track student attendance across groups",
+      "filterGroup": "Group",
+      "filterDate": "Date",
+      "selectGroupPrompt": "Select a group to record attendance",
+      "noStudents": "No students in this group",
+      "notMarked": "Not marked",
+      "savedToast": "Attendance saved",
+      "stats": {
+        "rate": "Attendance Rate",
+        "present": "Present Days",
+        "absent": "Absent Days",
+        "late": "Late Days"
+      }
+    },
+    "payments": {
+      "title": "Payments",
+      "description": "Track installments, payments, and overdue balances",
+      "tabInstallments": "Installments",
+      "tabPayments": "Payments",
+      "stats": {
+        "collected": "Total Collected",
+        "pending": "Pending",
+        "overdue": "Overdue",
+        "overdueCount": "{{count}} overdue installments"
+      },
+      "filterStatus": "Status",
+      "statusAll": "All",
+      "statusPaid": "Paid",
+      "statusPending": "Pending",
+      "statusOverdue": "Overdue",
+      "installmentsTable": {
+        "student": "Student",
+        "course": "Course",
+        "installment": "Installment",
+        "installmentOf": "{{number}} of {{total}}",
+        "amount": "Amount",
+        "dueDate": "Due Date",
+        "status": "Status",
+        "markPaid": "Mark as Paid",
+        "sendReminder": "Send Reminder",
+        "empty": "No installments"
+      },
+      "paymentsTable": {
+        "student": "Student",
+        "empty": "No payments"
+      },
+      "toast": {
+        "marked": "Payment recorded",
+        "reminderSent": "Reminder sent to student"
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "description": "Send notifications to students and track the sending log",
+      "composeTitle": "Send New Notification",
+      "scope": "Recipients",
+      "scopeAll": "All Students",
+      "scopeGroup": "A Specific Group",
+      "scopeStudent": "One Student",
+      "selectGroup": "Select Group",
+      "selectStudent": "Select Student",
+      "titleField": "Notification Title",
+      "messageField": "Notification Message",
+      "typeField": "Notification Type",
+      "typeInfo": "Info",
+      "typeSuccess": "Success",
+      "typeWarning": "Warning",
+      "typeError": "Important",
+      "send": "Send",
+      "sentToast": "Notification sent to {{count}} students",
+      "logTitle": "Notification Log",
+      "logEmpty": "No notifications sent yet",
+      "recipients": "{{count}} recipients",
+      "validation": {
+        "titleRequired": "Notification title is required",
+        "messageRequired": "Notification message is required",
+        "groupRequired": "Please select a group",
+        "studentRequired": "Please select a student"
+      }
+    },
+    "groups": {
+      "title": "Groups & Schedule",
+      "description": "Create groups, assign students, and set session times",
+      "addGroup": "Add Group",
+      "editGroup": "Edit Group",
+      "deleteConfirmTitle": "Confirm Deletion",
+      "deleteConfirmMessage": "Are you sure you want to delete \"{{name}}\"?",
+      "empty": "No groups yet",
+      "fields": {
+        "name": "Group Name",
+        "course": "Course",
+        "students": "Assign Students",
+        "schedule": "Session Times"
+      },
+      "addSlot": "Add Session",
+      "removeSlot": "Remove",
+      "day": "Day",
+      "startTime": "From",
+      "endTime": "To",
+      "days": {
+        "sunday": "Sunday",
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday"
+      },
+      "studentsCount": "{{count}} students",
+      "toast": {
+        "created": "Group created",
+        "updated": "Group updated",
+        "deleted": "Group deleted"
+      },
+      "validation": {
+        "nameRequired": "Group name is required (at least 3 characters)",
+        "courseRequired": "Please select a course",
+        "studentsRequired": "Select at least one student",
+        "scheduleRequired": "Add at least one session time",
+        "timeRequired": "Time is required"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "description": "Manage platform info, language, and your account settings",
+      "accountTitle": "Account Info",
+      "platformTitle": "Platform Info",
+      "languageTitle": "Language",
+      "languageDescription": "Choose the language you'd like to use across the platform",
+      "fields": {
+        "name": "Name",
+        "phone": "Phone Number",
+        "platformName": "Platform Name",
+        "platformDescription": "Platform Description",
+        "contactEmail": "Contact Email",
+        "contactPhone": "Contact Phone"
+      },
+      "changePhoto": "Change Photo",
+      "saveChanges": "Save Changes",
+      "toast": {
+        "accountUpdated": "Account info updated",
+        "accountUpdateFailed": "Failed to update account info",
+        "platformUpdated": "Platform info updated"
+      },
+      "validation": {
+        "required": "This field is required"
+      }
+    },
+    "grades": {
+      "title": "Grades",
+      "description": "An overview of student performance across assignments, quizzes, and exams",
+      "stats": {
+        "average": "Average Grade",
+        "passRate": "Pass Rate",
+        "failRate": "Fail Rate",
+        "totalGraded": "Total Graded Items"
+      },
+      "ranking": {
+        "title": "Student Ranking",
+        "rank": "Rank",
+        "student": "Student",
+        "average": "Average",
+        "graded": "Graded Items",
+        "passed": "Passed",
+        "failed": "Failed",
+        "empty": "No grades recorded yet",
+        "viewProfile": "View Profile"
+      }
+    },
+    "parents": {
+      "title": "Parents",
+      "description": "Contact details and accounts for students' parents",
+      "searchPlaceholder": "Search by name or email...",
+      "tableName": "Name",
+      "tableRelationship": "Relationship",
+      "tableStudent": "Student",
+      "tableContact": "Contact",
+      "viewProfile": "View Profile",
+      "empty": "No parents match your search",
+      "relationshipFather": "Father",
+      "relationshipMother": "Mother",
+      "relationshipGuardian": "Guardian"
+    },
+    "parentDetail": {
+      "backToParents": "Back to Parents",
+      "linkedStudentTitle": "Linked Student",
+      "contactTitle": "Contact Info",
+      "expensesTitle": "Expenses",
+      "expensesEmpty": "No payments recorded",
+      "communicationTitle": "Communication Log",
+      "communicationEmpty": "No communication logged yet",
+      "channelCall": "Call",
+      "channelWhatsapp": "WhatsApp",
+      "channelEmail": "Email",
+      "channelMeeting": "Meeting",
+      "summaryPlaceholder": "Write a summary of the call or message...",
+      "addEntry": "Log New Communication",
+      "entryAdded": "Communication logged"
+    }
+  },
+  "aboutPage": {
+    "title": "About the Platform",
+    "description": "A comprehensive educational platform aimed at making teaching and learning easier"
+  },
+  "coursesPage": {
+    "title": "Available Courses",
+    "description": "Browse all courses available on the platform"
+  },
+  "notFound": {
+    "message": "Page not found",
+    "backHome": "Back to Home"
+  },
+  "courseDetails": {
+    "notFoundTitle": "Course Not Found",
+    "notFoundDescription": "Sorry, we couldn't find the course you're looking for. It may have been removed or the link is incorrect.",
+    "backToCourses": "Back to Courses",
+    "coursesBreadcrumb": "Courses",
+    "studentsUnit": "students",
+    "lessonsUnit": "lessons",
+    "hoursUnit": "hours",
+    "language": "Language",
+    "level": "Level",
+    "lastUpdated": "Last updated",
+    "providedBy": "Provided by",
+    "subscribeNow": "Subscribe Now",
+    "watchPreview": "Watch Free Preview",
+    "save": "Save",
+    "studentsCount": "Number of Students",
+    "lessonsCount": "Number of Lessons",
+    "totalHours": "Total Hours",
+    "certifiedCertificate": "Certified Certificate",
+    "lifetimeAccess": "Lifetime Access",
+    "preview": {
+      "badge": "Free Preview",
+      "title": "Watch a Free Preview Lesson"
+    },
+    "learningObjectives": {
+      "badge": "What You'll Learn",
+      "title": "What Will You Learn in This Course?"
+    },
+    "curriculum": {
+      "badge": "Curriculum",
+      "title": "Course Curriculum",
+      "lessonsWord": "lessons",
+      "lessonsShort": "lessons",
+      "free": "Free"
+    },
+    "features": {
+      "badge": "Course Features",
+      "title": "Course Features"
+    },
+    "teacherSection": {
+      "badge": "Teacher",
+      "title": "Learn with an Expert",
+      "yearsExperience": "years of experience",
+      "students": "students",
+      "rating": "rating",
+      "achievements": "Achievements:"
+    },
+    "reviews": {
+      "badge": "Student Reviews",
+      "title": "Student Reviews",
+      "ratingsCount": "ratings"
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "FAQ"
+    },
+    "cta": {
+      "title": "Start Your Learning Journey Today",
+      "joinPrefix": "Join",
+      "joinMiddle": "students and start your journey mastering",
+      "browseCourses": "Browse Courses"
+    }
+  }
+}

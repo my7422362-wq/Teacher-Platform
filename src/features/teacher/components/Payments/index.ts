@@ -1,0 +1,1 @@
+export { PaymentsGrid } from './PaymentsGrid';

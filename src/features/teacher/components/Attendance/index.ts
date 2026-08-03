@@ -1,0 +1,1 @@
+export { AttendanceTaker } from './AttendanceTaker';
