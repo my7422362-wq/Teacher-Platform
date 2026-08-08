@@ -5,15 +5,13 @@
  * Non-text fields (href, icon, numeric ids) remain literal.
  */
 
-import type { Course } from '@/types';
-
 // ─── Navbar ────────────────────────────────────────────
 export const NAV_LINKS = [
   { labelKey: 'nav.home', href: '#hero' },
   { labelKey: 'nav.aboutTeacher', href: '#about-teacher' },
   { labelKey: 'nav.courses', href: '#featured-courses' },
   { labelKey: 'nav.testimonials', href: '#testimonials' },
-  { labelKey: 'nav.contact', href: '#cta' },
+  { labelKey: 'nav.contact', href: '#contact' },
 ] as const;
 
 // ─── Hero Section ──────────────────────────────────────
@@ -49,40 +47,6 @@ export const HERO_STATISTICS = [
   { valueKey: 'hero.stats.experience.value', labelKey: 'hero.stats.experience.label' },
   { valueKey: 'hero.stats.successRate.value', labelKey: 'hero.stats.successRate.label' },
 ] as const;
-
-// ─── About Teacher ─────────────────────────────────────
-export const ABOUT_TEACHER = {
-  name: 'أحمد محمد',
-  titleKey: 'about.badgeSecondary',
-  descriptionKey: 'about.description',
-  teacherInfoKey: 'about.teacherInfo',
-  image: '/images/teacher.jpg',
-  credentials: [
-    { valueKey: 'about.achievements.GraduationCap.value', labelKey: 'about.achievements.GraduationCap.label' },
-    { valueKey: 'about.achievements.Users.value', labelKey: 'about.achievements.Users.label' },
-    { valueKey: 'about.achievements.Star.value', labelKey: 'about.achievements.Star.label' },
-    { valueKey: 'about.achievements.BookOpen.value', labelKey: 'about.achievements.BookOpen.label' },
-  ],
-} as const;
-
-// ─── Statistics Section ────────────────────────────────
-export interface StatisticItem {
-  value: string;
-  label: string;
-  suffix?: string;
-}
-
-export const STATISTICS: StatisticItem[] = [
-  { value: '٤٠٠', label: 'طالب مسجل', suffix: '+' },
-  { value: '١٢', label: 'دورة تدريبية', suffix: '' },
-  { value: '٩٥', label: 'نسبة النجاح', suffix: '%' },
-  { value: '٤.٩', label: 'تقييم الطلاب', suffix: '' },
-];
-
-// ─── Featured Courses ──────────────────────────────────
-export function getFeaturedCourses(courses: Course[]): Course[] {
-  return courses.filter((course) => course.isFeatured).slice(0, 4);
-}
 
 // ─── Why Choose Us ─────────────────────────────────────
 export interface WhyChooseUsItem {
@@ -157,6 +121,21 @@ export const FAQ_ITEMS: FAQItem[] = [
   { id: 'faq-5', questionKey: 'faq.items.faq-5.question', answerKey: 'faq.items.faq-5.answer' },
 ];
 
+// ─── Contact Section ────────────────────────────────────
+// Real, working contact details only — no contact form, since there's no
+// backend endpoint yet to receive submissions (see auth.service.ts for the
+// project's stance on not faking functionality that doesn't exist).
+export const CONTACT_CONTENT = {
+  badgeKey: 'contact.badge',
+  titleKey: 'contact.title',
+  descriptionKey: 'contact.description',
+  emailLabelKey: 'contact.emailLabel',
+  phoneLabelKey: 'contact.phoneLabel',
+  email: 'moyoussef2192004@gmail.com',
+  phone: '01013556821',
+  whatsappUrl: 'https://wa.me/201013556821',
+} as const;
+
 // ─── CTA Section ───────────────────────────────────────
 export const CTA_CONTENT = {
   title: 'cta.title',
@@ -165,6 +144,9 @@ export const CTA_CONTENT = {
 } as const;
 
 // ─── Footer ────────────────────────────────────────────
+// NOTE: quickLinks/supportLinks only include routes that actually exist in
+// src/router/index.tsx. Don't add an entry here unless there's a real page
+// behind it — a footer link to a 404 is worse than no link.
 export const FOOTER_CONTENT = {
   descriptionKey: 'footer.description',
   brandNameKey: 'footer.brandName',
@@ -175,15 +157,5 @@ export const FOOTER_CONTENT = {
     { labelKey: 'footer.quickLinks.about', href: '/about' },
     { labelKey: 'footer.quickLinks.blog', href: '/blog' },
   ],
-  supportLinks: [
-    { labelKey: 'footer.supportLinks.faq', href: '#faq' },
-    { labelKey: 'footer.supportLinks.privacy', href: '/privacy' },
-    { labelKey: 'footer.supportLinks.terms', href: '/terms' },
-    { labelKey: 'footer.supportLinks.contact', href: '/contact' },
-  ],
-  socialLinks: [
-    { labelKey: 'footer.socialLinks.twitter', href: '#', icon: 'twitter' },
-    { labelKey: 'footer.socialLinks.linkedin', href: '#', icon: 'linkedin' },
-    { labelKey: 'footer.socialLinks.youtube', href: '#', icon: 'youtube' },
-  ],
+  supportLinks: [{ labelKey: 'footer.supportLinks.faq', href: '/faq' }],
 } as const;

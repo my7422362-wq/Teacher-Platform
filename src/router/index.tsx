@@ -11,6 +11,9 @@ import { CourseDetailsPage } from '@/features/course-details/pages/course-detail
 import { LoginPage } from '@/features/auth/pages/login';
 import { RegisterPage } from '@/features/auth/pages/register';
 import { ForgotPasswordPage } from '@/features/auth/pages/forgot-password';
+import { FaqPage } from '@/features/home/pages/faq';
+import { BlogPage } from '@/features/blog/pages/blog';
+import { BlogPostPage } from '@/features/blog/pages/blog-post';
 import { NotFoundPage } from '@/pages/not-found';
 import {
   StudentDashboardPage,
@@ -61,6 +64,9 @@ export function AppRouter() {
         <Route path="about" element={<AboutPage />} />
         <Route path="courses" element={<CoursesPage />} />
         <Route path="courses/:slug" element={<CourseDetailsPage />} />
+        <Route path="faq" element={<FaqPage />} />
+        <Route path="blog" element={<BlogPage />} />
+        <Route path="blog/:slug" element={<BlogPostPage />} />
       </Route>
 
       {/* Auth routes — only reachable when signed out */}

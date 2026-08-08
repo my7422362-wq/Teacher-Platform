@@ -79,7 +79,7 @@ export function MainLayout() {
               <ul className="space-y-3 text-sm text-[rgba(249,246,240,0.55)]">
                 <li><Link to="/courses" className="hover:text-[#D4B59E] transition-colors">{t('mainLayout.footer.browseCourses')}</Link></li>
                 <li><Link to="/about" className="hover:text-[#D4B59E] transition-colors">{t('mainLayout.footer.aboutPlatform')}</Link></li>
-                <li><Link to="/contact" className="hover:text-[#D4B59E] transition-colors">{t('mainLayout.footer.contactUs')}</Link></li>
+                <li><Link to="/blog" className="hover:text-[#D4B59E] transition-colors">{t('mainLayout.footer.blog')}</Link></li>
               </ul>
             </div>
 
@@ -87,8 +87,6 @@ export function MainLayout() {
               <h4 className="text-sm font-semibold text-[#F9F6F0]">{t('mainLayout.footer.supportTitle')}</h4>
               <ul className="space-y-3 text-sm text-[rgba(249,246,240,0.55)]">
                 <li><Link to="/faq" className="hover:text-[#D4B59E] transition-colors">{t('mainLayout.footer.faq')}</Link></li>
-                <li><Link to="/privacy" className="hover:text-[#D4B59E] transition-colors">{t('mainLayout.footer.privacy')}</Link></li>
-                <li><Link to="/terms" className="hover:text-[#D4B59E] transition-colors">{t('mainLayout.footer.terms')}</Link></li>
               </ul>
             </div>
           </div>

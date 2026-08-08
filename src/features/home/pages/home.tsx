@@ -4,8 +4,12 @@ import {
   AboutTeacher,
   CoursesSection,
   WhyChooseUs,
+  ResultsSection,
+  TrialBookingSection,
   Testimonials,
+  BlogSection,
   FAQSection,
+  ContactSection,
   CTASection,
   Footer,
 } from '@/features/home';
@@ -19,8 +23,12 @@ export function HomePage() {
         <AboutTeacher />
         <CoursesSection />
         <WhyChooseUs />
+        <ResultsSection />
+        <TrialBookingSection />
         <Testimonials />
+        <BlogSection />
         <FAQSection />
+        <ContactSection />
         <CTASection />
       </main>
       <Footer />

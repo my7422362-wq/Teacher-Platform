@@ -14,8 +14,12 @@ export { HeroSection } from './components/Hero';
 export { AboutTeacher } from './components/About';
 export { CoursesSection } from './components/Courses';
 export { WhyChooseUs } from './components/why-choose-us';
+export { ResultsSection } from './components/results-section';
+export { TrialBookingSection } from './components/trial-booking-section';
 export { Testimonials } from './components/testimonials';
+export { BlogSection } from './components/blog-section';
 export { FAQSection } from './components/faq-section';
+export { ContactSection } from './components/contact-section';
 export { CTASection } from './components/cta-section';
 export { Footer } from './components/footer';
 
@@ -25,18 +29,15 @@ export {
   HERO_CONTENT,
   HERO_FLOATING_CARDS,
   HERO_STATISTICS,
-  ABOUT_TEACHER,
-  STATISTICS,
-  getFeaturedCourses,
   WHY_CHOOSE_US,
   TESTIMONIALS,
   FAQ_ITEMS,
+  CONTACT_CONTENT,
   CTA_CONTENT,
   FOOTER_CONTENT,
 } from './data';
 
 // ─── Types ─────────────────────────────────────────────
-export type { StatisticItem } from './data';
 export type { WhyChooseUsItem } from './data';
 export type { TestimonialItem } from './data';
 export type { FAQItem } from './data';

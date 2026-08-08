@@ -135,14 +135,51 @@
       }
     }
   },
+  "contact": {
+    "badge": "Contact Us",
+    "title": "Have a question? Get in touch",
+    "description": "Reach out to us directly by email or WhatsApp and we'll get back to you as soon as possible.",
+    "emailLabel": "Email us",
+    "phoneLabel": "Message us on WhatsApp"
+  },
+  "results": {
+    "badge": "Real Results",
+    "title": "Numbers We're Proud Of",
+    "description": "These are real results we track closely for every student on the platform.",
+    "items": {
+      "successRate": "Student success rate",
+      "students": "Students who benefited from our courses",
+      "lessons": "Lessons available on the platform"
+    },
+    "disclaimer": "Numbers are updated continuously based on tracking student performance."
+  },
+  "trialBooking": {
+    "badge": "Try for Free",
+    "title": "Book a Free Trial Lesson",
+    "description": "Fill in your details and we'll reach out on WhatsApp to schedule your trial lesson.",
+    "nameLabel": "Full Name",
+    "namePlaceholder": "Enter your full name",
+    "phoneLabel": "Phone Number",
+    "gradeLabel": "Grade Level",
+    "submit": "Book Your Trial Lesson",
+    "disclaimer": "You'll be redirected to WhatsApp to complete the booking with our team directly.",
+    "whatsappMessage": "Hi, I'd like to book a free trial lesson.\nName: {{name}}\nPhone: {{phone}}\nGrade: {{grade}}",
+    "toastSuccess": "Redirecting you to WhatsApp now"
+  },
+  "blogSection": {
+    "badge": "Blog",
+    "title": "Articles to Help You Learn More",
+    "description": "Practical tips and articles about Arabic, updated regularly.",
+    "viewAll": "View All Articles"
+  },
   "cta": {
     "title": "Start Your Learning Journey Today",
-    "description": "Join hundreds of students who have started their journey in programming and technology.",
+    "description": "Join thousands of students who started mastering Arabic with confidence and excellence.",
     "buttonText": "Sign Up Now for Free"
   },
   "footer": {
     "brandName": "Smart Learning Platform",
-    "description": "An advanced educational platform aimed at empowering students and teaching programming and information technology in a modern, interactive way.",
+    "description": "An educational platform specialized in teaching Arabic, helping students master every branch of the language in a modern, interactive way.",
     "quickLinksTitle": "Quick Links",
     "supportTitle": "Support",
     "followTitle": "Follow Us",
@@ -344,6 +381,7 @@
       "quickLinksTitle": "Quick Links",
       "browseCourses": "Browse Courses",
       "aboutPlatform": "About",
+      "blog": "Blog",
       "contactUs": "Contact Us",
       "supportTitle": "Support",
       "faq": "FAQ",
@@ -987,6 +1025,14 @@
     "title": "Available Courses",
     "description": "Browse all courses available on the platform"
   },
+  "blogPage": {
+    "title": "Arabic Learning Blog",
+    "description": "Articles and practical tips to help you master Arabic more easily and enjoyably.",
+    "readMinutes": "min read",
+    "backToBlog": "Back to Blog",
+    "notFoundTitle": "Article Not Found",
+    "notFoundDescription": "Sorry, we couldn't find the article you're looking for. It may have been removed or the link is incorrect."
+  },
   "notFound": {
     "message": "Page not found",
     "backHome": "Back to Home"
@@ -1005,6 +1051,8 @@
     "providedBy": "Provided by",
     "subscribeNow": "Subscribe Now",
     "watchPreview": "Watch Free Preview",
+    "enrollmentComingSoon": "Course enrollment isn't available yet — we'll let you know as soon as it opens.",
+    "previewComingSoon": "This preview video isn't available yet.",
     "save": "Save",
     "studentsCount": "Number of Students",
     "lessonsCount": "Number of Lessons",

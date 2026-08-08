@@ -139,6 +139,7 @@
     scroll-behavior: smooth;
     text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
   }
 
   body {
@@ -146,6 +147,7 @@
     min-width: 20rem;
     min-height: 100vh;
     margin: 0;
+    overflow-x: hidden;
     font-family: var(--font-cairo);
     font-feature-settings: "kern", "liga", "calt";
     text-rendering: optimizeLegibility;

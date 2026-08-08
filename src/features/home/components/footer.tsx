@@ -25,7 +25,7 @@ export function Footer({ className }: FooterProps) {
     >
       <div className="container mx-auto px-4">
         <motion.div
-          className="grid grid-cols-1 gap-8 md:grid-cols-4 mb-8"
+          className="grid grid-cols-1 gap-8 md:grid-cols-3 mb-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -71,25 +71,6 @@ export function Footer({ className }: FooterProps) {
                   >
                     {t(link.labelKey)}
                   </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Social links */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-semibold text-foreground">{t('footer.followTitle')}</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              {FOOTER_CONTENT.socialLinks.map((link) => (
-                <li key={link.labelKey}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-primary transition-colors"
-                  >
-                    {t(link.labelKey)}
-                  </a>
                 </li>
               ))}
             </ul>

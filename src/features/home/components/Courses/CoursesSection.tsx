@@ -8,6 +8,10 @@ import { COURSES_DATA, type CourseCategory } from './courses.data';
 
 interface CoursesSectionProps {
   className?: string;
+  /** Overrides for standalone-page reuse (default copy is home-page framing). */
+  badgeKey?: string;
+  titleKey?: string;
+  descriptionKey?: string;
 }
 
 const sectionVariants = {
@@ -27,7 +31,12 @@ const itemFadeUp = {
   },
 };
 
-export function CoursesSection({ className }: CoursesSectionProps) {
+export function CoursesSection({
+  className,
+  badgeKey = 'courses.badge',
+  titleKey = 'courses.title',
+  descriptionKey = 'courses.description',
+}: CoursesSectionProps) {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<CourseCategory>('الكل');
 
@@ -79,7 +88,7 @@ export function CoursesSection({ className }: CoursesSectionProps) {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#D4B59E]" />
               </span>
-              <span className="text-sm font-medium text-[rgba(249,246,240,0.75)]">{t('courses.badge')}</span>
+              <span className="text-sm font-medium text-[rgba(249,246,240,0.75)]">{t(badgeKey)}</span>
             </motion.div>
 
             {/* Title */}
@@ -88,7 +97,7 @@ export function CoursesSection({ className }: CoursesSectionProps) {
               className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight"
             >
               <span className="bg-gradient-to-r from-[#D4B59E] via-[#C7A187] to-[#D4B59E] bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient-shift_3s_ease_infinite]">
-                {t('courses.title')}
+                {t(titleKey)}
               </span>
             </motion.h2>
 
@@ -97,7 +106,7 @@ export function CoursesSection({ className }: CoursesSectionProps) {
               variants={itemFadeUp}
               className="mt-6 text-base sm:text-lg text-[rgba(249,246,240,0.55)] leading-relaxed max-w-2xl mx-auto"
             >
-              {t('courses.description')}
+              {t(descriptionKey)}
             </motion.p>
           </motion.div>
 

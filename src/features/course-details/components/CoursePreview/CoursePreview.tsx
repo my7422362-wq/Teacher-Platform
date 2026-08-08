@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { toast } from 'sonner';
 import { Play, Clock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
@@ -16,6 +17,10 @@ const itemFadeUp = {
 
 export function CoursePreview({ course, className }: CoursePreviewProps) {
   const { t } = useTranslation();
+
+  const handlePlay = () => {
+    toast.info(t('courseDetails.previewComingSoon'));
+  };
 
   return (
     <section className={cn('relative overflow-hidden py-16 sm:py-20', className)}>
@@ -71,6 +76,8 @@ export function CoursePreview({ course, className }: CoursePreviewProps) {
                       <span className="text-sm">{course.previewVideo.duration}</span>
                     </div>
                     <motion.button
+                      type="button"
+                      onClick={handlePlay}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-r from-[#D4B59E] to-[#C7A187] hover:from-[#D4B59E] hover:to-[#D4B59E] flex items-center justify-center shadow-2xl shadow-blue-600/30 cursor-pointer transition-all duration-300 mx-auto"

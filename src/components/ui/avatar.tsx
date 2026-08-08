@@ -1,4 +1,4 @@
-import { forwardRef, type HTMLAttributes } from 'react';
+import { forwardRef, useState, type HTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
 
 export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
@@ -17,6 +17,7 @@ const sizeMap = {
 
 const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
   ({ className, src, alt, fallback, size = 'md', ...props }, ref) => {
+    const [failed, setFailed] = useState(false);
     const initials = fallback
       ? fallback.slice(0, 2)
       : alt
@@ -33,8 +34,13 @@ const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
         )}
         {...props}
       >
-        {src ? (
-          <img src={src} alt={alt || ''} className="h-full w-full object-cover" />
+        {src && !failed ? (
+          <img
+            src={src}
+            alt={alt || ''}
+            className="h-full w-full object-cover"
+            onError={() => setFailed(true)}
+          />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-[#1B4038] font-medium text-[rgba(249,246,240,0.55)]">
             {initials}

@@ -46,19 +46,15 @@ export function HeroSection({ className }: HeroSectionProps) {
         >
           {/* Left Column: Text Content */}
           <HeroContent />
-          {/* Stats below content on mobile, after content on desktop */}
-          <div className="lg:col-span-2 lg:hidden">
-            <HeroStats />
-          </div>
 
           {/* Right Column: Image + Floating Cards */}
           <HeroImage />
         </motion.div>
+      </div>
 
-        {/* Stats on desktop - below the grid */}
-        <div className="hidden lg:block max-w-2xl">
-          <HeroStats />
-        </div>
+      {/* Stats marquee - full page width, edge to edge */}
+      <div className="relative z-10 mt-10 md:mt-14 w-full">
+        <HeroStats />
       </div>
 
       {/* Bottom fade gradient */}

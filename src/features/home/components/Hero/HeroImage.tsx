@@ -50,7 +50,7 @@ export function HeroImage() {
       <FloatingCard
         icon={HERO_FLOATING_CARDS[1].icon}
         textKey={HERO_FLOATING_CARDS[1].textKey}
-        position="top-[40%] -right-[5%] md:right-[0%] lg:-right-[5%]"
+        position="top-[40%] right-[2%] sm:right-[0%] lg:-right-[5%]"
         delay={0.65}
       />
 

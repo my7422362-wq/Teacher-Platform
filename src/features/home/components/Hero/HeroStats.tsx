@@ -2,15 +2,11 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { HERO_STATISTICS } from '@/features/home/data';
 
-const statItem = {
-  hidden: { opacity: 0, y: 20, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.4, ease: 'easeOut' as const },
-  },
-};
+// Repeated 4x so the strip stays full even on ultra-wide screens, and loops
+// seamlessly: shifting by exactly one copy's width (-25% of the 4-copy
+// track) lands back on an identical frame.
+const COPIES = 4;
+const MARQUEE_ITEMS = Array.from({ length: COPIES }, () => HERO_STATISTICS).flat();
 
 export function HeroStats() {
   const { t } = useTranslation();
@@ -20,24 +16,28 @@ export function HeroStats() {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
-      className="mt-10 p-6 rounded-2xl bg-[rgba(255,255,255,0.04)] backdrop-blur-xl border border-[rgba(212,181,158,0.12)] shadow-lg hover:border-[rgba(212,181,158,0.2)] transition-all duration-300"
+      className="w-full overflow-hidden bg-[rgba(255,255,255,0.04)] backdrop-blur-xl border-y border-[rgba(212,181,158,0.12)]"
     >
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {HERO_STATISTICS.map((stat, i) => (
-          <motion.div
-            key={stat.labelKey}
-            custom={i}
-            variants={statItem}
-            className="text-center"
-          >
-            <div className="text-xl sm:text-2xl font-bold text-[#D4B59E]">
-              {t(stat.valueKey)}
+      <div className="relative py-4 sm:py-6 [mask-image:linear-gradient(to_right,transparent,black_2%,black_98%,transparent)] sm:[mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
+        <motion.div
+          className="flex w-max gap-8 px-4 sm:gap-16 sm:px-6"
+          animate={{ x: ['0%', `-${100 / COPIES}%`] }}
+          transition={{ duration: 16, ease: 'linear', repeat: Infinity }}
+        >
+          {MARQUEE_ITEMS.map((stat, i) => (
+            <div
+              key={`${stat.labelKey}-${i}`}
+              className="flex shrink-0 flex-col items-center text-center min-w-20 sm:min-w-28"
+            >
+              <div className="text-lg sm:text-2xl font-bold text-[#D4B59E]">
+                {t(stat.valueKey)}
+              </div>
+              <div className="text-[11px] sm:text-sm text-[rgba(249,246,240,0.55)] mt-1 whitespace-nowrap">
+                {t(stat.labelKey)}
+              </div>
             </div>
-            <div className="text-xs sm:text-sm text-[rgba(249,246,240,0.55)] mt-1">
-              {t(stat.labelKey)}
-            </div>
-          </motion.div>
-        ))}
+          ))}
+        </motion.div>
       </div>
     </motion.div>
   );

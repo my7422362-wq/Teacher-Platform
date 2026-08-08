@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 import { Star, Users, BookOpen, Clock, Shield, Play, ArrowLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/providers';
 import type { CourseDetail } from '../../types/course';
 
 interface CourseHeroProps {
@@ -24,6 +27,20 @@ const itemFadeUp = {
 
 export function CourseHero({ course, className }: CourseHeroProps) {
   const { t } = useTranslation();
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubscribe = () => {
+    if (!isAuthenticated) {
+      navigate('/register');
+      return;
+    }
+    toast.info(t('courseDetails.enrollmentComingSoon'));
+  };
+
+  const handleWatchPreview = () => {
+    toast.info(t('courseDetails.previewComingSoon'));
+  };
 
   return (
     <section
@@ -131,6 +148,8 @@ export function CourseHero({ course, className }: CourseHeroProps) {
 
               <motion.div variants={itemFadeUp} className="flex flex-wrap items-center gap-4 pt-4">
                 <motion.button
+                  type="button"
+                  onClick={handleSubscribe}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="relative group overflow-hidden rounded-2xl bg-gradient-to-r from-[#D4B59E] to-[#C7A187] hover:from-[#D4B59E] hover:to-[#D4B59E] text-white border-0 px-8 py-4 text-base font-bold shadow-lg shadow-blue-600/25 hover:shadow-blue-500/40 transition-all duration-300 cursor-pointer"
@@ -143,6 +162,8 @@ export function CourseHero({ course, className }: CourseHeroProps) {
                 </motion.button>
 
                 <motion.button
+                  type="button"
+                  onClick={handleWatchPreview}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-white/20 rounded-2xl px-8 py-4 text-base font-semibold backdrop-blur-sm transition-all duration-300 flex items-center gap-2 cursor-pointer"
@@ -209,6 +230,8 @@ export function CourseHero({ course, className }: CourseHeroProps) {
                   </div>
 
                   <motion.button
+                    type="button"
+                    onClick={handleSubscribe}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className="relative group cursor-pointer w-full overflow-hidden rounded-2xl bg-gradient-to-r from-[#D4B59E] via-[#C7A187] to-[#C7A187] hover:from-[#D4B59E] hover:via-blue-400 hover:to-[#D4B59E] text-white border-0 px-6 py-4 text-base font-bold shadow-lg shadow-blue-600/25 transition-all duration-300"

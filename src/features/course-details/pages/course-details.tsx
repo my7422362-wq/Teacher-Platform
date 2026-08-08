@@ -1,7 +1,9 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { toast } from 'sonner';
 import { ArrowLeft, BookOpen, ChevronDown, Star, Award, Users, Play, Monitor, Smartphone, Infinity, RefreshCw, Video, FileText, ClipboardCheck, CheckSquare, Feather, Library, Pen, Pencil, GraduationCap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '@/providers';
 import { getCourseBySlug } from '@/features/course-details/data/course.mock';
 import { CourseHero } from '@/features/course-details/components/CourseHero';
 import { CoursePreview } from '@/features/course-details/components/CoursePreview/CoursePreview';
@@ -426,6 +428,16 @@ function FAQSection({ course }: { course: CourseDetail }) {
 
 function CTASection({ course }: { course: CourseDetail }) {
   const { t } = useTranslation();
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubscribe = () => {
+    if (!isAuthenticated) {
+      navigate('/register');
+      return;
+    }
+    toast.info(t('courseDetails.enrollmentComingSoon'));
+  };
 
   return (
     <section className="relative overflow-hidden py-20 sm:py-24">
@@ -448,6 +460,8 @@ function CTASection({ course }: { course: CourseDetail }) {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <motion.button
+              type="button"
+              onClick={handleSubscribe}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="relative group overflow-hidden rounded-2xl bg-gradient-to-r from-[#D4B59E] to-[#C7A187] hover:from-[#D4B59E] hover:to-[#D4B59E] text-white border-0 px-10 py-4 text-lg font-bold shadow-lg shadow-blue-600/25 transition-all duration-300 cursor-pointer"
