@@ -341,12 +341,25 @@ export interface StudentNote {
   createdAt: string;
 }
 
+/** Matches Laravel's real paginator envelope — {data, links, meta}, snake_case meta. */
 export interface PaginatedResponse<T> {
   data: T[];
-  currentPage: number;
-  lastPage: number;
-  perPage: number;
-  total: number;
+  links: {
+    first: string | null;
+    last: string | null;
+    prev: string | null;
+    next: string | null;
+  };
+  meta: {
+    current_page: number;
+    from: number | null;
+    last_page: number;
+    links: { url: string | null; label: string; active: boolean }[];
+    path: string | null;
+    per_page: number;
+    to: number | null;
+    total: number;
+  };
 }
 
 export interface ApiResponse<T> {

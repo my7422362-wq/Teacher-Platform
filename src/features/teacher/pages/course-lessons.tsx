@@ -2,13 +2,23 @@ import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { PageHeader } from '@/components/shared/page-header';
 import { ArrowRight } from 'lucide-react';
-import { getCourses } from '@/features/teacher/components/Courses/course-store';
+import { Spinner } from '@/components/ui';
+import { useTeacherCourses } from '@/features/teacher/components/Courses/queries';
 import { LessonsList } from '@/features/teacher/components/Lessons';
 
 export function TeacherCourseLessonsPage() {
   const { t } = useTranslation();
-  const { id } = useParams<{ id: string }>();
-  const course = getCourses().find((c) => c.id === Number(id));
+  const { slug } = useParams<{ slug: string }>();
+  const { data: courses = [], isLoading } = useTeacherCourses();
+  const course = courses.find((c) => c.slug === slug);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center py-16">
+        <Spinner />
+      </div>
+    );
+  }
 
   if (!course) {
     return null;
@@ -26,8 +36,7 @@ export function TeacherCourseLessonsPage() {
 
       <PageHeader title={course.title} description={t('teacherPages.lessons.manageLessons')} />
 
-      <LessonsList courseId={course.id} />
+      <LessonsList courseSlug={course.slug} />
     </div>
   );
 }
-

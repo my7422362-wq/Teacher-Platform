@@ -405,7 +405,7 @@
       "continueLearning": {
         "title": "استكمل التعلّم",
         "resume": "متابعة",
-        "lessonsProgress": "{{completed}} من {{total}} درس",
+        "lessonsCount": "{{count}} درس",
         "empty": "لا توجد كورسات جارية حالياً"
       },
       "myCourses": {
@@ -416,12 +416,12 @@
       },
       "schedule": {
         "title": "الجدول الدراسي",
-        "kindAssignment": "واجب",
         "kindExam": "امتحان",
         "dueToday": "اليوم",
         "dueTomorrow": "غداً",
         "dueIn": "بعد {{days}} يوم",
-        "empty": "لا توجد مواعيد قادمة"
+        "empty": "لا توجد مواعيد قادمة",
+        "loadFailed": "فشل تحميل الجدول الدراسي"
       },
       "notifications": {
         "title": "الإشعارات",
@@ -430,24 +430,28 @@
       },
       "grades": {
         "title": "الدرجات",
-        "score": "{{score}} من {{max}}",
+        "scorePercent": "{{score}}%",
         "passed": "ناجح",
         "failed": "راسب",
-        "kindAssignment": "واجب",
         "kindQuiz": "كويز",
         "kindExam": "امتحان",
-        "empty": "لا توجد نتائج بعد"
+        "empty": "لا توجد نتائج كويزات أو امتحانات بعد",
+        "loadFailed": "فشل تحميل الدرجات"
       },
       "quizzes": {
         "title": "الكويزات",
         "questionsCount": "{{count}} سؤال",
         "timeLimit": "{{minutes}} دقيقة",
         "attempts": "المحاولات: {{used}} من {{max}}",
-        "bestScore": "أفضل نتيجة: {{score}} من {{total}}",
+        "bestScore": "أفضل نتيجة: {{score}}%",
         "start": "ابدأ الكويز",
         "retake": "إعادة المحاولة",
         "noAttemptsLeft": "انتهت محاولاتك",
-        "empty": "لا توجد كويزات متاحة حالياً"
+        "empty": "لا توجد كويزات متاحة حالياً",
+        "toast": {
+          "loadFailed": "فشل تحميل الكويزات",
+          "submitFailed": "فشل تسليم الكويز"
+        }
       },
       "exams": {
         "title": "الامتحانات",
@@ -457,27 +461,29 @@
         "opensOn": "يبدأ في {{date}}",
         "closesOn": "ينتهي في {{date}}",
         "start": "ابدأ الامتحان",
-        "viewResult": "نتيجتك: {{score}} من {{total}}",
-        "empty": "لا توجد امتحانات مجدولة"
+        "viewResult": "نتيجتك: {{score}}%",
+        "empty": "لا توجد امتحانات مجدولة",
+        "toast": {
+          "loadFailed": "فشل تحميل الامتحانات",
+          "submitFailed": "فشل تسليم الامتحان"
+        }
       },
       "revisionMaterials": {
         "title": "مواد المراجعة",
-        "typeSummary": "ملخص",
-        "typeVideo": "فيديو",
-        "typeFlashcards": "بطاقات مراجعة",
-        "view": "فتح",
-        "empty": "لا توجد مواد مراجعة متاحة"
+        "unavailable": "مواد المراجعة مش متاحة لسه"
       },
       "certificates": {
         "title": "الشهادات",
         "issuedOn": "تاريخ الإصدار: {{date}}",
-        "download": "تحميل الشهادة",
-        "empty": "لسه معملتش أي شهادة"
+        "code": "كود الشهادة",
+        "empty": "لسه معملتش أي شهادة",
+        "loadFailed": "فشل تحميل الشهادات"
       },
       "recommended": {
         "title": "قد يعجبك أيضاً",
         "viewCourse": "عرض الكورس",
-        "empty": "لا توجد اقتراحات حالياً"
+        "empty": "لا توجد اقتراحات حالياً",
+        "loadFailed": "فشل تحميل الكورسات المقترحة"
       },
       "payments": {
         "title": "المدفوعات",
@@ -493,10 +499,18 @@
           "bank_transfer": "تحويل بنكي",
           "cash": "نقدي"
         },
-        "empty": "لا توجد مدفوعات مسجلة"
+        "empty": "لا توجد مدفوعات مسجلة",
+        "loadFailed": "فشل تحميل المدفوعات"
       }
     },
-    "courses": { "title": "دوراتي", "description": "جميع الدورات المسجل فيها" },
+    "courses": {
+      "title": "دوراتي",
+      "description": "جميع الدورات المسجل فيها",
+      "toast": {
+        "loadFailed": "فشل تحميل الكورسات",
+        "enrollFailed": "فشل الاشتراك في الكورس"
+      }
+    },
     "profile": {
       "title": "الملف الشخصي",
       "description": "إدارة معلوماتك الشخصية",
@@ -533,13 +547,15 @@
     "previous": "السابق",
     "submit": "إنهاء وتسليم",
     "resultTitle": "نتيجتك",
-    "resultScore": "حصلت على {{score}} من {{total}}",
+    "resultScorePercent": "حصلت على {{score}}%",
     "passed": "مبروك! لقد نجحت",
     "failed": "للأسف لم تحقق درجة النجاح",
     "backToDashboard": "الرجوع للوحة التحكم",
     "retake": "إعادة المحاولة",
-    "noAttemptsLeft": "لقد استنفدت كل محاولاتك المتاحة",
-    "notFound": "الكويز غير موجود"
+    "noAttemptsLeft": "لقد استنفدت كل محاولاتك لهذا الكويز",
+    "notFound": "الكويز غير موجود",
+    "noQuestions": "لا توجد أسئلة في هذا الكويز بعد",
+    "submitFailed": "فشل تسليم الكويز"
   },
   "examTakePage": {
     "questionOf": "سؤال {{current}} من {{total}}",
@@ -548,14 +564,16 @@
     "previous": "السابق",
     "submit": "إنهاء وتسليم",
     "resultTitle": "نتيجتك",
-    "resultScore": "حصلت على {{score}} من {{total}}",
+    "resultScorePercent": "حصلت على {{score}}%",
     "passed": "مبروك! لقد نجحت",
     "failed": "للأسف لم تحقق درجة النجاح",
     "backToDashboard": "الرجوع للوحة التحكم",
     "alreadySubmitted": "لقد قدمت هذا الامتحان بالفعل، الامتحانات محاولة واحدة فقط",
     "notOpenYet": "هذا الامتحان لم يبدأ بعد",
     "closed": "انتهى وقت هذا الامتحان",
-    "notFound": "الامتحان غير موجود"
+    "notFound": "الامتحان غير موجود",
+    "noQuestions": "لا توجد أسئلة في هذا الامتحان بعد",
+    "submitFailed": "فشل تسليم الامتحان"
   },
   "teacherPages": {
     "dashboard": {
@@ -566,20 +584,12 @@
       "stats": {
         "students": "إجمالي الطلاب",
         "courses": "إجمالي الكورسات",
-        "teachers": "عدد المدرسين",
         "groups": "عدد المجموعات",
-        "examsQuizzes": "الامتحانات والكويزات",
         "revenue": "إجمالي الإيرادات"
       },
       "charts": {
         "attendanceTitle": "نسبة الحضور (آخر 14 يوم)",
-        "enrollmentTitle": "الاشتراكات الجديدة (آخر 6 أشهر)",
-        "enrollmentTooltip": "{{count}} اشتراك جديد"
-      },
-      "schedule": {
-        "title": "جدول حصص اليوم",
-        "studentsCount": "{{count}} طالب",
-        "empty": "لا توجد حصص مجدولة اليوم"
+        "loadFailed": "فشل تحميل رسم الحضور"
       },
       "notifications": {
         "title": "آخر الإشعارات",
@@ -610,12 +620,13 @@
       "fields": {
         "title": "اسم الكورس",
         "description": "الوصف",
-        "price": "السعر (ريال)",
-        "duration": "المدة",
-        "durationPlaceholder": "مثال: 8 أسابيع",
+        "price": "السعر",
+        "currency": "العملة",
+        "duration": "المدة (ساعات)",
         "level": "المستوى",
         "category": "التصنيف",
-        "categoryPlaceholder": "مثال: برمجة",
+        "categoryPlaceholder": "اختر تصنيف",
+        "isFeatured": "كورس مميز",
         "isPublished": "نشر الكورس"
       },
       "levels": { "beginner": "مبتدئ", "intermediate": "متوسط", "advanced": "متقدم" },
@@ -623,56 +634,74 @@
         "titleRequired": "اسم الكورس مطلوب (3 أحرف على الأقل)",
         "descriptionRequired": "الوصف مطلوب (10 أحرف على الأقل)",
         "priceInvalid": "السعر يجب أن يكون رقم صحيح",
-        "durationRequired": "المدة مطلوبة",
+        "currencyRequired": "العملة مطلوبة",
+        "durationInvalid": "المدة يجب أن تكون رقم صحيح (ساعة واحدة على الأقل)",
         "categoryRequired": "التصنيف مطلوب"
       },
       "toast": {
         "created": "تم إضافة الكورس بنجاح",
         "updated": "تم تحديث الكورس بنجاح",
-        "deleted": "تم حذف الكورس"
+        "deleted": "تم حذف الكورس",
+        "loadFailed": "تعذر تحميل الكورسات",
+        "saveFailed": "تعذر حفظ الكورس",
+        "deleteFailed": "تعذر حذف الكورس"
       },
       "empty": "لا توجد كورسات بعد"
     },
     "lessons": {
       "title": "الدروس",
-      "description": "اختر كورس عشان تدير دروسه",
+      "description": "اختر كورس عشان تدير محتواه",
       "lessonsCount": "{{count}} درس",
       "backToCourses": "الرجوع للدورات",
-      "manageLessons": "إدارة الدروس",
+      "manageLessons": "إدارة المحتوى",
       "addLesson": "إضافة درس",
       "editLesson": "تعديل الدرس",
       "deleteLesson": "حذف الدرس",
       "deleteConfirmTitle": "تأكيد الحذف",
       "deleteConfirmMessage": "هل أنت متأكد إنك عايز تحذف درس \"{{title}}\"؟",
+      "addSection": "إضافة وحدة",
+      "editSection": "تعديل الوحدة",
+      "sectionDeleteConfirmTitle": "تأكيد حذف الوحدة",
+      "sectionDeleteConfirmMessage": "هل أنت متأكد إنك عايز تحذف وحدة \"{{title}}\"؟ هيتحذف كل الدروس اللي جواها.",
       "preview": "معاينة",
       "empty": "لا توجد دروس بعد",
+      "minutesUnit": "دقيقة",
       "fields": {
         "title": "عنوان الدرس",
         "description": "الوصف",
-        "duration": "المدة",
-        "durationPlaceholder": "مثال: 15:00",
-        "type": "نوع الدرس",
+        "durationMinutes": "المدة (دقائق)",
         "isFree": "درس مجاني (معاينة مجانية)",
         "isPublished": "نشر الدرس",
         "video": "الفيديو",
-        "pdf": "ملف PDF"
+        "sectionTitle": "عنوان الوحدة",
+        "sectionIsPublished": "نشر الوحدة"
       },
-      "types": { "video": "فيديو", "article": "مقال", "quiz": "كويز", "assignment": "واجب" },
       "uploadVideo": "رفع فيديو",
-      "uploadPdf": "رفع PDF",
+      "replaceVideo": "استبدال الفيديو",
+      "videoAlreadyUploaded": "تم رفع فيديو لهذا الدرس",
       "removeFile": "إزالة",
       "noVideo": "لا يوجد فيديو مرفوع",
-      "noPdf": "لا يوجد ملف PDF مرفوع",
       "validation": {
         "titleRequired": "عنوان الدرس مطلوب (3 أحرف على الأقل)",
         "descriptionRequired": "الوصف مطلوب",
-        "durationRequired": "المدة مطلوبة"
+        "durationRequired": "المدة يجب أن تكون رقم صحيح",
+        "sectionTitleRequired": "عنوان الوحدة مطلوب (3 أحرف على الأقل)"
       },
       "toast": {
         "created": "تم إضافة الدرس بنجاح",
         "updated": "تم تحديث الدرس بنجاح",
         "deleted": "تم حذف الدرس",
-        "reordered": "تم إعادة الترتيب"
+        "reordered": "تم إعادة الترتيب",
+        "sectionCreated": "تم إضافة الوحدة بنجاح",
+        "sectionUpdated": "تم تحديث الوحدة بنجاح",
+        "sectionDeleted": "تم حذف الوحدة",
+        "sectionSaveFailed": "تعذر حفظ الوحدة",
+        "sectionDeleteFailed": "تعذر حذف الوحدة",
+        "loadFailed": "تعذر تحميل المحتوى",
+        "saveFailed": "تعذر حفظ الدرس",
+        "deleteFailed": "تعذر حذف الدرس",
+        "reorderFailed": "تعذر إعادة الترتيب",
+        "videoUploadFailed": "تعذر رفع الفيديو"
       },
       "previewTitle": "معاينة المحتوى"
     },
@@ -692,19 +721,20 @@
       "emptyQuizzes": "لا توجد كويزات بعد",
       "emptyExams": "لا توجد امتحانات بعد",
       "questionsCount": "{{count}} سؤال",
+      "noSectionsHint": "الكورس ده لسه معندوش أقسام — ضيف قسم الأول.",
+      "noSectionsHintLink": "روح لصفحة الدروس",
       "fields": {
         "title": "العنوان",
         "description": "الوصف",
         "course": "الكورس",
-        "lesson": "الدرس (اختياري)",
-        "lessonNone": "بدون درس محدد",
+        "section": "القسم",
         "timeLimit": "الوقت المحدد (دقيقة)",
         "duration": "مدة الامتحان (دقيقة)",
         "passingScore": "درجة النجاح",
-        "maxAttempts": "عدد المحاولات المسموحة",
+        "maxAttempts": "أقصى عدد محاولات",
+        "isPublished": "منشور",
         "startDate": "تاريخ البداية",
-        "endDate": "تاريخ النهاية",
-        "isPublished": "نشر"
+        "endDate": "تاريخ النهاية"
       },
       "questionFields": {
         "text": "نص السؤال",
@@ -731,21 +761,28 @@
         "titleRequired": "العنوان مطلوب (3 أحرف على الأقل)",
         "descriptionRequired": "الوصف مطلوب",
         "courseRequired": "اختر الكورس",
+        "sectionRequired": "اختر القسم",
         "numberInvalid": "لازم يكون رقم صحيح",
         "dateRequired": "التاريخ مطلوب",
         "questionTextRequired": "نص السؤال مطلوب (3 أحرف على الأقل)",
         "correctAnswerRequired": "الإجابة الصحيحة مطلوبة"
       },
       "toast": {
+        "loadFailed": "فشل التحميل",
         "quizCreated": "تم إضافة الكويز بنجاح",
         "quizUpdated": "تم تحديث الكويز بنجاح",
+        "quizSaveFailed": "فشل حفظ الكويز",
         "quizDeleted": "تم حذف الكويز",
+        "quizDeleteFailed": "فشل حذف الكويز",
         "examCreated": "تم إضافة الامتحان بنجاح",
         "examUpdated": "تم تحديث الامتحان بنجاح",
+        "examSaveFailed": "فشل حفظ الامتحان",
         "examDeleted": "تم حذف الامتحان",
-        "questionAdded": "تم إضافة السؤال",
-        "questionUpdated": "تم تحديث السؤال",
-        "questionDeleted": "تم حذف السؤال"
+        "examDeleteFailed": "فشل حذف الامتحان",
+        "questionSaved": "تم حفظ السؤال",
+        "questionDeleted": "تم حذف السؤال",
+        "gradeSaved": "تم حفظ الدرجة",
+        "gradeFailed": "فشل حفظ الدرجة"
       },
       "results": {
         "title": "النتائج",
@@ -753,10 +790,13 @@
         "score": "الدرجة",
         "status": "الحالة",
         "date": "التاريخ",
-        "attempt": "المحاولة",
         "passed": "ناجح",
         "failed": "راسب",
-        "empty": "لسه محدش قدّم"
+        "empty": "لسه محدش قدّم",
+        "grade": "تقييم",
+        "gradeTitle": "تقييم الإجابة",
+        "scoreOutOf": "الدرجة (من {{total}})",
+        "feedback": "ملاحظات"
       }
     },
     "students": {
@@ -768,13 +808,17 @@
       "statusActive": "نشط",
       "statusInactive": "غير نشط",
       "statusSuspended": "موقوف",
+      "statusPending": "قيد التفعيل",
       "tableName": "الاسم",
       "tableEmail": "البريد الإلكتروني",
       "tableCourses": "الكورسات",
       "tableStatus": "الحالة",
       "tableGroups": "المجموعات",
       "viewProfile": "عرض الملف",
-      "empty": "لا يوجد طلاب مطابقين للبحث"
+      "empty": "لا يوجد طلاب مطابقين للبحث",
+      "toast": {
+        "loadFailed": "تعذر تحميل قائمة الطلاب"
+      }
     },
     "studentDetail": {
       "backToStudents": "الرجوع لقائمة الطلاب",
@@ -798,7 +842,11 @@
       "notesEmpty": "لا توجد ملاحظات بعد",
       "notesPlaceholder": "اكتب ملاحظة عن الطالب...",
       "addNote": "إضافة ملاحظة",
-      "noteAdded": "تم إضافة الملاحظة"
+      "noteAdded": "تم إضافة الملاحظة",
+      "toast": {
+        "noteSaveFailed": "تعذر إضافة الملاحظة",
+        "noteDeleteFailed": "تعذر حذف الملاحظة"
+      }
     },
     "analytics": {
       "title": "التحليلات",
@@ -824,11 +872,16 @@
       "noStudents": "لا يوجد طلاب في هذه المجموعة",
       "notMarked": "لم يُسجَّل",
       "savedToast": "تم تسجيل الحضور",
+      "statusExcused": "غياب بعذر",
       "stats": {
         "rate": "نسبة الحضور",
         "present": "أيام الحضور",
         "absent": "أيام الغياب",
         "late": "أيام التأخير"
+      },
+      "toast": {
+        "loadFailed": "تعذر تحميل بيانات الحضور",
+        "saveFailed": "تعذر تسجيل الحضور"
       }
     },
     "payments": {
@@ -850,51 +903,32 @@
       "installmentsTable": {
         "student": "الطالب",
         "course": "الكورس",
-        "installment": "القسط",
-        "installmentOf": "{{number}} من {{total}}",
         "amount": "المبلغ",
         "dueDate": "تاريخ الاستحقاق",
         "status": "الحالة",
-        "markPaid": "تسجيل كمدفوع",
-        "sendReminder": "إرسال تنبيه",
         "empty": "لا توجد أقساط"
       },
       "paymentsTable": {
         "student": "الطالب",
+        "amount": "المبلغ",
+        "method": "طريقة الدفع",
+        "status": "الحالة",
+        "date": "التاريخ",
+        "statusValues": { "pending": "قيد الانتظار", "approved": "مقبول", "rejected": "مرفوض" },
         "empty": "لا توجد مدفوعات"
       },
       "toast": {
-        "marked": "تم تسجيل الدفعة",
-        "reminderSent": "تم إرسال التنبيه للطالب"
+        "loadFailed": "فشل تحميل بيانات المدفوعات"
       }
     },
     "notifications": {
       "title": "الإشعارات",
-      "description": "إرسال إشعارات للطلاب ومتابعة سجل الإرسال",
-      "composeTitle": "إرسال إشعار جديد",
-      "scope": "المستلمون",
-      "scopeAll": "كل الطلاب",
-      "scopeGroup": "مجموعة معينة",
-      "scopeStudent": "طالب واحد",
-      "selectGroup": "اختر المجموعة",
-      "selectStudent": "اختر الطالب",
-      "titleField": "عنوان الإشعار",
-      "messageField": "نص الإشعار",
-      "typeField": "نوع الإشعار",
-      "typeInfo": "معلومة",
-      "typeSuccess": "نجاح",
-      "typeWarning": "تنبيه",
-      "typeError": "هام",
-      "send": "إرسال",
-      "sentToast": "تم إرسال الإشعار إلى {{count}} طالب",
-      "logTitle": "سجل الإشعارات",
-      "logEmpty": "لا توجد إشعارات مرسلة بعد",
-      "recipients": "{{count}} مستلم",
-      "validation": {
-        "titleRequired": "عنوان الإشعار مطلوب",
-        "messageRequired": "نص الإشعار مطلوب",
-        "groupRequired": "اختر مجموعة",
-        "studentRequired": "اختر طالب"
+      "description": "إشعاراتك",
+      "empty": "لا توجد إشعارات بعد",
+      "markAllRead": "تعليم الكل كمقروء",
+      "toast": {
+        "loadFailed": "فشل تحميل الإشعارات",
+        "markFailed": "فشل تحديث الإشعار"
       }
     },
     "groups": {
@@ -907,62 +941,38 @@
       "empty": "لا توجد مجموعات بعد",
       "fields": {
         "name": "اسم المجموعة",
-        "course": "الكورس",
-        "students": "توزيع الطلاب",
-        "schedule": "مواعيد الحصص"
-      },
-      "addSlot": "إضافة موعد",
-      "removeSlot": "إزالة",
-      "day": "اليوم",
-      "startTime": "من",
-      "endTime": "إلى",
-      "days": {
-        "sunday": "الأحد",
-        "monday": "الاثنين",
-        "tuesday": "الثلاثاء",
-        "wednesday": "الأربعاء",
-        "thursday": "الخميس",
-        "friday": "الجمعة",
-        "saturday": "السبت"
+        "description": "الوصف",
+        "students": "توزيع الطلاب"
       },
       "studentsCount": "{{count}} طالب",
       "toast": {
         "created": "تم إضافة المجموعة",
         "updated": "تم تحديث المجموعة",
-        "deleted": "تم حذف المجموعة"
+        "deleted": "تم حذف المجموعة",
+        "loadFailed": "تعذر تحميل المجموعات",
+        "saveFailed": "تعذر حفظ المجموعة",
+        "deleteFailed": "تعذر حذف المجموعة"
       },
       "validation": {
         "nameRequired": "اسم المجموعة مطلوب (3 أحرف على الأقل)",
-        "courseRequired": "اختر الكورس",
-        "studentsRequired": "اختر طالب واحد على الأقل",
-        "scheduleRequired": "أضف موعد حصة واحد على الأقل",
-        "timeRequired": "الوقت مطلوب"
+        "studentsRequired": "اختر طالب واحد على الأقل"
       }
     },
     "settings": {
       "title": "الإعدادات",
-      "description": "إدارة بيانات المنصة، اللغة، وإعدادات حسابك",
+      "description": "إدارة إعدادات حسابك واللغة",
       "accountTitle": "بيانات الحساب",
-      "platformTitle": "بيانات المنصة",
       "languageTitle": "اللغة",
       "languageDescription": "اختر اللغة اللي تحب تستخدمها في المنصة",
       "fields": {
         "name": "الاسم",
-        "phone": "رقم الهاتف",
-        "platformName": "اسم المنصة",
-        "platformDescription": "وصف المنصة",
-        "contactEmail": "البريد الإلكتروني للتواصل",
-        "contactPhone": "رقم التواصل"
+        "phone": "رقم الهاتف"
       },
       "changePhoto": "تغيير الصورة",
       "saveChanges": "حفظ التغييرات",
       "toast": {
         "accountUpdated": "تم تحديث بيانات الحساب",
-        "accountUpdateFailed": "تعذر تحديث بيانات الحساب",
-        "platformUpdated": "تم تحديث بيانات المنصة"
-      },
-      "validation": {
-        "required": "هذا الحقل مطلوب"
+        "accountUpdateFailed": "تعذر تحديث بيانات الحساب"
       }
     },
     "grades": {
@@ -984,37 +994,64 @@
         "failed": "راسب فيها",
         "empty": "لا توجد درجات مسجلة بعد",
         "viewProfile": "عرض الملف"
+      },
+      "toast": {
+        "loadFailed": "فشل تحميل الدرجات"
       }
     },
     "parents": {
       "title": "أولياء الأمور",
       "description": "بيانات التواصل وحسابات أولياء أمور الطلاب",
       "searchPlaceholder": "ابحث بالاسم أو البريد الإلكتروني...",
+      "addParent": "إضافة ولي أمر",
+      "editParent": "تعديل ولي الأمر",
+      "deleteConfirmTitle": "تأكيد الحذف",
+      "deleteConfirmMessage": "هل أنت متأكد إنك عايز تحذف \"{{name}}\"؟",
       "tableName": "الاسم",
-      "tableRelationship": "صلة القرابة",
-      "tableStudent": "الطالب",
+      "tableStudent": "الطالب/الطلاب",
       "tableContact": "التواصل",
       "viewProfile": "عرض الملف",
       "empty": "لا يوجد أولياء أمور مطابقين للبحث",
-      "relationshipFather": "أب",
-      "relationshipMother": "أم",
-      "relationshipGuardian": "ولي أمر"
+      "fields": {
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "phone": "رقم الهاتف",
+        "password": "كلمة المرور",
+        "students": "الأبناء المرتبطين"
+      },
+      "validation": {
+        "nameRequired": "الاسم مطلوب (3 أحرف على الأقل)",
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "صيغة البريد الإلكتروني غير صحيحة",
+        "passwordMin": "كلمة المرور يجب ألا تقل عن 8 أحرف"
+      },
+      "toast": {
+        "created": "تم إضافة ولي الأمر",
+        "updated": "تم تحديث بيانات ولي الأمر",
+        "deleted": "تم حذف ولي الأمر",
+        "loadFailed": "تعذر تحميل أولياء الأمور",
+        "saveFailed": "تعذر حفظ بيانات ولي الأمر",
+        "deleteFailed": "تعذر حذف ولي الأمر"
+      }
     },
     "parentDetail": {
       "backToParents": "الرجوع لقائمة أولياء الأمور",
-      "linkedStudentTitle": "الطالب المرتبط",
+      "linkedStudentTitle": "الأبناء المرتبطين",
       "contactTitle": "بيانات التواصل",
-      "expensesTitle": "متابعة المصروفات",
-      "expensesEmpty": "لا توجد مدفوعات مسجلة",
       "communicationTitle": "سجل التواصل",
       "communicationEmpty": "لا يوجد سجل تواصل بعد",
       "channelCall": "مكالمة",
-      "channelWhatsapp": "واتساب",
+      "channelSms": "رسالة نصية",
       "channelEmail": "بريد إلكتروني",
-      "channelMeeting": "اجتماع",
+      "channelInPerson": "لقاء شخصي",
       "summaryPlaceholder": "اكتب ملخص المكالمة أو الرسالة...",
       "addEntry": "تسجيل تواصل جديد",
-      "entryAdded": "تم تسجيل التواصل"
+      "entryAdded": "تم تسجيل التواصل",
+      "toast": {
+        "loadFailed": "تعذر تحميل سجل التواصل",
+        "saveFailed": "تعذر تسجيل التواصل",
+        "deleteFailed": "تعذر حذف السجل"
+      }
     }
   },
   "aboutPage": {

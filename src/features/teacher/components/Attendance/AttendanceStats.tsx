@@ -1,7 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from '@/components/ui';
 import { TrendingUp, CheckCircle2, XCircle, Clock, type LucideIcon } from 'lucide-react';
-import type { GroupAttendanceStats } from './data';
+
+export interface GroupAttendanceStats {
+  rate: number;
+  presentDays: number;
+  absentDays: number;
+  lateDays: number;
+  excusedDays: number;
+}
 
 interface StatItem {
   icon: LucideIcon;

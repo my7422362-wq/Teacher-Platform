@@ -1,35 +1,38 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 import { Modal, Button, Input, Textarea, Select, Checkbox, type SelectOption } from '@/components/ui';
 import { createCourseSchema, type CourseFormValues } from './schemas';
-import { createCourse, updateCourse } from './course-store';
-import { currentTeacher } from '@/features/teacher/components/Dashboard';
-import type { Course } from '@/types';
+import { useCourseCategories, useCreateCourse, useUpdateCourse } from './queries';
+import type { TeacherCourse } from './types';
 
 const DEFAULT_VALUES: CourseFormValues = {
   title: '',
   description: '',
   price: 0,
-  duration: '',
+  currency: 'EGP',
+  duration: 1,
   level: 'beginner',
-  category: '',
+  categoryId: 0,
+  isFeatured: false,
   isPublished: true,
 };
 
 interface CourseFormModalProps {
   isOpen: boolean;
   onClose: () => void;
-  course: Course | null;
-  onSaved: () => void;
+  course: TeacherCourse | null;
 }
 
-export function CourseFormModal({ isOpen, onClose, course, onSaved }: CourseFormModalProps) {
+export function CourseFormModal({ isOpen, onClose, course }: CourseFormModalProps) {
   const { t } = useTranslation();
-  const [submitting, setSubmitting] = useState(false);
   const schema = useMemo(() => createCourseSchema(t), [t]);
+  const { data: categories = [] } = useCourseCategories();
+  const createCourse = useCreateCourse();
+  const updateCourse = useUpdateCourse();
+  const submitting = createCourse.isPending || updateCourse.isPending;
 
   const levelOptions: SelectOption[] = useMemo(
     () => [
@@ -38,6 +41,11 @@ export function CourseFormModal({ isOpen, onClose, course, onSaved }: CourseForm
       { value: 'advanced', label: t('teacherPages.courses.levels.advanced') },
     ],
     [t]
+  );
+
+  const categoryOptions: SelectOption[] = useMemo(
+    () => categories.map((category) => ({ value: String(category.id), label: category.name })),
+    [categories]
   );
 
   const {
@@ -59,9 +67,11 @@ export function CourseFormModal({ isOpen, onClose, course, onSaved }: CourseForm
             title: course.title,
             description: course.description,
             price: course.price,
+            currency: course.currency,
             duration: course.duration,
             level: course.level,
-            category: course.category,
+            categoryId: course.category.id,
+            isFeatured: course.isFeatured,
             isPublished: course.isPublished,
           }
         : DEFAULT_VALUES
@@ -69,19 +79,17 @@ export function CourseFormModal({ isOpen, onClose, course, onSaved }: CourseForm
   }, [isOpen, course, reset]);
 
   const onSubmit = async (values: CourseFormValues) => {
-    setSubmitting(true);
     try {
       if (course) {
-        updateCourse(course.id, values);
+        await updateCourse.mutateAsync({ slug: course.slug, values });
         toast.success(t('teacherPages.courses.toast.updated'));
       } else {
-        createCourse(values, currentTeacher.id, currentTeacher.name);
+        await createCourse.mutateAsync(values);
         toast.success(t('teacherPages.courses.toast.created'));
       }
-      onSaved();
       onClose();
-    } finally {
-      setSubmitting(false);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : t('teacherPages.courses.toast.saveFailed'));
     }
   };
 
@@ -103,7 +111,7 @@ export function CourseFormModal({ isOpen, onClose, course, onSaved }: CourseForm
           <Textarea rows={3} error={errors.description?.message} {...register('description')} />
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-3">
           <div className="space-y-2">
             <label className="text-sm font-medium text-[#F9F6F0]">{t('teacherPages.courses.fields.price')}</label>
             <Input
@@ -115,11 +123,17 @@ export function CourseFormModal({ isOpen, onClose, course, onSaved }: CourseForm
           </div>
 
           <div className="space-y-2">
+            <label className="text-sm font-medium text-[#F9F6F0]">{t('teacherPages.courses.fields.currency')}</label>
+            <Input error={errors.currency?.message} {...register('currency')} />
+          </div>
+
+          <div className="space-y-2">
             <label className="text-sm font-medium text-[#F9F6F0]">{t('teacherPages.courses.fields.duration')}</label>
             <Input
-              placeholder={t('teacherPages.courses.fields.durationPlaceholder')}
+              type="number"
+              min={1}
               error={errors.duration?.message}
-              {...register('duration')}
+              {...register('duration', { valueAsNumber: true })}
             />
           </div>
         </div>
@@ -138,20 +152,32 @@ export function CourseFormModal({ isOpen, onClose, course, onSaved }: CourseForm
             )}
           />
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-[#F9F6F0]">{t('teacherPages.courses.fields.category')}</label>
-            <Input
-              placeholder={t('teacherPages.courses.fields.categoryPlaceholder')}
-              error={errors.category?.message}
-              {...register('category')}
-            />
-          </div>
+          <Controller
+            control={control}
+            name="categoryId"
+            render={({ field }) => (
+              <Select
+                label={t('teacherPages.courses.fields.category')}
+                placeholder={t('teacherPages.courses.fields.categoryPlaceholder')}
+                options={categoryOptions}
+                value={field.value ? String(field.value) : ''}
+                onChange={(value) => field.onChange(Number(value))}
+                error={errors.categoryId?.message}
+              />
+            )}
+          />
         </div>
 
-        <label className="flex items-center gap-2 text-sm text-[#F9F6F0] cursor-pointer">
-          <Checkbox {...register('isPublished')} />
-          {t('teacherPages.courses.fields.isPublished')}
-        </label>
+        <div className="flex flex-wrap gap-6">
+          <label className="flex items-center gap-2 text-sm text-[#F9F6F0] cursor-pointer">
+            <Checkbox {...register('isFeatured')} />
+            {t('teacherPages.courses.fields.isFeatured')}
+          </label>
+          <label className="flex items-center gap-2 text-sm text-[#F9F6F0] cursor-pointer">
+            <Checkbox {...register('isPublished')} />
+            {t('teacherPages.courses.fields.isPublished')}
+          </label>
+        </div>
 
         <div className="flex justify-end gap-3 pt-2">
           <Button type="button" variant="outline" onClick={onClose}>

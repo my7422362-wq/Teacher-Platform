@@ -1,2 +1,2 @@
 export { TopCoursesRanking } from './TopCoursesRanking';
-export { getTopCourses } from './data';
+export { useTopCourses } from './queries';

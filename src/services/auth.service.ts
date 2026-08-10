@@ -1,30 +1,19 @@
 import axios from 'axios';
 import type { ApiResponse, User } from '@/types';
 import type { AuthRole, AuthUser, LoginInput, RegisterInput } from '@/features/auth/types';
-import { storageService, type StoredAccount } from '@/services/storage.service';
 import { sessionService } from '@/services/session.service';
 import api, { post } from '@/services/api';
 import i18n from '@/i18n/config';
 
-/**
- * Simulates network latency so loading states feel real during the mock phase.
- * Only used by the endpoints the backend hasn't shipped yet (see below).
- */
-function delay<T>(value: T, ms = 500): Promise<T> {
-  return new Promise((resolve) => setTimeout(() => resolve(value), ms));
-}
-
-function toAuthUser(account: StoredAccount): AuthUser {
-  return {
-    id: account.id,
-    name: account.name,
-    email: account.email,
-    phone: account.phone,
-    grade: account.grade,
-    governorate: account.governorate,
-    avatar: account.avatar,
-    role: account.role,
-  };
+/** Converts a `data:` URL (from FileReader.readAsDataURL, used for the
+ *  photo preview) into a File so it can be sent as multipart form data. */
+function dataUrlToFile(dataUrl: string, filename: string): File {
+  const [header, base64] = dataUrl.split(',');
+  const mime = header.match(/data:(.*?);base64/)?.[1] ?? 'image/jpeg';
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return new File([bytes], filename, { type: mime });
 }
 
 /**
@@ -242,11 +231,11 @@ export const authService = {
    */
   async me(): Promise<ApiResponse<User>> {
     try {
-      const { data } = await api.get<BackendUser>('/auth/me');
+      const { data } = await api.get<{ data: BackendUser }>('/auth/me');
       return {
         success: true,
         message: '',
-        data: toAuthUserFromBackend(data) as unknown as User,
+        data: toAuthUserFromBackend(data.data) as unknown as User,
       };
     } catch (error) {
       throw new Error(extractErrorMessage(error, i18n.t('auth.toast.genericError')));
@@ -256,54 +245,66 @@ export const authService = {
   /**
    * Update the authenticated user's profile (name/avatar/grade/phone).
    *
-   * MOCK IMPLEMENTATION — no matching endpoint in the backend yet, so this
-   * still patches the local mock account. NOTE: this will no-op/fail for
-   * accounts created via the real /auth/register, since they don't exist in
-   * local storage — wire this up once the backend adds a profile endpoint.
+   * REAL API — PUT /profile for name/phone/grade_level (JSON), plus
+   * POST /profile/photo (multipart) when a new avatar was picked — the
+   * backend exposes these as two separate endpoints. Since neither
+   * mutation's response shape is confirmed, this refetches GET /auth/me
+   * afterward rather than guessing how to parse them.
    */
   async updateProfile(
-    userId: string,
+    _userId: string,
     data: Partial<Pick<AuthUser, 'name' | 'avatar' | 'grade' | 'phone'>>
   ): Promise<ApiResponse<AuthUser>> {
-    // TODO: Replace with real API call once the backend ships it
-    // return put<User>(`/auth/profile`, data);
-    const updated = storageService.updateAccount(userId, data);
-    if (!updated) {
-      throw new Error(i18n.t('auth.errors.accountNotFound'));
-    }
+    try {
+      if (data.name !== undefined || data.phone !== undefined || data.grade !== undefined) {
+        await api.put('/profile', {
+          name: data.name,
+          phone: data.phone,
+          grade_level: data.grade,
+        });
+      }
 
-    return delay({
-      success: true,
-      message: i18n.t('auth.messages.profileUpdateSuccess'),
-      data: toAuthUser(updated),
-    });
+      if (data.avatar && data.avatar.startsWith('data:')) {
+        const form = new FormData();
+        form.append('photo', dataUrlToFile(data.avatar, 'avatar.jpg'));
+        await api.post('/profile/photo', form);
+      }
+
+      const { data: me } = await api.get<{ data: BackendUser }>('/auth/me');
+      return {
+        success: true,
+        message: i18n.t('auth.messages.profileUpdateSuccess'),
+        data: toAuthUserFromBackend(me.data),
+      };
+    } catch (error) {
+      throw new Error(extractErrorMessage(error, i18n.t('teacherPages.settings.toast.accountUpdateFailed')));
+    }
   },
 
   /**
    * Change the authenticated user's password after verifying the current one.
    *
-   * MOCK IMPLEMENTATION — no matching endpoint in the backend yet (same
-   * caveat as updateProfile above).
+   * REAL API — PUT /profile/password (JSON body:
+   * { current_password, password, password_confirmation }).
    */
   async changePassword(
-    userId: string,
+    _userId: string,
     currentPassword: string,
     newPassword: string
   ): Promise<ApiResponse<null>> {
-    // TODO: Replace with real API call once the backend ships it
-    // return post<null>(`/auth/change-password`, { currentPassword, newPassword });
-    const account = storageService.findById(userId);
-    if (!account || account.password !== currentPassword) {
-      await delay(null, 400);
-      throw new Error(i18n.t('auth.errors.currentPasswordIncorrect'));
+    try {
+      await api.put('/profile/password', {
+        current_password: currentPassword,
+        password: newPassword,
+        password_confirmation: newPassword,
+      });
+      return {
+        success: true,
+        message: i18n.t('auth.messages.passwordChangeSuccess'),
+        data: null,
+      };
+    } catch (error) {
+      throw new Error(extractErrorMessage(error, i18n.t('auth.errors.currentPasswordIncorrect')));
     }
-
-    storageService.updateAccount(userId, { password: newPassword });
-
-    return delay({
-      success: true,
-      message: i18n.t('auth.messages.passwordChangeSuccess'),
-      data: null,
-    });
   },
 };

@@ -9,9 +9,17 @@ export function createCourseSchema(t: TFunction) {
       0,
       t('teacherPages.courses.validation.priceInvalid')
     ),
-    duration: z.string().trim().min(1, t('teacherPages.courses.validation.durationRequired')),
+    currency: z.string().trim().min(1, t('teacherPages.courses.validation.currencyRequired')),
+    duration: z.number(t('teacherPages.courses.validation.durationInvalid')).min(
+      1,
+      t('teacherPages.courses.validation.durationInvalid')
+    ),
     level: z.enum(['beginner', 'intermediate', 'advanced']),
-    category: z.string().trim().min(1, t('teacherPages.courses.validation.categoryRequired')),
+    categoryId: z.number(t('teacherPages.courses.validation.categoryRequired')).min(
+      1,
+      t('teacherPages.courses.validation.categoryRequired')
+    ),
+    isFeatured: z.boolean(),
     isPublished: z.boolean(),
   });
 }

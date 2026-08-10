@@ -405,7 +405,7 @@
       "continueLearning": {
         "title": "Continue Learning",
         "resume": "Resume",
-        "lessonsProgress": "{{completed}} of {{total}} lessons",
+        "lessonsCount": "{{count}} lessons",
         "empty": "No courses in progress right now"
       },
       "myCourses": {
@@ -416,12 +416,12 @@
       },
       "schedule": {
         "title": "Schedule",
-        "kindAssignment": "Assignment",
         "kindExam": "Exam",
         "dueToday": "Today",
         "dueTomorrow": "Tomorrow",
         "dueIn": "In {{days}} days",
-        "empty": "No upcoming dates"
+        "empty": "No upcoming dates",
+        "loadFailed": "Failed to load your schedule"
       },
       "notifications": {
         "title": "Notifications",
@@ -430,24 +430,28 @@
       },
       "grades": {
         "title": "Grades",
-        "score": "{{score}} / {{max}}",
+        "scorePercent": "{{score}}%",
         "passed": "Passed",
         "failed": "Failed",
-        "kindAssignment": "Assignment",
         "kindQuiz": "Quiz",
         "kindExam": "Exam",
-        "empty": "No results yet"
+        "empty": "No quiz or exam results yet",
+        "loadFailed": "Failed to load your grades"
       },
       "quizzes": {
         "title": "Quizzes",
         "questionsCount": "{{count}} questions",
         "timeLimit": "{{minutes}} min",
         "attempts": "Attempts: {{used}} / {{max}}",
-        "bestScore": "Best score: {{score}} / {{total}}",
+        "bestScore": "Best score: {{score}}%",
         "start": "Start Quiz",
         "retake": "Retake",
         "noAttemptsLeft": "No attempts left",
-        "empty": "No quizzes available right now"
+        "empty": "No quizzes available right now",
+        "toast": {
+          "loadFailed": "Failed to load quizzes",
+          "submitFailed": "Failed to submit the quiz"
+        }
       },
       "exams": {
         "title": "Exams",
@@ -457,27 +461,29 @@
         "opensOn": "Opens on {{date}}",
         "closesOn": "Closes on {{date}}",
         "start": "Start Exam",
-        "viewResult": "Your score: {{score}} / {{total}}",
-        "empty": "No exams scheduled"
+        "viewResult": "Your score: {{score}}%",
+        "empty": "No exams scheduled",
+        "toast": {
+          "loadFailed": "Failed to load exams",
+          "submitFailed": "Failed to submit the exam"
+        }
       },
       "revisionMaterials": {
         "title": "Revision Materials",
-        "typeSummary": "Summary",
-        "typeVideo": "Video",
-        "typeFlashcards": "Flashcards",
-        "view": "Open",
-        "empty": "No revision materials available"
+        "unavailable": "Revision materials aren't available yet"
       },
       "certificates": {
         "title": "Certificates",
         "issuedOn": "Issued on {{date}}",
-        "download": "Download Certificate",
-        "empty": "You haven't earned any certificates yet"
+        "code": "Certificate Code",
+        "empty": "You haven't earned any certificates yet",
+        "loadFailed": "Failed to load certificates"
       },
       "recommended": {
         "title": "You Might Also Like",
         "viewCourse": "View Course",
-        "empty": "No recommendations right now"
+        "empty": "No recommendations right now",
+        "loadFailed": "Failed to load recommended courses"
       },
       "payments": {
         "title": "Payments",
@@ -493,10 +499,18 @@
           "bank_transfer": "Bank Transfer",
           "cash": "Cash"
         },
-        "empty": "No payments recorded"
+        "empty": "No payments recorded",
+        "loadFailed": "Failed to load payments"
       }
     },
-    "courses": { "title": "My Courses", "description": "All the courses you're enrolled in" },
+    "courses": {
+      "title": "My Courses",
+      "description": "All the courses you're enrolled in",
+      "toast": {
+        "loadFailed": "Failed to load courses",
+        "enrollFailed": "Failed to enroll in the course"
+      }
+    },
     "profile": {
       "title": "Profile",
       "description": "Manage your personal information",
@@ -533,13 +547,15 @@
     "previous": "Previous",
     "submit": "Finish & Submit",
     "resultTitle": "Your Result",
-    "resultScore": "You scored {{score}} / {{total}}",
+    "resultScorePercent": "You scored {{score}}%",
     "passed": "Congratulations, you passed!",
     "failed": "Unfortunately you didn't pass",
     "backToDashboard": "Back to Dashboard",
     "retake": "Retake",
-    "noAttemptsLeft": "You've used all your attempts",
-    "notFound": "Quiz not found"
+    "noAttemptsLeft": "You've used all your attempts for this quiz",
+    "notFound": "Quiz not found",
+    "noQuestions": "This quiz has no questions yet",
+    "submitFailed": "Failed to submit the quiz"
   },
   "examTakePage": {
     "questionOf": "Question {{current}} of {{total}}",
@@ -548,14 +564,16 @@
     "previous": "Previous",
     "submit": "Finish & Submit",
     "resultTitle": "Your Result",
-    "resultScore": "You scored {{score}} / {{total}}",
+    "resultScorePercent": "You scored {{score}}%",
     "passed": "Congratulations, you passed!",
     "failed": "Unfortunately you didn't pass",
     "backToDashboard": "Back to Dashboard",
     "alreadySubmitted": "You've already submitted this exam, exams allow one attempt only",
     "notOpenYet": "This exam hasn't opened yet",
     "closed": "This exam has closed",
-    "notFound": "Exam not found"
+    "notFound": "Exam not found",
+    "noQuestions": "This exam has no questions yet",
+    "submitFailed": "Failed to submit the exam"
   },
   "teacherPages": {
     "dashboard": {
@@ -566,20 +584,12 @@
       "stats": {
         "students": "Total Students",
         "courses": "Total Courses",
-        "teachers": "Teachers",
         "groups": "Groups",
-        "examsQuizzes": "Exams & Quizzes",
         "revenue": "Total Revenue"
       },
       "charts": {
         "attendanceTitle": "Attendance Rate (last 14 days)",
-        "enrollmentTitle": "New Enrollments (last 6 months)",
-        "enrollmentTooltip": "{{count}} new enrollments"
-      },
-      "schedule": {
-        "title": "Today's Schedule",
-        "studentsCount": "{{count}} students",
-        "empty": "No sessions scheduled today"
+        "loadFailed": "Failed to load the attendance chart"
       },
       "notifications": {
         "title": "Recent Notifications",
@@ -610,12 +620,13 @@
       "fields": {
         "title": "Course Title",
         "description": "Description",
-        "price": "Price (SAR)",
-        "duration": "Duration",
-        "durationPlaceholder": "e.g. 8 weeks",
+        "price": "Price",
+        "currency": "Currency",
+        "duration": "Duration (hours)",
         "level": "Level",
         "category": "Category",
-        "categoryPlaceholder": "e.g. Programming",
+        "categoryPlaceholder": "Select a category",
+        "isFeatured": "Featured course",
         "isPublished": "Publish course"
       },
       "levels": { "beginner": "Beginner", "intermediate": "Intermediate", "advanced": "Advanced" },
@@ -623,56 +634,74 @@
         "titleRequired": "Course title is required (at least 3 characters)",
         "descriptionRequired": "Description is required (at least 10 characters)",
         "priceInvalid": "Price must be a valid number",
-        "durationRequired": "Duration is required",
+        "currencyRequired": "Currency is required",
+        "durationInvalid": "Duration must be a valid number (at least 1 hour)",
         "categoryRequired": "Category is required"
       },
       "toast": {
         "created": "Course created successfully",
         "updated": "Course updated successfully",
-        "deleted": "Course deleted"
+        "deleted": "Course deleted",
+        "loadFailed": "Failed to load courses",
+        "saveFailed": "Failed to save the course",
+        "deleteFailed": "Failed to delete the course"
       },
       "empty": "No courses yet"
     },
     "lessons": {
       "title": "Lessons",
-      "description": "Pick a course to manage its lessons",
+      "description": "Pick a course to manage its content",
       "lessonsCount": "{{count}} lessons",
       "backToCourses": "Back to Courses",
-      "manageLessons": "Manage Lessons",
+      "manageLessons": "Manage Content",
       "addLesson": "Add Lesson",
       "editLesson": "Edit Lesson",
       "deleteLesson": "Delete Lesson",
       "deleteConfirmTitle": "Confirm Deletion",
       "deleteConfirmMessage": "Are you sure you want to delete \"{{title}}\"?",
+      "addSection": "Add Section",
+      "editSection": "Edit Section",
+      "sectionDeleteConfirmTitle": "Confirm Section Deletion",
+      "sectionDeleteConfirmMessage": "Are you sure you want to delete section \"{{title}}\"? All lessons inside it will be deleted too.",
       "preview": "Preview",
       "empty": "No lessons yet",
+      "minutesUnit": "min",
       "fields": {
         "title": "Lesson Title",
         "description": "Description",
-        "duration": "Duration",
-        "durationPlaceholder": "e.g. 15:00",
-        "type": "Lesson Type",
+        "durationMinutes": "Duration (minutes)",
         "isFree": "Free lesson (free preview)",
         "isPublished": "Publish lesson",
         "video": "Video",
-        "pdf": "PDF File"
+        "sectionTitle": "Section Title",
+        "sectionIsPublished": "Publish section"
       },
-      "types": { "video": "Video", "article": "Article", "quiz": "Quiz", "assignment": "Assignment" },
       "uploadVideo": "Upload Video",
-      "uploadPdf": "Upload PDF",
+      "replaceVideo": "Replace Video",
+      "videoAlreadyUploaded": "A video is already uploaded for this lesson",
       "removeFile": "Remove",
       "noVideo": "No video uploaded",
-      "noPdf": "No PDF uploaded",
       "validation": {
         "titleRequired": "Lesson title is required (at least 3 characters)",
         "descriptionRequired": "Description is required",
-        "durationRequired": "Duration is required"
+        "durationRequired": "Duration must be a valid number",
+        "sectionTitleRequired": "Section title is required (at least 3 characters)"
       },
       "toast": {
         "created": "Lesson added successfully",
         "updated": "Lesson updated successfully",
         "deleted": "Lesson deleted",
-        "reordered": "Order updated"
+        "reordered": "Order updated",
+        "sectionCreated": "Section added successfully",
+        "sectionUpdated": "Section updated successfully",
+        "sectionDeleted": "Section deleted",
+        "sectionSaveFailed": "Failed to save the section",
+        "sectionDeleteFailed": "Failed to delete the section",
+        "loadFailed": "Failed to load content",
+        "saveFailed": "Failed to save the lesson",
+        "deleteFailed": "Failed to delete the lesson",
+        "reorderFailed": "Failed to reorder",
+        "videoUploadFailed": "Failed to upload the video"
       },
       "previewTitle": "Content Preview"
     },
@@ -692,19 +721,20 @@
       "emptyQuizzes": "No quizzes yet",
       "emptyExams": "No exams yet",
       "questionsCount": "{{count}} questions",
+      "noSectionsHint": "This course has no sections yet — add one first.",
+      "noSectionsHintLink": "Go to Lessons",
       "fields": {
         "title": "Title",
         "description": "Description",
         "course": "Course",
-        "lesson": "Lesson (optional)",
-        "lessonNone": "No specific lesson",
+        "section": "Section",
         "timeLimit": "Time Limit (minutes)",
         "duration": "Duration (minutes)",
         "passingScore": "Passing Score",
-        "maxAttempts": "Max Attempts Allowed",
+        "maxAttempts": "Max Attempts",
+        "isPublished": "Published",
         "startDate": "Start Date",
-        "endDate": "End Date",
-        "isPublished": "Publish"
+        "endDate": "End Date"
       },
       "questionFields": {
         "text": "Question Text",
@@ -731,21 +761,28 @@
         "titleRequired": "Title is required (at least 3 characters)",
         "descriptionRequired": "Description is required",
         "courseRequired": "Please select a course",
+        "sectionRequired": "Please select a section",
         "numberInvalid": "Must be a valid number",
         "dateRequired": "Date is required",
         "questionTextRequired": "Question text is required (at least 3 characters)",
         "correctAnswerRequired": "Correct answer is required"
       },
       "toast": {
+        "loadFailed": "Failed to load",
         "quizCreated": "Quiz created successfully",
         "quizUpdated": "Quiz updated successfully",
+        "quizSaveFailed": "Failed to save the quiz",
         "quizDeleted": "Quiz deleted",
+        "quizDeleteFailed": "Failed to delete the quiz",
         "examCreated": "Exam created successfully",
         "examUpdated": "Exam updated successfully",
+        "examSaveFailed": "Failed to save the exam",
         "examDeleted": "Exam deleted",
-        "questionAdded": "Question added",
-        "questionUpdated": "Question updated",
-        "questionDeleted": "Question deleted"
+        "examDeleteFailed": "Failed to delete the exam",
+        "questionSaved": "Question saved",
+        "questionDeleted": "Question deleted",
+        "gradeSaved": "Grade saved",
+        "gradeFailed": "Failed to save the grade"
       },
       "results": {
         "title": "Results",
@@ -753,10 +790,13 @@
         "score": "Score",
         "status": "Status",
         "date": "Date",
-        "attempt": "Attempt",
         "passed": "Passed",
         "failed": "Failed",
-        "empty": "No submissions yet"
+        "empty": "No submissions yet",
+        "grade": "Grade",
+        "gradeTitle": "Grade Submission",
+        "scoreOutOf": "Score (out of {{total}})",
+        "feedback": "Feedback"
       }
     },
     "students": {
@@ -768,13 +808,17 @@
       "statusActive": "Active",
       "statusInactive": "Inactive",
       "statusSuspended": "Suspended",
+      "statusPending": "Pending",
       "tableName": "Name",
       "tableEmail": "Email",
       "tableCourses": "Courses",
       "tableStatus": "Status",
       "tableGroups": "Groups",
       "viewProfile": "View Profile",
-      "empty": "No students match your search"
+      "empty": "No students match your search",
+      "toast": {
+        "loadFailed": "Failed to load the student list"
+      }
     },
     "studentDetail": {
       "backToStudents": "Back to Students",
@@ -798,7 +842,11 @@
       "notesEmpty": "No notes yet",
       "notesPlaceholder": "Write a note about this student...",
       "addNote": "Add Note",
-      "noteAdded": "Note added"
+      "noteAdded": "Note added",
+      "toast": {
+        "noteSaveFailed": "Failed to add the note",
+        "noteDeleteFailed": "Failed to delete the note"
+      }
     },
     "analytics": {
       "title": "Analytics",
@@ -824,11 +872,16 @@
       "noStudents": "No students in this group",
       "notMarked": "Not marked",
       "savedToast": "Attendance saved",
+      "statusExcused": "Excused",
       "stats": {
         "rate": "Attendance Rate",
         "present": "Present Days",
         "absent": "Absent Days",
         "late": "Late Days"
+      },
+      "toast": {
+        "loadFailed": "Failed to load attendance data",
+        "saveFailed": "Failed to save attendance"
       }
     },
     "payments": {
@@ -850,51 +903,32 @@
       "installmentsTable": {
         "student": "Student",
         "course": "Course",
-        "installment": "Installment",
-        "installmentOf": "{{number}} of {{total}}",
         "amount": "Amount",
         "dueDate": "Due Date",
         "status": "Status",
-        "markPaid": "Mark as Paid",
-        "sendReminder": "Send Reminder",
         "empty": "No installments"
       },
       "paymentsTable": {
         "student": "Student",
+        "amount": "Amount",
+        "method": "Method",
+        "status": "Status",
+        "date": "Date",
+        "statusValues": { "pending": "Pending", "approved": "Approved", "rejected": "Rejected" },
         "empty": "No payments"
       },
       "toast": {
-        "marked": "Payment recorded",
-        "reminderSent": "Reminder sent to student"
+        "loadFailed": "Failed to load payments data"
       }
     },
     "notifications": {
       "title": "Notifications",
-      "description": "Send notifications to students and track the sending log",
-      "composeTitle": "Send New Notification",
-      "scope": "Recipients",
-      "scopeAll": "All Students",
-      "scopeGroup": "A Specific Group",
-      "scopeStudent": "One Student",
-      "selectGroup": "Select Group",
-      "selectStudent": "Select Student",
-      "titleField": "Notification Title",
-      "messageField": "Notification Message",
-      "typeField": "Notification Type",
-      "typeInfo": "Info",
-      "typeSuccess": "Success",
-      "typeWarning": "Warning",
-      "typeError": "Important",
-      "send": "Send",
-      "sentToast": "Notification sent to {{count}} students",
-      "logTitle": "Notification Log",
-      "logEmpty": "No notifications sent yet",
-      "recipients": "{{count}} recipients",
-      "validation": {
-        "titleRequired": "Notification title is required",
-        "messageRequired": "Notification message is required",
-        "groupRequired": "Please select a group",
-        "studentRequired": "Please select a student"
+      "description": "Your notifications",
+      "empty": "No notifications yet",
+      "markAllRead": "Mark all as read",
+      "toast": {
+        "loadFailed": "Failed to load notifications",
+        "markFailed": "Failed to update the notification"
       }
     },
     "groups": {
@@ -907,62 +941,38 @@
       "empty": "No groups yet",
       "fields": {
         "name": "Group Name",
-        "course": "Course",
-        "students": "Assign Students",
-        "schedule": "Session Times"
-      },
-      "addSlot": "Add Session",
-      "removeSlot": "Remove",
-      "day": "Day",
-      "startTime": "From",
-      "endTime": "To",
-      "days": {
-        "sunday": "Sunday",
-        "monday": "Monday",
-        "tuesday": "Tuesday",
-        "wednesday": "Wednesday",
-        "thursday": "Thursday",
-        "friday": "Friday",
-        "saturday": "Saturday"
+        "description": "Description",
+        "students": "Assign Students"
       },
       "studentsCount": "{{count}} students",
       "toast": {
         "created": "Group created",
         "updated": "Group updated",
-        "deleted": "Group deleted"
+        "deleted": "Group deleted",
+        "loadFailed": "Failed to load groups",
+        "saveFailed": "Failed to save the group",
+        "deleteFailed": "Failed to delete the group"
       },
       "validation": {
         "nameRequired": "Group name is required (at least 3 characters)",
-        "courseRequired": "Please select a course",
-        "studentsRequired": "Select at least one student",
-        "scheduleRequired": "Add at least one session time",
-        "timeRequired": "Time is required"
+        "studentsRequired": "Select at least one student"
       }
     },
     "settings": {
       "title": "Settings",
-      "description": "Manage platform info, language, and your account settings",
+      "description": "Manage your account settings and language",
       "accountTitle": "Account Info",
-      "platformTitle": "Platform Info",
       "languageTitle": "Language",
       "languageDescription": "Choose the language you'd like to use across the platform",
       "fields": {
         "name": "Name",
-        "phone": "Phone Number",
-        "platformName": "Platform Name",
-        "platformDescription": "Platform Description",
-        "contactEmail": "Contact Email",
-        "contactPhone": "Contact Phone"
+        "phone": "Phone Number"
       },
       "changePhoto": "Change Photo",
       "saveChanges": "Save Changes",
       "toast": {
         "accountUpdated": "Account info updated",
-        "accountUpdateFailed": "Failed to update account info",
-        "platformUpdated": "Platform info updated"
-      },
-      "validation": {
-        "required": "This field is required"
+        "accountUpdateFailed": "Failed to update account info"
       }
     },
     "grades": {
@@ -984,37 +994,64 @@
         "failed": "Failed",
         "empty": "No grades recorded yet",
         "viewProfile": "View Profile"
+      },
+      "toast": {
+        "loadFailed": "Failed to load grades"
       }
     },
     "parents": {
       "title": "Parents",
       "description": "Contact details and accounts for students' parents",
       "searchPlaceholder": "Search by name or email...",
+      "addParent": "Add Parent",
+      "editParent": "Edit Parent",
+      "deleteConfirmTitle": "Confirm Deletion",
+      "deleteConfirmMessage": "Are you sure you want to delete \"{{name}}\"?",
       "tableName": "Name",
-      "tableRelationship": "Relationship",
-      "tableStudent": "Student",
+      "tableStudent": "Student(s)",
       "tableContact": "Contact",
       "viewProfile": "View Profile",
       "empty": "No parents match your search",
-      "relationshipFather": "Father",
-      "relationshipMother": "Mother",
-      "relationshipGuardian": "Guardian"
+      "fields": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "password": "Password",
+        "students": "Linked Children"
+      },
+      "validation": {
+        "nameRequired": "Name is required (at least 3 characters)",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Invalid email format",
+        "passwordMin": "Password must be at least 8 characters"
+      },
+      "toast": {
+        "created": "Parent added",
+        "updated": "Parent updated",
+        "deleted": "Parent deleted",
+        "loadFailed": "Failed to load parents",
+        "saveFailed": "Failed to save the parent",
+        "deleteFailed": "Failed to delete the parent"
+      }
     },
     "parentDetail": {
       "backToParents": "Back to Parents",
-      "linkedStudentTitle": "Linked Student",
+      "linkedStudentTitle": "Linked Children",
       "contactTitle": "Contact Info",
-      "expensesTitle": "Expenses",
-      "expensesEmpty": "No payments recorded",
       "communicationTitle": "Communication Log",
       "communicationEmpty": "No communication logged yet",
       "channelCall": "Call",
-      "channelWhatsapp": "WhatsApp",
+      "channelSms": "SMS",
       "channelEmail": "Email",
-      "channelMeeting": "Meeting",
+      "channelInPerson": "In Person",
       "summaryPlaceholder": "Write a summary of the call or message...",
       "addEntry": "Log New Communication",
-      "entryAdded": "Communication logged"
+      "entryAdded": "Communication logged",
+      "toast": {
+        "loadFailed": "Failed to load the communication log",
+        "saveFailed": "Failed to log the communication",
+        "deleteFailed": "Failed to delete the entry"
+      }
     }
   },
   "aboutPage": {

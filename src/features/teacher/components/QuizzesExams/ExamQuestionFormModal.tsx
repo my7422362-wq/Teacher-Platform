@@ -1,12 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 import { Modal, Button, Textarea, Input, Select, type SelectOption } from '@/components/ui';
 import { createExamQuestionSchema, type ExamQuestionSchemaValues } from './schemas';
-import { addExamQuestion, updateExamQuestion } from './exam-store';
-import type { ExamQuestion } from '@/types';
+import type { ExamQuestion } from './types';
 
 const DEFAULT_VALUES: ExamQuestionSchemaValues = {
   text: '',
@@ -19,14 +17,13 @@ const DEFAULT_VALUES: ExamQuestionSchemaValues = {
 interface ExamQuestionFormModalProps {
   isOpen: boolean;
   onClose: () => void;
-  examId: number;
   question: ExamQuestion | null;
-  onSaved: () => void;
+  submitting: boolean;
+  onSubmit: (values: Omit<ExamQuestion, 'id'>) => void;
 }
 
-export function ExamQuestionFormModal({ isOpen, onClose, examId, question, onSaved }: ExamQuestionFormModalProps) {
+export function ExamQuestionFormModal({ isOpen, onClose, question, submitting, onSubmit }: ExamQuestionFormModalProps) {
   const { t } = useTranslation();
-  const [submitting, setSubmitting] = useState(false);
   const schema = useMemo(() => createExamQuestionSchema(t), [t]);
 
   const typeOptions: SelectOption[] = useMemo(
@@ -73,32 +70,17 @@ export function ExamQuestionFormModal({ isOpen, onClose, examId, question, onSav
     );
   }, [isOpen, question, reset]);
 
-  const onSubmit = async (values: ExamQuestionSchemaValues) => {
-    setSubmitting(true);
-    try {
-      const options =
-        values.type === 'true_false' ? ['صح', 'خطأ'] : (values.optionsText ?? '').split('\n').map((l) => l.trim()).filter(Boolean);
+  const submit = (values: ExamQuestionSchemaValues) => {
+    const options =
+      values.type === 'true_false' ? ['صح', 'خطأ'] : (values.optionsText ?? '').split('\n').map((l) => l.trim()).filter(Boolean);
 
-      const payload = {
-        text: values.text,
-        type: values.type,
-        options,
-        correctAnswer: values.correctAnswer,
-        points: values.points,
-      };
-
-      if (question) {
-        updateExamQuestion(examId, question.id, payload);
-        toast.success(t('teacherPages.quizzesExams.toast.questionUpdated'));
-      } else {
-        addExamQuestion(examId, payload);
-        toast.success(t('teacherPages.quizzesExams.toast.questionAdded'));
-      }
-      onSaved();
-      onClose();
-    } finally {
-      setSubmitting(false);
-    }
+    onSubmit({
+      text: values.text,
+      type: values.type,
+      options,
+      correctAnswer: values.correctAnswer,
+      points: values.points,
+    });
   };
 
   return (
@@ -108,7 +90,7 @@ export function ExamQuestionFormModal({ isOpen, onClose, examId, question, onSav
       title={question ? t('teacherPages.quizzesExams.editQuestion') : t('teacherPages.quizzesExams.addQuestion')}
       size="lg"
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+      <form onSubmit={handleSubmit(submit)} className="space-y-4" noValidate>
         <div className="space-y-2">
           <label className="text-sm font-medium text-[#F9F6F0]">{t('teacherPages.quizzesExams.questionFields.text')}</label>
           <Textarea rows={2} error={errors.text?.message} {...register('text')} />

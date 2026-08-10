@@ -1,12 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, EmptyState } from '@/components/ui';
+import { Card, CardContent, Button, EmptyState, Spinner, ErrorState } from '@/components/ui';
 import { cn } from '@/lib/utils';
 import { Bell, Info, CheckCircle2, AlertTriangle, XCircle, type LucideIcon } from 'lucide-react';
-import { studentNotifications } from './data';
-import type { Notification } from '@/types';
+import {
+  useTeacherNotifications,
+  useMarkNotificationRead,
+  useMarkAllNotificationsRead,
+} from '@/features/teacher/components/Notifications/queries';
+import type { NotificationKind } from '@/features/teacher/components/Notifications/types';
 
-const ICONS: Record<Notification['type'], LucideIcon> = {
+const ICONS: Record<NotificationKind, LucideIcon> = {
   info: Info,
   success: CheckCircle2,
   warning: AlertTriangle,
@@ -18,9 +22,17 @@ interface NotificationsPanelProps {
   viewAllHref?: string;
 }
 
+/** GET /notifications is always scoped to the authenticated user, so the
+ *  same real service backing the teacher's notification inbox works
+ *  unchanged here. */
 export function NotificationsPanel({ limit, viewAllHref }: NotificationsPanelProps) {
   const { t } = useTranslation();
-  const visible = limit ? studentNotifications.slice(0, limit) : studentNotifications;
+  const { data: notifications = [], isLoading, isError, refetch } = useTeacherNotifications();
+  const markRead = useMarkNotificationRead();
+  const markAllRead = useMarkAllNotificationsRead();
+
+  const visible = limit ? notifications.slice(0, limit) : notifications;
+  const unreadCount = notifications.filter((n) => !n.isRead).length;
 
   return (
     <section className="space-y-4">
@@ -28,25 +40,38 @@ export function NotificationsPanel({ limit, viewAllHref }: NotificationsPanelPro
         <h2 className="text-lg font-semibold text-[#F9F6F0]">
           {t('studentPages.dashboard.notifications.title')}
         </h2>
-        {viewAllHref && (
+        {viewAllHref ? (
           <Link to={viewAllHref} className="text-sm text-[#D4B59E] hover:underline">
             {t('common.viewAll')}
           </Link>
+        ) : (
+          unreadCount > 0 && (
+            <Button variant="outline" size="sm" onClick={() => markAllRead.mutate()} loading={markAllRead.isPending}>
+              {t('teacherPages.notifications.markAllRead')}
+            </Button>
+          )
         )}
       </div>
 
-      {visible.length === 0 ? (
+      {isLoading ? (
+        <div className="flex justify-center py-10">
+          <Spinner />
+        </div>
+      ) : isError ? (
+        <ErrorState description={t('teacherPages.notifications.toast.loadFailed')} onRetry={() => refetch()} />
+      ) : visible.length === 0 ? (
         <EmptyState icon={<Bell className="h-12 w-12" />} description={t('studentPages.dashboard.notifications.empty')} />
       ) : (
         <Card>
           <CardContent className="divide-y divide-[rgba(212,181,158,0.12)] p-0">
             {visible.map((notification) => {
-              const Icon = ICONS[notification.type];
+              const Icon = ICONS[notification.kind];
               return (
-                <Link
+                <button
                   key={notification.id}
-                  to={notification.link ?? '#'}
-                  className="flex items-start gap-3 p-4 transition-colors hover:bg-[#1B4038]"
+                  type="button"
+                  onClick={() => !notification.isRead && markRead.mutate(notification.id)}
+                  className="flex w-full items-start gap-3 p-4 text-start transition-colors hover:bg-[#1B4038]"
                 >
                   <Icon className="mt-0.5 h-5 w-5 shrink-0 text-[#D4B59E]" />
                   <div className="min-w-0 flex-1">
@@ -58,7 +83,7 @@ export function NotificationsPanel({ limit, viewAllHref }: NotificationsPanelPro
                   {!notification.isRead && (
                     <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#D4B59E]" />
                   )}
-                </Link>
+                </button>
               );
             })}
           </CardContent>

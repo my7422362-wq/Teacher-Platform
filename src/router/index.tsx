@@ -84,6 +84,7 @@ export function AppRouter() {
           <Route path="dashboard" element={<StudentDashboardPage />} />
           <Route path="courses" element={<StudentCoursesPage />} />
           <Route path="profile" element={<StudentProfilePage />} />
+          <Route path="settings" element={<StudentProfilePage />} />
           <Route path="schedule" element={<StudentSchedulePage />} />
           <Route path="quizzes" element={<StudentQuizzesPage />} />
           <Route path="quizzes/:id" element={<QuizTakePage />} />
@@ -102,7 +103,7 @@ export function AppRouter() {
         <Route path="teacher" element={<TeacherLayout />}>
           <Route path="dashboard" element={<TeacherDashboardPage />} />
           <Route path="courses" element={<TeacherCoursesPage />} />
-          <Route path="courses/:id/lessons" element={<TeacherCourseLessonsPage />} />
+          <Route path="courses/:slug/lessons" element={<TeacherCourseLessonsPage />} />
           <Route path="lessons" element={<TeacherLessonsOverviewPage />} />
           <Route path="quizzes-exams" element={<TeacherQuizzesExamsPage />} />
           <Route path="quizzes/:id/questions" element={<TeacherQuizQuestionsPage />} />
@@ -120,6 +121,7 @@ export function AppRouter() {
           <Route path="parents/:id" element={<TeacherParentDetailPage />} />
           <Route path="analytics" element={<TeacherAnalyticsPage />} />
           <Route path="settings" element={<TeacherSettingsPage />} />
+          <Route path="profile" element={<TeacherSettingsPage />} />
         </Route>
       </Route>
 

@@ -1,3 +1,2 @@
-export { NotificationComposer } from './NotificationComposer';
-export { NotificationLog } from './NotificationLog';
-export { getNotificationLog } from './data';
+export { NotificationsList } from './NotificationsList';
+export { useTeacherNotifications } from './queries';

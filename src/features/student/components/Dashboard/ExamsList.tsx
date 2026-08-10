@@ -1,13 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, Badge, EmptyState } from '@/components/ui';
+import { Card, CardContent, Badge, EmptyState, Spinner, ErrorState } from '@/components/ui';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { GraduationCap } from 'lucide-react';
-import { getExamsOverview } from './data';
-import type { ExamOverview } from './data';
+import { useMyExams, type StudentExamOverview } from './quiz-exam-queries';
 
-const STATUS_VARIANT: Record<ExamOverview['timeStatus'], 'outline' | 'success' | 'secondary'> = {
+const STATUS_VARIANT: Record<StudentExamOverview['timeStatus'], 'outline' | 'success' | 'secondary'> = {
   upcoming: 'outline',
   open: 'success',
   closed: 'secondary',
@@ -15,7 +14,19 @@ const STATUS_VARIANT: Record<ExamOverview['timeStatus'], 'outline' | 'success' |
 
 export function ExamsList() {
   const { t, i18n } = useTranslation();
-  const exams = getExamsOverview();
+  const { data: exams, isLoading, isError, refetch } = useMyExams();
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center py-10">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <ErrorState description={t('studentPages.dashboard.exams.toast.loadFailed')} onRetry={() => refetch()} />;
+  }
 
   return (
     <section className="space-y-4">
@@ -53,12 +64,9 @@ export function ExamsList() {
                       })}
                 </p>
 
-                {exam.score !== undefined ? (
-                  <Badge variant="success">
-                    {t('studentPages.dashboard.exams.viewResult', {
-                      score: exam.score,
-                      total: exam.totalScore,
-                    })}
+                {exam.attempted ? (
+                  <Badge variant={exam.status === 'passed' ? 'success' : 'destructive'}>
+                    {t('studentPages.dashboard.exams.viewResult', { score: exam.score })}
                   </Badge>
                 ) : exam.timeStatus === 'open' ? (
                   <Link

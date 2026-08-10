@@ -1,31 +1,40 @@
 import { useParams } from 'react-router-dom';
-import {
-  getParentDetail,
-  ParentDetailHeader,
-  ParentPayments,
-  CommunicationLog,
-} from '@/features/teacher/components/Parents';
-import { AttendanceSummary, StudentGrades } from '@/features/teacher/components/Students';
+import { useTranslation } from 'react-i18next';
+import { Spinner, ErrorState } from '@/components/ui';
+import { useTeacherParent, ParentDetailHeader, CommunicationLog } from '@/features/teacher/components/Parents';
+import { AttendanceSummary } from '@/features/teacher/components/Students';
 
 export function TeacherParentDetailPage() {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
-  const detail = getParentDetail(Number(id));
+  const parentId = Number(id);
+  const { data: parent, isLoading, isError, refetch } = useTeacherParent(parentId);
 
-  if (!detail) {
-    return null;
+  if (isLoading) {
+    return (
+      <div className="flex justify-center py-16">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (isError || !parent) {
+    return <ErrorState description={t('teacherPages.parents.toast.loadFailed')} onRetry={() => refetch()} />;
   }
 
   return (
     <div className="space-y-8">
-      <ParentDetailHeader parent={detail.parent} studentAvatar={detail.studentAvatar} />
+      <ParentDetailHeader parent={parent} />
 
-      <div className="grid gap-8 lg:grid-cols-2">
-        <AttendanceSummary attendance={detail.attendance} />
-        <StudentGrades grades={detail.grades} />
-      </div>
+      {parent.students.length > 0 && (
+        <div className="grid gap-8 lg:grid-cols-2">
+          {parent.students.map((student) => (
+            <AttendanceSummary key={student.id} studentId={student.id} />
+          ))}
+        </div>
+      )}
 
-      <ParentPayments payments={detail.payments} />
-      <CommunicationLog parentId={detail.parent.id} entries={detail.communicationLog} />
+      <CommunicationLog parentId={parent.id} />
     </div>
   );
 }

@@ -1,7 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { Card, CardContent } from '@/components/ui';
-import { Users, BookOpen, UserCog, UsersRound, ClipboardList, Wallet, type LucideIcon } from 'lucide-react';
-import { getTeacherStats } from './data';
+import { Card, CardContent, Spinner } from '@/components/ui';
+import { Users, BookOpen, UsersRound, Wallet, type LucideIcon } from 'lucide-react';
+import { useTeacherStudentsList } from '../Students/queries';
+import { useTeacherCourses } from '../Courses/queries';
+import { useTeacherGroups } from '../Groups/queries';
+import { useTeacherPayments } from '../Payments/queries';
 
 interface StatItem {
   icon: LucideIcon;
@@ -11,19 +14,32 @@ interface StatItem {
 
 export function StatsOverview() {
   const { t } = useTranslation();
-  const stats = getTeacherStats();
+  const { data: students, isLoading: studentsLoading } = useTeacherStudentsList();
+  const { data: courses, isLoading: coursesLoading } = useTeacherCourses();
+  const { data: groups, isLoading: groupsLoading } = useTeacherGroups();
+  const { data: payments, isLoading: paymentsLoading } = useTeacherPayments();
+
+  if (studentsLoading || coursesLoading || groupsLoading || paymentsLoading) {
+    return (
+      <div className="flex justify-center py-8">
+        <Spinner />
+      </div>
+    );
+  }
+
+  const totalRevenue = (payments ?? [])
+    .filter((p) => p.status === 'approved')
+    .reduce((sum, p) => sum + p.amount, 0);
 
   const items: StatItem[] = [
-    { icon: Users, value: stats.totalStudents, labelKey: 'teacherPages.dashboard.stats.students' },
-    { icon: BookOpen, value: stats.totalCourses, labelKey: 'teacherPages.dashboard.stats.courses' },
-    { icon: UserCog, value: stats.totalTeachers, labelKey: 'teacherPages.dashboard.stats.teachers' },
-    { icon: UsersRound, value: stats.totalGroups, labelKey: 'teacherPages.dashboard.stats.groups' },
-    { icon: ClipboardList, value: stats.totalExamsAndQuizzes, labelKey: 'teacherPages.dashboard.stats.examsQuizzes' },
-    { icon: Wallet, value: `${stats.totalRevenue.toLocaleString()} SAR`, labelKey: 'teacherPages.dashboard.stats.revenue' },
+    { icon: Users, value: students?.length ?? 0, labelKey: 'teacherPages.dashboard.stats.students' },
+    { icon: BookOpen, value: courses?.length ?? 0, labelKey: 'teacherPages.dashboard.stats.courses' },
+    { icon: UsersRound, value: groups?.length ?? 0, labelKey: 'teacherPages.dashboard.stats.groups' },
+    { icon: Wallet, value: totalRevenue.toLocaleString(), labelKey: 'teacherPages.dashboard.stats.revenue' },
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+    <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
       {items.map(({ icon: Icon, value, labelKey }) => (
         <Card key={labelKey}>
           <CardContent className="flex items-center gap-4 p-5">

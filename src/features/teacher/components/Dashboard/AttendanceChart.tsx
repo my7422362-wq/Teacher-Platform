@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, CardContent } from '@/components/ui';
-import { getAttendanceTrend } from './data';
+import { Card, CardContent, Spinner, ErrorState } from '@/components/ui';
+import { useAttendanceTrend } from './queries';
 
 const WIDTH = 600;
 const HEIGHT = 200;
@@ -18,8 +18,22 @@ function formatShortDate(iso: string, locale: string) {
 
 export function AttendanceChart() {
   const { t, i18n } = useTranslation();
-  const points = getAttendanceTrend();
+  const { data: points = [], isLoading, isError, refetch } = useAttendanceTrend();
   const [hovered, setHovered] = useState<number | null>(null);
+
+  if (isLoading) {
+    return (
+      <Card>
+        <CardContent className="flex justify-center p-6 py-16">
+          <Spinner />
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (isError) {
+    return <ErrorState description={t('teacherPages.dashboard.charts.loadFailed')} onRetry={() => refetch()} />;
+  }
 
   const plotWidth = WIDTH - PAD_LEFT - PAD_RIGHT;
   const plotHeight = HEIGHT - PAD_TOP - PAD_BOTTOM;

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from '@/components/ui';
 import { TrendingUp, CheckCircle2, XCircle, ClipboardList, type LucideIcon } from 'lucide-react';
-import type { GradesOverview } from './data';
+import type { GradesOverview } from './types';
 
 interface StatItem {
   icon: LucideIcon;

@@ -1,32 +1,66 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
-import { Card, CardContent, Badge, Button, Modal, EmptyState } from '@/components/ui';
+import { Card, CardContent, Badge, Button, Modal, EmptyState, ErrorState, Spinner } from '@/components/ui';
 import { Pencil, Trash2, Plus, HelpCircle } from 'lucide-react';
-import { getExam, deleteExamQuestion } from './exam-store';
+import { useTeacherExam, useSaveExamQuestions } from './queries';
 import { ExamQuestionFormModal } from './ExamQuestionFormModal';
-import type { ExamQuestion } from '@/types';
+import type { ExamQuestion } from './types';
 
 export function ExamQuestionsList({ examId }: { examId: number }) {
   const { t } = useTranslation();
-  const [questions, setQuestions] = useState<ExamQuestion[]>(() => getExam(examId)?.questions ?? []);
+  const { data: exam, isLoading, isError, refetch } = useTeacherExam(examId);
+  const saveQuestions = useSaveExamQuestions(examId);
+
   const [editingQuestion, setEditingQuestion] = useState<ExamQuestion | null>(null);
   const [formOpen, setFormOpen] = useState(false);
   const [deletingQuestion, setDeletingQuestion] = useState<ExamQuestion | null>(null);
 
-  function refresh() {
-    setQuestions(getExam(examId)?.questions ?? []);
-  }
-
-  function handleConfirmDelete() {
-    if (!deletingQuestion) return;
-    deleteExamQuestion(examId, deletingQuestion.id);
-    toast.success(t('teacherPages.quizzesExams.toast.questionDeleted'));
-    setDeletingQuestion(null);
-    refresh();
-  }
-
+  const questions = exam?.questions ?? [];
   const totalScore = questions.reduce((sum, q) => sum + q.points, 0);
+
+  async function persist(next: ExamQuestion[]) {
+    try {
+      await saveQuestions.mutateAsync(next);
+      return true;
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : t('teacherPages.quizzesExams.toast.examSaveFailed'));
+      return false;
+    }
+  }
+
+  async function handleSubmitQuestion(values: Omit<ExamQuestion, 'id'>) {
+    const next = editingQuestion
+      ? questions.map((q) => (q.id === editingQuestion.id ? { ...values, id: editingQuestion.id } : q))
+      : [...questions, { ...values, id: crypto.randomUUID() }];
+
+    if (await persist(next)) {
+      toast.success(t('teacherPages.quizzesExams.toast.questionSaved'));
+      setFormOpen(false);
+      setEditingQuestion(null);
+    }
+  }
+
+  async function handleConfirmDelete() {
+    if (!deletingQuestion) return;
+    const next = questions.filter((q) => q.id !== deletingQuestion.id);
+    if (await persist(next)) {
+      toast.success(t('teacherPages.quizzesExams.toast.questionDeleted'));
+    }
+    setDeletingQuestion(null);
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center py-16">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (isError || !exam) {
+    return <ErrorState description={t('teacherPages.quizzesExams.toast.loadFailed')} onRetry={() => refetch()} />;
+  }
 
   return (
     <section className="space-y-4">
@@ -81,10 +115,10 @@ export function ExamQuestionsList({ examId }: { examId: number }) {
 
       <ExamQuestionFormModal
         isOpen={formOpen}
-        onClose={() => setFormOpen(false)}
-        examId={examId}
+        onClose={() => { setFormOpen(false); setEditingQuestion(null); }}
         question={editingQuestion}
-        onSaved={refresh}
+        submitting={saveQuestions.isPending}
+        onSubmit={handleSubmitQuestion}
       />
 
       <Modal isOpen={deletingQuestion !== null} onClose={() => setDeletingQuestion(null)} title={t('teacherPages.quizzesExams.deleteConfirmTitle')} size="sm">
@@ -93,7 +127,11 @@ export function ExamQuestionsList({ examId }: { examId: number }) {
           <Button variant="outline" onClick={() => setDeletingQuestion(null)}>
             {t('teacherPages.courses.cancel')}
           </Button>
-          <Button onClick={handleConfirmDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+          <Button
+            onClick={handleConfirmDelete}
+            loading={saveQuestions.isPending}
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+          >
             {t('teacherPages.courses.confirm')}
           </Button>
         </div>

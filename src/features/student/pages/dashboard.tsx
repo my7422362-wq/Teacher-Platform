@@ -1,21 +1,22 @@
 import { useTranslation } from 'react-i18next';
 import { PageHeader } from '@/components/shared/page-header';
+import { useAuth } from '@/providers';
 import {
   StatsOverview,
   ContinueLearning,
   Schedule,
   Grades,
   NotificationsPanel,
-  currentStudent,
 } from '@/features/student/components/Dashboard';
 
 export function StudentDashboardPage() {
   const { t } = useTranslation();
+  const { currentUser } = useAuth();
 
   return (
     <div className="space-y-8">
       <PageHeader
-        title={t('studentPages.dashboard.welcome', { name: currentStudent.name })}
+        title={t('studentPages.dashboard.welcome', { name: currentUser?.name ?? '' })}
         description={t('studentPages.dashboard.welcomeSubtitle')}
       />
 

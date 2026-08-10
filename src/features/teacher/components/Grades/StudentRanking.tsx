@@ -14,7 +14,7 @@ import {
   EmptyState,
 } from '@/components/ui';
 import { Trophy } from 'lucide-react';
-import type { StudentRankingItem } from './data';
+import type { StudentRankingItem } from './types';
 
 export function StudentRanking({ ranking }: { ranking: StudentRankingItem[] }) {
   const { t } = useTranslation();
@@ -50,7 +50,7 @@ export function StudentRanking({ ranking }: { ranking: StudentRankingItem[] }) {
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-3">
-                        <Avatar src={item.avatar} alt={item.name} size="sm" />
+                        <Avatar src={item.avatar ?? undefined} alt={item.name} size="sm" />
                         <span className="font-medium text-[#F9F6F0]">{item.name}</span>
                       </div>
                     </TableCell>

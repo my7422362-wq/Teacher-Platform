@@ -1,56 +1,45 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
-import { Card, CardContent, Button, Textarea, Select, Badge, EmptyState, type SelectOption } from '@/components/ui';
+import { Card, CardContent, Button, Textarea, Select, Badge, EmptyState, ErrorState, Spinner, type SelectOption } from '@/components/ui';
 import { MessageCircle, Phone, Mail, Users } from 'lucide-react';
-import { saveCommunicationLogEntry } from './communication-store';
-import { CURRENT_TEACHER_ID } from './data';
-import type { CommunicationLogEntry } from '@/types';
+import { useCommunicationLog, useAddCommunicationLogEntry } from './queries';
+import type { CommunicationChannel } from './types';
 
-const CHANNEL_ICON = {
+const CHANNEL_ICON: Record<CommunicationChannel, typeof Phone> = {
   call: Phone,
-  whatsapp: MessageCircle,
+  sms: MessageCircle,
   email: Mail,
-  meeting: Users,
-} as const;
+  in_person: Users,
+};
 
-interface CommunicationLogProps {
-  parentId: number;
-  entries: CommunicationLogEntry[];
-}
-
-export function CommunicationLog({ parentId, entries: initialEntries }: CommunicationLogProps) {
+export function CommunicationLog({ parentId }: { parentId: number }) {
   const { t, i18n } = useTranslation();
-  const [entries, setEntries] = useState(initialEntries);
-  const [channel, setChannel] = useState<CommunicationLogEntry['channel']>('call');
-  const [summary, setSummary] = useState('');
+  const { data: entries = [], isLoading, isError, refetch } = useCommunicationLog(parentId);
+  const addEntry = useAddCommunicationLogEntry(parentId);
+  const [channel, setChannel] = useState<CommunicationChannel>('call');
+  const [message, setMessage] = useState('');
 
   const channelOptions: SelectOption[] = useMemo(
     () => [
       { value: 'call', label: t('teacherPages.parentDetail.channelCall') },
-      { value: 'whatsapp', label: t('teacherPages.parentDetail.channelWhatsapp') },
+      { value: 'sms', label: t('teacherPages.parentDetail.channelSms') },
       { value: 'email', label: t('teacherPages.parentDetail.channelEmail') },
-      { value: 'meeting', label: t('teacherPages.parentDetail.channelMeeting') },
+      { value: 'in_person', label: t('teacherPages.parentDetail.channelInPerson') },
     ],
     [t]
   );
 
-  function handleAdd() {
-    const trimmed = summary.trim();
+  async function handleAdd() {
+    const trimmed = message.trim();
     if (!trimmed) return;
-
-    const entry: CommunicationLogEntry = {
-      id: Date.now(),
-      parentId,
-      teacherId: CURRENT_TEACHER_ID,
-      channel,
-      summary: trimmed,
-      date: new Date().toISOString(),
-    };
-    saveCommunicationLogEntry(entry);
-    setEntries((prev) => [entry, ...prev]);
-    setSummary('');
-    toast.success(t('teacherPages.parentDetail.entryAdded'));
+    try {
+      await addEntry.mutateAsync({ message: trimmed, type: channel });
+      setMessage('');
+      toast.success(t('teacherPages.parentDetail.entryAdded'));
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : t('teacherPages.parentDetail.toast.saveFailed'));
+    }
   }
 
   return (
@@ -62,17 +51,18 @@ export function CommunicationLog({ parentId, entries: initialEntries }: Communic
       <Card>
         <CardContent className="space-y-3 p-5">
           <div className="sm:w-56">
-            <Select options={channelOptions} value={channel} onChange={(v) => setChannel(v as CommunicationLogEntry['channel'])} />
+            <Select options={channelOptions} value={channel} onChange={(v) => setChannel(v as CommunicationChannel)} />
           </div>
           <Textarea
             placeholder={t('teacherPages.parentDetail.summaryPlaceholder')}
-            value={summary}
-            onChange={(e) => setSummary(e.target.value)}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
             rows={3}
           />
           <Button
             onClick={handleAdd}
-            disabled={!summary.trim()}
+            disabled={!message.trim()}
+            loading={addEntry.isPending}
             className="bg-[#D4B59E] text-[#0F2520] hover:bg-[#C7A187]"
           >
             {t('teacherPages.parentDetail.addEntry')}
@@ -80,7 +70,13 @@ export function CommunicationLog({ parentId, entries: initialEntries }: Communic
         </CardContent>
       </Card>
 
-      {entries.length === 0 ? (
+      {isLoading ? (
+        <div className="flex justify-center py-10">
+          <Spinner size="sm" />
+        </div>
+      ) : isError ? (
+        <ErrorState description={t('teacherPages.parentDetail.toast.loadFailed')} onRetry={() => refetch()} />
+      ) : entries.length === 0 ? (
         <EmptyState
           icon={<MessageCircle className="h-12 w-12" />}
           description={t('teacherPages.parentDetail.communicationEmpty')}
@@ -89,7 +85,7 @@ export function CommunicationLog({ parentId, entries: initialEntries }: Communic
         <Card>
           <CardContent className="divide-y divide-[rgba(212,181,158,0.12)] p-0">
             {entries.map((entry) => {
-              const Icon = CHANNEL_ICON[entry.channel];
+              const Icon = CHANNEL_ICON[entry.type];
               return (
                 <div key={entry.id} className="flex items-start gap-3 p-4">
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#D4B59E]/15 text-[#D4B59E]">
@@ -98,13 +94,13 @@ export function CommunicationLog({ parentId, entries: initialEntries }: Communic
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                       <Badge variant="outline">
-                        {t(`teacherPages.parentDetail.channel${entry.channel[0].toUpperCase()}${entry.channel.slice(1)}`)}
+                        {t(`teacherPages.parentDetail.channel${entry.type === 'in_person' ? 'InPerson' : entry.type[0].toUpperCase() + entry.type.slice(1)}`)}
                       </Badge>
                       <span className="text-xs text-[rgba(249,246,240,0.45)]">
-                        {new Date(entry.date).toLocaleString(i18n.language)}
+                        {new Date(entry.loggedAt).toLocaleString(i18n.language)}
                       </span>
                     </div>
-                    <p className="mt-1 text-sm text-[#F9F6F0]">{entry.summary}</p>
+                    <p className="mt-1 text-sm text-[#F9F6F0]">{entry.message}</p>
                   </div>
                 </div>
               );

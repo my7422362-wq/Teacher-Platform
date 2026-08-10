@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
+import { useQueries } from '@tanstack/react-query';
 import {
   Card,
   CardContent,
@@ -9,52 +10,106 @@ import {
   Button,
   Modal,
   EmptyState,
+  ErrorState,
+  Spinner,
   Tabs,
   TabsList,
   TabsTrigger,
   TabsContent,
 } from '@/components/ui';
 import { Pencil, Trash2, Plus, ListChecks, BarChart3 } from 'lucide-react';
-import { getQuizzes, deleteQuiz } from './quiz-store';
-import { getExams, deleteExam } from './exam-store';
-import { getCourses } from '@/features/teacher/components/Courses/course-store';
+import { teacherQuizService, teacherExamService } from '@/services';
+import { useTeacherCourses } from '@/features/teacher/components/Courses/queries';
+import { useDeleteQuiz, useDeleteExam } from './queries';
 import { QuizFormModal } from './QuizFormModal';
 import { ExamFormModal } from './ExamFormModal';
-import type { Quiz, Exam } from '@/types';
+import type { TeacherQuiz, TeacherExam } from './types';
+
+interface QuizCardData {
+  quiz: TeacherQuiz;
+  courseTitle: string;
+}
+
+interface ExamCardData {
+  exam: TeacherExam;
+  courseTitle: string;
+}
 
 export function QuizzesExamsGrid() {
   const { t } = useTranslation();
-  const courses = getCourses();
+  const { data: courses = [], isLoading: coursesLoading, isError: coursesError, refetch: refetchCourses } = useTeacherCourses();
 
-  const [quizzes, setQuizzes] = useState<Quiz[]>(getQuizzes);
-  const [exams, setExams] = useState<Exam[]>(getExams);
+  // N+1 across courses — there is no global "list all quizzes/exams" endpoint, only
+  // GET /courses/{course}/quizzes and GET /courses/{course}/exams (course by slug).
+  // Mirrors the aggregation style used by payment.service.ts's listAllInstallments().
+  const quizQueries = useQueries({
+    queries: courses.map((course) => ({
+      queryKey: ['teacher', 'quizzes-by-course', course.slug] as const,
+      queryFn: () => teacherQuizService.listByCourse(course.slug),
+    })),
+  });
+  const examQueries = useQueries({
+    queries: courses.map((course) => ({
+      queryKey: ['teacher', 'exams-by-course', course.slug] as const,
+      queryFn: () => teacherExamService.listByCourse(course.slug),
+    })),
+  });
 
-  const [editingQuiz, setEditingQuiz] = useState<Quiz | null>(null);
+  const quizzesLoading = coursesLoading || quizQueries.some((q) => q.isLoading);
+  const quizzesError = coursesError || quizQueries.some((q) => q.isError);
+  const examsLoading = coursesLoading || examQueries.some((q) => q.isLoading);
+  const examsError = coursesError || examQueries.some((q) => q.isError);
+
+  const quizzes: QuizCardData[] = courses.flatMap((course, index) =>
+    (quizQueries[index]?.data ?? []).map((quiz) => ({ quiz, courseTitle: course.title }))
+  );
+  const exams: ExamCardData[] = courses.flatMap((course, index) =>
+    (examQueries[index]?.data ?? []).map((exam) => ({ exam, courseTitle: course.title }))
+  );
+
+  const deleteQuiz = useDeleteQuiz();
+  const deleteExam = useDeleteExam();
+
+  const [editingQuiz, setEditingQuiz] = useState<TeacherQuiz | null>(null);
   const [quizFormOpen, setQuizFormOpen] = useState(false);
-  const [deletingQuiz, setDeletingQuiz] = useState<Quiz | null>(null);
+  const [deletingQuiz, setDeletingQuiz] = useState<TeacherQuiz | null>(null);
 
-  const [editingExam, setEditingExam] = useState<Exam | null>(null);
+  const [editingExam, setEditingExam] = useState<TeacherExam | null>(null);
   const [examFormOpen, setExamFormOpen] = useState(false);
-  const [deletingExam, setDeletingExam] = useState<Exam | null>(null);
+  const [deletingExam, setDeletingExam] = useState<TeacherExam | null>(null);
 
-  function courseName(courseId: number) {
-    return courses.find((c) => c.id === courseId)?.title ?? '';
-  }
-
-  function handleConfirmDeleteQuiz() {
+  async function handleConfirmDeleteQuiz() {
     if (!deletingQuiz) return;
-    deleteQuiz(deletingQuiz.id);
-    toast.success(t('teacherPages.quizzesExams.toast.quizDeleted'));
-    setDeletingQuiz(null);
-    setQuizzes(getQuizzes());
+    try {
+      await deleteQuiz.mutateAsync(deletingQuiz.id);
+      toast.success(t('teacherPages.quizzesExams.toast.quizDeleted'));
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : t('teacherPages.quizzesExams.toast.quizDeleteFailed'));
+    } finally {
+      setDeletingQuiz(null);
+    }
   }
 
-  function handleConfirmDeleteExam() {
+  async function handleConfirmDeleteExam() {
     if (!deletingExam) return;
-    deleteExam(deletingExam.id);
-    toast.success(t('teacherPages.quizzesExams.toast.examDeleted'));
-    setDeletingExam(null);
-    setExams(getExams());
+    try {
+      await deleteExam.mutateAsync(deletingExam.id);
+      toast.success(t('teacherPages.quizzesExams.toast.examDeleted'));
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : t('teacherPages.quizzesExams.toast.examDeleteFailed'));
+    } finally {
+      setDeletingExam(null);
+    }
+  }
+
+  function retryQuizzes() {
+    refetchCourses();
+    quizQueries.forEach((q) => q.refetch());
+  }
+
+  function retryExams() {
+    refetchCourses();
+    examQueries.forEach((q) => q.refetch());
   }
 
   return (
@@ -79,11 +134,17 @@ export function QuizzesExamsGrid() {
             </Button>
           </div>
 
-          {quizzes.length === 0 ? (
+          {quizzesLoading ? (
+            <div className="flex justify-center py-16">
+              <Spinner />
+            </div>
+          ) : quizzesError ? (
+            <ErrorState description={t('teacherPages.quizzesExams.toast.loadFailed')} onRetry={retryQuizzes} />
+          ) : quizzes.length === 0 ? (
             <EmptyState description={t('teacherPages.quizzesExams.emptyQuizzes')} />
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {quizzes.map((quiz) => (
+              {quizzes.map(({ quiz, courseTitle }) => (
                 <Card key={quiz.id}>
                   <CardContent className="space-y-3 p-5">
                     <div className="flex items-start justify-between gap-2">
@@ -94,9 +155,12 @@ export function QuizzesExamsGrid() {
                           : t('teacherPages.courses.statusDraft')}
                       </Badge>
                     </div>
-                    <p className="text-sm text-[rgba(249,246,240,0.65)]">{courseName(quiz.courseId)}</p>
+                    <p className="text-sm text-[rgba(249,246,240,0.65)]">{courseTitle}</p>
+                    {quiz.sectionTitle && (
+                      <p className="text-xs text-[rgba(249,246,240,0.5)]">{quiz.sectionTitle}</p>
+                    )}
                     <p className="text-xs text-[rgba(249,246,240,0.55)]">
-                      {t('teacherPages.quizzesExams.questionsCount', { count: quiz.questionsCount })}
+                      {t('teacherPages.quizzesExams.questionsCount', { count: quiz.questionsCount ?? quiz.questions.length })}
                     </p>
 
                     <div className="flex flex-wrap gap-2 pt-1">
@@ -146,25 +210,27 @@ export function QuizzesExamsGrid() {
             </Button>
           </div>
 
-          {exams.length === 0 ? (
+          {examsLoading ? (
+            <div className="flex justify-center py-16">
+              <Spinner />
+            </div>
+          ) : examsError ? (
+            <ErrorState description={t('teacherPages.quizzesExams.toast.loadFailed')} onRetry={retryExams} />
+          ) : exams.length === 0 ? (
             <EmptyState description={t('teacherPages.quizzesExams.emptyExams')} />
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {exams.map((exam) => (
+              {exams.map(({ exam, courseTitle }) => (
                 <Card key={exam.id}>
                   <CardContent className="space-y-3 p-5">
-                    <div className="flex items-start justify-between gap-2">
-                      <h3 className="font-semibold text-[#F9F6F0]">{exam.title}</h3>
-                      <Badge variant={exam.isPublished ? 'success' : 'outline'} className="shrink-0">
-                        {exam.isPublished
-                          ? t('teacherPages.courses.statusPublished')
-                          : t('teacherPages.courses.statusDraft')}
-                      </Badge>
-                    </div>
-                    <p className="text-sm text-[rgba(249,246,240,0.65)]">{courseName(exam.courseId)}</p>
+                    <h3 className="font-semibold text-[#F9F6F0]">{exam.title}</h3>
+                    <p className="text-sm text-[rgba(249,246,240,0.65)]">{courseTitle}</p>
                     <p className="text-xs text-[rgba(249,246,240,0.55)]">
-                      {t('teacherPages.quizzesExams.questionsCount', { count: exam.questionsCount })}
+                      {t('teacherPages.quizzesExams.questionsCount', { count: exam.questionsCount ?? exam.questions.length })}
                     </p>
+                    <Badge variant="outline" className="shrink-0">
+                      {new Date(exam.startDate).toLocaleDateString()}
+                    </Badge>
 
                     <div className="flex flex-wrap gap-2 pt-1">
                       <Button variant="outline" size="sm" onClick={() => { setEditingExam(exam); setExamFormOpen(true); }}>
@@ -200,18 +266,8 @@ export function QuizzesExamsGrid() {
         </TabsContent>
       </Tabs>
 
-      <QuizFormModal
-        isOpen={quizFormOpen}
-        onClose={() => setQuizFormOpen(false)}
-        quiz={editingQuiz}
-        onSaved={() => setQuizzes(getQuizzes())}
-      />
-      <ExamFormModal
-        isOpen={examFormOpen}
-        onClose={() => setExamFormOpen(false)}
-        exam={editingExam}
-        onSaved={() => setExams(getExams())}
-      />
+      <QuizFormModal isOpen={quizFormOpen} onClose={() => setQuizFormOpen(false)} quiz={editingQuiz} />
+      <ExamFormModal isOpen={examFormOpen} onClose={() => setExamFormOpen(false)} exam={editingExam} />
 
       <Modal
         isOpen={deletingQuiz !== null}
@@ -226,7 +282,11 @@ export function QuizzesExamsGrid() {
           <Button variant="outline" onClick={() => setDeletingQuiz(null)}>
             {t('teacherPages.courses.cancel')}
           </Button>
-          <Button onClick={handleConfirmDeleteQuiz} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+          <Button
+            onClick={handleConfirmDeleteQuiz}
+            loading={deleteQuiz.isPending}
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+          >
             {t('teacherPages.courses.confirm')}
           </Button>
         </div>
@@ -245,7 +305,11 @@ export function QuizzesExamsGrid() {
           <Button variant="outline" onClick={() => setDeletingExam(null)}>
             {t('teacherPages.courses.cancel')}
           </Button>
-          <Button onClick={handleConfirmDeleteExam} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+          <Button
+            onClick={handleConfirmDeleteExam}
+            loading={deleteExam.isPending}
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+          >
             {t('teacherPages.courses.confirm')}
           </Button>
         </div>

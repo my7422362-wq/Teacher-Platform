@@ -1,12 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 import { Modal, Button, Textarea, Input, Select, type SelectOption } from '@/components/ui';
 import { createQuizQuestionSchema, type QuizQuestionSchemaValues } from './schemas';
-import { addQuestion, updateQuestion } from './quiz-store';
-import type { Question } from '@/types';
+import type { QuizQuestion } from './types';
 
 const DEFAULT_VALUES: QuizQuestionSchemaValues = {
   text: '',
@@ -19,14 +17,13 @@ const DEFAULT_VALUES: QuizQuestionSchemaValues = {
 interface QuizQuestionFormModalProps {
   isOpen: boolean;
   onClose: () => void;
-  quizId: number;
-  question: Question | null;
-  onSaved: () => void;
+  question: QuizQuestion | null;
+  submitting: boolean;
+  onSubmit: (values: Omit<QuizQuestion, 'id'>) => void;
 }
 
-export function QuizQuestionFormModal({ isOpen, onClose, quizId, question, onSaved }: QuizQuestionFormModalProps) {
+export function QuizQuestionFormModal({ isOpen, onClose, question, submitting, onSubmit }: QuizQuestionFormModalProps) {
   const { t } = useTranslation();
-  const [submitting, setSubmitting] = useState(false);
   const schema = useMemo(() => createQuizQuestionSchema(t), [t]);
 
   const typeOptions: SelectOption[] = useMemo(
@@ -71,39 +68,28 @@ export function QuizQuestionFormModal({ isOpen, onClose, quizId, question, onSav
             text: question.text,
             type: question.type,
             optionsText: question.options.join('\n'),
-            correctAnswer: Array.isArray(question.correctAnswer) ? question.correctAnswer.join(', ') : question.correctAnswer,
+            correctAnswer: question.correctAnswer,
             points: question.points,
           }
         : DEFAULT_VALUES
     );
   }, [isOpen, question, reset]);
 
-  const onSubmit = async (values: QuizQuestionSchemaValues) => {
-    setSubmitting(true);
-    try {
-      const options =
-        values.type === 'true_false' ? ['صح', 'خطأ'] : (values.optionsText ?? '').split('\n').map((l) => l.trim()).filter(Boolean);
+  const submit = (values: QuizQuestionSchemaValues) => {
+    const options =
+      values.type === 'short_answer' || values.type === 'essay'
+        ? []
+        : values.type === 'true_false'
+          ? ['صح', 'خطأ']
+          : (values.optionsText ?? '').split('\n').map((l) => l.trim()).filter(Boolean);
 
-      const payload = {
-        text: values.text,
-        type: values.type,
-        options: values.type === 'short_answer' || values.type === 'essay' ? [] : options,
-        correctAnswer: values.correctAnswer,
-        points: values.points,
-      };
-
-      if (question) {
-        updateQuestion(quizId, question.id, payload);
-        toast.success(t('teacherPages.quizzesExams.toast.questionUpdated'));
-      } else {
-        addQuestion(quizId, payload);
-        toast.success(t('teacherPages.quizzesExams.toast.questionAdded'));
-      }
-      onSaved();
-      onClose();
-    } finally {
-      setSubmitting(false);
-    }
+    onSubmit({
+      text: values.text,
+      type: values.type,
+      options,
+      correctAnswer: values.correctAnswer,
+      points: values.points,
+    });
   };
 
   return (
@@ -113,7 +99,7 @@ export function QuizQuestionFormModal({ isOpen, onClose, quizId, question, onSav
       title={question ? t('teacherPages.quizzesExams.editQuestion') : t('teacherPages.quizzesExams.addQuestion')}
       size="lg"
     >
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+      <form onSubmit={handleSubmit(submit)} className="space-y-4" noValidate>
         <div className="space-y-2">
           <label className="text-sm font-medium text-[#F9F6F0]">{t('teacherPages.quizzesExams.questionFields.text')}</label>
           <Textarea rows={2} error={errors.text?.message} {...register('text')} />

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from '@/components/ui';
 import { Wallet, Clock, AlertTriangle, type LucideIcon } from 'lucide-react';
-import type { PaymentsOverview } from './data';
+import type { TeacherInstallment, TeacherPayment } from './types';
 
 interface StatItem {
   icon: LucideIcon;
@@ -10,17 +10,42 @@ interface StatItem {
   sublabel?: string;
 }
 
-export function PaymentsOverviewStats({ overview }: { overview: PaymentsOverview }) {
+interface PaymentsOverviewStatsProps {
+  installments: TeacherInstallment[];
+  payments: TeacherPayment[];
+}
+
+export function PaymentsOverviewStats({ installments, payments }: PaymentsOverviewStatsProps) {
   const { t } = useTranslation();
+  const currency = installments[0]?.currency ?? '';
+
+  const totalCollected =
+    installments.filter((i) => i.status === 'paid').reduce((sum, i) => sum + i.amount, 0) +
+    payments.filter((p) => p.status === 'approved').reduce((sum, p) => sum + p.amount, 0);
+
+  const totalPending =
+    installments.filter((i) => i.status !== 'paid' && !i.isOverdue).reduce((sum, i) => sum + i.amount, 0) +
+    payments.filter((p) => p.status === 'pending').reduce((sum, p) => sum + p.amount, 0);
+
+  const overdueInstallments = installments.filter((i) => i.isOverdue);
+  const totalOverdue = overdueInstallments.reduce((sum, i) => sum + i.amount, 0);
 
   const items: StatItem[] = [
-    { icon: Wallet, value: `${overview.totalCollected.toLocaleString()} SAR`, labelKey: 'teacherPages.payments.stats.collected' },
-    { icon: Clock, value: `${overview.totalPending.toLocaleString()} SAR`, labelKey: 'teacherPages.payments.stats.pending' },
+    {
+      icon: Wallet,
+      value: `${totalCollected.toLocaleString()} ${currency}`.trim(),
+      labelKey: 'teacherPages.payments.stats.collected',
+    },
+    {
+      icon: Clock,
+      value: `${totalPending.toLocaleString()} ${currency}`.trim(),
+      labelKey: 'teacherPages.payments.stats.pending',
+    },
     {
       icon: AlertTriangle,
-      value: `${overview.totalOverdue.toLocaleString()} SAR`,
+      value: `${totalOverdue.toLocaleString()} ${currency}`.trim(),
       labelKey: 'teacherPages.payments.stats.overdue',
-      sublabel: t('teacherPages.payments.stats.overdueCount', { count: overview.overdueCount }),
+      sublabel: t('teacherPages.payments.stats.overdueCount', { count: overdueInstallments.length }),
     },
   ];
 

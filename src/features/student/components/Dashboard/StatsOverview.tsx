@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { Card, CardContent } from '@/components/ui';
+import { Card, CardContent, Spinner } from '@/components/ui';
 import { BookOpen, CheckCircle2, TrendingUp, Award, type LucideIcon } from 'lucide-react';
-import { enrolledCourses, completedCourses, avgProgress, studentCertificates } from './data';
+import { useMyCourses, useMyCertificates } from './queries';
 
 interface StatItem {
   icon: LucideIcon;
@@ -11,12 +11,28 @@ interface StatItem {
 
 export function StatsOverview() {
   const { t } = useTranslation();
+  const { data: courses, isLoading: coursesLoading } = useMyCourses();
+  const { data: certificates, isLoading: certificatesLoading } = useMyCertificates();
+
+  if (coursesLoading || certificatesLoading) {
+    return (
+      <div className="flex justify-center py-8">
+        <Spinner />
+      </div>
+    );
+  }
+
+  const enrolled = courses ?? [];
+  const completed = enrolled.filter((c) => c.progressPercent >= 100);
+  const avgProgress = enrolled.length
+    ? Math.round(enrolled.reduce((sum, c) => sum + c.progressPercent, 0) / enrolled.length)
+    : 0;
 
   const stats: StatItem[] = [
-    { icon: BookOpen, value: enrolledCourses.length, labelKey: 'studentPages.dashboard.stats.enrolledCourses' },
-    { icon: CheckCircle2, value: completedCourses.length, labelKey: 'studentPages.dashboard.stats.completedCourses' },
+    { icon: BookOpen, value: enrolled.length, labelKey: 'studentPages.dashboard.stats.enrolledCourses' },
+    { icon: CheckCircle2, value: completed.length, labelKey: 'studentPages.dashboard.stats.completedCourses' },
     { icon: TrendingUp, value: `${avgProgress}%`, labelKey: 'studentPages.dashboard.stats.avgProgress' },
-    { icon: Award, value: studentCertificates.length, labelKey: 'studentPages.dashboard.stats.certificates' },
+    { icon: Award, value: certificates?.length ?? 0, labelKey: 'studentPages.dashboard.stats.certificates' },
   ];
 
   return (

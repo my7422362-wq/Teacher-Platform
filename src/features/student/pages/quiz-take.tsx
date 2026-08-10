@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 import { PageHeader } from '@/components/shared/page-header';
-import { Card, CardContent, Button, Badge, Input } from '@/components/ui';
-import { mockQuizzes } from '@/mock';
-import { CURRENT_STUDENT_ID, getQuizzesOverview } from '@/features/student/components/Dashboard/data';
-import { saveQuizSubmission } from '@/features/student/components/Dashboard/submissions-store';
+import { Card, CardContent, Button, Badge, Input, Spinner, ErrorState } from '@/components/ui';
+import { useTeacherQuiz, useQuizProgress } from '@/features/teacher/components/QuizzesExams';
+import { useSubmitQuiz } from '@/features/student/components/Dashboard/quiz-exam-queries';
 import { cn } from '@/lib/utils';
 
 function formatTime(totalSeconds: number): string {
@@ -19,44 +19,34 @@ export function QuizTakePage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const quiz = mockQuizzes.find((q) => q.id === Number(id));
-  const overview = getQuizzesOverview().find((q) => q.quizId === Number(id));
+  const quizId = Number(id);
+  const { data: quiz, isLoading, isError, refetch } = useTeacherQuiz(quizId);
+  const { data: progress, isLoading: progressLoading, refetch: refetchProgress } = useQuizProgress(quizId);
+  const submitQuiz = useSubmitQuiz(quizId);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
-  const [result, setResult] = useState<{ score: number; total: number } | null>(null);
-  const [timeLeft, setTimeLeft] = useState(() => (quiz ? quiz.timeLimit * 60 : 0));
+  const [result, setResult] = useState<{ score: number; status: string } | null>(null);
+  const [timeLeft, setTimeLeft] = useState(0);
 
-  const alreadyMaxed = !!overview && overview.attemptsUsed >= overview.maxAttempts;
+  useEffect(() => {
+    if (quiz) setTimeLeft(quiz.timeLimit * 60);
+  }, [quiz]);
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (!quiz) return;
-    let score = 0;
-    const total = quiz.questions.reduce((sum, q) => sum + q.points, 0);
-    quiz.questions.forEach((question) => {
-      const given = answers[question.id];
-      const correct = Array.isArray(question.correctAnswer)
-        ? question.correctAnswer.includes(given)
-        : question.correctAnswer === given;
-      if (correct) score += question.points;
-    });
-
-    saveQuizSubmission({
-      id: Date.now(),
-      quizId: quiz.id,
-      userId: CURRENT_STUDENT_ID,
-      attemptNumber: (overview?.attemptsUsed ?? 0) + 1,
-      score,
-      totalScore: total,
-      status: 'graded',
-      submittedAt: new Date().toISOString(),
-    });
-
-    setResult({ score, total });
+    const positionalAnswers = quiz.questions.map((q) => answers[q.id] ?? '');
+    try {
+      const { submission } = await submitQuiz.mutateAsync(positionalAnswers);
+      const percent = submission.totalScore > 0 ? Math.round((submission.score / submission.totalScore) * 100) : 0;
+      setResult({ score: percent, status: submission.status });
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : t('quizTakePage.submitFailed'));
+    }
   }
 
   useEffect(() => {
-    if (!quiz || result || alreadyMaxed) return;
+    if (!quiz || result || submitQuiz.isPending) return;
     if (timeLeft <= 0) {
       handleSubmit();
       return;
@@ -64,27 +54,38 @@ export function QuizTakePage() {
     const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
     return () => clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeLeft, result, quiz, alreadyMaxed]);
+  }, [timeLeft, result, quiz, submitQuiz.isPending]);
 
-  if (!quiz) {
+  if (isLoading || progressLoading) {
     return (
-      <div className="space-y-6">
-        <PageHeader title={t('quizTakePage.notFound')} />
+      <div className="flex justify-center py-16">
+        <Spinner />
       </div>
     );
   }
 
-  if (alreadyMaxed && !result) {
+  if (isError || !quiz) {
+    return <ErrorState description={t('quizTakePage.notFound')} onRetry={() => refetch()} />;
+  }
+
+  if (!result && progress && !progress.canAttempt) {
     return (
       <div className="space-y-6">
         <PageHeader title={quiz.title} description={t('quizTakePage.noAttemptsLeft')} />
-        <Button onClick={() => navigate('/student/dashboard')}>{t('quizTakePage.backToDashboard')}</Button>
+        {progress.bestResult && (
+          <Badge variant={progress.bestResult.passed ? 'success' : 'destructive'}>
+            {t('quizTakePage.resultScorePercent', { score: progress.bestResult.score })}
+          </Badge>
+        )}
+        <div>
+          <Button onClick={() => navigate('/student/dashboard')}>{t('quizTakePage.backToDashboard')}</Button>
+        </div>
       </div>
     );
   }
 
   if (result) {
-    const passed = (result.score / result.total) * 100 >= quiz.passingScore;
+    const passed = result.status === 'passed';
     return (
       <div className="space-y-6">
         <PageHeader title={quiz.title} />
@@ -92,7 +93,7 @@ export function QuizTakePage() {
           <CardContent className="space-y-4 p-8 text-center">
             <p className="text-sm text-[rgba(249,246,240,0.65)]">{t('quizTakePage.resultTitle')}</p>
             <p className="text-4xl font-bold text-[#F9F6F0]">
-              {t('quizTakePage.resultScore', { score: result.score, total: result.total })}
+              {t('quizTakePage.resultScorePercent', { score: result.score })}
             </p>
             <Badge variant={passed ? 'success' : 'destructive'} className="mx-auto w-fit">
               {passed ? t('quizTakePage.passed') : t('quizTakePage.failed')}
@@ -101,9 +102,10 @@ export function QuizTakePage() {
               <Button variant="outline" onClick={() => navigate('/student/dashboard')}>
                 {t('quizTakePage.backToDashboard')}
               </Button>
-              {!!overview && overview.attemptsUsed < quiz.maxAttempts && (
+              {progress && progress.remainingAttempts - 1 > 0 && (
                 <Button
-                  onClick={() => {
+                  onClick={async () => {
+                    await refetchProgress();
                     setResult(null);
                     setAnswers({});
                     setCurrentIndex(0);
@@ -116,6 +118,15 @@ export function QuizTakePage() {
             </div>
           </CardContent>
         </Card>
+      </div>
+    );
+  }
+
+  if (quiz.questions.length === 0) {
+    return (
+      <div className="space-y-6">
+        <PageHeader title={quiz.title} description={t('quizTakePage.noQuestions')} />
+        <Button onClick={() => navigate('/student/dashboard')}>{t('quizTakePage.backToDashboard')}</Button>
       </div>
     );
   }
@@ -179,7 +190,9 @@ export function QuizTakePage() {
           {t('quizTakePage.previous')}
         </Button>
         {isLast ? (
-          <Button onClick={handleSubmit}>{t('quizTakePage.submit')}</Button>
+          <Button onClick={handleSubmit} loading={submitQuiz.isPending}>
+            {t('quizTakePage.submit')}
+          </Button>
         ) : (
           <Button onClick={() => setCurrentIndex((i) => Math.min(quiz.questions.length - 1, i + 1))}>
             {t('quizTakePage.next')}
@@ -189,4 +202,3 @@ export function QuizTakePage() {
     </div>
   );
 }
-

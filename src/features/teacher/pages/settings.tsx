@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { PageHeader } from '@/components/shared/page-header';
-import { TeacherAccountForm, PlatformInfoForm, LanguageSection } from '@/features/teacher/components/Settings';
+import { TeacherAccountForm, LanguageSection } from '@/features/teacher/components/Settings';
 import { ChangePasswordForm } from '@/features/student/components/Profile';
 
 export function TeacherSettingsPage() {
@@ -11,7 +11,6 @@ export function TeacherSettingsPage() {
       <PageHeader title={t('teacherPages.settings.title')} description={t('teacherPages.settings.description')} />
       <TeacherAccountForm />
       <ChangePasswordForm />
-      <PlatformInfoForm />
       <LanguageSection />
     </div>
   );

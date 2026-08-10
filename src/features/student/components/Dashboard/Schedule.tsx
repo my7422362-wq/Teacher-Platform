@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, Badge, EmptyState } from '@/components/ui';
-import { Clock, GraduationCap } from 'lucide-react';
-import { getSchedule } from './data';
+import { Card, CardContent, Badge, EmptyState, Spinner, ErrorState } from '@/components/ui';
+import { GraduationCap } from 'lucide-react';
+import { useMyExams } from './quiz-exam-queries';
 
 function daysUntil(date: string): number {
   const diffMs = new Date(date).getTime() - Date.now();
@@ -14,9 +14,15 @@ interface ScheduleProps {
   viewAllHref?: string;
 }
 
+/** Only upcoming exam windows — there's no assignment-due-date list
+ *  endpoint exposed anywhere, so assignments can't appear in this feed. */
 export function Schedule({ limit, viewAllHref }: ScheduleProps) {
   const { t } = useTranslation();
-  const items = getSchedule();
+  const { data: exams, isLoading, isError, refetch } = useMyExams();
+
+  const items = exams
+    .filter((e) => e.timeStatus === 'upcoming')
+    .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
   const visible = limit ? items.slice(0, limit) : items;
 
   return (
@@ -32,34 +38,37 @@ export function Schedule({ limit, viewAllHref }: ScheduleProps) {
         )}
       </div>
 
-      {visible.length === 0 ? (
+      {isLoading ? (
+        <div className="flex justify-center py-10">
+          <Spinner />
+        </div>
+      ) : isError ? (
+        <ErrorState description={t('studentPages.dashboard.schedule.loadFailed')} onRetry={() => refetch()} />
+      ) : visible.length === 0 ? (
         <EmptyState description={t('studentPages.dashboard.schedule.empty')} />
       ) : (
         <Card>
           <CardContent className="divide-y divide-[rgba(212,181,158,0.12)] p-0">
-            {visible.map((item) => {
-              const days = daysUntil(item.date);
+            {visible.map((exam) => {
+              const days = daysUntil(exam.startDate);
               const dueLabel =
                 days <= 0
                   ? t('studentPages.dashboard.schedule.dueToday')
                   : days === 1
                     ? t('studentPages.dashboard.schedule.dueTomorrow')
                     : t('studentPages.dashboard.schedule.dueIn', { days });
-              const Icon = item.kind === 'exam' ? GraduationCap : Clock;
 
               return (
-                <div key={item.id} className="flex items-center gap-4 p-4">
+                <div key={exam.examId} className="flex items-center gap-4 p-4">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#D4B59E]/15 text-[#D4B59E]">
-                    <Icon className="h-5 w-5" />
+                    <GraduationCap className="h-5 w-5" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate font-medium text-[#F9F6F0]">{item.title}</p>
+                    <p className="truncate font-medium text-[#F9F6F0]">{exam.title}</p>
                     <div className="flex items-center gap-2">
-                      <p className="truncate text-sm text-[rgba(249,246,240,0.55)]">{item.courseName}</p>
-                      <Badge variant={item.kind === 'exam' ? 'secondary' : 'outline'} className="shrink-0">
-                        {item.kind === 'exam'
-                          ? t('studentPages.dashboard.schedule.kindExam')
-                          : t('studentPages.dashboard.schedule.kindAssignment')}
+                      <p className="truncate text-sm text-[rgba(249,246,240,0.55)]">{exam.courseName}</p>
+                      <Badge variant="secondary" className="shrink-0">
+                        {t('studentPages.dashboard.schedule.kindExam')}
                       </Badge>
                     </div>
                   </div>

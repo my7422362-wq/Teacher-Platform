@@ -10,12 +10,14 @@ import {
   TableCell,
   Badge,
   EmptyState,
+  ErrorState,
+  Spinner,
 } from '@/components/ui';
 import { Receipt } from 'lucide-react';
-import { getPaymentRows } from './data';
-import type { PaymentRequest } from '@/types';
+import { useTeacherPayments } from './queries';
+import type { TeacherPayment } from './types';
 
-const STATUS_VARIANT: Record<PaymentRequest['status'], 'success' | 'warning' | 'destructive'> = {
+const STATUS_VARIANT: Record<TeacherPayment['status'], 'success' | 'warning' | 'destructive'> = {
   approved: 'success',
   pending: 'warning',
   rejected: 'destructive',
@@ -23,7 +25,19 @@ const STATUS_VARIANT: Record<PaymentRequest['status'], 'success' | 'warning' | '
 
 export function PaymentsTable() {
   const { t, i18n } = useTranslation();
-  const payments = getPaymentRows();
+  const { data: payments = [], isLoading, isError, refetch } = useTeacherPayments();
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center py-16">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <ErrorState description={t('teacherPages.payments.toast.loadFailed')} onRetry={() => refetch()} />;
+  }
 
   return (
     <section className="space-y-4">
@@ -36,28 +50,26 @@ export function PaymentsTable() {
               <TableHeader>
                 <TableRow>
                   <TableHead>{t('teacherPages.payments.paymentsTable.student')}</TableHead>
-                  <TableHead>{t('studentPages.dashboard.payments.course')}</TableHead>
-                  <TableHead>{t('studentPages.dashboard.payments.amount')}</TableHead>
-                  <TableHead>{t('studentPages.dashboard.payments.method')}</TableHead>
-                  <TableHead>{t('studentPages.dashboard.payments.status')}</TableHead>
-                  <TableHead>{t('studentPages.dashboard.payments.date')}</TableHead>
+                  <TableHead>{t('teacherPages.payments.paymentsTable.amount')}</TableHead>
+                  <TableHead>{t('teacherPages.payments.paymentsTable.method')}</TableHead>
+                  <TableHead>{t('teacherPages.payments.paymentsTable.status')}</TableHead>
+                  <TableHead>{t('teacherPages.payments.paymentsTable.date')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {payments.map((payment) => (
                   <TableRow key={payment.id}>
                     <TableCell>{payment.studentName}</TableCell>
-                    <TableCell>{payment.courseName}</TableCell>
-                    <TableCell>
-                      {payment.amount} {payment.currency}
-                    </TableCell>
-                    <TableCell>{t(`studentPages.dashboard.payments.methodValues.${payment.paymentMethod}`)}</TableCell>
+                    <TableCell>{payment.amount}</TableCell>
+                    <TableCell>{payment.paymentMethod}</TableCell>
                     <TableCell>
                       <Badge variant={STATUS_VARIANT[payment.status]}>
-                        {t(`studentPages.dashboard.payments.statusValues.${payment.status}`)}
+                        {t(`teacherPages.payments.paymentsTable.statusValues.${payment.status}`)}
                       </Badge>
                     </TableCell>
-                    <TableCell>{new Date(payment.createdAt).toLocaleDateString(i18n.language)}</TableCell>
+                    <TableCell>
+                      {payment.createdAt ? new Date(payment.createdAt).toLocaleDateString(i18n.language) : '—'}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

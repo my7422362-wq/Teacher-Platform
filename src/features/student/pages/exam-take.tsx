@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 import { PageHeader } from '@/components/shared/page-header';
-import { Card, CardContent, Button, Badge } from '@/components/ui';
-import { mockExams } from '@/mock';
-import { CURRENT_STUDENT_ID, getExamsOverview } from '@/features/student/components/Dashboard/data';
-import { saveExamAttempt } from '@/features/student/components/Dashboard/submissions-store';
+import { Card, CardContent, Button, Badge, Spinner, ErrorState } from '@/components/ui';
+import { useTeacherExam, useExamProgress } from '@/features/teacher/components/QuizzesExams';
+import { useAttemptExam } from '@/features/student/components/Dashboard/quiz-exam-queries';
 import { cn } from '@/lib/utils';
 
 function formatTime(totalSeconds: number): string {
@@ -19,38 +19,42 @@ export function ExamTakePage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const exam = mockExams.find((e) => e.id === Number(id));
-  const overview = getExamsOverview().find((e) => e.examId === Number(id));
+  const examId = Number(id);
+  const { data: exam, isLoading, isError, refetch } = useTeacherExam(examId);
+  const { data: progress, isLoading: progressLoading } = useExamProgress(examId);
+  const attemptExam = useAttemptExam(examId);
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string>>({});
-  const [result, setResult] = useState<{ score: number; total: number } | null>(null);
-  const [timeLeft, setTimeLeft] = useState(() => (exam ? exam.duration * 60 : 0));
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [result, setResult] = useState<{ score: number; status: string } | null>(null);
+  const [timeLeft, setTimeLeft] = useState(0);
 
-  const blocked = overview && (overview.timeStatus !== 'open' || overview.score !== undefined);
+  useEffect(() => {
+    if (exam) setTimeLeft(exam.durationMinutes * 60);
+  }, [exam]);
 
-  function handleSubmit() {
+  const now = Date.now();
+  const timeStatus =
+    exam && now < new Date(exam.startDate).getTime()
+      ? 'upcoming'
+      : exam && now > new Date(exam.endDate).getTime()
+        ? 'closed'
+        : 'open';
+  const blocked = !!progress?.alreadyAttempted || timeStatus !== 'open';
+
+  async function handleSubmit() {
     if (!exam) return;
-    let score = 0;
-    exam.questions.forEach((question) => {
-      if (answers[question.id] === question.correctAnswer) score += question.points;
-    });
-
-    saveExamAttempt({
-      id: Date.now(),
-      examId: exam.id,
-      userId: CURRENT_STUDENT_ID,
-      score,
-      totalScore: exam.totalScore,
-      status: 'graded',
-      submittedAt: new Date().toISOString(),
-    });
-
-    setResult({ score, total: exam.totalScore });
+    const positionalAnswers = exam.questions.map((q) => answers[q.id] ?? '');
+    try {
+      const { attempt } = await attemptExam.mutateAsync(positionalAnswers);
+      setResult({ score: attempt.score, status: attempt.status });
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : t('examTakePage.submitFailed'));
+    }
   }
 
   useEffect(() => {
-    if (!exam || result || blocked) return;
+    if (!exam || result || blocked || attemptExam.isPending) return;
     if (timeLeft <= 0) {
       handleSubmit();
       return;
@@ -58,30 +62,33 @@ export function ExamTakePage() {
     const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
     return () => clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeLeft, result, exam, blocked]);
+  }, [timeLeft, result, exam, blocked, attemptExam.isPending]);
 
-  if (!exam) {
+  if (isLoading || progressLoading) {
     return (
-      <div className="space-y-6">
-        <PageHeader title={t('examTakePage.notFound')} />
+      <div className="flex justify-center py-16">
+        <Spinner />
       </div>
     );
   }
 
+  if (isError || !exam) {
+    return <ErrorState description={t('examTakePage.notFound')} onRetry={() => refetch()} />;
+  }
+
   if (blocked && !result) {
-    const message =
-      overview!.score !== undefined
-        ? t('examTakePage.alreadySubmitted')
-        : overview!.timeStatus === 'upcoming'
-          ? t('examTakePage.notOpenYet')
-          : t('examTakePage.closed');
+    const message = progress?.alreadyAttempted
+      ? t('examTakePage.alreadySubmitted')
+      : timeStatus === 'upcoming'
+        ? t('examTakePage.notOpenYet')
+        : t('examTakePage.closed');
 
     return (
       <div className="space-y-6">
         <PageHeader title={exam.title} description={message} />
-        {overview!.score !== undefined && (
-          <Badge variant="success">
-            {t('examTakePage.resultScore', { score: overview!.score, total: overview!.totalScore })}
+        {progress?.bestResult && (
+          <Badge variant={progress.bestResult.passed ? 'success' : 'destructive'}>
+            {t('examTakePage.resultScorePercent', { score: progress.bestResult.score })}
           </Badge>
         )}
         <div>
@@ -92,7 +99,7 @@ export function ExamTakePage() {
   }
 
   if (result) {
-    const passed = result.score >= exam.passingScore;
+    const passed = result.status === 'passed';
     return (
       <div className="space-y-6">
         <PageHeader title={exam.title} />
@@ -100,7 +107,7 @@ export function ExamTakePage() {
           <CardContent className="space-y-4 p-8 text-center">
             <p className="text-sm text-[rgba(249,246,240,0.65)]">{t('examTakePage.resultTitle')}</p>
             <p className="text-4xl font-bold text-[#F9F6F0]">
-              {t('examTakePage.resultScore', { score: result.score, total: result.total })}
+              {t('examTakePage.resultScorePercent', { score: result.score })}
             </p>
             <Badge variant={passed ? 'success' : 'destructive'} className="mx-auto w-fit">
               {passed ? t('examTakePage.passed') : t('examTakePage.failed')}
@@ -110,6 +117,15 @@ export function ExamTakePage() {
             </div>
           </CardContent>
         </Card>
+      </div>
+    );
+  }
+
+  if (exam.questions.length === 0) {
+    return (
+      <div className="space-y-6">
+        <PageHeader title={exam.title} description={t('examTakePage.noQuestions')} />
+        <Button onClick={() => navigate('/student/dashboard')}>{t('examTakePage.backToDashboard')}</Button>
       </div>
     );
   }
@@ -165,7 +181,9 @@ export function ExamTakePage() {
           {t('examTakePage.previous')}
         </Button>
         {isLast ? (
-          <Button onClick={handleSubmit}>{t('examTakePage.submit')}</Button>
+          <Button onClick={handleSubmit} loading={attemptExam.isPending}>
+            {t('examTakePage.submit')}
+          </Button>
         ) : (
           <Button onClick={() => setCurrentIndex((i) => Math.min(exam.questions.length - 1, i + 1))}>
             {t('examTakePage.next')}
@@ -175,4 +193,3 @@ export function ExamTakePage() {
     </div>
   );
 }
-

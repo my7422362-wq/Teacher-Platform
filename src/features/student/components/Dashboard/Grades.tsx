@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, Badge, EmptyState } from '@/components/ui';
+import { Card, CardContent, Badge, EmptyState, Spinner, ErrorState } from '@/components/ui';
 import { ClipboardCheck } from 'lucide-react';
-import { getGrades } from './data';
+import { useMyGrades } from './quiz-exam-queries';
 
 const KIND_KEY = {
-  assignment: 'studentPages.dashboard.grades.kindAssignment',
   quiz: 'studentPages.dashboard.grades.kindQuiz',
   exam: 'studentPages.dashboard.grades.kindExam',
 } as const;
@@ -17,7 +16,7 @@ interface GradesProps {
 
 export function Grades({ limit, viewAllHref }: GradesProps) {
   const { t } = useTranslation();
-  const grades = getGrades();
+  const { data: grades, isLoading, isError } = useMyGrades();
   const visible = limit ? grades.slice(0, limit) : grades;
 
   return (
@@ -33,7 +32,13 @@ export function Grades({ limit, viewAllHref }: GradesProps) {
         )}
       </div>
 
-      {visible.length === 0 ? (
+      {isLoading ? (
+        <div className="flex justify-center py-10">
+          <Spinner />
+        </div>
+      ) : isError ? (
+        <ErrorState description={t('studentPages.dashboard.grades.loadFailed')} />
+      ) : visible.length === 0 ? (
         <EmptyState
           icon={<ClipboardCheck className="h-12 w-12" />}
           description={t('studentPages.dashboard.grades.empty')}
@@ -41,35 +46,29 @@ export function Grades({ limit, viewAllHref }: GradesProps) {
       ) : (
         <Card>
           <CardContent className="divide-y divide-[rgba(212,181,158,0.12)] p-0">
-            {visible.map((grade) => {
-              const passed = grade.score >= grade.passingScore;
-              return (
-                <div key={grade.id} className="flex items-center gap-4 p-4">
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate font-medium text-[#F9F6F0]">{grade.title}</p>
-                    <div className="flex items-center gap-2">
-                      <p className="truncate text-sm text-[rgba(249,246,240,0.55)]">{grade.courseName}</p>
-                      <Badge variant="outline" className="shrink-0">
-                        {t(KIND_KEY[grade.kind])}
-                      </Badge>
-                    </div>
-                  </div>
-                  <div className="flex shrink-0 flex-col items-end gap-1">
-                    <span className="text-sm font-semibold text-[#D4B59E]">
-                      {t('studentPages.dashboard.grades.score', {
-                        score: grade.score,
-                        max: grade.maxScore,
-                      })}
-                    </span>
-                    <Badge variant={passed ? 'success' : 'destructive'}>
-                      {passed
-                        ? t('studentPages.dashboard.grades.passed')
-                        : t('studentPages.dashboard.grades.failed')}
+            {visible.map((grade) => (
+              <div key={grade.id} className="flex items-center gap-4 p-4">
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-medium text-[#F9F6F0]">{grade.title}</p>
+                  <div className="flex items-center gap-2">
+                    <p className="truncate text-sm text-[rgba(249,246,240,0.55)]">{grade.courseName}</p>
+                    <Badge variant="outline" className="shrink-0">
+                      {t(KIND_KEY[grade.kind])}
                     </Badge>
                   </div>
                 </div>
-              );
-            })}
+                <div className="flex shrink-0 flex-col items-end gap-1">
+                  <span className="text-sm font-semibold text-[#D4B59E]">
+                    {t('studentPages.dashboard.grades.scorePercent', { score: grade.score })}
+                  </span>
+                  <Badge variant={grade.passed ? 'success' : 'destructive'}>
+                    {grade.passed
+                      ? t('studentPages.dashboard.grades.passed')
+                      : t('studentPages.dashboard.grades.failed')}
+                  </Badge>
+                </div>
+              </div>
+            ))}
           </CardContent>
         </Card>
       )}

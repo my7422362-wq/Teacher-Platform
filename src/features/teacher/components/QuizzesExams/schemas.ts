@@ -5,8 +5,7 @@ export function createQuizSchema(t: TFunction) {
   return z.object({
     title: z.string().trim().min(3, t('teacherPages.quizzesExams.validation.titleRequired')),
     description: z.string().trim().min(1, t('teacherPages.quizzesExams.validation.descriptionRequired')),
-    courseId: z.number().min(1, t('teacherPages.quizzesExams.validation.courseRequired')),
-    lessonId: z.number(),
+    courseSectionId: z.number().min(1, t('teacherPages.quizzesExams.validation.sectionRequired')),
     timeLimit: z.number(t('teacherPages.quizzesExams.validation.numberInvalid')).min(1),
     passingScore: z.number(t('teacherPages.quizzesExams.validation.numberInvalid')).min(0),
     maxAttempts: z.number(t('teacherPages.quizzesExams.validation.numberInvalid')).min(1),
@@ -22,9 +21,8 @@ export function createExamSchema(t: TFunction) {
     courseId: z.number().min(1, t('teacherPages.quizzesExams.validation.courseRequired')),
     startDate: z.string().min(1, t('teacherPages.quizzesExams.validation.dateRequired')),
     endDate: z.string().min(1, t('teacherPages.quizzesExams.validation.dateRequired')),
-    duration: z.number(t('teacherPages.quizzesExams.validation.numberInvalid')).min(1),
+    durationMinutes: z.number(t('teacherPages.quizzesExams.validation.numberInvalid')).min(1),
     passingScore: z.number(t('teacherPages.quizzesExams.validation.numberInvalid')).min(0),
-    isPublished: z.boolean(),
   });
 }
 export type ExamSchemaValues = z.infer<ReturnType<typeof createExamSchema>>;

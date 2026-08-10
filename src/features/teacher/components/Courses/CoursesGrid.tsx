@@ -2,39 +2,40 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
-import { Card, CardContent, Badge, Button, Modal, EmptyState } from '@/components/ui';
+import { Card, CardContent, Badge, Button, Modal, EmptyState, ErrorState, Spinner } from '@/components/ui';
 import { Pencil, Trash2, Plus, Users, BookOpen, ListVideo } from 'lucide-react';
-import { getCourses, deleteCourse } from './course-store';
+import { useTeacherCourses, useDeleteCourse } from './queries';
 import { CourseFormModal } from './CourseFormModal';
-import type { Course } from '@/types';
+import type { TeacherCourse } from './types';
 
 export function CoursesGrid() {
   const { t } = useTranslation();
-  const [courses, setCourses] = useState<Course[]>(getCourses);
-  const [editingCourse, setEditingCourse] = useState<Course | null>(null);
+  const { data: courses = [], isLoading, isError, refetch } = useTeacherCourses();
+  const deleteCourse = useDeleteCourse();
+  const [editingCourse, setEditingCourse] = useState<TeacherCourse | null>(null);
   const [formOpen, setFormOpen] = useState(false);
-  const [deletingCourse, setDeletingCourse] = useState<Course | null>(null);
-
-  function refresh() {
-    setCourses(getCourses());
-  }
+  const [deletingCourse, setDeletingCourse] = useState<TeacherCourse | null>(null);
 
   function handleAdd() {
     setEditingCourse(null);
     setFormOpen(true);
   }
 
-  function handleEdit(course: Course) {
+  function handleEdit(course: TeacherCourse) {
     setEditingCourse(course);
     setFormOpen(true);
   }
 
-  function handleConfirmDelete() {
+  async function handleConfirmDelete() {
     if (!deletingCourse) return;
-    deleteCourse(deletingCourse.id);
-    toast.success(t('teacherPages.courses.toast.deleted'));
-    setDeletingCourse(null);
-    refresh();
+    try {
+      await deleteCourse.mutateAsync(deletingCourse.slug);
+      toast.success(t('teacherPages.courses.toast.deleted'));
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : t('teacherPages.courses.toast.deleteFailed'));
+    } finally {
+      setDeletingCourse(null);
+    }
   }
 
   return (
@@ -46,7 +47,13 @@ export function CoursesGrid() {
         </Button>
       </div>
 
-      {courses.length === 0 ? (
+      {isLoading ? (
+        <div className="flex justify-center py-16">
+          <Spinner />
+        </div>
+      ) : isError ? (
+        <ErrorState description={t('teacherPages.courses.toast.loadFailed')} onRetry={() => refetch()} />
+      ) : courses.length === 0 ? (
         <EmptyState description={t('teacherPages.courses.empty')} />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -84,7 +91,7 @@ export function CoursesGrid() {
                     <Pencil className="h-3.5 w-3.5" />
                     {t('teacherPages.courses.editCourse')}
                   </Button>
-                  <Link to={`/teacher/courses/${course.id}/lessons`}>
+                  <Link to={`/teacher/courses/${course.slug}/lessons`}>
                     <Button variant="outline" size="sm">
                       <ListVideo className="h-3.5 w-3.5" />
                     </Button>
@@ -104,12 +111,7 @@ export function CoursesGrid() {
         </div>
       )}
 
-      <CourseFormModal
-        isOpen={formOpen}
-        onClose={() => setFormOpen(false)}
-        course={editingCourse}
-        onSaved={refresh}
-      />
+      <CourseFormModal isOpen={formOpen} onClose={() => setFormOpen(false)} course={editingCourse} />
 
       <Modal
         isOpen={deletingCourse !== null}
@@ -126,6 +128,7 @@ export function CoursesGrid() {
           </Button>
           <Button
             onClick={handleConfirmDelete}
+            loading={deleteCourse.isPending}
             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
           >
             {t('teacherPages.courses.confirm')}

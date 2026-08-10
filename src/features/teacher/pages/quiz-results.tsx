@@ -1,15 +1,15 @@
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { PageHeader } from '@/components/shared/page-header';
+import { Spinner, ErrorState } from '@/components/ui';
 import { ArrowRight } from 'lucide-react';
-import { getQuiz, QuizResults } from '@/features/teacher/components/QuizzesExams';
+import { useTeacherQuiz, QuizResults } from '@/features/teacher/components/QuizzesExams';
 
 export function TeacherQuizResultsPage() {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
-  const quiz = getQuiz(Number(id));
-
-  if (!quiz) return null;
+  const quizId = Number(id);
+  const { data: quiz, isLoading, isError, refetch } = useTeacherQuiz(quizId);
 
   return (
     <div className="space-y-6">
@@ -17,9 +17,19 @@ export function TeacherQuizResultsPage() {
         <ArrowRight className="h-4 w-4" />
         {t('teacherPages.quizzesExams.backToQuizzesExams')}
       </Link>
-      <PageHeader title={quiz.title} description={t('teacherPages.quizzesExams.results.title')} />
-      <QuizResults quizId={quiz.id} />
+
+      {isLoading ? (
+        <div className="flex justify-center py-16">
+          <Spinner />
+        </div>
+      ) : isError || !quiz ? (
+        <ErrorState description={t('teacherPages.quizzesExams.toast.loadFailed')} onRetry={() => refetch()} />
+      ) : (
+        <>
+          <PageHeader title={quiz.title} description={t('teacherPages.quizzesExams.results.title')} />
+          <QuizResults quizId={quizId} />
+        </>
+      )}
     </div>
   );
 }
-

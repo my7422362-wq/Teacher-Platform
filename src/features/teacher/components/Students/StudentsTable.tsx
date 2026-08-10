@@ -15,17 +15,21 @@ import {
   Avatar,
   Badge,
   EmptyState,
+  ErrorState,
+  Spinner,
   type SelectOption,
 } from '@/components/ui';
 import { Search } from 'lucide-react';
-import { getTeacherStudents } from './data';
+import { useTeacherStudentsList } from './queries';
+import { useTeacherGroups } from '@/features/teacher/components/Groups/queries';
 
-type StatusFilter = 'all' | 'active' | 'inactive' | 'suspended';
+type StatusFilter = 'all' | 'active' | 'inactive' | 'suspended' | 'pending';
 
 const STATUS_VARIANT: Record<Exclude<StatusFilter, 'all'>, 'success' | 'outline' | 'destructive'> = {
   active: 'success',
   inactive: 'outline',
   suspended: 'destructive',
+  pending: 'outline',
 };
 
 export function StudentsTable() {
@@ -33,7 +37,8 @@ export function StudentsTable() {
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState<StatusFilter>('all');
 
-  const students = getTeacherStudents();
+  const { data: students = [], isLoading, isError, refetch } = useTeacherStudentsList();
+  const { data: groups = [] } = useTeacherGroups();
 
   const statusOptions: SelectOption[] = useMemo(
     () => [
@@ -44,6 +49,10 @@ export function StudentsTable() {
     ],
     [t]
   );
+
+  function groupNamesFor(studentId: number): string[] {
+    return groups.filter((g) => g.students.some((s) => s.id === studentId)).map((g) => g.name);
+  }
 
   const filtered = students.filter((s) => {
     const matchesSearch =
@@ -74,7 +83,13 @@ export function StudentsTable() {
         </div>
       </div>
 
-      {filtered.length === 0 ? (
+      {isLoading ? (
+        <div className="flex justify-center py-16">
+          <Spinner />
+        </div>
+      ) : isError ? (
+        <ErrorState description={t('teacherPages.students.toast.loadFailed')} onRetry={() => refetch()} />
+      ) : filtered.length === 0 ? (
         <EmptyState description={t('teacherPages.students.empty')} />
       ) : (
         <Card>
@@ -84,7 +99,6 @@ export function StudentsTable() {
                 <TableRow>
                   <TableHead>{t('teacherPages.students.tableName')}</TableHead>
                   <TableHead>{t('teacherPages.students.tableEmail')}</TableHead>
-                  <TableHead>{t('teacherPages.students.tableCourses')}</TableHead>
                   <TableHead>{t('teacherPages.students.tableGroups')}</TableHead>
                   <TableHead>{t('teacherPages.students.tableStatus')}</TableHead>
                   <TableHead />
@@ -95,17 +109,14 @@ export function StudentsTable() {
                   <TableRow key={student.id}>
                     <TableCell>
                       <div className="flex items-center gap-3">
-                        <Avatar src={student.avatar} alt={student.name} size="sm" />
+                        <Avatar src={student.avatar ?? undefined} alt={student.name} size="sm" />
                         <span className="font-medium text-[#F9F6F0]">{student.name}</span>
                       </div>
                     </TableCell>
                     <TableCell>{student.email}</TableCell>
+                    <TableCell>{groupNamesFor(student.id).join('، ') || '—'}</TableCell>
                     <TableCell>
-                      {student.completedCourses} / {student.enrolledCourses}
-                    </TableCell>
-                    <TableCell>{student.groupNames.join('، ') || '—'}</TableCell>
-                    <TableCell>
-                      <Badge variant={STATUS_VARIANT[student.status]}>
+                      <Badge variant={STATUS_VARIANT[student.status] ?? 'outline'}>
                         {t(`teacherPages.students.status${student.status[0].toUpperCase()}${student.status.slice(1)}`)}
                       </Badge>
                     </TableCell>

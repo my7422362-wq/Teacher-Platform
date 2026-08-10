@@ -1,32 +1,42 @@
 import { useParams } from 'react-router-dom';
+import { Spinner, ErrorState } from '@/components/ui';
+import { useTranslation } from 'react-i18next';
 import {
-  getStudentDetail,
+  useTeacherStudent,
   StudentDetailHeader,
   EnrolledCourses,
   AttendanceSummary,
-  StudentGrades,
   StudentNotes,
 } from '@/features/teacher/components/Students';
 
 export function TeacherStudentDetailPage() {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
-  const detail = getStudentDetail(Number(id));
+  const studentId = Number(id);
+  const { data: student, isLoading, isError, refetch } = useTeacherStudent(studentId);
 
-  if (!detail) {
-    return null;
+  if (isLoading) {
+    return (
+      <div className="flex justify-center py-16">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (isError || !student) {
+    return <ErrorState description={t('teacherPages.students.toast.loadFailed')} onRetry={() => refetch()} />;
   }
 
   return (
     <div className="space-y-8">
-      <StudentDetailHeader student={detail.student} />
+      <StudentDetailHeader student={student} />
 
       <div className="grid gap-8 lg:grid-cols-2">
-        <EnrolledCourses courses={detail.courses} />
-        <AttendanceSummary attendance={detail.attendance} />
+        <EnrolledCourses studentId={studentId} />
+        <AttendanceSummary studentId={studentId} />
       </div>
 
-      <StudentGrades grades={detail.grades} />
-      <StudentNotes studentId={detail.student.id} notes={detail.notes} />
+      <StudentNotes studentId={studentId} />
     </div>
   );
 }

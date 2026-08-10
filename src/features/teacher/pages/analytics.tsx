@@ -1,13 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import { PageHeader } from '@/components/shared/page-header';
-import { StatsOverview, AttendanceChart, EnrollmentChart } from '@/features/teacher/components/Dashboard';
-import { GradesOverviewStats, getGradesOverview } from '@/features/teacher/components/Grades';
-import { TopCoursesRanking, getTopCourses } from '@/features/teacher/components/Analytics';
+import { Spinner, ErrorState } from '@/components/ui';
+import { StatsOverview, AttendanceChart } from '@/features/teacher/components/Dashboard';
+import { GradesOverviewStats, useGradesOverview } from '@/features/teacher/components/Grades';
+import { TopCoursesRanking, useTopCourses } from '@/features/teacher/components/Analytics';
 
 export function TeacherAnalyticsPage() {
   const { t } = useTranslation();
-  const gradesOverview = getGradesOverview();
-  const topCourses = getTopCourses();
+  const { data: gradesOverview, isLoading: gradesLoading, isError: gradesError, refetch: refetchGrades } = useGradesOverview();
+  const { data: topCourses, isLoading: coursesLoading, isError: coursesError, refetch: refetchCourses } = useTopCourses();
 
   return (
     <div className="space-y-8">
@@ -21,19 +22,32 @@ export function TeacherAnalyticsPage() {
         <StatsOverview />
       </section>
 
-      <div className="grid gap-8 lg:grid-cols-2">
-        <AttendanceChart />
-        <EnrollmentChart />
-      </div>
+      <AttendanceChart />
 
       <section className="space-y-4">
         <h2 className="text-lg font-semibold text-[#F9F6F0]">{t('teacherPages.analytics.sectionPerformance')}</h2>
-        <GradesOverviewStats overview={gradesOverview} />
+        {gradesLoading ? (
+          <div className="flex justify-center py-8">
+            <Spinner />
+          </div>
+        ) : gradesError || !gradesOverview ? (
+          <ErrorState description={t('teacherPages.grades.toast.loadFailed')} onRetry={() => refetchGrades()} />
+        ) : (
+          <GradesOverviewStats overview={gradesOverview} />
+        )}
       </section>
 
       <section className="space-y-4">
         <h2 className="text-lg font-semibold text-[#F9F6F0]">{t('teacherPages.analytics.sectionTopCourses')}</h2>
-        <TopCoursesRanking courses={topCourses} />
+        {coursesLoading ? (
+          <div className="flex justify-center py-8">
+            <Spinner />
+          </div>
+        ) : coursesError ? (
+          <ErrorState description={t('teacherPages.courses.toast.loadFailed')} onRetry={() => refetchCourses()} />
+        ) : (
+          <TopCoursesRanking courses={topCourses} />
+        )}
       </section>
     </div>
   );

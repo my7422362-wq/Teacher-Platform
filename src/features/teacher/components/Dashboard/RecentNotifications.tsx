@@ -1,12 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, EmptyState } from '@/components/ui';
+import { Card, CardContent, EmptyState, Spinner } from '@/components/ui';
 import { cn } from '@/lib/utils';
 import { Bell, Info, CheckCircle2, AlertTriangle, XCircle, type LucideIcon } from 'lucide-react';
-import { teacherNotifications } from './data';
-import type { Notification } from '@/types';
+import { useTeacherNotifications } from '../Notifications/queries';
+import type { NotificationKind } from '../Notifications/types';
 
-const ICONS: Record<Notification['type'], LucideIcon> = {
+const ICONS: Record<NotificationKind, LucideIcon> = {
   info: Info,
   success: CheckCircle2,
   warning: AlertTriangle,
@@ -15,7 +15,8 @@ const ICONS: Record<Notification['type'], LucideIcon> = {
 
 export function RecentNotifications() {
   const { t } = useTranslation();
-  const visible = teacherNotifications.slice(0, 4);
+  const { data: notifications = [], isLoading } = useTeacherNotifications();
+  const visible = notifications.slice(0, 4);
 
   return (
     <section className="space-y-4">
@@ -23,17 +24,21 @@ export function RecentNotifications() {
         {t('teacherPages.dashboard.notifications.title')}
       </h2>
 
-      {visible.length === 0 ? (
+      {isLoading ? (
+        <div className="flex justify-center py-8">
+          <Spinner />
+        </div>
+      ) : visible.length === 0 ? (
         <EmptyState icon={<Bell className="h-12 w-12" />} description={t('teacherPages.dashboard.notifications.empty')} />
       ) : (
         <Card>
           <CardContent className="divide-y divide-[rgba(212,181,158,0.12)] p-0">
             {visible.map((notification) => {
-              const Icon = ICONS[notification.type];
+              const Icon = ICONS[notification.kind];
               return (
                 <Link
                   key={notification.id}
-                  to={notification.link ?? '#'}
+                  to={notification.link ?? '/teacher/notifications'}
                   className="flex items-start gap-3 p-4 transition-colors hover:bg-[#1B4038]"
                 >
                   <Icon className="mt-0.5 h-5 w-5 shrink-0 text-[#D4B59E]" />

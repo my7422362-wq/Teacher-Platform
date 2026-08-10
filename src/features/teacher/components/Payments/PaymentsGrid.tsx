@@ -3,15 +3,16 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui';
 import { PaymentsOverviewStats } from './PaymentsOverviewStats';
 import { InstallmentsTable } from './InstallmentsTable';
 import { PaymentsTable } from './PaymentsTable';
-import { getPaymentsOverview } from './data';
+import { useTeacherInstallments, useTeacherPayments } from './queries';
 
 export function PaymentsGrid() {
   const { t } = useTranslation();
-  const overview = getPaymentsOverview();
+  const { data: installments = [] } = useTeacherInstallments();
+  const { data: payments = [] } = useTeacherPayments();
 
   return (
     <div className="space-y-6">
-      <PaymentsOverviewStats overview={overview} />
+      <PaymentsOverviewStats installments={installments} payments={payments} />
 
       <Tabs defaultValue="installments">
         <TabsList>

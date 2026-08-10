@@ -10,4 +10,4 @@ export { MyPayments } from './MyPayments';
 export { QuizzesList } from './QuizzesList';
 export { ExamsList } from './ExamsList';
 export { RevisionMaterials } from './RevisionMaterials';
-export { currentStudent } from './data';
+export { useMyCourses, useEnrollCourse, useRecommendedCourses, useMyCertificates } from './queries';

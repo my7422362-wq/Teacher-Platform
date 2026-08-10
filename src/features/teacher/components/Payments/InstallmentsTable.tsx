@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
 import {
   Card,
   CardContent,
@@ -12,18 +11,18 @@ import {
   TableCell,
   Avatar,
   Badge,
-  Button,
   Select,
   EmptyState,
+  ErrorState,
+  Spinner,
   type SelectOption,
 } from '@/components/ui';
-import { Bell, CheckCircle2 } from 'lucide-react';
-import { getInstallmentRows, sendPaymentReminder, type InstallmentRow } from './data';
-import { markInstallmentPaid } from './installment-store';
+import { useTeacherInstallments } from './queries';
+import type { TeacherInstallment } from './types';
 
 type StatusFilter = 'all' | 'paid' | 'pending' | 'overdue';
 
-function rowStatus(row: InstallmentRow): Exclude<StatusFilter, 'all'> {
+function rowStatus(row: TeacherInstallment): Exclude<StatusFilter, 'all'> {
   if (row.status === 'paid') return 'paid';
   return row.isOverdue ? 'overdue' : 'pending';
 }
@@ -36,7 +35,7 @@ const STATUS_VARIANT: Record<Exclude<StatusFilter, 'all'>, 'success' | 'outline'
 
 export function InstallmentsTable() {
   const { t, i18n } = useTranslation();
-  const [rows, setRows] = useState<InstallmentRow[]>(getInstallmentRows);
+  const { data: installments = [], isLoading, isError, refetch } = useTeacherInstallments();
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
 
   const statusOptions: SelectOption[] = useMemo(
@@ -49,21 +48,18 @@ export function InstallmentsTable() {
     [t]
   );
 
-  const filtered = rows.filter((row) => statusFilter === 'all' || rowStatus(row) === statusFilter);
+  const filtered = installments.filter((row) => statusFilter === 'all' || rowStatus(row) === statusFilter);
 
-  function refresh() {
-    setRows(getInstallmentRows());
+  if (isLoading) {
+    return (
+      <div className="flex justify-center py-16">
+        <Spinner />
+      </div>
+    );
   }
 
-  function handleMarkPaid(row: InstallmentRow) {
-    markInstallmentPaid(row.id, row.paymentMethod ?? 'cash');
-    toast.success(t('teacherPages.payments.toast.marked'));
-    refresh();
-  }
-
-  function handleSendReminder(row: InstallmentRow) {
-    sendPaymentReminder(row);
-    toast.success(t('teacherPages.payments.toast.reminderSent'));
+  if (isError) {
+    return <ErrorState description={t('teacherPages.payments.toast.loadFailed')} onRetry={() => refetch()} />;
   }
 
   return (
@@ -87,11 +83,9 @@ export function InstallmentsTable() {
                 <TableRow>
                   <TableHead>{t('teacherPages.payments.installmentsTable.student')}</TableHead>
                   <TableHead>{t('teacherPages.payments.installmentsTable.course')}</TableHead>
-                  <TableHead>{t('teacherPages.payments.installmentsTable.installment')}</TableHead>
                   <TableHead>{t('teacherPages.payments.installmentsTable.amount')}</TableHead>
                   <TableHead>{t('teacherPages.payments.installmentsTable.dueDate')}</TableHead>
                   <TableHead>{t('teacherPages.payments.installmentsTable.status')}</TableHead>
-                  <TableHead />
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -101,37 +95,19 @@ export function InstallmentsTable() {
                     <TableRow key={row.id}>
                       <TableCell>
                         <div className="flex items-center gap-3">
-                          <Avatar src={row.studentAvatar} alt={row.studentName} size="sm" />
+                          <Avatar src={row.studentAvatar ?? undefined} alt={row.studentName} size="sm" />
                           <span className="font-medium text-[#F9F6F0]">{row.studentName}</span>
                         </div>
                       </TableCell>
-                      <TableCell>{row.courseName}</TableCell>
-                      <TableCell>
-                        {t('teacherPages.payments.installmentsTable.installmentOf', {
-                          number: row.installmentNumber,
-                          total: row.totalInstallments,
-                        })}
-                      </TableCell>
+                      <TableCell>{row.courseTitle}</TableCell>
                       <TableCell>
                         {row.amount} {row.currency}
                       </TableCell>
                       <TableCell>{new Date(row.dueDate).toLocaleDateString(i18n.language)}</TableCell>
                       <TableCell>
-                        <Badge variant={STATUS_VARIANT[status]}>{t(`teacherPages.payments.status${status[0].toUpperCase()}${status.slice(1)}`)}</Badge>
-                      </TableCell>
-                      <TableCell>
-                        {row.status === 'pending' && (
-                          <div className="flex gap-2">
-                            <Button variant="outline" size="sm" onClick={() => handleMarkPaid(row)}>
-                              <CheckCircle2 className="h-3.5 w-3.5" />
-                              {t('teacherPages.payments.installmentsTable.markPaid')}
-                            </Button>
-                            <Button variant="outline" size="sm" onClick={() => handleSendReminder(row)}>
-                              <Bell className="h-3.5 w-3.5" />
-                              {t('teacherPages.payments.installmentsTable.sendReminder')}
-                            </Button>
-                          </div>
-                        )}
+                        <Badge variant={STATUS_VARIANT[status]}>
+                          {t(`teacherPages.payments.status${status[0].toUpperCase()}${status.slice(1)}`)}
+                        </Badge>
                       </TableCell>
                     </TableRow>
                   );

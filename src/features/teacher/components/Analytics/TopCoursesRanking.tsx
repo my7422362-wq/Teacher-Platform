@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, EmptyState } from '@/components/ui';
-import { Star, TrendingUp } from 'lucide-react';
-import type { TopCourseItem } from './data';
+import { TrendingUp } from 'lucide-react';
+import type { TopCourseItem } from './types';
 
 export function TopCoursesRanking({ courses }: { courses: TopCourseItem[] }) {
   const { t } = useTranslation();
@@ -23,13 +23,7 @@ export function TopCoursesRanking({ courses }: { courses: TopCourseItem[] }) {
               {index + 1}
             </span>
             <div className="min-w-0 flex-1">
-              <div className="flex items-center justify-between gap-2">
-                <p className="truncate font-medium text-[#F9F6F0]">{course.title}</p>
-                <span className="flex shrink-0 items-center gap-1 text-xs text-[rgba(249,246,240,0.55)]">
-                  <Star className="h-3 w-3 fill-[#D4B59E] text-[#D4B59E]" />
-                  {course.rating}
-                </span>
-              </div>
+              <p className="truncate font-medium text-[#F9F6F0]">{course.title}</p>
               <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-[#0F2520]">
                 <div
                   className="h-full rounded-full bg-[#D4B59E]"

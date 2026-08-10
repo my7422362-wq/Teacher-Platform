@@ -1,17 +1,47 @@
 import { useTranslation } from 'react-i18next';
-import { Card, CardContent, Table, TableHeader, TableBody, TableRow, TableHead, TableCell, Badge, EmptyState } from '@/components/ui';
+import {
+  Card,
+  CardContent,
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+  Badge,
+  EmptyState,
+  ErrorState,
+  Spinner,
+} from '@/components/ui';
 import { BarChart3 } from 'lucide-react';
-import { mockUsers, mockExamAttempts } from '@/mock';
-import { getLocalExamAttempts } from '@/features/student/components/Dashboard/submissions-store';
-import { getExam } from './exam-store';
+import { useExamAttempts } from './queries';
+import { useTeacherStudentsList } from '@/features/teacher/components/Students/queries';
+
+const STATUS_VARIANT: Record<string, 'success' | 'destructive' | 'outline'> = {
+  passed: 'success',
+  failed: 'destructive',
+};
 
 export function ExamResults({ examId }: { examId: number }) {
   const { t, i18n } = useTranslation();
-  const exam = getExam(examId);
+  const { data: attempts = [], isLoading, isError, refetch } = useExamAttempts(examId);
+  const { data: students = [] } = useTeacherStudentsList();
 
-  const attempts = [...mockExamAttempts, ...getLocalExamAttempts()]
-    .filter((a) => a.examId === examId)
-    .sort((a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime());
+  function studentName(userId: number) {
+    return students.find((s) => s.id === userId)?.name ?? `#${userId}`;
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center py-16">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <ErrorState description={t('teacherPages.quizzesExams.toast.loadFailed')} onRetry={() => refetch()} />;
+  }
 
   return (
     <section className="space-y-4">
@@ -30,23 +60,24 @@ export function ExamResults({ examId }: { examId: number }) {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {attempts.map((attempt) => {
-                  const passed = exam ? attempt.score >= exam.passingScore : true;
-                  return (
-                    <TableRow key={attempt.id}>
-                      <TableCell>{mockUsers.find((u) => u.id === attempt.userId)?.name ?? '—'}</TableCell>
-                      <TableCell>
-                        {attempt.score} / {attempt.totalScore}
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant={passed ? 'success' : 'destructive'}>
-                          {passed ? t('teacherPages.quizzesExams.results.passed') : t('teacherPages.quizzesExams.results.failed')}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>{new Date(attempt.submittedAt).toLocaleString(i18n.language)}</TableCell>
-                    </TableRow>
-                  );
-                })}
+                {attempts.map((attempt) => (
+                  <TableRow key={attempt.id}>
+                    <TableCell>{studentName(attempt.userId)}</TableCell>
+                    <TableCell>{attempt.score}</TableCell>
+                    <TableCell>
+                      <Badge variant={STATUS_VARIANT[attempt.status] ?? 'outline'}>
+                        {attempt.status === 'passed'
+                          ? t('teacherPages.quizzesExams.results.passed')
+                          : attempt.status === 'failed'
+                            ? t('teacherPages.quizzesExams.results.failed')
+                            : attempt.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      {attempt.submittedAt ? new Date(attempt.submittedAt).toLocaleString(i18n.language) : '—'}
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </CardContent>

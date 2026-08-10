@@ -1,29 +1,62 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
-import { Card, CardContent, Badge, Button, Modal, EmptyState } from '@/components/ui';
+import { Card, CardContent, Badge, Button, Modal, EmptyState, ErrorState, Spinner } from '@/components/ui';
 import { Pencil, Trash2, Plus, HelpCircle } from 'lucide-react';
-import { getQuiz, deleteQuestion } from './quiz-store';
+import { useTeacherQuiz, useAddQuizQuestion, useUpdateQuizQuestion, useRemoveQuizQuestion } from './queries';
 import { QuizQuestionFormModal } from './QuizQuestionFormModal';
-import type { Question } from '@/types';
+import type { QuizQuestion } from './types';
 
 export function QuizQuestionsList({ quizId }: { quizId: number }) {
   const { t } = useTranslation();
-  const [questions, setQuestions] = useState<Question[]>(() => getQuiz(quizId)?.questions ?? []);
-  const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
-  const [formOpen, setFormOpen] = useState(false);
-  const [deletingQuestion, setDeletingQuestion] = useState<Question | null>(null);
+  const { data: quiz, isLoading, isError, refetch } = useTeacherQuiz(quizId);
+  const addQuestion = useAddQuizQuestion(quizId);
+  const updateQuestion = useUpdateQuizQuestion(quizId);
+  const removeQuestion = useRemoveQuizQuestion(quizId);
+  const submitting = addQuestion.isPending || updateQuestion.isPending;
 
-  function refresh() {
-    setQuestions(getQuiz(quizId)?.questions ?? []);
+  const [editingQuestion, setEditingQuestion] = useState<QuizQuestion | null>(null);
+  const [formOpen, setFormOpen] = useState(false);
+  const [deletingQuestion, setDeletingQuestion] = useState<QuizQuestion | null>(null);
+
+  const questions = quiz?.questions ?? [];
+
+  async function handleSubmitQuestion(values: Omit<QuizQuestion, 'id'>) {
+    try {
+      if (editingQuestion) {
+        await updateQuestion.mutateAsync({ questionId: editingQuestion.id, question: values });
+      } else {
+        await addQuestion.mutateAsync(values);
+      }
+      toast.success(t('teacherPages.quizzesExams.toast.questionSaved'));
+      setFormOpen(false);
+      setEditingQuestion(null);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : t('teacherPages.quizzesExams.toast.quizSaveFailed'));
+    }
   }
 
-  function handleConfirmDelete() {
+  async function handleConfirmDelete() {
     if (!deletingQuestion) return;
-    deleteQuestion(quizId, deletingQuestion.id);
-    toast.success(t('teacherPages.quizzesExams.toast.questionDeleted'));
+    try {
+      await removeQuestion.mutateAsync(deletingQuestion.id);
+      toast.success(t('teacherPages.quizzesExams.toast.questionDeleted'));
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : t('teacherPages.quizzesExams.toast.quizDeleteFailed'));
+    }
     setDeletingQuestion(null);
-    refresh();
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center py-16">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (isError || !quiz) {
+    return <ErrorState description={t('teacherPages.quizzesExams.toast.loadFailed')} onRetry={() => refetch()} />;
   }
 
   return (
@@ -76,10 +109,10 @@ export function QuizQuestionsList({ quizId }: { quizId: number }) {
 
       <QuizQuestionFormModal
         isOpen={formOpen}
-        onClose={() => setFormOpen(false)}
-        quizId={quizId}
+        onClose={() => { setFormOpen(false); setEditingQuestion(null); }}
         question={editingQuestion}
-        onSaved={refresh}
+        submitting={submitting}
+        onSubmit={handleSubmitQuestion}
       />
 
       <Modal isOpen={deletingQuestion !== null} onClose={() => setDeletingQuestion(null)} title={t('teacherPages.quizzesExams.deleteConfirmTitle')} size="sm">
@@ -88,7 +121,11 @@ export function QuizQuestionsList({ quizId }: { quizId: number }) {
           <Button variant="outline" onClick={() => setDeletingQuestion(null)}>
             {t('teacherPages.courses.cancel')}
           </Button>
-          <Button onClick={handleConfirmDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+          <Button
+            onClick={handleConfirmDelete}
+            loading={removeQuestion.isPending}
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+          >
             {t('teacherPages.courses.confirm')}
           </Button>
         </div>
