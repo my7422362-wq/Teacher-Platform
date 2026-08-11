@@ -1,9 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
-import { Star, Users, BookOpen, Clock } from 'lucide-react';
+import { Users, BookOpen, Clock } from 'lucide-react';
 
 interface CourseMetaProps {
-  rating: number;
   students: number;
   lessons: number;
   hours: number;
@@ -11,7 +10,6 @@ interface CourseMetaProps {
 }
 
 export function CourseMeta({
-  rating,
   students,
   lessons,
   hours,
@@ -22,16 +20,10 @@ export function CourseMeta({
   return (
     <div
       className={cn(
-        'grid grid-cols-2 gap-2',
+        'grid grid-cols-3 gap-2',
         className
       )}
     >
-      {/* Rating */}
-      <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(212,181,158,0.08)]">
-        <Star className="w-3.5 h-3.5 text-[#D4B59E] fill-[#D4B59E]" />
-        <span className="text-sm font-bold text-[#D4B59E]">{rating}</span>
-      </div>
-
       {/* Students */}
       <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[rgba(255,255,255,0.04)] border border-[rgba(212,181,158,0.08)]">
         <Users className="w-3.5 h-3.5 text-[#D4B59E]" />

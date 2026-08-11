@@ -83,6 +83,9 @@
     "title": "الدورات المميزة",
     "description": "اختر الدورة المناسبة لمستواك الدراسي، واستمتع بشرح مبسط، وتدريبات عملية، واختبارات تساعدك على تحقيق أفضل النتائج.",
     "empty": "لا توجد دورات في هذا التصنيف حالياً",
+    "loadFailed": "فشل تحميل الكورسات",
+    "allCategories": "الكل",
+    "featuredBadge": "مميز",
     "currency": "جنيه",
     "lessonsUnit": "درس",
     "hoursUnit": "ساعة",
@@ -532,12 +535,26 @@
       }
     },
     "schedule": { "title": "الجدول الدراسي", "description": "كل مواعيد الواجبات والامتحانات القادمة" },
+    "attendance": {
+      "title": "الحضور",
+      "description": "سجل حضورك",
+      "rate": "نسبة الحضور",
+      "sessions": "{{count}} حصة",
+      "empty": "لا يوجد سجل حضور بعد",
+      "loadFailed": "فشل تحميل سجل الحضور",
+      "status": {
+        "present": "حاضر",
+        "absent": "غايب",
+        "late": "متأخر",
+        "excused": "بعذر"
+      }
+    },
     "quizzes": { "title": "الكويزات", "description": "كل الكويزات المتاحة في دوراتك" },
     "exams": { "title": "الامتحانات", "description": "امتحاناتك القادمة والمتاحة والمنتهية" },
     "grades": { "title": "الدرجات", "description": "كل درجاتك في الواجبات والكويزات والامتحانات" },
     "revision": { "title": "مواد المراجعة", "description": "ملخصات وفيديوهات وبطاقات مراجعة لدوراتك" },
     "certificates": { "title": "الشهادات", "description": "الشهادات اللي حصلت عليها" },
-    "payments": { "title": "المدفوعات", "description": "سجل مدفوعاتك على الدورات" },
+    "payments": { "title": "المدفوعات", "description": "سجل مدفوعاتك على الدورات", "toast": { "submitFailed": "فشل إرسال طلب الدفع" } },
     "notifications": { "title": "الإشعارات", "description": "كل إشعاراتك في مكان واحد" }
   },
   "quizTakePage": {
@@ -910,6 +927,7 @@
       },
       "paymentsTable": {
         "student": "الطالب",
+        "course": "الكورس",
         "amount": "المبلغ",
         "method": "طريقة الدفع",
         "status": "الحالة",
@@ -918,7 +936,11 @@
         "empty": "لا توجد مدفوعات"
       },
       "toast": {
-        "loadFailed": "فشل تحميل بيانات المدفوعات"
+        "loadFailed": "فشل تحميل بيانات المدفوعات",
+        "approved": "تمت الموافقة على الدفع وتسجيل الطالب في الكورس",
+        "approveFailed": "فشل الموافقة على الدفع",
+        "rejected": "تم رفض الدفع",
+        "rejectFailed": "فشل رفض الدفع"
       }
     },
     "notifications": {
@@ -1077,60 +1099,52 @@
   "courseDetails": {
     "notFoundTitle": "الكورس غير موجود",
     "notFoundDescription": "عذراً، لم نتمكن من العثور على الكورس الذي تبحث عنه. قد يكون قد تم إزالته أو الرابط غير صحيح.",
+    "loadFailed": "فشل تحميل الكورس",
     "backToCourses": "العودة للدورات",
     "coursesBreadcrumb": "الدورات",
     "studentsUnit": "طالب",
     "lessonsUnit": "درس",
     "hoursUnit": "ساعة",
-    "language": "اللغة",
+    "minutesUnit": "دقيقة",
+    "category": "التصنيف",
     "level": "المستوى",
-    "lastUpdated": "آخر تحديث",
     "providedBy": "مقدم من",
     "subscribeNow": "اشترك الآن",
-    "watchPreview": "شاهد الدرس التجريبي",
-    "enrollmentComingSoon": "الاشتراك في الدورة غير متاح حاليًا — هنعلمك أول ما يتفعّل.",
-    "previewComingSoon": "الدرس التجريبي غير متاح حاليًا.",
-    "save": "وفر",
+    "alreadyEnrolled": "مشترك بالفعل",
+    "studentOnly": "حسابات الطلاب فقط هي اللي تقدر تشترك في الكورسات",
+    "enrollSuccess": "تم الاشتراك بنجاح! هتلاقيه في \"دوراتي\"",
+    "enrollFailed": "فشل الاشتراك في الكورس",
     "studentsCount": "عدد الطلاب",
     "lessonsCount": "عدد الدروس",
     "totalHours": "إجمالي الساعات",
-    "certifiedCertificate": "شهادة معتمدة",
-    "lifetimeAccess": "دخول مدى الحياة",
-    "preview": {
-      "badge": "الدرس التجريبي",
-      "title": "شاهد درساً تجريبياً مجاناً"
-    },
-    "learningObjectives": {
-      "badge": "ماذا ستتعلم",
-      "title": "ماذا ستتعلم في هذه الدورة؟"
+    "payment": {
+      "title": "إرسال طلب دفع",
+      "description": "الكورس ده محتاج دفع. اختار طريقة الدفع وارفع صورة الإيصال — المدرس هيراجع الطلب ويوافق عليه، وبعدها هتتسجل في الكورس تلقائيًا.",
+      "amount": "المبلغ المطلوب",
+      "method": "طريقة الدفع",
+      "methods": {
+        "cash": "نقدي",
+        "bankTransfer": "تحويل بنكي",
+        "vodafoneCash": "فودافون كاش",
+        "instapay": "انستاباي"
+      },
+      "receipt": "إيصال الدفع",
+      "receiptRequired": "من فضلك ارفق صورة إيصال الدفع",
+      "submit": "إرسال طلب الدفع",
+      "submitSuccess": "تم إرسال طلب الدفع! هيبقى قيد المراجعة، وهتتسجل في الكورس بمجرد الموافقة عليه.",
+      "submitFailed": "فشل إرسال طلب الدفع"
     },
     "curriculum": {
       "badge": "المنهج الدراسي",
       "title": "المنهج الدراسي للدورة",
-      "lessonsWord": "درس",
       "lessonsShort": "دروس",
-      "free": "مجاني"
-    },
-    "features": {
-      "badge": "مميزات الدورة",
-      "title": "مميزات الدورة"
+      "free": "مجاني",
+      "noVideoYet": "المدرس لسه معملش رفع فيديو للدرس ده.",
+      "enrollToWatch": "لازم تشترك في الكورس عشان تقدر تتفرج على الدرس ده."
     },
     "teacherSection": {
       "badge": "المعلم",
-      "title": "تعلم مع خبير",
-      "yearsExperience": "سنوات خبرة",
-      "students": "طالب",
-      "rating": "تقييم",
-      "achievements": "الإنجازات:"
-    },
-    "reviews": {
-      "badge": "آراء الطلاب",
-      "title": "آراء الطلاب",
-      "ratingsCount": "تقييم"
-    },
-    "faq": {
-      "badge": "الأسئلة الشائعة",
-      "title": "الأسئلة الشائعة"
+      "title": "تعلم مع خبير"
     },
     "cta": {
       "title": "ابدأ رحلة التعلم اليوم",

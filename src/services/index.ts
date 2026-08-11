@@ -4,7 +4,7 @@ export type { StoredAccount } from './storage.service';
 export { sessionService } from './session.service';
 export type { AuthSession } from './session.service';
 export { teacherCourseService, listCourseCategories, publicCourseService } from './course.service';
-export type { CourseCategoryOption, PublicCourse } from './course.service';
+export type { CourseCategoryOption, PublicCourse, PublicCourseDetail, PublicCourseSection, PublicCourseLesson } from './course.service';
 export { lessonService, sectionService, getCourseSections } from './lesson.service';
 export { studentService } from './student.service';
 export { teacherService } from './teacher.service';

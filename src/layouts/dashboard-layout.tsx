@@ -24,6 +24,7 @@ import {
   DropdownMenuSeparator,
 } from '@/components/ui';
 import { LanguageSwitcher } from '@/components/shared/language-switcher';
+import { useTeacherNotifications } from '@/features/teacher/components/Notifications/queries';
 
 interface SidebarItem {
   icon: ReactNode;
@@ -42,6 +43,8 @@ export function DashboardLayout({ sidebarItems, role }: DashboardLayoutProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const { currentUser, logout } = useAuth();
+  const { data: notifications = [] } = useTeacherNotifications();
+  const unreadCount = notifications.filter((n) => !n.isRead).length;
 
   const handleLogout = async () => {
     await logout();
@@ -137,9 +140,11 @@ export function DashboardLayout({ sidebarItems, role }: DashboardLayoutProps) {
               className="relative rounded-full p-2 text-[rgba(249,246,240,0.55)] hover:text-[#D4B59E] hover:bg-[#16342D] transition-all"
             >
               <Bell className="h-5 w-5" />
-              <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[10px] font-bold text-white ring-2 ring-[#0F2520]">
-                3
-              </span>
+              {unreadCount > 0 && (
+                <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[10px] font-bold text-white ring-2 ring-[#0F2520]">
+                  {unreadCount > 9 ? '9+' : unreadCount}
+                </span>
+              )}
             </Link>
 
             {/* Profile Dropdown Menu */}

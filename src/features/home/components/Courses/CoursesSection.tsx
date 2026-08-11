@@ -2,9 +2,10 @@ import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
+import { Spinner, ErrorState } from '@/components/ui';
 import { CourseTabs } from './CourseTabs';
 import { CourseCard } from './CourseCard';
-import { COURSES_DATA, type CourseCategory } from './courses.data';
+import { usePublicCourses } from './queries';
 
 interface CoursesSectionProps {
   className?: string;
@@ -38,12 +39,18 @@ export function CoursesSection({
   descriptionKey = 'courses.description',
 }: CoursesSectionProps) {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState<CourseCategory>('الكل');
+  const { data: courses = [], isLoading, isError, refetch } = usePublicCourses();
+  const [activeTab, setActiveTab] = useState<string>(t('courses.allCategories'));
+
+  const categories = useMemo(() => {
+    const unique = Array.from(new Set(courses.map((c) => c.categoryName)));
+    return [t('courses.allCategories'), ...unique];
+  }, [courses, t]);
 
   const filteredCourses = useMemo(() => {
-    if (activeTab === 'الكل') return COURSES_DATA;
-    return COURSES_DATA.filter((course) => course.category === activeTab);
-  }, [activeTab]);
+    if (activeTab === t('courses.allCategories')) return courses;
+    return courses.filter((course) => course.categoryName === activeTab);
+  }, [courses, activeTab, t]);
 
   return (
     <section
@@ -110,51 +117,64 @@ export function CoursesSection({
             </motion.p>
           </motion.div>
 
-          {/* Filter Tabs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mb-10 sm:mb-12"
-          >
-            <CourseTabs
-              activeTab={activeTab}
-              onTabChange={setActiveTab}
-            />
-          </motion.div>
-
-          {/* Courses Grid */}
-          {filteredCourses.length > 0 ? (
-            <motion.div
-              variants={sectionVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-80px' }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-            >
-              {filteredCourses.map((course, index) => (
-                <CourseCard
-                  key={course.id}
-                  course={course}
-                  index={index}
-                />
-              ))}
-            </motion.div>
+          {isLoading ? (
+            <div className="flex justify-center py-16">
+              <Spinner />
+            </div>
+          ) : isError ? (
+            <ErrorState description={t('courses.loadFailed')} onRetry={() => refetch()} />
           ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-center py-16"
-            >
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/5 border border-white/10 mb-4">
-                <span className="text-2xl">📚</span>
-              </div>
-              <p className="text-[rgba(249,246,240,0.55)] text-lg">
-                {t('courses.empty')}
-              </p>
-            </motion.div>
+            <>
+              {/* Filter Tabs */}
+              {categories.length > 1 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="mb-10 sm:mb-12"
+                >
+                  <CourseTabs
+                    categories={categories}
+                    activeTab={activeTab}
+                    onTabChange={setActiveTab}
+                  />
+                </motion.div>
+              )}
+
+              {/* Courses Grid */}
+              {filteredCourses.length > 0 ? (
+                <motion.div
+                  variants={sectionVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: '-80px' }}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+                >
+                  {filteredCourses.map((course, index) => (
+                    <CourseCard
+                      key={course.id}
+                      course={course}
+                      index={index}
+                    />
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  className="text-center py-16"
+                >
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/5 border border-white/10 mb-4">
+                    <span className="text-2xl">📚</span>
+                  </div>
+                  <p className="text-[rgba(249,246,240,0.55)] text-lg">
+                    {t('courses.empty')}
+                  </p>
+                </motion.div>
+              )}
+            </>
           )}
         </div>
       </div>
@@ -164,4 +184,3 @@ export function CoursesSection({
     </section>
   );
 }
-

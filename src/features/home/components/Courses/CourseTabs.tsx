@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { COURSE_CATEGORIES, type CourseCategory } from './courses.data';
 
 interface CourseTabsProps {
-  activeTab: CourseCategory;
-  onTabChange: (tab: CourseCategory) => void;
+  categories: string[];
+  activeTab: string;
+  onTabChange: (tab: string) => void;
   className?: string;
 }
 
@@ -21,7 +21,7 @@ const tabVariants = {
   },
 };
 
-export function CourseTabs({ activeTab, onTabChange, className }: CourseTabsProps) {
+export function CourseTabs({ categories, activeTab, onTabChange, className }: CourseTabsProps) {
   return (
     <div
       className={cn(
@@ -29,7 +29,7 @@ export function CourseTabs({ activeTab, onTabChange, className }: CourseTabsProp
         className
       )}
     >
-      {COURSE_CATEGORIES.map((tab) => {
+      {categories.map((tab) => {
         const isActive = activeTab === tab;
 
         return (

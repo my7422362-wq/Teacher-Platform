@@ -9,9 +9,16 @@ interface PaymentUserDto {
   name: string;
 }
 
+interface PaymentCourseDto {
+  id: number;
+  title: string;
+}
+
 interface PaymentDto {
   id: number;
   user: PaymentUserDto;
+  course?: PaymentCourseDto | null;
+  course_id?: number | null;
   amount: string | number;
   payment_method: string;
   status: 'pending' | 'approved' | 'rejected';
@@ -52,6 +59,8 @@ export const paymentService = {
         id: p.id,
         studentId: p.user.id,
         studentName: p.user.name,
+        courseId: p.course?.id ?? p.course_id ?? null,
+        courseTitle: p.course?.title ?? null,
         amount: Number(p.amount),
         paymentMethod: p.payment_method,
         status: p.status,
@@ -61,6 +70,38 @@ export const paymentService = {
       }));
     } catch (error) {
       throw new Error(extractErrorMessage(error, i18n.t('teacherPages.payments.toast.loadFailed')));
+    }
+  },
+
+  /** POST /payments — student submits a payment (with receipt) for a
+   *  specific course. Enrollment is intentionally NOT granted here; it
+   *  only happens once a teacher approves the payment (see `approve`). */
+  async submit(courseId: number, amount: number, paymentMethod: string, receipt: File): Promise<void> {
+    try {
+      const formData = new FormData();
+      formData.append('course_id', String(courseId));
+      formData.append('amount', String(amount));
+      formData.append('payment_method', paymentMethod);
+      formData.append('receipt', receipt);
+      await api.post('/payments', formData, { timeout: 2 * 60 * 1000 });
+    } catch (error) {
+      throw new Error(extractErrorMessage(error, i18n.t('studentPages.payments.toast.submitFailed')));
+    }
+  },
+
+  async approve(paymentId: number): Promise<void> {
+    try {
+      await api.put(`/payments/${paymentId}/approve`);
+    } catch (error) {
+      throw new Error(extractErrorMessage(error, i18n.t('teacherPages.payments.toast.approveFailed')));
+    }
+  },
+
+  async reject(paymentId: number): Promise<void> {
+    try {
+      await api.put(`/payments/${paymentId}/reject`);
+    } catch (error) {
+      throw new Error(extractErrorMessage(error, i18n.t('teacherPages.payments.toast.rejectFailed')));
     }
   },
 

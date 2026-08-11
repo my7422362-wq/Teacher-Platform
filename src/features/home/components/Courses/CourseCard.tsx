@@ -6,10 +6,10 @@ import { CourseBadge } from './CourseBadge';
 import { CourseInfo } from './CourseInfo';
 import { CourseMeta } from './CourseMeta';
 import { CourseButton } from './CourseButton';
-import type { CourseItem } from './courses.data';
+import type { PublicCourse } from '@/services';
 
 interface CourseCardProps {
-  course: CourseItem;
+  course: PublicCourse;
   index: number;
   className?: string;
 }
@@ -42,7 +42,7 @@ function getCourseGradient(id: number): string {
     'from-sky-600/40 via-blue-600/30 to-indigo-900/40',
     'from-rose-600/40 via-pink-600/30 to-purple-900/40',
   ];
-  return gradients[(id - 1) % gradients.length];
+  return gradients[id % gradients.length];
 }
 
 /**
@@ -59,7 +59,7 @@ function getCoursePattern(id: number): string {
     'radial-gradient(circle at 60% 30%, rgba(14,165,233,0.15) 0%, transparent 50%)',
     'radial-gradient(circle at 50% 50%, rgba(244,63,94,0.15) 0%, transparent 50%)',
   ];
-  return patterns[(id - 1) % patterns.length];
+  return patterns[id % patterns.length];
 }
 
 export function CourseCard({ course, index, className }: CourseCardProps) {
@@ -96,41 +96,47 @@ export function CourseCard({ course, index, className }: CourseCardProps) {
 
         {/* Course Image (16:9 ratio) */}
         <div className="relative w-full aspect-video overflow-hidden rounded-t-3xl">
-          {/* Gradient background */}
-          <div
-            className={cn(
-              'absolute inset-0 bg-gradient-to-br',
-              getCourseGradient(course.id)
-            )}
-          />
+          {course.thumbnail ? (
+            <img src={course.thumbnail} alt={course.title} className="absolute inset-0 h-full w-full object-cover" />
+          ) : (
+            <>
+              {/* Gradient background */}
+              <div
+                className={cn(
+                  'absolute inset-0 bg-gradient-to-br',
+                  getCourseGradient(course.id)
+                )}
+              />
 
-          {/* Radial pattern */}
-          <div
-            className="absolute inset-0"
-            style={{ background: getCoursePattern(course.id) }}
-          />
+              {/* Radial pattern */}
+              <div
+                className="absolute inset-0"
+                style={{ background: getCoursePattern(course.id) }}
+              />
 
-          {/* Decorative dots */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-4 right-4 w-16 h-16 border border-white/10 rounded-full" />
-            <div className="absolute bottom-4 left-4 w-24 h-24 border border-white/5 rounded-full" />
-            <div className="absolute top-8 left-8 w-8 h-8 border border-white/10 rounded-full" />
-          </div>
+              {/* Decorative dots */}
+              <div className="absolute inset-0 opacity-10">
+                <div className="absolute top-4 right-4 w-16 h-16 border border-white/10 rounded-full" />
+                <div className="absolute bottom-4 left-4 w-24 h-24 border border-white/5 rounded-full" />
+                <div className="absolute top-8 left-8 w-8 h-8 border border-white/10 rounded-full" />
+              </div>
 
-          {/* Book icon */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/15 transition-all duration-500">
-              <BookOpen className="w-7 h-7 text-white/70" />
-            </div>
-          </div>
+              {/* Book icon */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/15 transition-all duration-500">
+                  <BookOpen className="w-7 h-7 text-white/70" />
+                </div>
+              </div>
+            </>
+          )}
 
           {/* Gradient overlay at bottom */}
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0F2520]/80 to-transparent" />
 
           {/* Badge */}
-          {course.badge && (
+          {course.isFeatured && (
             <div className="absolute top-3 right-3 z-10">
-              <CourseBadge text={course.badge} />
+              <CourseBadge text={t('courses.featuredBadge')} />
             </div>
           )}
 
@@ -138,7 +144,7 @@ export function CourseCard({ course, index, className }: CourseCardProps) {
           <div className="absolute bottom-3 left-3 z-10">
             <div className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10">
               <span className="text-lg font-bold text-white">{course.price}</span>
-              <span className="text-xs text-[rgba(249,246,240,0.55)]">{t('courses.currency')}</span>
+              <span className="text-xs text-[rgba(249,246,240,0.55)]">{course.currency}</span>
             </div>
           </div>
         </div>
@@ -147,17 +153,15 @@ export function CourseCard({ course, index, className }: CourseCardProps) {
         <div className="p-5 space-y-4">
           <CourseInfo
             title={course.title}
-            subtitle={course.subtitle}
-            topics={course.topics}
+            description={course.description}
+            categoryName={course.categoryName}
             teacherName={course.teacherName}
-            subject={course.subject}
           />
 
           <CourseMeta
-            rating={course.rating}
-            students={course.students}
-            lessons={course.lessons}
-            hours={course.hours}
+            students={course.studentsCount}
+            lessons={course.lessonsCount}
+            hours={course.duration}
           />
 
           <CourseButton slug={course.slug} />
@@ -169,4 +173,3 @@ export function CourseCard({ course, index, className }: CourseCardProps) {
     </motion.div>
   );
 }
-

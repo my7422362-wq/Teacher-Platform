@@ -21,6 +21,10 @@ const api: AxiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
+    // The backend is tunneled through a free ngrok domain, which serves an
+    // HTML interstitial warning page to real browser requests instead of
+    // the API response unless this header is present.
+    'ngrok-skip-browser-warning': 'true',
   },
   timeout: 30_000,
 });

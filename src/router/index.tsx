@@ -29,6 +29,7 @@ import {
   StudentCertificatesPage,
   StudentPaymentsPage,
   StudentNotificationsPage,
+  StudentAttendancePage,
 } from '@/features/student/pages';
 import {
   TeacherDashboardPage,
@@ -95,6 +96,7 @@ export function AppRouter() {
           <Route path="certificates" element={<StudentCertificatesPage />} />
           <Route path="payments" element={<StudentPaymentsPage />} />
           <Route path="notifications" element={<StudentNotificationsPage />} />
+          <Route path="attendance" element={<StudentAttendancePage />} />
         </Route>
       </Route>
 

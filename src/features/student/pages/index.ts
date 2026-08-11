@@ -11,3 +11,4 @@ export { StudentRevisionPage } from './revision';
 export { StudentCertificatesPage } from './certificates';
 export { StudentPaymentsPage } from './payments';
 export { StudentNotificationsPage } from './notifications';
+export { StudentAttendancePage } from './attendance';

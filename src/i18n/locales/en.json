@@ -83,6 +83,9 @@
     "title": "Featured Courses",
     "description": "Choose the course that matches your academic level, and enjoy simplified explanations, practical exercises, and tests that help you achieve the best results.",
     "empty": "No courses in this category right now",
+    "loadFailed": "Failed to load courses",
+    "allCategories": "All",
+    "featuredBadge": "Featured",
     "currency": "EGP",
     "lessonsUnit": "lessons",
     "hoursUnit": "hours",
@@ -532,12 +535,26 @@
       }
     },
     "schedule": { "title": "Schedule", "description": "All your upcoming assignment and exam dates" },
+    "attendance": {
+      "title": "Attendance",
+      "description": "Your attendance record",
+      "rate": "Attendance Rate",
+      "sessions": "{{count}} sessions",
+      "empty": "No attendance records yet",
+      "loadFailed": "Failed to load your attendance",
+      "status": {
+        "present": "Present",
+        "absent": "Absent",
+        "late": "Late",
+        "excused": "Excused"
+      }
+    },
     "quizzes": { "title": "Quizzes", "description": "All quizzes available in your courses" },
     "exams": { "title": "Exams", "description": "Your upcoming, open, and closed exams" },
     "grades": { "title": "Grades", "description": "All your assignment, quiz, and exam grades" },
     "revision": { "title": "Revision Materials", "description": "Summaries, videos, and flashcards for your courses" },
     "certificates": { "title": "Certificates", "description": "Certificates you've earned" },
-    "payments": { "title": "Payments", "description": "Your course payment history" },
+    "payments": { "title": "Payments", "description": "Your course payment history", "toast": { "submitFailed": "Failed to submit the payment" } },
     "notifications": { "title": "Notifications", "description": "All your notifications in one place" }
   },
   "quizTakePage": {
@@ -910,6 +927,7 @@
       },
       "paymentsTable": {
         "student": "Student",
+        "course": "Course",
         "amount": "Amount",
         "method": "Method",
         "status": "Status",
@@ -918,7 +936,11 @@
         "empty": "No payments"
       },
       "toast": {
-        "loadFailed": "Failed to load payments data"
+        "loadFailed": "Failed to load payments data",
+        "approved": "Payment approved and the student was enrolled",
+        "approveFailed": "Failed to approve the payment",
+        "rejected": "Payment rejected",
+        "rejectFailed": "Failed to reject the payment"
       }
     },
     "notifications": {
@@ -1077,60 +1099,52 @@
   "courseDetails": {
     "notFoundTitle": "Course Not Found",
     "notFoundDescription": "Sorry, we couldn't find the course you're looking for. It may have been removed or the link is incorrect.",
+    "loadFailed": "Failed to load the course",
     "backToCourses": "Back to Courses",
     "coursesBreadcrumb": "Courses",
     "studentsUnit": "students",
     "lessonsUnit": "lessons",
     "hoursUnit": "hours",
-    "language": "Language",
+    "minutesUnit": "min",
+    "category": "Category",
     "level": "Level",
-    "lastUpdated": "Last updated",
     "providedBy": "Provided by",
     "subscribeNow": "Subscribe Now",
-    "watchPreview": "Watch Free Preview",
-    "enrollmentComingSoon": "Course enrollment isn't available yet — we'll let you know as soon as it opens.",
-    "previewComingSoon": "This preview video isn't available yet.",
-    "save": "Save",
+    "alreadyEnrolled": "Already Enrolled",
+    "studentOnly": "Only student accounts can enroll in courses",
+    "enrollSuccess": "Enrolled successfully! You'll find it in \"My Courses\"",
+    "enrollFailed": "Failed to enroll in the course",
     "studentsCount": "Number of Students",
     "lessonsCount": "Number of Lessons",
     "totalHours": "Total Hours",
-    "certifiedCertificate": "Certified Certificate",
-    "lifetimeAccess": "Lifetime Access",
-    "preview": {
-      "badge": "Free Preview",
-      "title": "Watch a Free Preview Lesson"
-    },
-    "learningObjectives": {
-      "badge": "What You'll Learn",
-      "title": "What Will You Learn in This Course?"
+    "payment": {
+      "title": "Submit Payment",
+      "description": "This course requires payment. Choose a payment method and upload your receipt — a teacher will review and approve it, then you'll be enrolled.",
+      "amount": "Amount due",
+      "method": "Payment method",
+      "methods": {
+        "cash": "Cash",
+        "bankTransfer": "Bank Transfer",
+        "vodafoneCash": "Vodafone Cash",
+        "instapay": "InstaPay"
+      },
+      "receipt": "Payment receipt",
+      "receiptRequired": "Please attach a payment receipt",
+      "submit": "Submit Payment",
+      "submitSuccess": "Payment submitted! It's pending review — you'll be enrolled once it's approved.",
+      "submitFailed": "Failed to submit the payment"
     },
     "curriculum": {
       "badge": "Curriculum",
       "title": "Course Curriculum",
-      "lessonsWord": "lessons",
       "lessonsShort": "lessons",
-      "free": "Free"
-    },
-    "features": {
-      "badge": "Course Features",
-      "title": "Course Features"
+      "free": "Free",
+      "noVideoYet": "The teacher hasn't uploaded a video for this lesson yet.",
+      "enrollToWatch": "Enroll in this course to watch this lesson."
     },
     "teacherSection": {
       "badge": "Teacher",
-      "title": "Learn with an Expert",
-      "yearsExperience": "years of experience",
-      "students": "students",
-      "rating": "rating",
-      "achievements": "Achievements:"
-    },
-    "reviews": {
-      "badge": "Student Reviews",
-      "title": "Student Reviews",
-      "ratingsCount": "ratings"
-    },
-    "faq": {
-      "badge": "FAQ",
-      "title": "FAQ"
+      "title": "Learn with an Expert"
     },
     "cta": {
       "title": "Start Your Learning Journey Today",

@@ -150,10 +150,17 @@ export interface PublicCourse {
   id: number;
   title: string;
   slug: string;
+  description: string;
   teacherName: string;
+  categoryName: string;
   price: number;
   currency: string;
+  duration: number;
+  level: 'beginner' | 'intermediate' | 'advanced';
+  isFeatured: boolean;
   thumbnail: string | null;
+  studentsCount: number;
+  lessonsCount: number;
 }
 
 function mapPublicCourse(dto: CourseResourceDto): PublicCourse {
@@ -161,15 +168,58 @@ function mapPublicCourse(dto: CourseResourceDto): PublicCourse {
     id: dto.id,
     title: dto.title,
     slug: dto.slug,
+    description: dto.description,
     teacherName: dto.teacher.name,
+    categoryName: dto.category.name,
     price: Number(dto.price),
     currency: dto.currency,
+    duration: dto.duration,
+    level: dto.level,
+    isFeatured: dto.featured,
     thumbnail: dto.thumbnail,
+    studentsCount: Number(dto.students_count),
+    lessonsCount: Number(dto.lessons_count),
   };
 }
 
-/** Real API — GET /courses (public catalog, published courses only, no auth required).
- *  No rating/review field exists on the real CourseResource, so it isn't shown anywhere this is used. */
+export interface PublicCourseLesson {
+  id: number;
+  title: string;
+  description: string | null;
+  videoUrl: string | null;
+  duration: number | null;
+  isPreview: boolean;
+}
+
+export interface PublicCourseSection {
+  id: number;
+  title: string;
+  lessons: PublicCourseLesson[];
+}
+
+export interface PublicCourseDetail extends PublicCourse {
+  sections: PublicCourseSection[];
+}
+
+interface CourseSectionResourceDto {
+  id: number;
+  title: string;
+  lessons: {
+    id: number;
+    title: string;
+    description: string | null;
+    video_url: string | null;
+    duration: number | null;
+    is_preview: boolean;
+  }[];
+}
+
+interface CourseDetailResourceDto extends CourseResourceDto {
+  sections: CourseSectionResourceDto[];
+}
+
+/** Real API — public course catalog. No rating/review field exists on the
+ *  real CourseResource, so it isn't shown anywhere this is used. */
 export const publicCourseService = {
   async list(): Promise<PublicCourse[]> {
     try {
@@ -177,6 +227,31 @@ export const publicCourseService = {
       return data.data.map(mapPublicCourse);
     } catch (error) {
       throw new Error(extractErrorMessage(error, i18n.t('studentPages.dashboard.recommended.loadFailed')));
+    }
+  },
+
+  /** GET /courses/{course} — includes real sections + lessons (curriculum),
+   *  each lesson's is_preview flag marks it as free-to-preview. */
+  async getBySlug(slug: string): Promise<PublicCourseDetail> {
+    try {
+      const { data } = await api.get<{ data: CourseDetailResourceDto }>(`/courses/${slug}`);
+      return {
+        ...mapPublicCourse(data.data),
+        sections: (data.data.sections ?? []).map((section) => ({
+          id: section.id,
+          title: section.title,
+          lessons: (section.lessons ?? []).map((lesson) => ({
+            id: lesson.id,
+            title: lesson.title,
+            description: lesson.description,
+            videoUrl: lesson.video_url,
+            duration: lesson.duration,
+            isPreview: lesson.is_preview,
+          })),
+        })),
+      };
+    } catch (error) {
+      throw new Error(extractErrorMessage(error, i18n.t('courseDetails.loadFailed')));
     }
   },
 };

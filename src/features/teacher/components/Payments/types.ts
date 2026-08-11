@@ -2,8 +2,9 @@
  * Real backend constraints: there's no global "list all installments"
  * endpoint (only GET /students/{student}/installments), and no
  * mark-as-paid or send-reminder endpoint at all — installments are
- * read-only from the teacher side. Payments have no course reference in
- * PaymentResource, and approve/reject are admin-only (not exposed here).
+ * read-only from the teacher side. Payments approve/reject routes exist
+ * (PUT /payments/{id}/approve|reject) but role access wasn't confirmed —
+ * verify the teacher account isn't rejected with 403 before relying on it.
  */
 
 export interface TeacherInstallment {
@@ -24,6 +25,8 @@ export interface TeacherPayment {
   id: number;
   studentId: number;
   studentName: string;
+  courseId: number | null;
+  courseTitle: string | null;
   amount: number;
   paymentMethod: string;
   status: 'pending' | 'approved' | 'rejected';

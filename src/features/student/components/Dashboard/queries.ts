@@ -50,3 +50,23 @@ export function useMyPayments() {
     queryFn: () => paymentService.list(),
   });
 }
+
+/** Submits a payment request for a course — enrollment is granted
+ *  separately once a teacher approves it, not at submission time. */
+export function useSubmitPayment() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      courseId,
+      amount,
+      paymentMethod,
+      receipt,
+    }: {
+      courseId: number;
+      amount: number;
+      paymentMethod: string;
+      receipt: File;
+    }) => paymentService.submit(courseId, amount, paymentMethod, receipt),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['student', 'payments'] }),
+  });
+}

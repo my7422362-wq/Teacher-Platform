@@ -12,6 +12,7 @@ import {
   Award,
   Bell,
   Receipt,
+  CalendarCheck,
 } from 'lucide-react';
 
 export function StudentLayout() {
@@ -21,6 +22,7 @@ export function StudentLayout() {
     { icon: <LayoutDashboard className="h-4 w-4" />, label: t('dashboardLayout.sidebar.dashboard'), path: '/student/dashboard' },
     { icon: <BookOpen className="h-4 w-4" />, label: t('dashboardLayout.sidebar.myCourses'), path: '/student/courses' },
     { icon: <Calendar className="h-4 w-4" />, label: t('dashboardLayout.sidebar.schedule'), path: '/student/schedule' },
+    { icon: <CalendarCheck className="h-4 w-4" />, label: t('dashboardLayout.sidebar.attendance'), path: '/student/attendance' },
     { icon: <HelpCircle className="h-4 w-4" />, label: t('dashboardLayout.sidebar.quizzes'), path: '/student/quizzes' },
     { icon: <GraduationCap className="h-4 w-4" />, label: t('dashboardLayout.sidebar.exams'), path: '/student/exams' },
     { icon: <ClipboardCheck className="h-4 w-4" />, label: t('dashboardLayout.sidebar.grades'), path: '/student/grades' },

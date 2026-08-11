@@ -190,9 +190,13 @@ export const lessonService = {
     try {
       const formData = new FormData();
       formData.append('video', video);
+      // Video files are much larger than typical JSON payloads and can take
+      // well over the API client's default 30s timeout to upload, especially
+      // over the ngrok tunnel — give this request more room.
       const { data } = await api.post<{ message: string; video_url: string }>(
         `/lessons/${lessonId}/video`,
-        formData
+        formData,
+        { timeout: 5 * 60 * 1000 }
       );
       return data.video_url;
     } catch (error) {
@@ -216,7 +220,8 @@ export const lessonService = {
       formData.append('file', file);
       const { data } = await api.post<{ message: string; resource: ResourceDto }>(
         `/lessons/${lessonId}/resources`,
-        formData
+        formData,
+        { timeout: 5 * 60 * 1000 }
       );
       return mapResource(data.resource);
     } catch (error) {
