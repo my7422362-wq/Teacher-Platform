@@ -1,29 +1,31 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, Badge, EmptyState, Spinner, ErrorState } from '@/components/ui';
-import { GraduationCap } from 'lucide-react';
-import { useMyExams } from './quiz-exam-queries';
+import { Card, CardContent, EmptyState, Spinner, ErrorState } from '@/components/ui';
+import { CalendarDays, Clock } from 'lucide-react';
+import { useMyGroups } from './queries';
+import type { ScheduleDay } from '@/features/teacher/components/Groups/types';
 
-function daysUntil(date: string): number {
-  const diffMs = new Date(date).getTime() - Date.now();
-  return Math.ceil(diffMs / (1000 * 60 * 60 * 24));
-}
+const DAY_ORDER: ScheduleDay[] = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
 
 interface ScheduleProps {
   limit?: number;
   viewAllHref?: string;
 }
 
-/** Only upcoming exam windows — there's no assignment-due-date list
- *  endpoint exposed anywhere, so assignments can't appear in this feed. */
+/** Real weekly session times, sourced from the group(s) the student
+ *  belongs to (GET /students/{id}/groups), not exam dates — exams live
+ *  on the Exams page instead. */
 export function Schedule({ limit, viewAllHref }: ScheduleProps) {
   const { t } = useTranslation();
-  const { data: exams, isLoading, isError, refetch } = useMyExams();
+  const { data: groups = [], isLoading, isError, refetch } = useMyGroups();
 
-  const items = exams
-    .filter((e) => e.timeStatus === 'upcoming')
-    .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
-  const visible = limit ? items.slice(0, limit) : items;
+  const slots = groups
+    .flatMap((group) => group.schedule.map((slot) => ({ ...slot, groupName: group.name })))
+    .sort((a, b) => {
+      const dayDiff = DAY_ORDER.indexOf(a.day) - DAY_ORDER.indexOf(b.day);
+      return dayDiff !== 0 ? dayDiff : a.startTime.localeCompare(b.startTime);
+    });
+  const visible = limit ? slots.slice(0, limit) : slots;
 
   return (
     <section className="space-y-4">
@@ -45,37 +47,29 @@ export function Schedule({ limit, viewAllHref }: ScheduleProps) {
       ) : isError ? (
         <ErrorState description={t('studentPages.dashboard.schedule.loadFailed')} onRetry={() => refetch()} />
       ) : visible.length === 0 ? (
-        <EmptyState description={t('studentPages.dashboard.schedule.empty')} />
+        <EmptyState
+          icon={<CalendarDays className="h-12 w-12" />}
+          description={t('studentPages.dashboard.schedule.empty')}
+        />
       ) : (
         <Card>
           <CardContent className="divide-y divide-[rgba(212,181,158,0.12)] p-0">
-            {visible.map((exam) => {
-              const days = daysUntil(exam.startDate);
-              const dueLabel =
-                days <= 0
-                  ? t('studentPages.dashboard.schedule.dueToday')
-                  : days === 1
-                    ? t('studentPages.dashboard.schedule.dueTomorrow')
-                    : t('studentPages.dashboard.schedule.dueIn', { days });
-
-              return (
-                <div key={exam.examId} className="flex items-center gap-4 p-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#D4B59E]/15 text-[#D4B59E]">
-                    <GraduationCap className="h-5 w-5" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate font-medium text-[#F9F6F0]">{exam.title}</p>
-                    <div className="flex items-center gap-2">
-                      <p className="truncate text-sm text-[rgba(249,246,240,0.55)]">{exam.courseName}</p>
-                      <Badge variant="secondary" className="shrink-0">
-                        {t('studentPages.dashboard.schedule.kindExam')}
-                      </Badge>
-                    </div>
-                  </div>
-                  <span className="shrink-0 text-sm font-medium text-[#D4B59E]">{dueLabel}</span>
+            {visible.map((slot, i) => (
+              <div key={i} className="flex items-center gap-4 p-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#D4B59E]/15 text-[#D4B59E]">
+                  <Clock className="h-5 w-5" />
                 </div>
-              );
-            })}
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-medium text-[#F9F6F0]">
+                    {t(`teacherPages.groups.days.${slot.day}`)}
+                  </p>
+                  <p className="truncate text-sm text-[rgba(249,246,240,0.55)]">{slot.groupName}</p>
+                </div>
+                <span className="shrink-0 text-sm font-medium text-[#D4B59E]" dir="ltr">
+                  {slot.startTime}–{slot.endTime}
+                </span>
+              </div>
+            ))}
           </CardContent>
         </Card>
       )}

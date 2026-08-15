@@ -1,5 +1,6 @@
 export { TeacherDashboardPage } from './dashboard';
 export { TeacherCoursesPage } from './courses';
+export { TeacherCategoriesPage } from './categories';
 export { TeacherStudentsPage } from './students';
 export { TeacherStudentDetailPage } from './student-detail';
 export { TeacherParentsPage } from './parents';

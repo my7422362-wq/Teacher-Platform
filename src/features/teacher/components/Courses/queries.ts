@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { teacherCourseService, listCourseCategories } from '@/services';
+import { teacherCourseService, categoryService } from '@/services';
 import type { TeacherCourseFormValues } from './types';
 
 export const TEACHER_COURSES_KEY = ['teacher', 'courses'] as const;
@@ -15,8 +15,7 @@ export function useTeacherCourses() {
 export function useCourseCategories() {
   return useQuery({
     queryKey: COURSE_CATEGORIES_KEY,
-    queryFn: listCourseCategories,
-    staleTime: 30 * 60 * 1000,
+    queryFn: categoryService.list,
   });
 }
 

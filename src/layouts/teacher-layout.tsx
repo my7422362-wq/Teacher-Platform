@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { DashboardLayout } from './dashboard-layout';
-import { LayoutDashboard, BookOpen, ListVideo, HelpCircle, Users, UsersRound, ClipboardCheck, CalendarCheck, CalendarDays, Receipt, Bell, BarChart3, Settings } from 'lucide-react';
+import { LayoutDashboard, BookOpen, Tag, ListVideo, HelpCircle, Users, UsersRound, ClipboardCheck, CalendarCheck, CalendarDays, Receipt, Bell, BarChart3, Settings } from 'lucide-react';
 
 export function TeacherLayout() {
   const { t } = useTranslation();
@@ -8,6 +8,7 @@ export function TeacherLayout() {
   const sidebarItems = [
     { icon: <LayoutDashboard className="h-4 w-4" />, label: t('dashboardLayout.sidebar.dashboard'), path: '/teacher/dashboard' },
     { icon: <BookOpen className="h-4 w-4" />, label: t('dashboardLayout.sidebar.courses'), path: '/teacher/courses' },
+    { icon: <Tag className="h-4 w-4" />, label: t('dashboardLayout.sidebar.categories'), path: '/teacher/categories' },
     { icon: <ListVideo className="h-4 w-4" />, label: t('dashboardLayout.sidebar.lessons'), path: '/teacher/lessons' },
     { icon: <CalendarDays className="h-4 w-4" />, label: t('dashboardLayout.sidebar.groups'), path: '/teacher/groups' },
     { icon: <HelpCircle className="h-4 w-4" />, label: t('dashboardLayout.sidebar.quizzesExams'), path: '/teacher/quizzes-exams' },

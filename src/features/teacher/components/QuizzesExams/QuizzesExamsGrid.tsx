@@ -229,7 +229,7 @@ export function QuizzesExamsGrid() {
                       {t('teacherPages.quizzesExams.questionsCount', { count: exam.questionsCount ?? exam.questions.length })}
                     </p>
                     <Badge variant="outline" className="shrink-0">
-                      {new Date(exam.startDate).toLocaleDateString()}
+                      {new Date(exam.startDate).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}
                     </Badge>
 
                     <div className="flex flex-wrap gap-2 pt-1">

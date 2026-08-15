@@ -75,6 +75,8 @@ export function PaymentsTable() {
                   <TableHead>{t('teacherPages.payments.paymentsTable.course')}</TableHead>
                   <TableHead>{t('teacherPages.payments.paymentsTable.amount')}</TableHead>
                   <TableHead>{t('teacherPages.payments.paymentsTable.method')}</TableHead>
+                  <TableHead>{t('teacherPages.payments.paymentsTable.senderPhone')}</TableHead>
+                  <TableHead>{t('teacherPages.payments.paymentsTable.receipt')}</TableHead>
                   <TableHead>{t('teacherPages.payments.paymentsTable.status')}</TableHead>
                   <TableHead>{t('teacherPages.payments.paymentsTable.date')}</TableHead>
                   <TableHead />
@@ -87,6 +89,22 @@ export function PaymentsTable() {
                     <TableCell>{payment.courseTitle ?? '—'}</TableCell>
                     <TableCell>{payment.amount}</TableCell>
                     <TableCell>{payment.paymentMethod}</TableCell>
+                    <TableCell dir="ltr">{payment.senderPhone ?? '—'}</TableCell>
+                    <TableCell>
+                      {payment.receiptUrl ? (
+                        <a
+                          href={payment.receiptUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-[#D4B59E] hover:underline"
+                        >
+                          <Receipt className="h-4 w-4" />
+                          {t('teacherPages.payments.paymentsTable.viewReceipt')}
+                        </a>
+                      ) : (
+                        '—'
+                      )}
+                    </TableCell>
                     <TableCell>
                       <Badge variant={STATUS_VARIANT[payment.status]}>
                         {t(`teacherPages.payments.paymentsTable.statusValues.${payment.status}`)}

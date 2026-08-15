@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { Card, CardContent, Button, Modal, EmptyState, ErrorState, Spinner } from '@/components/ui';
-import { Pencil, Trash2, Plus, Users } from 'lucide-react';
+import { Pencil, Trash2, Plus, Users, Clock } from 'lucide-react';
 import { useTeacherGroups, useDeleteGroup } from './queries';
 import { GroupFormModal } from './GroupFormModal';
 import type { TeacherGroup } from './types';
@@ -65,6 +65,17 @@ export function GroupsGrid() {
                   <Users className="h-3.5 w-3.5" />
                   {t('teacherPages.groups.studentsCount', { count: group.students.length })}
                 </div>
+
+                {group.schedule.length > 0 && (
+                  <div className="space-y-1">
+                    {group.schedule.map((slot, i) => (
+                      <div key={i} className="flex items-center gap-1.5 text-xs text-[rgba(249,246,240,0.55)]">
+                        <Clock className="h-3.5 w-3.5 shrink-0" />
+                        {t(`teacherPages.groups.days.${slot.day}`)} {slot.startTime}–{slot.endTime}
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 <div className="flex gap-2 pt-1">
                   <Button

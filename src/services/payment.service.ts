@@ -21,10 +21,22 @@ interface PaymentDto {
   course_id?: number | null;
   amount: string | number;
   payment_method: string;
+  sender_phone?: string | null;
   status: 'pending' | 'approved' | 'rejected';
   receipt_path: string | null;
   approved_at: string | null;
   created_at: string | null;
+}
+
+/** Laravel's public disk serves files under /storage — receipt_path is
+ *  stored as a bare relative path (e.g. "receipts/xxx.jpg"), so it needs
+ *  the app's origin prefixed to be viewable. Falls back to using the value
+ *  as-is if the backend ever starts returning an absolute URL instead. */
+function resolveFileUrl(path: string | null): string | null {
+  if (!path) return null;
+  if (/^https?:\/\//i.test(path)) return path;
+  const origin = (import.meta.env.VITE_API_BASE_URL as string).replace(/\/api\/?$/, '');
+  return `${origin}/storage/${path.replace(/^\/?storage\//, '')}`;
 }
 
 interface InstallmentCourseDto {
@@ -63,8 +75,9 @@ export const paymentService = {
         courseTitle: p.course?.title ?? null,
         amount: Number(p.amount),
         paymentMethod: p.payment_method,
+        senderPhone: p.sender_phone ?? null,
         status: p.status,
-        receiptPath: p.receipt_path,
+        receiptUrl: resolveFileUrl(p.receipt_path),
         approvedAt: p.approved_at,
         createdAt: p.created_at,
       }));
@@ -76,12 +89,19 @@ export const paymentService = {
   /** POST /payments — student submits a payment (with receipt) for a
    *  specific course. Enrollment is intentionally NOT granted here; it
    *  only happens once a teacher approves the payment (see `approve`). */
-  async submit(courseId: number, amount: number, paymentMethod: string, receipt: File): Promise<void> {
+  async submit(
+    courseId: number,
+    amount: number,
+    paymentMethod: string,
+    senderPhone: string,
+    receipt: File
+  ): Promise<void> {
     try {
       const formData = new FormData();
       formData.append('course_id', String(courseId));
       formData.append('amount', String(amount));
       formData.append('payment_method', paymentMethod);
+      formData.append('sender_phone', senderPhone);
       formData.append('receipt', receipt);
       await api.post('/payments', formData, { timeout: 2 * 60 * 1000 });
     } catch (error) {

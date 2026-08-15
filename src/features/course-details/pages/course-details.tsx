@@ -2,18 +2,18 @@ import { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
-import { ArrowLeft, BookOpen, ChevronDown, Play, Lock, GraduationCap, Receipt } from 'lucide-react';
+import { ArrowLeft, BookOpen, ChevronDown, Play, Lock, GraduationCap, Receipt, Copy } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/providers';
-import { Modal, Select, Button, Spinner, ErrorState } from '@/components/ui';
+import { Modal, Select, Input, Button, Spinner, ErrorState } from '@/components/ui';
 import type { PublicCourseDetail, PublicCourseLesson } from '@/services';
 import { usePublicCourseDetail } from '@/features/home/components/Courses/queries';
 import { useMyCourses, useEnrollCourse, useSubmitPayment } from '@/features/student/components/Dashboard/queries';
 import { CourseHero } from '@/features/course-details/components/CourseHero';
 
+const RECEIVING_NUMBER = '01013556821';
+
 const PAYMENT_METHOD_OPTIONS = [
-  { value: 'cash', labelKey: 'cash' },
-  { value: 'bank_transfer', labelKey: 'bankTransfer' },
   { value: 'vodafone_cash', labelKey: 'vodafoneCash' },
   { value: 'instapay', labelKey: 'instapay' },
 ] as const;
@@ -27,7 +27,8 @@ function PaymentSubmitModal({
 }) {
   const { t } = useTranslation();
   const submitPayment = useSubmitPayment();
-  const [paymentMethod, setPaymentMethod] = useState('cash');
+  const [paymentMethod, setPaymentMethod] = useState<string>(PAYMENT_METHOD_OPTIONS[0].value);
+  const [senderPhone, setSenderPhone] = useState('');
   const [receipt, setReceipt] = useState<File | null>(null);
 
   const methodOptions = PAYMENT_METHOD_OPTIONS.map((opt) => ({
@@ -36,19 +37,35 @@ function PaymentSubmitModal({
   }));
 
   function handleClose() {
-    setPaymentMethod('cash');
+    setPaymentMethod(PAYMENT_METHOD_OPTIONS[0].value);
+    setSenderPhone('');
     setReceipt(null);
     onClose();
   }
 
+  function handleCopyNumber() {
+    navigator.clipboard.writeText(RECEIVING_NUMBER);
+    toast.success(t('courseDetails.payment.numberCopied'));
+  }
+
   async function handleSubmit() {
     if (!course) return;
+    if (!senderPhone.trim()) {
+      toast.error(t('courseDetails.payment.senderPhoneRequired'));
+      return;
+    }
     if (!receipt) {
       toast.error(t('courseDetails.payment.receiptRequired'));
       return;
     }
     try {
-      await submitPayment.mutateAsync({ courseId: course.id, amount: course.price, paymentMethod, receipt });
+      await submitPayment.mutateAsync({
+        courseId: course.id,
+        amount: course.price,
+        paymentMethod,
+        senderPhone: senderPhone.trim(),
+        receipt,
+      });
       toast.success(t('courseDetails.payment.submitSuccess'));
       handleClose();
     } catch (error) {
@@ -75,6 +92,32 @@ function PaymentSubmitModal({
             value={paymentMethod}
             onChange={setPaymentMethod}
           />
+
+          <div className="space-y-2">
+            <p className="text-sm font-medium text-[#F9F6F0]">{t('courseDetails.payment.transferTo')}</p>
+            <button
+              type="button"
+              onClick={handleCopyNumber}
+              className="flex w-full items-center justify-between rounded-xl border border-[rgba(212,181,158,0.18)] bg-[#16342D] px-4 py-3 text-start transition-colors hover:border-[#D4B59E]"
+            >
+              <span dir="ltr" className="text-lg font-bold text-[#D4B59E]">
+                {RECEIVING_NUMBER}
+              </span>
+              <Copy className="h-4 w-4 shrink-0 text-[rgba(249,246,240,0.55)]" />
+            </button>
+            <p className="text-xs text-[rgba(249,246,240,0.55)]">{t('courseDetails.payment.transferHint')}</p>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-[#F9F6F0]">{t('courseDetails.payment.senderPhone')}</label>
+            <Input
+              dir="ltr"
+              placeholder="01xxxxxxxxx"
+              value={senderPhone}
+              onChange={(e) => setSenderPhone(e.target.value)}
+            />
+            <p className="text-xs text-[rgba(249,246,240,0.55)]">{t('courseDetails.payment.senderPhoneHint')}</p>
+          </div>
 
           <div className="space-y-2">
             <label className="text-sm font-medium text-[#F9F6F0]">{t('courseDetails.payment.receipt')}</label>

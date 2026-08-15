@@ -356,6 +356,7 @@
       "myCourses": "My Courses",
       "profile": "Profile",
       "courses": "Courses",
+      "categories": "Categories",
       "students": "Students",
       "analytics": "Analytics",
       "schedule": "Schedule",
@@ -423,7 +424,7 @@
         "dueToday": "Today",
         "dueTomorrow": "Tomorrow",
         "dueIn": "In {{days}} days",
-        "empty": "No upcoming dates",
+        "empty": "You have no scheduled sessions yet",
         "loadFailed": "Failed to load your schedule"
       },
       "notifications": {
@@ -534,7 +535,7 @@
         "passwordChangeFailed": "Failed to change password"
       }
     },
-    "schedule": { "title": "Schedule", "description": "All your upcoming assignment and exam dates" },
+    "schedule": { "title": "Schedule", "description": "Your weekly class session times" },
     "attendance": {
       "title": "Attendance",
       "description": "Your attendance record",
@@ -664,6 +665,35 @@
         "deleteFailed": "Failed to delete the course"
       },
       "empty": "No courses yet"
+    },
+    "categories": {
+      "title": "Categories",
+      "description": "Manage the categories your courses can be listed under",
+      "addCategory": "Add Category",
+      "editCategory": "Edit Category",
+      "deleteConfirmTitle": "Confirm Deletion",
+      "deleteConfirmMessage": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+      "statusActive": "Active",
+      "statusInactive": "Inactive",
+      "empty": "No categories yet",
+      "fields": {
+        "name": "Category Name",
+        "description": "Description",
+        "icon": "Icon (optional)",
+        "iconPlaceholder": "e.g. math-icon",
+        "isActive": "Active"
+      },
+      "validation": {
+        "nameRequired": "Category name is required (at least 2 characters)"
+      },
+      "toast": {
+        "created": "Category created successfully",
+        "updated": "Category updated successfully",
+        "deleted": "Category deleted",
+        "loadFailed": "Failed to load categories",
+        "saveFailed": "Failed to save the category",
+        "deleteFailed": "Failed to delete the category"
+      }
     },
     "lessons": {
       "title": "Lessons",
@@ -930,6 +960,9 @@
         "course": "Course",
         "amount": "Amount",
         "method": "Method",
+        "senderPhone": "Sent From",
+        "receipt": "Receipt",
+        "viewReceipt": "View",
         "status": "Status",
         "date": "Date",
         "statusValues": { "pending": "Pending", "approved": "Approved", "rejected": "Rejected" },
@@ -964,7 +997,22 @@
       "fields": {
         "name": "Group Name",
         "description": "Description",
-        "students": "Assign Students"
+        "students": "Assign Students",
+        "schedule": "Weekly Schedule",
+        "day": "Day",
+        "startTime": "Start Time",
+        "endTime": "End Time"
+      },
+      "addScheduleSlot": "Add Session",
+      "noScheduleSlots": "No sessions scheduled yet",
+      "days": {
+        "saturday": "Saturday",
+        "sunday": "Sunday",
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday"
       },
       "studentsCount": "{{count}} students",
       "toast": {
@@ -977,7 +1025,8 @@
       },
       "validation": {
         "nameRequired": "Group name is required (at least 3 characters)",
-        "studentsRequired": "Select at least one student"
+        "studentsRequired": "Select at least one student",
+        "timeRequired": "Start and end time are required"
       }
     },
     "settings": {
@@ -1123,11 +1172,15 @@
       "amount": "Amount due",
       "method": "Payment method",
       "methods": {
-        "cash": "Cash",
-        "bankTransfer": "Bank Transfer",
         "vodafoneCash": "Vodafone Cash",
         "instapay": "InstaPay"
       },
+      "transferTo": "Transfer to",
+      "transferHint": "Send the amount to this number, then upload a screenshot of the confirmation below.",
+      "numberCopied": "Number copied",
+      "senderPhone": "The number you transferred from",
+      "senderPhoneHint": "So the teacher can match your transfer to your request.",
+      "senderPhoneRequired": "Please enter the number you transferred from",
       "receipt": "Payment receipt",
       "receiptRequired": "Please attach a payment receipt",
       "submit": "Submit Payment",

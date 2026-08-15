@@ -34,6 +34,7 @@ import {
 import {
   TeacherDashboardPage,
   TeacherCoursesPage,
+  TeacherCategoriesPage,
   TeacherStudentsPage,
   TeacherStudentDetailPage,
   TeacherParentsPage,
@@ -105,6 +106,7 @@ export function AppRouter() {
         <Route path="teacher" element={<TeacherLayout />}>
           <Route path="dashboard" element={<TeacherDashboardPage />} />
           <Route path="courses" element={<TeacherCoursesPage />} />
+          <Route path="categories" element={<TeacherCategoriesPage />} />
           <Route path="courses/:slug/lessons" element={<TeacherCourseLessonsPage />} />
           <Route path="lessons" element={<TeacherLessonsOverviewPage />} />
           <Route path="quizzes-exams" element={<TeacherQuizzesExamsPage />} />

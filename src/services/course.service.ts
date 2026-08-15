@@ -135,17 +135,6 @@ export const teacherCourseService = {
   },
 };
 
-export interface CourseCategoryOption {
-  id: number;
-  name: string;
-}
-
-/** Real API — GET /categories (public, active categories only). */
-export async function listCourseCategories(): Promise<CourseCategoryOption[]> {
-  const { data } = await api.get<{ data: { id: number; name: string }[] }>('/categories');
-  return data.data.map((category) => ({ id: category.id, name: category.name }));
-}
-
 export interface PublicCourse {
   id: number;
   title: string;

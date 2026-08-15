@@ -356,6 +356,7 @@
       "myCourses": "دوراتي",
       "profile": "الملف الشخصي",
       "courses": "الدورات",
+      "categories": "التصنيفات",
       "students": "الطلاب",
       "analytics": "التحليلات",
       "schedule": "الجدول الدراسي",
@@ -423,7 +424,7 @@
         "dueToday": "اليوم",
         "dueTomorrow": "غداً",
         "dueIn": "بعد {{days}} يوم",
-        "empty": "لا توجد مواعيد قادمة",
+        "empty": "لسه مفيش حصص متجدولة ليك",
         "loadFailed": "فشل تحميل الجدول الدراسي"
       },
       "notifications": {
@@ -534,7 +535,7 @@
         "passwordChangeFailed": "تعذر تغيير كلمة المرور"
       }
     },
-    "schedule": { "title": "الجدول الدراسي", "description": "كل مواعيد الواجبات والامتحانات القادمة" },
+    "schedule": { "title": "الجدول الدراسي", "description": "مواعيد حصصك الأسبوعية" },
     "attendance": {
       "title": "الحضور",
       "description": "سجل حضورك",
@@ -664,6 +665,35 @@
         "deleteFailed": "تعذر حذف الكورس"
       },
       "empty": "لا توجد كورسات بعد"
+    },
+    "categories": {
+      "title": "التصنيفات",
+      "description": "إدارة التصنيفات اللي بتظهر تحتها الكورسات",
+      "addCategory": "إضافة تصنيف",
+      "editCategory": "تعديل التصنيف",
+      "deleteConfirmTitle": "تأكيد الحذف",
+      "deleteConfirmMessage": "هل أنت متأكد إنك عايز تحذف تصنيف \"{{name}}\"؟ الإجراء ده مش هيتراجع.",
+      "statusActive": "مفعّل",
+      "statusInactive": "غير مفعّل",
+      "empty": "لا توجد تصنيفات بعد",
+      "fields": {
+        "name": "اسم التصنيف",
+        "description": "الوصف",
+        "icon": "الأيقونة (اختياري)",
+        "iconPlaceholder": "مثال: math-icon",
+        "isActive": "مفعّل"
+      },
+      "validation": {
+        "nameRequired": "اسم التصنيف مطلوب (حرفين على الأقل)"
+      },
+      "toast": {
+        "created": "تم إضافة التصنيف بنجاح",
+        "updated": "تم تحديث التصنيف بنجاح",
+        "deleted": "تم حذف التصنيف",
+        "loadFailed": "تعذر تحميل التصنيفات",
+        "saveFailed": "تعذر حفظ التصنيف",
+        "deleteFailed": "تعذر حذف التصنيف"
+      }
     },
     "lessons": {
       "title": "الدروس",
@@ -930,6 +960,9 @@
         "course": "الكورس",
         "amount": "المبلغ",
         "method": "طريقة الدفع",
+        "senderPhone": "حوّل من رقم",
+        "receipt": "الإيصال",
+        "viewReceipt": "عرض",
         "status": "الحالة",
         "date": "التاريخ",
         "statusValues": { "pending": "قيد الانتظار", "approved": "مقبول", "rejected": "مرفوض" },
@@ -964,7 +997,22 @@
       "fields": {
         "name": "اسم المجموعة",
         "description": "الوصف",
-        "students": "توزيع الطلاب"
+        "students": "توزيع الطلاب",
+        "schedule": "الجدول الأسبوعي",
+        "day": "اليوم",
+        "startTime": "وقت البداية",
+        "endTime": "وقت النهاية"
+      },
+      "addScheduleSlot": "إضافة حصة",
+      "noScheduleSlots": "لا توجد حصص مجدولة بعد",
+      "days": {
+        "saturday": "السبت",
+        "sunday": "الأحد",
+        "monday": "الاثنين",
+        "tuesday": "الثلاثاء",
+        "wednesday": "الأربعاء",
+        "thursday": "الخميس",
+        "friday": "الجمعة"
       },
       "studentsCount": "{{count}} طالب",
       "toast": {
@@ -977,7 +1025,8 @@
       },
       "validation": {
         "nameRequired": "اسم المجموعة مطلوب (3 أحرف على الأقل)",
-        "studentsRequired": "اختر طالب واحد على الأقل"
+        "studentsRequired": "اختر طالب واحد على الأقل",
+        "timeRequired": "وقت البداية والنهاية مطلوبين"
       }
     },
     "settings": {
@@ -1123,11 +1172,15 @@
       "amount": "المبلغ المطلوب",
       "method": "طريقة الدفع",
       "methods": {
-        "cash": "نقدي",
-        "bankTransfer": "تحويل بنكي",
         "vodafoneCash": "فودافون كاش",
         "instapay": "انستاباي"
       },
+      "transferTo": "حوّل المبلغ على الرقم ده",
+      "transferHint": "بعد ما تحوّل المبلغ، ارفع صورة سكرين شوت لتأكيد التحويل تحت.",
+      "numberCopied": "تم نسخ الرقم",
+      "senderPhone": "الرقم اللي حوّلت منه",
+      "senderPhoneHint": "عشان المدرس يقدر يتأكد من التحويل بتاعك.",
+      "senderPhoneRequired": "من فضلك اكتب الرقم اللي حوّلت منه",
       "receipt": "إيصال الدفع",
       "receiptRequired": "من فضلك ارفق صورة إيصال الدفع",
       "submit": "إرسال طلب الدفع",

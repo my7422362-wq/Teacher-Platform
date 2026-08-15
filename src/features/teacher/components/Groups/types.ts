@@ -1,9 +1,16 @@
 /**
- * Real backend Group shape. NOTE: the backend's GroupResource has no
- * course/schedule fields at all — groups are just named student cohorts
- * (name, description, students), not tied to a course or a weekly
- * timetable. The old mock model's `courseId`/`schedule` don't exist here.
+ * Real backend Group shape. The backend now also stores a weekly session
+ * schedule per group (day + start/end time), returned/accepted as a
+ * `schedule` array alongside name/description/students.
  */
+
+export type ScheduleDay = 'saturday' | 'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday';
+
+export interface GroupScheduleSlot {
+  day: ScheduleDay;
+  startTime: string;
+  endTime: string;
+}
 
 export interface GroupStudent {
   id: number;
@@ -16,6 +23,7 @@ export interface TeacherGroup {
   name: string;
   description: string | null;
   students: GroupStudent[];
+  schedule: GroupScheduleSlot[];
   createdAt: string | null;
 }
 
@@ -23,4 +31,5 @@ export interface TeacherGroupFormValues {
   name: string;
   description: string;
   studentIds: number[];
+  schedule: GroupScheduleSlot[];
 }

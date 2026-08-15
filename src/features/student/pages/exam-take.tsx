@@ -27,7 +27,10 @@ export function ExamTakePage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [result, setResult] = useState<{ score: number; status: string } | null>(null);
-  const [timeLeft, setTimeLeft] = useState(0);
+  // -1 = "timer not started yet" (distinct from 0 = "time's up"), so the
+  // countdown effect below can't mistake a not-yet-initialized timer for
+  // an expired one and auto-submit an empty attempt the instant the exam loads.
+  const [timeLeft, setTimeLeft] = useState(-1);
 
   useEffect(() => {
     if (exam) setTimeLeft(exam.durationMinutes * 60);
@@ -54,15 +57,15 @@ export function ExamTakePage() {
   }
 
   useEffect(() => {
-    if (!exam || result || blocked || attemptExam.isPending) return;
-    if (timeLeft <= 0) {
+    if (timeLeft < 0 || result || blocked || attemptExam.isPending) return;
+    if (timeLeft === 0) {
       handleSubmit();
       return;
     }
     const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
     return () => clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeLeft, result, exam, blocked, attemptExam.isPending]);
+  }, [timeLeft, result, blocked, attemptExam.isPending]);
 
   if (isLoading || progressLoading) {
     return (
@@ -126,6 +129,14 @@ export function ExamTakePage() {
       <div className="space-y-6">
         <PageHeader title={exam.title} description={t('examTakePage.noQuestions')} />
         <Button onClick={() => navigate('/student/dashboard')}>{t('examTakePage.backToDashboard')}</Button>
+      </div>
+    );
+  }
+
+  if (timeLeft < 0) {
+    return (
+      <div className="flex justify-center py-16">
+        <Spinner />
       </div>
     );
   }

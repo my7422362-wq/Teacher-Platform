@@ -1,14 +1,25 @@
 import { useEffect, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
-import { Modal, Button, Input, Textarea, Checkbox, Spinner } from '@/components/ui';
+import { Plus, Trash2 } from 'lucide-react';
+import { Modal, Button, Input, Textarea, Checkbox, Select, Spinner } from '@/components/ui';
 import { createGroupSchema, type GroupSchemaValues } from './schemas';
 import { useStudentsList, useCreateGroup, useUpdateGroup } from './queries';
-import type { TeacherGroup } from './types';
+import type { TeacherGroup, ScheduleDay } from './types';
 
-const DEFAULT_VALUES: GroupSchemaValues = { name: '', description: '', studentIds: [] };
+const DEFAULT_VALUES: GroupSchemaValues = { name: '', description: '', studentIds: [], schedule: [] };
+
+const DAY_OPTIONS: { value: ScheduleDay; labelKey: string }[] = [
+  { value: 'saturday', labelKey: 'saturday' },
+  { value: 'sunday', labelKey: 'sunday' },
+  { value: 'monday', labelKey: 'monday' },
+  { value: 'tuesday', labelKey: 'tuesday' },
+  { value: 'wednesday', labelKey: 'wednesday' },
+  { value: 'thursday', labelKey: 'thursday' },
+  { value: 'friday', labelKey: 'friday' },
+];
 
 interface GroupFormModalProps {
   isOpen: boolean;
@@ -26,6 +37,7 @@ export function GroupFormModal({ isOpen, onClose, group }: GroupFormModalProps) 
 
   const {
     register,
+    control,
     handleSubmit,
     watch,
     setValue,
@@ -36,13 +48,23 @@ export function GroupFormModal({ isOpen, onClose, group }: GroupFormModalProps) 
     defaultValues: DEFAULT_VALUES,
   });
 
+  const { fields: scheduleFields, append: appendSlot, remove: removeSlot } = useFieldArray({
+    control,
+    name: 'schedule',
+  });
+
   const studentIds = watch('studentIds');
 
   useEffect(() => {
     if (!isOpen) return;
     reset(
       group
-        ? { name: group.name, description: group.description ?? '', studentIds: group.students.map((s) => s.id) }
+        ? {
+            name: group.name,
+            description: group.description ?? '',
+            studentIds: group.students.map((s) => s.id),
+            schedule: group.schedule,
+          }
         : DEFAULT_VALUES
     );
   }, [isOpen, group, reset]);
@@ -102,6 +124,65 @@ export function GroupFormModal({ isOpen, onClose, group }: GroupFormModalProps) 
                   <Checkbox checked={studentIds.includes(student.id)} onChange={() => toggleStudent(student.id)} />
                   {student.name}
                 </label>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <label className="text-sm font-medium text-[#F9F6F0]">{t('teacherPages.groups.fields.schedule')}</label>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => appendSlot({ day: 'sunday', startTime: '', endTime: '' })}
+            >
+              <Plus className="h-3.5 w-3.5" />
+              {t('teacherPages.groups.addScheduleSlot')}
+            </Button>
+          </div>
+
+          {scheduleFields.length === 0 ? (
+            <p className="rounded-xl border border-dashed border-[rgba(212,181,158,0.18)] p-4 text-center text-sm text-[rgba(249,246,240,0.45)]">
+              {t('teacherPages.groups.noScheduleSlots')}
+            </p>
+          ) : (
+            <div className="space-y-2">
+              {scheduleFields.map((field, index) => (
+                <div key={field.id} className="grid grid-cols-[1fr_1fr_1fr_auto] items-end gap-2">
+                  <Select
+                    label={index === 0 ? t('teacherPages.groups.fields.day') : undefined}
+                    options={DAY_OPTIONS.map((d) => ({ value: d.value, label: t(`teacherPages.groups.days.${d.labelKey}`) }))}
+                    value={watch(`schedule.${index}.day`)}
+                    onChange={(value) => setValue(`schedule.${index}.day`, value as ScheduleDay)}
+                  />
+                  <div className="space-y-1.5">
+                    {index === 0 && (
+                      <label className="block text-sm font-medium text-[#F9F6F0]">
+                        {t('teacherPages.groups.fields.startTime')}
+                      </label>
+                    )}
+                    <Input type="time" {...register(`schedule.${index}.startTime`)} />
+                  </div>
+                  <div className="space-y-1.5">
+                    {index === 0 && (
+                      <label className="block text-sm font-medium text-[#F9F6F0]">
+                        {t('teacherPages.groups.fields.endTime')}
+                      </label>
+                    )}
+                    <Input type="time" {...register(`schedule.${index}.endTime`)} />
+                  </div>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    className="text-destructive hover:bg-destructive/10"
+                    onClick={() => removeSlot(index)}
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
               ))}
             </div>
           )}

@@ -57,10 +57,16 @@ export function ExamsList() {
                 <p className="text-xs text-[rgba(249,246,240,0.55)]">
                   {exam.timeStatus === 'upcoming'
                     ? t('studentPages.dashboard.exams.opensOn', {
-                        date: new Date(exam.startDate).toLocaleDateString(i18n.language),
+                        date: new Date(exam.startDate).toLocaleString(i18n.language, {
+                          dateStyle: 'medium',
+                          timeStyle: 'short',
+                        }),
                       })
                     : t('studentPages.dashboard.exams.closesOn', {
-                        date: new Date(exam.endDate).toLocaleDateString(i18n.language),
+                        date: new Date(exam.endDate).toLocaleString(i18n.language, {
+                          dateStyle: 'medium',
+                          timeStyle: 'short',
+                        }),
                       })}
                 </p>
 

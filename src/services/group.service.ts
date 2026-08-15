@@ -1,12 +1,22 @@
 import axios from 'axios';
 import api from '@/services/api';
 import i18n from '@/i18n/config';
-import type { TeacherGroup, TeacherGroupFormValues } from '@/features/teacher/components/Groups/types';
+import type {
+  TeacherGroup,
+  TeacherGroupFormValues,
+  GroupScheduleSlot,
+} from '@/features/teacher/components/Groups/types';
 
 interface UserResourceDto {
   id: number;
   name: string;
   photo_url: string | null;
+}
+
+interface ScheduleSlotDto {
+  day: GroupScheduleSlot['day'];
+  start_time: string;
+  end_time: string;
 }
 
 interface GroupResourceDto {
@@ -15,6 +25,7 @@ interface GroupResourceDto {
   description: string | null;
   teacher: UserResourceDto | null;
   students: UserResourceDto[];
+  schedule: ScheduleSlotDto[] | null;
   created_at: string | null;
 }
 
@@ -24,8 +35,13 @@ function mapGroup(dto: GroupResourceDto): TeacherGroup {
     name: dto.name,
     description: dto.description,
     students: (dto.students ?? []).map((s) => ({ id: s.id, name: s.name, avatar: s.photo_url })),
+    schedule: (dto.schedule ?? []).map((s) => ({ day: s.day, startTime: s.start_time, endTime: s.end_time })),
     createdAt: dto.created_at,
   };
+}
+
+function toScheduleDto(schedule: GroupScheduleSlot[]): ScheduleSlotDto[] {
+  return schedule.map((s) => ({ day: s.day, start_time: s.startTime, end_time: s.endTime }));
 }
 
 function extractErrorMessage(error: unknown, fallback: string): string {
@@ -63,6 +79,7 @@ export const groupService = {
         name: values.name,
         description: values.description || null,
         students: values.studentIds,
+        schedule: toScheduleDto(values.schedule),
       });
       return mapGroup(data.data);
     } catch (error) {
@@ -76,6 +93,7 @@ export const groupService = {
         name: values.name,
         description: values.description || null,
         students: values.studentIds,
+        schedule: toScheduleDto(values.schedule),
       });
       return mapGroup(data.data);
     } catch (error) {
@@ -88,6 +106,17 @@ export const groupService = {
       await api.delete(`/groups/${groupId}`);
     } catch (error) {
       throw new Error(extractErrorMessage(error, i18n.t('teacherPages.groups.toast.deleteFailed')));
+    }
+  },
+
+  /** Student-facing — the group(s) the authenticated student belongs to,
+   *  including their weekly session schedule. */
+  async listForStudent(studentId: number): Promise<TeacherGroup[]> {
+    try {
+      const { data } = await api.get<{ data: GroupResourceDto[] }>(`/students/${studentId}/groups`);
+      return data.data.map(mapGroup);
+    } catch (error) {
+      throw new Error(extractErrorMessage(error, i18n.t('studentPages.dashboard.schedule.loadFailed')));
     }
   },
 };

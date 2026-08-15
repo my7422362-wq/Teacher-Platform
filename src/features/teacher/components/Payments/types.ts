@@ -29,8 +29,9 @@ export interface TeacherPayment {
   courseTitle: string | null;
   amount: number;
   paymentMethod: string;
+  senderPhone: string | null;
   status: 'pending' | 'approved' | 'rejected';
-  receiptPath: string | null;
+  receiptUrl: string | null;
   approvedAt: string | null;
   createdAt: string | null;
 }

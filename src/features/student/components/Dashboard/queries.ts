@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { studentService, publicCourseService, certificateService, paymentService } from '@/services';
+import { studentService, publicCourseService, certificateService, paymentService, groupService } from '@/services';
 import { useAuth } from '@/providers';
 
 function useStudentId(): number {
@@ -32,6 +32,15 @@ export function useRecommendedCourses() {
   });
 }
 
+export function useMyGroups() {
+  const studentId = useStudentId();
+  return useQuery({
+    queryKey: ['student', 'groups', studentId],
+    queryFn: () => groupService.listForStudent(studentId),
+    enabled: !!studentId,
+  });
+}
+
 export function useMyCertificates() {
   const studentId = useStudentId();
   return useQuery({
@@ -60,13 +69,15 @@ export function useSubmitPayment() {
       courseId,
       amount,
       paymentMethod,
+      senderPhone,
       receipt,
     }: {
       courseId: number;
       amount: number;
       paymentMethod: string;
+      senderPhone: string;
       receipt: File;
-    }) => paymentService.submit(courseId, amount, paymentMethod, receipt),
+    }) => paymentService.submit(courseId, amount, paymentMethod, senderPhone, receipt),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['student', 'payments'] }),
   });
 }
