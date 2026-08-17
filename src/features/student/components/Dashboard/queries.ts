@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { studentService, publicCourseService, certificateService, paymentService, groupService } from '@/services';
+import { studentService, publicCourseService, certificateService, paymentService, groupService, meetingService } from '@/services';
 import { useAuth } from '@/providers';
 
 function useStudentId(): number {
@@ -37,6 +37,15 @@ export function useMyGroups() {
   return useQuery({
     queryKey: ['student', 'groups', studentId],
     queryFn: () => groupService.listForStudent(studentId),
+    enabled: !!studentId,
+  });
+}
+
+export function useMyMeetings() {
+  const studentId = useStudentId();
+  return useQuery({
+    queryKey: ['student', 'meetings', studentId],
+    queryFn: () => meetingService.listForStudent(studentId),
     enabled: !!studentId,
   });
 }

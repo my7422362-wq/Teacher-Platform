@@ -75,8 +75,13 @@ export const teacherService = {
    */
   async getGrades(): Promise<GradesOverview> {
     try {
-      const { data } = await api.get<{ data: GradesOverviewDto }>('/teachers/grades');
-      const dto = data.data;
+      const { data } = await api.get<{ data: GradesOverviewDto | [] }>('/teachers/grades');
+      // The backend returns a bare `[]` (not the documented stats object)
+      // when there's nothing graded yet — treat that as an empty overview
+      // instead of rendering "undefined" everywhere.
+      const dto: GradesOverviewDto = Array.isArray(data.data)
+        ? { overall_average: 0, total_graded: 0, total_passed: 0, total_failed: 0, pass_rate: 0, fail_rate: 0, ranking: [] }
+        : data.data;
       return {
         overallAverage: dto.overall_average,
         totalGraded: dto.total_graded,

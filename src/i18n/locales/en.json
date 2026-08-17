@@ -371,7 +371,8 @@
       "lessons": "Lessons",
       "quizzesExams": "Quizzes & Exams",
       "attendance": "Attendance",
-      "groups": "Groups & Schedule"
+      "groups": "Groups & Schedule",
+      "meetings": "Meetings"
     }
   },
   "mainLayout": {
@@ -1204,6 +1205,39 @@
       "joinPrefix": "Join",
       "joinMiddle": "students and start your journey mastering",
       "browseCourses": "Browse Courses"
+    }
+  },
+  "meetings": {
+    "title": "Meetings",
+    "teacherDescription": "Schedule and start live video meetings with your students",
+    "studentDescription": "Join the live meetings scheduled for your courses",
+    "createMeeting": "Schedule Meeting",
+    "empty": "No meetings scheduled yet",
+    "start": "Start",
+    "join": "Join Meeting",
+    "notYet": "Not started yet",
+    "statusReady": "Ready to join",
+    "statusUpcoming": "Upcoming",
+    "statusPast": "Past",
+    "leaveRoom": "Leave Room",
+    "roomNotFound": "Meeting room not found",
+    "deleteConfirmTitle": "Confirm Deletion",
+    "deleteConfirmMessage": "Are you sure you want to delete \"{{title}}\"?",
+    "fields": {
+      "course": "Course",
+      "title": "Meeting Title",
+      "scheduledAt": "Date & Time"
+    },
+    "validation": {
+      "courseRequired": "Please select a course",
+      "titleRequired": "Meeting title is required"
+    },
+    "toast": {
+      "created": "Meeting scheduled successfully",
+      "saveFailed": "Failed to schedule the meeting",
+      "deleted": "Meeting deleted",
+      "deleteFailed": "Failed to delete the meeting",
+      "loadFailed": "Failed to load meetings"
     }
   }
 }

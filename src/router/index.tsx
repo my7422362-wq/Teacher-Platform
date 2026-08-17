@@ -30,6 +30,8 @@ import {
   StudentPaymentsPage,
   StudentNotificationsPage,
   StudentAttendancePage,
+  StudentMeetingsPage,
+  StudentMeetingRoomPage,
 } from '@/features/student/pages';
 import {
   TeacherDashboardPage,
@@ -53,6 +55,8 @@ import {
   TeacherGroupsPage,
   TeacherAnalyticsPage,
   TeacherSettingsPage,
+  TeacherMeetingsPage,
+  TeacherMeetingRoomPage,
 } from '@/features/teacher/pages';
 
 export function AppRouter() {
@@ -98,6 +102,8 @@ export function AppRouter() {
           <Route path="payments" element={<StudentPaymentsPage />} />
           <Route path="notifications" element={<StudentNotificationsPage />} />
           <Route path="attendance" element={<StudentAttendancePage />} />
+          <Route path="meetings" element={<StudentMeetingsPage />} />
+          <Route path="meetings/room" element={<StudentMeetingRoomPage />} />
         </Route>
       </Route>
 
@@ -126,6 +132,8 @@ export function AppRouter() {
           <Route path="analytics" element={<TeacherAnalyticsPage />} />
           <Route path="settings" element={<TeacherSettingsPage />} />
           <Route path="profile" element={<TeacherSettingsPage />} />
+          <Route path="meetings" element={<TeacherMeetingsPage />} />
+          <Route path="meetings/room" element={<TeacherMeetingRoomPage />} />
         </Route>
       </Route>
 

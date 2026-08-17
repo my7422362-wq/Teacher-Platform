@@ -371,7 +371,8 @@
       "lessons": "الدروس",
       "quizzesExams": "الكويزات والامتحانات",
       "attendance": "الحضور",
-      "groups": "المجموعات والجدول"
+      "groups": "المجموعات والجدول",
+      "meetings": "الاجتماعات"
     }
   },
   "mainLayout": {
@@ -1204,6 +1205,39 @@
       "joinPrefix": "انضم إلى",
       "joinMiddle": "طالب وابدأ رحلتك في إتقان",
       "browseCourses": "تصفح الدورات"
+    }
+  },
+  "meetings": {
+    "title": "الاجتماعات",
+    "teacherDescription": "جدول وابدأ اجتماعات فيديو مباشرة مع طلابك",
+    "studentDescription": "انضم للاجتماعات المباشرة المجدولة لكورساتك",
+    "createMeeting": "جدولة اجتماع",
+    "empty": "لا توجد اجتماعات مجدولة بعد",
+    "start": "بدء",
+    "join": "انضم للاجتماع",
+    "notYet": "لسه ماوصلش وقته",
+    "statusReady": "جاهز للانضمام",
+    "statusUpcoming": "قادم",
+    "statusPast": "منتهي",
+    "leaveRoom": "مغادرة الاجتماع",
+    "roomNotFound": "الاجتماع غير موجود",
+    "deleteConfirmTitle": "تأكيد الحذف",
+    "deleteConfirmMessage": "هل أنت متأكد إنك عايز تحذف اجتماع \"{{title}}\"؟",
+    "fields": {
+      "course": "الكورس",
+      "title": "عنوان الاجتماع",
+      "scheduledAt": "التاريخ والوقت"
+    },
+    "validation": {
+      "courseRequired": "من فضلك اختر كورس",
+      "titleRequired": "عنوان الاجتماع مطلوب"
+    },
+    "toast": {
+      "created": "تم جدولة الاجتماع بنجاح",
+      "saveFailed": "فشل جدولة الاجتماع",
+      "deleted": "تم حذف الاجتماع",
+      "deleteFailed": "فشل حذف الاجتماع",
+      "loadFailed": "فشل تحميل الاجتماعات"
     }
   }
 }
