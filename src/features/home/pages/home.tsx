@@ -1,13 +1,13 @@
 import {
   Navbar,
   HeroSection,
-  AboutTeacher,
+  AboutUs,
+  MeetTeachers,
   CoursesSection,
   WhyChooseUs,
   ResultsSection,
   TrialBookingSection,
   Testimonials,
-  BlogSection,
   FAQSection,
   ContactSection,
   CTASection,
@@ -20,13 +20,13 @@ export function HomePage() {
       <Navbar />
       <main>
         <HeroSection />
-        <AboutTeacher />
-        <CoursesSection />
+        <AboutUs />
+        <MeetTeachers />
+        <CoursesSection limitTeachers={4} limitCoursesPerTeacher={3} />
         <WhyChooseUs />
         <ResultsSection />
         <TrialBookingSection />
         <Testimonials />
-        <BlogSection />
         <FAQSection />
         <ContactSection />
         <CTASection />

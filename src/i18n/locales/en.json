@@ -15,21 +15,23 @@
   },
   "nav": {
     "home": "Home",
-    "aboutTeacher": "About the Teacher",
+    "aboutUs": "About Us",
+    "ourTeachers": "Our Teachers",
     "courses": "Courses",
     "testimonials": "Testimonials",
     "contact": "Contact Us",
     "about": "About",
     "login": "Log In",
     "register": "Sign Up",
+    "dashboard": "Dashboard",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },
   "hero": {
     "badge": "Learn smart, succeed with confidence",
-    "titleLine1": "Learn better with teacher",
-    "titleLine2": " Abdullah Saeed",
-    "description": "An educational platform specialized in teaching Arabic, offering simplified and structured explanations, interactive exercises, periodic tests, and continuous follow-up to help students understand the curriculum, master every branch of the Arabic language, and achieve top grades with confidence and excellence.",
+    "titleLine1": "Learn Better",
+    "titleLine2": " With Our Expert Teachers",
+    "description": "An educational platform bringing together specialized teachers across multiple subjects, offering simplified and structured explanations, interactive exercises, periodic tests, and continuous follow-up to help students master their courses and achieve top grades with confidence and excellence.",
     "primaryCta": "Start Learning Now",
     "secondaryCta": "Browse Courses",
     "floatingCards": {
@@ -38,45 +40,31 @@
       "Award": "Certified certificates upon course completion"
     },
     "stats": {
-      "students": { "value": "1000+", "label": "Students" },
-      "courses": { "value": "100+", "label": "Courses" },
-      "experience": { "value": "10+", "label": "Years of experience" },
-      "successRate": { "value": "95%+", "label": "Success rate" }
+      "students": "Students",
+      "courses": "Courses",
+      "teachers": "Teachers",
+      "lessons": "Lessons"
     }
   },
-  "about": {
-    "section": {
-      "badge": "Our philosophy in teaching Arabic",
-      "title": "Educational Experience That Makes a Difference",
-      "description": "We strive to provide a comprehensive educational experience in Arabic based on simplified explanation, practical training, and continuous follow-up to help every student achieve the best results."
-    },
-    "mission": {
-      "title": "Our Educational Mission",
-      "paragraph": "We believe that learning Arabic doesn't rely on memorization alone, but on deep understanding, continuous practice, and connecting rules with practical application. That's why this platform was designed to deliver a modern learning experience that helps students excel with confidence."
-    },
-    "badgeSecondary": "About the Teacher",
-    "description": "A teacher specialized in teaching Arabic with a simplified, modern approach that helps students understand and excel.",
-    "teacherInfo": "I believe every student is capable of excelling in Arabic given the right explanation and continuous follow-up. My goal is to simplify the subject and make it enjoyable and understandable for everyone.",
+  "aboutUs": {
+    "badge": "About Us",
+    "title": "An Educational Experience That Makes a Difference",
+    "mission": "We believe learning doesn't rely on memorization alone, but on deep understanding, continuous practice, and connecting concepts to real application. That's why this platform brings together specialized teachers to deliver a modern learning experience that helps students excel with confidence.",
     "features": {
       "feature1": "Simple and easy-to-understand explanations",
       "feature2": "Continuous tracking of student performance",
       "feature3": "Exercises and tests after every lesson"
-    },
-    "achievements": {
-      "GraduationCap": { "value": "5+", "label": "Years of experience" },
-      "Users": { "value": "1000+", "label": "Students" },
-      "Star": { "value": "95%", "label": "Success rate" },
-      "BookOpen": { "value": "300+", "label": "Lessons taught" },
-      "Headphones": { "value": "100%", "label": "Support & follow-up" },
-      "RefreshCw": { "value": "100%", "label": "Updated content" }
-    },
-    "timeline": {
-      "2014": "The educational journey begins",
-      "2017": "Development of a modern teaching style",
-      "2021": "Thousands of top-performing students",
-      "2026": "Launch of the learning platform"
-    },
-    "journeyLabel": "Our Educational Journey"
+    }
+  },
+  "ourTeachers": {
+    "badge": "Meet Our Teachers",
+    "title": "Learn With Our Expert Teachers",
+    "description": "A group of specialized teachers, each with their own courses and teaching style, ready to help you achieve the best results.",
+    "coursesCount": "{{count}} courses",
+    "studentsCount": "{{count}} students",
+    "viewCourses": "View Courses",
+    "empty": "No teachers on the platform yet",
+    "loadFailed": "Failed to load teachers"
   },
   "courses": {
     "badge": "Educational Courses",
@@ -89,7 +77,9 @@
     "currency": "EGP",
     "lessonsUnit": "lessons",
     "hoursUnit": "hours",
-    "viewDetails": "View Details"
+    "viewDetails": "View Details",
+    "teacherCoursesCount": "{{count}} courses",
+    "browseAll": "Browse All Courses"
   },
   "whyChooseUs": {
     "badge": "Why Us",
@@ -146,15 +136,14 @@
     "phoneLabel": "Message us on WhatsApp"
   },
   "results": {
-    "badge": "Real Results",
+    "badge": "Real Numbers",
     "title": "Numbers We're Proud Of",
-    "description": "These are real results we track closely for every student on the platform.",
+    "description": "Real, live numbers from across the platform — updated the moment a teacher or student joins.",
     "items": {
-      "successRate": "Student success rate",
       "students": "Students who benefited from our courses",
-      "lessons": "Lessons available on the platform"
-    },
-    "disclaimer": "Numbers are updated continuously based on tracking student performance."
+      "courses": "Available courses",
+      "teachers": "Specialized teachers"
+    }
   },
   "trialBooking": {
     "badge": "Try for Free",
@@ -169,20 +158,14 @@
     "whatsappMessage": "Hi, I'd like to book a free trial lesson.\nName: {{name}}\nPhone: {{phone}}\nGrade: {{grade}}",
     "toastSuccess": "Redirecting you to WhatsApp now"
   },
-  "blogSection": {
-    "badge": "Blog",
-    "title": "Articles to Help You Learn More",
-    "description": "Practical tips and articles about Arabic, updated regularly.",
-    "viewAll": "View All Articles"
-  },
   "cta": {
     "title": "Start Your Learning Journey Today",
-    "description": "Join thousands of students who started mastering Arabic with confidence and excellence.",
+    "description": "Join thousands of students who started their learning journey with confidence and excellence.",
     "buttonText": "Sign Up Now for Free"
   },
   "footer": {
     "brandName": "Smart Learning Platform",
-    "description": "An educational platform specialized in teaching Arabic, helping students master every branch of the language in a modern, interactive way.",
+    "description": "An educational platform bringing together specialized teachers across multiple subjects, helping students learn in a modern, interactive way.",
     "quickLinksTitle": "Quick Links",
     "supportTitle": "Support",
     "followTitle": "Follow Us",
@@ -190,8 +173,7 @@
     "quickLinks": {
       "home": "Home",
       "courses": "Courses",
-      "about": "About",
-      "blog": "Blog"
+      "about": "About"
     },
     "supportLinks": {
       "faq": "FAQ",
@@ -222,9 +204,6 @@
     "register": {
       "title": "Create a New Account",
       "description": "Enter your details to create a new account on the platform",
-      "iAm": "I am:",
-      "roleStudent": "Student",
-      "roleTeacher": "Teacher",
       "fullName": "Full Name",
       "fullNamePlaceholder": "Full name",
       "email": "Email",
@@ -262,9 +241,9 @@
     "imagePanel": {
       "badge": "A Trusted Learning Platform",
       "title": "Learning Platform",
-      "description": "Learn Arabic in a simplified, professional way with top teachers."
+      "description": "Learn in a simplified, professional way with our top teachers."
     },
-    "brandTagline": "An educational platform specialized in the Arabic language",
+    "brandTagline": "An educational platform for specialized teachers across multiple subjects",
     "grades": {
       "prep1": "7th Grade (Prep 1)",
       "prep2": "8th Grade (Prep 2)",
@@ -382,11 +361,10 @@
     "login": "Log In",
     "register": "Sign Up",
     "footer": {
-      "description": "An educational platform specialized in teaching Arabic, offering simplified, structured explanations and interactive exercises.",
+      "description": "An educational platform bringing together specialized teachers across multiple subjects, offering simplified, structured explanations and interactive exercises.",
       "quickLinksTitle": "Quick Links",
       "browseCourses": "Browse Courses",
       "aboutPlatform": "About",
-      "blog": "Blog",
       "contactUs": "Contact Us",
       "supportTitle": "Support",
       "faq": "FAQ",
@@ -639,6 +617,7 @@
       "fields": {
         "title": "Course Title",
         "description": "Description",
+        "thumbnail": "Course Image",
         "price": "Price",
         "currency": "Currency",
         "duration": "Duration (hours)",
@@ -648,6 +627,8 @@
         "isFeatured": "Featured course",
         "isPublished": "Publish course"
       },
+      "uploadThumbnail": "Upload Image",
+      "replaceThumbnail": "Replace Image",
       "levels": { "beginner": "Beginner", "intermediate": "Intermediate", "advanced": "Advanced" },
       "validation": {
         "titleRequired": "Course title is required (at least 3 characters)",
@@ -1134,14 +1115,6 @@
     "title": "Available Courses",
     "description": "Browse all courses available on the platform"
   },
-  "blogPage": {
-    "title": "Arabic Learning Blog",
-    "description": "Articles and practical tips to help you master Arabic more easily and enjoyably.",
-    "readMinutes": "min read",
-    "backToBlog": "Back to Blog",
-    "notFoundTitle": "Article Not Found",
-    "notFoundDescription": "Sorry, we couldn't find the article you're looking for. It may have been removed or the link is incorrect."
-  },
   "notFound": {
     "message": "Page not found",
     "backHome": "Back to Home"
@@ -1238,6 +1211,109 @@
       "deleted": "Meeting deleted",
       "deleteFailed": "Failed to delete the meeting",
       "loadFailed": "Failed to load meetings"
+    }
+  },
+  "adminPages": {
+    "sidebar": {
+      "teachers": "Teachers",
+      "students": "Students",
+      "courses": "Courses"
+    },
+    "overview": {
+      "title": "Overview",
+      "description": "A platform-wide snapshot of teachers, students, courses, and revenue",
+      "stats": {
+        "teachers": "Teachers",
+        "students": "Students",
+        "courses": "Courses",
+        "revenue": "Total Revenue",
+        "pendingPayments": "Pending Payments"
+      },
+      "topTeachers": {
+        "title": "Top Teachers",
+        "students": "{{count}} students"
+      },
+      "pendingPayments": {
+        "title": "Pending Payments",
+        "empty": "No pending payments"
+      },
+      "toast": { "loadFailed": "Failed to load the overview" }
+    },
+    "teachers": {
+      "title": "Teachers",
+      "description": "All teachers on the platform",
+      "addTeacher": "Add Teacher",
+      "empty": "No teachers yet",
+      "deleteConfirmTitle": "Confirm Deletion",
+      "deleteConfirmMessage": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+      "table": {
+        "name": "Name",
+        "email": "Email",
+        "subjects": "Subjects",
+        "courses": "Courses",
+        "students": "Students",
+        "status": "Status",
+        "joined": "Joined",
+        "actions": "Actions"
+      },
+      "fields": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "password": "Password"
+      },
+      "validation": {
+        "nameRequired": "Name is required (at least 3 characters)",
+        "emailInvalid": "Enter a valid email",
+        "phoneRequired": "Phone number is required",
+        "passwordMin": "Password must be at least 8 characters"
+      },
+      "toast": {
+        "loadFailed": "Failed to load teachers",
+        "created": "Teacher account created successfully",
+        "createFailed": "Failed to create the teacher account",
+        "deleted": "Teacher deleted successfully",
+        "deleteFailed": "Failed to delete the teacher"
+      }
+    },
+    "students": {
+      "title": "Students",
+      "description": "All students on the platform",
+      "empty": "No students yet",
+      "table": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "status": "Status",
+        "joined": "Joined",
+        "viewCourses": "Courses"
+      },
+      "toast": { "loadFailed": "Failed to load students" },
+      "coursesModal": {
+        "title": "{{name}}'s Courses",
+        "empty": "Not enrolled in any course yet",
+        "loadFailed": "Failed to load this student's courses",
+        "unknownTeacher": "Unknown teacher",
+        "progress": "{{percent}}% complete"
+      }
+    },
+    "courses": {
+      "title": "Courses",
+      "description": "All courses across every teacher on the platform",
+      "empty": "No courses yet",
+      "table": {
+        "title": "Course",
+        "teacher": "Teacher",
+        "category": "Category",
+        "price": "Price",
+        "students": "Students",
+        "status": "Status"
+      },
+      "toast": { "loadFailed": "Failed to load courses" }
+    },
+    "payments": {
+      "title": "Payments",
+      "description": "Every payment across the platform — approve or reject any of them"
     }
   }
 }

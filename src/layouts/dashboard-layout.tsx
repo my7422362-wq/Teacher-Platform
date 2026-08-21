@@ -34,7 +34,7 @@ interface SidebarItem {
 
 interface DashboardLayoutProps {
   sidebarItems: SidebarItem[];
-  role: 'student' | 'teacher';
+  role: 'student' | 'teacher' | 'admin';
 }
 
 export function DashboardLayout({ sidebarItems, role }: DashboardLayoutProps) {

@@ -1,8 +1,9 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
+import { Image, X } from 'lucide-react';
 import { Modal, Button, Input, Textarea, Select, Checkbox, type SelectOption } from '@/components/ui';
 import { createCourseSchema, type CourseFormValues } from './schemas';
 import { useCourseCategories, useCreateCourse, useUpdateCourse } from './queries';
@@ -33,6 +34,8 @@ export function CourseFormModal({ isOpen, onClose, course }: CourseFormModalProp
   const createCourse = useCreateCourse();
   const updateCourse = useUpdateCourse();
   const submitting = createCourse.isPending || updateCourse.isPending;
+  const thumbnailInputRef = useRef<HTMLInputElement>(null);
+  const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
 
   const levelOptions: SelectOption[] = useMemo(
     () => [
@@ -61,6 +64,7 @@ export function CourseFormModal({ isOpen, onClose, course }: CourseFormModalProp
 
   useEffect(() => {
     if (!isOpen) return;
+    setThumbnailFile(null);
     reset(
       course
         ? {
@@ -81,10 +85,10 @@ export function CourseFormModal({ isOpen, onClose, course }: CourseFormModalProp
   const onSubmit = async (values: CourseFormValues) => {
     try {
       if (course) {
-        await updateCourse.mutateAsync({ slug: course.slug, values });
+        await updateCourse.mutateAsync({ slug: course.slug, values: { ...values, thumbnail: thumbnailFile } });
         toast.success(t('teacherPages.courses.toast.updated'));
       } else {
-        await createCourse.mutateAsync(values);
+        await createCourse.mutateAsync({ ...values, thumbnail: thumbnailFile });
         toast.success(t('teacherPages.courses.toast.created'));
       }
       onClose();
@@ -109,6 +113,46 @@ export function CourseFormModal({ isOpen, onClose, course }: CourseFormModalProp
         <div className="space-y-2">
           <label className="text-sm font-medium text-[#F9F6F0]">{t('teacherPages.courses.fields.description')}</label>
           <Textarea rows={3} error={errors.description?.message} {...register('description')} />
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-[#F9F6F0]">{t('teacherPages.courses.fields.thumbnail')}</label>
+          <input
+            ref={thumbnailInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={(e) => setThumbnailFile(e.target.files?.[0] ?? null)}
+          />
+          {thumbnailFile ? (
+            <div className="flex items-center gap-3">
+              <img
+                src={URL.createObjectURL(thumbnailFile)}
+                alt=""
+                className="h-16 w-16 shrink-0 rounded-lg object-cover"
+              />
+              <span className="flex-1 truncate text-sm text-[#F9F6F0]">{thumbnailFile.name}</span>
+              <button
+                type="button"
+                onClick={() => setThumbnailFile(null)}
+                className="shrink-0 text-[rgba(249,246,240,0.45)] hover:text-destructive"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          ) : course?.thumbnail ? (
+            <div className="flex items-center gap-3">
+              <img src={course.thumbnail} alt="" className="h-16 w-16 shrink-0 rounded-lg object-cover" />
+              <Button type="button" variant="outline" size="sm" onClick={() => thumbnailInputRef.current?.click()}>
+                {t('teacherPages.courses.replaceThumbnail')}
+              </Button>
+            </div>
+          ) : (
+            <Button type="button" variant="outline" size="sm" onClick={() => thumbnailInputRef.current?.click()}>
+              <Image className="h-4 w-4" />
+              {t('teacherPages.courses.uploadThumbnail')}
+            </Button>
+          )}
         </div>
 
         <div className="grid gap-4 sm:grid-cols-3">

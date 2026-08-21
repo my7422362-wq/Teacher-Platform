@@ -97,8 +97,11 @@ export const authService = {
    * immediately, so it can be used to call send-otp without a separate login).
    *
    * REAL API — POST /auth/register (JSON body).
-   * Self-registration is limited to `student` and `teacher` roles.
-   * `grade_level` / `governorate` are only required when role === 'student'.
+   * The public register form only ever creates student accounts — teacher
+   * accounts are created exclusively by an admin (adminService.createTeacher).
+   * The backend now actively rejects this request if `role` is present at
+   * all ("The role field is prohibited"), so it's intentionally omitted
+   * below — every self-registered account is a student by default.
    *
    * NOTE: `passwordConfirmation` below assumes that's the field name on
    * RegisterInput — rename to match your actual type if it differs
@@ -111,10 +114,9 @@ export const authService = {
         email: input.email,
         password: input.password,
         password_confirmation: input.passwordConfirmation,
-        role: input.role,
         phone: input.phone,
-        grades: input.role === 'student' ? input.grade : undefined,
-        governorate: input.role === 'student' ? input.governorate : undefined,
+        grades: input.grade,
+        governorate: input.governorate,
       });
       // Keep the token around if the caller needs it to immediately call
       // sendOtp/verifyOtp without asking the user to log in again.

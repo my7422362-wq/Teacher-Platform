@@ -3,6 +3,7 @@ import { MainLayout } from '@/layouts/main-layout';
 import { AuthLayout } from '@/layouts/auth-layout';
 import { StudentLayout } from '@/layouts/student-layout';
 import { TeacherLayout } from '@/layouts/teacher-layout';
+import { AdminLayout } from '@/layouts/admin-layout';
 import { ProtectedRoute, GuestRoute } from '@/features/auth';
 import { HomePage } from '@/features/home/pages/home';
 import { AboutPage } from '@/features/home/pages/about';
@@ -12,8 +13,6 @@ import { LoginPage } from '@/features/auth/pages/login';
 import { RegisterPage } from '@/features/auth/pages/register';
 import { ForgotPasswordPage } from '@/features/auth/pages/forgot-password';
 import { FaqPage } from '@/features/home/pages/faq';
-import { BlogPage } from '@/features/blog/pages/blog';
-import { BlogPostPage } from '@/features/blog/pages/blog-post';
 import { NotFoundPage } from '@/pages/not-found';
 import {
   StudentDashboardPage,
@@ -58,6 +57,14 @@ import {
   TeacherMeetingsPage,
   TeacherMeetingRoomPage,
 } from '@/features/teacher/pages';
+import {
+  AdminDashboardPage,
+  AdminTeachersPage,
+  AdminStudentsPage,
+  AdminCoursesPage,
+  AdminPaymentsPage,
+  AdminSettingsPage,
+} from '@/features/admin/pages';
 
 export function AppRouter() {
   return (
@@ -71,8 +78,6 @@ export function AppRouter() {
         <Route path="courses" element={<CoursesPage />} />
         <Route path="courses/:slug" element={<CourseDetailsPage />} />
         <Route path="faq" element={<FaqPage />} />
-        <Route path="blog" element={<BlogPage />} />
-        <Route path="blog/:slug" element={<BlogPostPage />} />
       </Route>
 
       {/* Auth routes — only reachable when signed out */}
@@ -134,6 +139,19 @@ export function AppRouter() {
           <Route path="profile" element={<TeacherSettingsPage />} />
           <Route path="meetings" element={<TeacherMeetingsPage />} />
           <Route path="meetings/room" element={<TeacherMeetingRoomPage />} />
+        </Route>
+      </Route>
+
+      {/* Admin routes — require an authenticated admin */}
+      <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+        <Route path="admin" element={<AdminLayout />}>
+          <Route path="dashboard" element={<AdminDashboardPage />} />
+          <Route path="teachers" element={<AdminTeachersPage />} />
+          <Route path="students" element={<AdminStudentsPage />} />
+          <Route path="courses" element={<AdminCoursesPage />} />
+          <Route path="payments" element={<AdminPaymentsPage />} />
+          <Route path="settings" element={<AdminSettingsPage />} />
+          <Route path="profile" element={<AdminSettingsPage />} />
         </Route>
       </Route>
 

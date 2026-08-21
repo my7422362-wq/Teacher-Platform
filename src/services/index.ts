@@ -23,6 +23,8 @@ export { certificateService } from './certificate.service';
 export type { StudentCertificate } from './certificate.service';
 export { meetingService } from './meeting.service';
 export type { Meeting, MeetingFormValues } from './meeting.service';
+export { adminService } from './admin.service';
+export type { AdminOverview, AdminTeacher, AdminStudent, AdminCourse, CreateTeacherValues } from './admin.service';
 
 export { default as api, get, getPaginated, post, put, patch, del } from './api';
 

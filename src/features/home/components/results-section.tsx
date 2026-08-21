@@ -1,30 +1,29 @@
 /**
- * ResultsSection - Real outcome numbers, prominently framed
- *
- * Deliberately reuses the same real figures already used in the Hero
- * marquee and About achievements (no fabricated student results/screenshots
- * — we don't have any to show yet), just presented as a dedicated,
- * higher-visibility "results" showcase.
+ * ResultsSection - Real, live platform numbers (students, courses,
+ * teachers), derived from the public course catalog — no fabricated
+ * success-rate or made-up figures.
  */
 
 import { motion } from 'framer-motion';
-import { Award, Users, BookOpenCheck } from 'lucide-react';
+import { Users, BookOpenCheck, GraduationCap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
+import { usePlatformStats } from '@/features/home/lib/platform-stats';
 
 interface ResultsSectionProps {
   className?: string;
 }
 
-const RESULT_ITEMS = [
-  { icon: Award, valueKey: 'about.achievements.Star.value', labelKey: 'results.items.successRate' },
-  { icon: Users, valueKey: 'about.achievements.Users.value', labelKey: 'results.items.students' },
-  { icon: BookOpenCheck, valueKey: 'about.achievements.BookOpen.value', labelKey: 'results.items.lessons' },
-] as const;
-
 export function ResultsSection({ className }: ResultsSectionProps) {
   const { t } = useTranslation();
+  const stats = usePlatformStats();
+
+  const items = [
+    { icon: Users, value: stats.totalStudents, labelKey: 'results.items.students' },
+    { icon: BookOpenCheck, value: stats.totalCourses, labelKey: 'results.items.courses' },
+    { icon: GraduationCap, value: stats.totalTeachers, labelKey: 'results.items.teachers' },
+  ];
 
   return (
     <section className={cn('py-16 sm:py-20 lg:py-24', className)}>
@@ -44,7 +43,7 @@ export function ResultsSection({ className }: ResultsSectionProps) {
         </motion.div>
 
         <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3">
-          {RESULT_ITEMS.map(({ icon: Icon, valueKey, labelKey }, i) => (
+          {items.map(({ icon: Icon, value, labelKey }, i) => (
             <motion.div
               key={labelKey}
               initial={{ opacity: 0, y: 24, scale: 0.96 }}
@@ -56,13 +55,11 @@ export function ResultsSection({ className }: ResultsSectionProps) {
               <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Icon className="h-7 w-7" />
               </span>
-              <span className="text-4xl font-extrabold text-primary">{t(valueKey)}</span>
+              <span className="text-4xl font-extrabold text-primary">{value.toLocaleString()}+</span>
               <span className="text-sm text-muted-foreground">{t(labelKey)}</span>
             </motion.div>
           ))}
         </div>
-
-        <p className="mt-8 text-center text-xs text-muted-foreground">{t('results.disclaimer')}</p>
       </div>
     </section>
   );

@@ -42,29 +42,24 @@ export function createLoginSchema(t: TFunction) {
 }
 export type LoginFormValues = z.infer<ReturnType<typeof createLoginSchema>>;
 
+/** Public registration is student-only — teacher accounts are created by
+ *  an admin (via the admin dashboard) so every teacher is vetted, not
+ *  self-declared. `role` stays a literal here rather than a free choice. */
 export function createRegisterSchema(t: TFunction) {
   return z
     .object({
       name: z.string().trim().min(3, t('auth.validation.nameRequired')),
       email: emailSchema(t),
       phone: phoneSchema(t),
-      role: z.enum(['student', 'teacher']),
-      grade: z.string(),
-      governorate: z.string(),
+      role: z.literal('student'),
+      grade: z.string().min(1, t('auth.validation.gradeRequired')),
+      governorate: z.string().min(1, t('auth.validation.governorateRequired')),
       password: passwordSchema(t),
       passwordConfirmation: z.string().min(1, t('auth.validation.confirmPasswordRequired')),
     })
     .refine((data) => data.password === data.passwordConfirmation, {
       message: t('auth.validation.passwordMismatch'),
       path: ['passwordConfirmation'],
-    })
-    .refine((data) => data.role !== 'student' || data.grade.length > 0, {
-      message: t('auth.validation.gradeRequired'),
-      path: ['grade'],
-    })
-    .refine((data) => data.role !== 'student' || data.governorate.length > 0, {
-      message: t('auth.validation.governorateRequired'),
-      path: ['governorate'],
     });
 }
 export type RegisterFormValues = z.infer<ReturnType<typeof createRegisterSchema>>;

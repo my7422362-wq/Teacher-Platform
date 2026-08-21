@@ -11,13 +11,13 @@
 // ─── Components ────────────────────────────────────────
 export { Navbar } from './components/Navbar';
 export { HeroSection } from './components/Hero';
-export { AboutTeacher } from './components/About';
+export { AboutUs } from './components/AboutUs';
+export { MeetTeachers } from './components/Teachers';
 export { CoursesSection } from './components/Courses';
 export { WhyChooseUs } from './components/why-choose-us';
 export { ResultsSection } from './components/results-section';
 export { TrialBookingSection } from './components/trial-booking-section';
 export { Testimonials } from './components/testimonials';
-export { BlogSection } from './components/blog-section';
 export { FAQSection } from './components/faq-section';
 export { ContactSection } from './components/contact-section';
 export { CTASection } from './components/cta-section';
@@ -28,7 +28,6 @@ export {
   NAV_LINKS,
   HERO_CONTENT,
   HERO_FLOATING_CARDS,
-  HERO_STATISTICS,
   WHY_CHOOSE_US,
   TESTIMONIALS,
   FAQ_ITEMS,

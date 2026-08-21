@@ -140,6 +140,7 @@ export interface PublicCourse {
   title: string;
   slug: string;
   description: string;
+  teacherId: number;
   teacherName: string;
   categoryName: string;
   price: number;
@@ -158,6 +159,7 @@ function mapPublicCourse(dto: CourseResourceDto): PublicCourse {
     title: dto.title,
     slug: dto.slug,
     description: dto.description,
+    teacherId: dto.teacher.id,
     teacherName: dto.teacher.name,
     categoryName: dto.category.name,
     price: Number(dto.price),

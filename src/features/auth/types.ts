@@ -3,7 +3,7 @@
  * Kept separate from the global `Role`/`User` types in `@/types` (used by
  * course/student/teacher mock data) since `guest` is an auth-only concept.
  */
-export type AuthRole = 'student' | 'teacher' | 'guest';
+export type AuthRole = 'student' | 'teacher' | 'admin' | 'guest';
 
 export interface AuthUser {
   id: string;

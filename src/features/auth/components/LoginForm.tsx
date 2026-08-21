@@ -14,6 +14,7 @@ import type { AuthRole } from '../types';
 const ROLE_HOME: Record<AuthRole, string> = {
   student: '/student/dashboard',
   teacher: '/teacher/dashboard',
+  admin: '/admin/dashboard',
   guest: '/',
 };
 

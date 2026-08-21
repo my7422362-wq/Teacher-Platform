@@ -5,7 +5,6 @@
 export { NAV_LINKS } from './home-content';
 export { HERO_CONTENT } from './home-content';
 export { HERO_FLOATING_CARDS } from './home-content';
-export { HERO_STATISTICS } from './home-content';
 export type { WhyChooseUsItem } from './home-content';
 export { WHY_CHOOSE_US } from './home-content';
 export type { TestimonialItem } from './home-content';

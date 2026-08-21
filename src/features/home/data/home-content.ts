@@ -8,7 +8,8 @@
 // ─── Navbar ────────────────────────────────────────────
 export const NAV_LINKS = [
   { labelKey: 'nav.home', href: '#hero' },
-  { labelKey: 'nav.aboutTeacher', href: '#about-teacher' },
+  { labelKey: 'nav.aboutUs', href: '#about-us' },
+  { labelKey: 'nav.ourTeachers', href: '#our-teachers' },
   { labelKey: 'nav.courses', href: '#featured-courses' },
   { labelKey: 'nav.testimonials', href: '#testimonials' },
   { labelKey: 'nav.contact', href: '#contact' },
@@ -38,14 +39,6 @@ export const HERO_FLOATING_CARDS = [
     icon: 'Award',
     textKey: 'hero.floatingCards.Award',
   },
-] as const;
-
-// ─── Hero Statistics ───────────────────────────────────
-export const HERO_STATISTICS = [
-  { valueKey: 'hero.stats.students.value', labelKey: 'hero.stats.students.label' },
-  { valueKey: 'hero.stats.courses.value', labelKey: 'hero.stats.courses.label' },
-  { valueKey: 'hero.stats.experience.value', labelKey: 'hero.stats.experience.label' },
-  { valueKey: 'hero.stats.successRate.value', labelKey: 'hero.stats.successRate.label' },
 ] as const;
 
 // ─── Why Choose Us ─────────────────────────────────────
@@ -155,7 +148,6 @@ export const FOOTER_CONTENT = {
     { labelKey: 'footer.quickLinks.home', href: '/' },
     { labelKey: 'footer.quickLinks.courses', href: '/courses' },
     { labelKey: 'footer.quickLinks.about', href: '/about' },
-    { labelKey: 'footer.quickLinks.blog', href: '/blog' },
   ],
   supportLinks: [{ labelKey: 'footer.supportLinks.faq', href: '/faq' }],
 } as const;

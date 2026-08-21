@@ -1,15 +1,23 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { HERO_STATISTICS } from '@/features/home/data';
+import { usePlatformStats } from '@/features/home/lib/platform-stats';
 
 // Repeated 4x so the strip stays full even on ultra-wide screens, and loops
 // seamlessly: shifting by exactly one copy's width (-25% of the 4-copy
 // track) lands back on an identical frame.
 const COPIES = 4;
-const MARQUEE_ITEMS = Array.from({ length: COPIES }, () => HERO_STATISTICS).flat();
 
 export function HeroStats() {
   const { t } = useTranslation();
+  const stats = usePlatformStats();
+
+  const items = [
+    { value: stats.totalStudents, labelKey: 'hero.stats.students' },
+    { value: stats.totalCourses, labelKey: 'hero.stats.courses' },
+    { value: stats.totalTeachers, labelKey: 'hero.stats.teachers' },
+    { value: stats.totalLessons, labelKey: 'hero.stats.lessons' },
+  ];
+  const marqueeItems = Array.from({ length: COPIES }, () => items).flat();
 
   return (
     <motion.div
@@ -24,14 +32,12 @@ export function HeroStats() {
           animate={{ x: ['0%', `-${100 / COPIES}%`] }}
           transition={{ duration: 16, ease: 'linear', repeat: Infinity }}
         >
-          {MARQUEE_ITEMS.map((stat, i) => (
+          {marqueeItems.map((stat, i) => (
             <div
               key={`${stat.labelKey}-${i}`}
               className="flex shrink-0 flex-col items-center text-center min-w-20 sm:min-w-28"
             >
-              <div className="text-lg sm:text-2xl font-bold text-[#D4B59E]">
-                {t(stat.valueKey)}
-              </div>
+              <div className="text-lg sm:text-2xl font-bold text-[#D4B59E]">{stat.value.toLocaleString()}+</div>
               <div className="text-[11px] sm:text-sm text-[rgba(249,246,240,0.55)] mt-1 whitespace-nowrap">
                 {t(stat.labelKey)}
               </div>
@@ -42,4 +48,3 @@ export function HeroStats() {
     </motion.div>
   );
 }
-

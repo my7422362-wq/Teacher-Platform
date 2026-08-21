@@ -1,11 +1,14 @@
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { ArrowLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Spinner, ErrorState } from '@/components/ui';
 import { CourseTabs } from './CourseTabs';
-import { CourseCard } from './CourseCard';
+import { TeacherCoursesGroup } from './TeacherCoursesGroup';
 import { usePublicCourses } from './queries';
+import type { PublicCourse } from '@/services';
 
 interface CoursesSectionProps {
   className?: string;
@@ -13,15 +16,31 @@ interface CoursesSectionProps {
   badgeKey?: string;
   titleKey?: string;
   descriptionKey?: string;
+  /** Home-page preview mode: cap how many teachers/courses show, with a
+   *  "browse all courses" link to the full /courses catalog. Omit both for
+   *  the full, unlimited catalog view. */
+  limitTeachers?: number;
+  limitCoursesPerTeacher?: number;
 }
 
-const sectionVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
-  },
-};
+interface TeacherGroup {
+  teacherId: number;
+  teacherName: string;
+  courses: PublicCourse[];
+}
+
+function groupByTeacher(courses: PublicCourse[]): TeacherGroup[] {
+  const groups = new Map<number, TeacherGroup>();
+  for (const course of courses) {
+    const existing = groups.get(course.teacherId);
+    if (existing) {
+      existing.courses.push(course);
+    } else {
+      groups.set(course.teacherId, { teacherId: course.teacherId, teacherName: course.teacherName, courses: [course] });
+    }
+  }
+  return Array.from(groups.values()).sort((a, b) => b.courses.length - a.courses.length);
+}
 
 const itemFadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -37,6 +56,8 @@ export function CoursesSection({
   badgeKey = 'courses.badge',
   titleKey = 'courses.title',
   descriptionKey = 'courses.description',
+  limitTeachers,
+  limitCoursesPerTeacher,
 }: CoursesSectionProps) {
   const { t } = useTranslation();
   const { data: courses = [], isLoading, isError, refetch } = usePublicCourses();
@@ -51,6 +72,16 @@ export function CoursesSection({
     if (activeTab === t('courses.allCategories')) return courses;
     return courses.filter((course) => course.categoryName === activeTab);
   }, [courses, activeTab, t]);
+
+  const teacherGroups = useMemo(() => {
+    const groups = groupByTeacher(filteredCourses);
+    const limited = limitTeachers ? groups.slice(0, limitTeachers) : groups;
+    return limitCoursesPerTeacher
+      ? limited.map((group) => ({ ...group, courses: group.courses.slice(0, limitCoursesPerTeacher) }))
+      : limited;
+  }, [filteredCourses, limitTeachers, limitCoursesPerTeacher]);
+
+  const isPreview = limitTeachers !== undefined || limitCoursesPerTeacher !== undefined;
 
   return (
     <section
@@ -126,7 +157,7 @@ export function CoursesSection({
           ) : (
             <>
               {/* Filter Tabs */}
-              {categories.length > 1 && (
+              {!isPreview && categories.length > 1 && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -142,23 +173,17 @@ export function CoursesSection({
                 </motion.div>
               )}
 
-              {/* Courses Grid */}
-              {filteredCourses.length > 0 ? (
-                <motion.div
-                  variants={sectionVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: '-80px' }}
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-                >
-                  {filteredCourses.map((course, index) => (
-                    <CourseCard
-                      key={course.id}
-                      course={course}
-                      index={index}
+              {/* Courses grouped by teacher */}
+              {teacherGroups.length > 0 ? (
+                <div className="space-y-14">
+                  {teacherGroups.map((group) => (
+                    <TeacherCoursesGroup
+                      key={group.teacherId}
+                      teacherName={group.teacherName}
+                      courses={group.courses}
                     />
                   ))}
-                </motion.div>
+                </div>
               ) : (
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -172,6 +197,23 @@ export function CoursesSection({
                   <p className="text-[rgba(249,246,240,0.55)] text-lg">
                     {t('courses.empty')}
                   </p>
+                </motion.div>
+              )}
+
+              {isPreview && teacherGroups.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="mt-14 text-center"
+                >
+                  <Link
+                    to="/courses"
+                    className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-[#D4B59E] to-[#C7A187] px-8 py-4 text-base font-bold text-[#0F2520] shadow-lg shadow-blue-600/20 transition-all duration-300 hover:from-[#D4B59E] hover:to-[#D4B59E]"
+                  >
+                    {t('courses.browseAll')}
+                    <ArrowLeft className="h-4 w-4" />
+                  </Link>
                 </motion.div>
               )}
             </>

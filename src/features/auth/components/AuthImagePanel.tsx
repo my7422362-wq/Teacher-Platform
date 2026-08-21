@@ -11,7 +11,7 @@ export function AuthImagePanel() {
 
   return (
     <div className="relative h-full w-full overflow-hidden">
-      <img src="/hero.jpg" alt={t('about.badgeSecondary')} className="h-full w-full object-cover" />
+      <img src="/hero.jpg" alt={t('common.brand')} className="h-full w-full object-cover" />
 
       <div className="absolute inset-0 bg-gradient-to-t from-[#0F2520] via-[#0F2520]/35 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-l from-[#0F2520]/70 via-transparent to-transparent" />

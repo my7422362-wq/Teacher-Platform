@@ -27,7 +27,7 @@ export function HeroImage() {
         <div className="relative w-full h-full rounded-[16px] overflow-hidden">
           <img
             src="/hero.jpg"
-            alt={t('about.badgeSecondary')}
+            alt={t('common.brand')}
             loading="eager"
             fetchPriority="high"
             onLoad={() => setImageLoaded(true)}

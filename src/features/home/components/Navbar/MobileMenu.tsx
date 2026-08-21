@@ -1,9 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { GraduationCap, X, LogIn, UserPlus } from 'lucide-react';
+import { GraduationCap, X, LogIn, UserPlus, LogOut, LayoutDashboard } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { NAV_LINKS } from '@/features/home/data';
+import { useAuth } from '@/providers';
+import { Avatar } from '@/components/ui';
 import { LanguageDropdown } from './LanguageDropdown';
 
 interface MobileMenuProps {
@@ -35,6 +38,15 @@ const drawerVariants = {
 
 export function MobileMenu({ isOpen, activeSection, onClose, onNavClick }: MobileMenuProps) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { isAuthenticated, currentUser, role, logout } = useAuth();
+
+  async function handleLogout() {
+    onClose();
+    await logout();
+    toast.success(t('auth.toast.logoutSuccess'));
+    navigate('/');
+  }
 
   return (
     <>
@@ -109,24 +121,54 @@ export function MobileMenu({ isOpen, activeSection, onClose, onNavClick }: Mobil
 
             {/* Auth buttons */}
             <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-[rgba(212,181,158,0.12)] space-y-3 bg-[#0F2520]">
-              <Link
-                to="/login"
-                onClick={onClose}
-                className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl text-sm font-medium text-[rgba(249,246,240,0.55)] hover:text-[#F9F6F0] hover:bg-[#16342D] transition-all border border-[rgba(212,181,158,0.18)]"
-              >
-                <LogIn className="h-4 w-4" />
-                {t('nav.login')}
-              </Link>
-              <Link
-                to="/register"
-                onClick={onClose}
-                className="block w-full"
-              >
-                <button className="w-full bg-[#D4B59E] hover:bg-[#C7A187] text-[#0F2520] rounded-xl py-3 text-sm font-medium shadow-sm cursor-pointer">
-                  <UserPlus className="h-4 w-4 ml-1 inline" />
-                  {t('nav.register')}
-                </button>
-              </Link>
+              {isAuthenticated && currentUser ? (
+                <>
+                  <div className="flex items-center gap-2.5 px-2">
+                    <Avatar size="sm" src={currentUser.avatar} fallback={currentUser.name} />
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-semibold text-[#F9F6F0]">{currentUser.name}</p>
+                      <p className="truncate text-xs text-[rgba(249,246,240,0.55)]">{currentUser.email}</p>
+                    </div>
+                  </div>
+                  <Link
+                    to={`/${role}/dashboard`}
+                    onClick={onClose}
+                    className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl text-sm font-medium text-[rgba(249,246,240,0.55)] hover:text-[#F9F6F0] hover:bg-[#16342D] transition-all border border-[rgba(212,181,158,0.18)]"
+                  >
+                    <LayoutDashboard className="h-4 w-4" />
+                    {t('nav.dashboard')}
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl text-sm font-medium text-destructive hover:bg-destructive/10 transition-all border border-[rgba(212,181,158,0.18)] cursor-pointer"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    {t('dashboardLayout.logout')}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    onClick={onClose}
+                    className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl text-sm font-medium text-[rgba(249,246,240,0.55)] hover:text-[#F9F6F0] hover:bg-[#16342D] transition-all border border-[rgba(212,181,158,0.18)]"
+                  >
+                    <LogIn className="h-4 w-4" />
+                    {t('nav.login')}
+                  </Link>
+                  <Link
+                    to="/register"
+                    onClick={onClose}
+                    className="block w-full"
+                  >
+                    <button className="w-full bg-[#D4B59E] hover:bg-[#C7A187] text-[#0F2520] rounded-xl py-3 text-sm font-medium shadow-sm cursor-pointer">
+                      <UserPlus className="h-4 w-4 ml-1 inline" />
+                      {t('nav.register')}
+                    </button>
+                  </Link>
+                </>
+              )}
             </div>
           </motion.div>
         )}
