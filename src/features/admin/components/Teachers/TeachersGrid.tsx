@@ -85,12 +85,12 @@ export function TeachersGrid() {
               <TableHeader>
                 <TableRow>
                   <TableHead>{t('adminPages.teachers.table.name')}</TableHead>
-                  <TableHead>{t('adminPages.teachers.table.email')}</TableHead>
-                  <TableHead>{t('adminPages.teachers.table.subjects')}</TableHead>
-                  <TableHead>{t('adminPages.teachers.table.courses')}</TableHead>
-                  <TableHead>{t('adminPages.teachers.table.students')}</TableHead>
+                  <TableHead className="hidden sm:table-cell">{t('adminPages.teachers.table.email')}</TableHead>
+                  <TableHead className="hidden lg:table-cell">{t('adminPages.teachers.table.subjects')}</TableHead>
+                  <TableHead className="hidden md:table-cell">{t('adminPages.teachers.table.courses')}</TableHead>
+                  <TableHead className="hidden md:table-cell">{t('adminPages.teachers.table.students')}</TableHead>
                   <TableHead>{t('adminPages.teachers.table.status')}</TableHead>
-                  <TableHead>{t('adminPages.teachers.table.joined')}</TableHead>
+                  <TableHead className="hidden lg:table-cell">{t('adminPages.teachers.table.joined')}</TableHead>
                   <TableHead>{t('adminPages.teachers.table.actions')}</TableHead>
                 </TableRow>
               </TableHeader>
@@ -103,8 +103,8 @@ export function TeachersGrid() {
                         {teacher.name}
                       </div>
                     </TableCell>
-                    <TableCell dir="ltr">{teacher.email}</TableCell>
-                    <TableCell>
+                    <TableCell dir="ltr" className="hidden sm:table-cell">{teacher.email}</TableCell>
+                    <TableCell className="hidden lg:table-cell">
                       {(() => {
                         const subjects = subjectsByTeacher.get(teacher.id) ?? [];
                         return subjects.length > 0 ? (
@@ -120,12 +120,12 @@ export function TeachersGrid() {
                         );
                       })()}
                     </TableCell>
-                    <TableCell>{teacher.coursesCount}</TableCell>
-                    <TableCell>{teacher.studentsCount}</TableCell>
+                    <TableCell className="hidden md:table-cell">{teacher.coursesCount}</TableCell>
+                    <TableCell className="hidden md:table-cell">{teacher.studentsCount}</TableCell>
                     <TableCell>
                       <Badge variant={teacher.status === 'active' ? 'success' : 'outline'}>{teacher.status}</Badge>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="hidden lg:table-cell">
                       {teacher.createdAt ? new Date(teacher.createdAt).toLocaleDateString(i18n.language) : '—'}
                     </TableCell>
                     <TableCell>
